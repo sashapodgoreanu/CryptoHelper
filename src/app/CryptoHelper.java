@@ -18,7 +18,7 @@ public class CryptoHelper {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        LoginForm f = new LoginForm();
     }
     
 }
