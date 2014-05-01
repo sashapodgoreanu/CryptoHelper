@@ -1,5 +1,6 @@
 
 import cryptohelper.bean.Messaggio;
+import cryptohelper.bean.Studente;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -19,11 +20,13 @@ public class TestDbController {
     public static void main(String args[]) {
 
         Messaggio m = new Messaggio(21, "testo", "testoCifrato", "lingua", "titolo", true, true);
+        Studente st = new Studente("Alexandru","Podgoreanu","sasha","1234");
         try {
             DBController.registerDB();
             DBController.createTables();
             m.salva();
             m.elimina();
+            st.salva();
 
         } catch (SQLException ex) {
             Logger.getLogger(TestDbController.class.getName()).log(Level.SEVERE, null, ex);
