@@ -6,6 +6,8 @@
 package app;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,7 +18,7 @@ import javax.swing.JTextField;
  *
  * @author Sasha Alexandru Podgoreanu
  */
-public class LoginForm extends JFrame {
+public class LoginForm  extends JFrame  implements ActionListener  {
 
     private JPanel panel;
     private JButton submit;
@@ -25,10 +27,11 @@ public class LoginForm extends JFrame {
     private JTextField passwordField;
     private JTextField usernameField;
 
-    public LoginForm() {
+    public LoginForm(){
         this.setTitle("CryptoHelper - Login");
         panel = new JPanel();
         submit = new JButton("Accedi");
+        submit.addActionListener(this);
         passwordField = new JTextField();
         passwordField.setPreferredSize( new Dimension( 200, 24 ) );
         usernameField = new JTextField();
@@ -44,6 +47,21 @@ public class LoginForm extends JFrame {
         this.pack();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton ev = (JButton) e.getSource();
+        if(ev.getText().equals("Accedi")){
+            System.out.println("Clicked accedi");
+            this.dispose();
+            //JFrame jFrame = new JFrame();
+            //jFrame.setVisible(true);
+            //jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            
+        }
+            
+            
     }
 
 }
