@@ -11,5 +11,4 @@ package cryptohelper.com;
  * @author Sasha Alexandru Podgoreanu
  */
 public class Controller {
-    sssssss
 }
