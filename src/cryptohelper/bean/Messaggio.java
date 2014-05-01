@@ -141,10 +141,8 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     @Override
     public boolean salva() {
         boolean result = false;
-        String query = "INSERT INTO Messaggi(ID,Testo,TestoCifrato,Lingua,Titolo,Bozza,Letto)"
-                + "VALUES("
-                + this.getId()
-                + ",'"
+        String query = "INSERT INTO Messaggi(Testo,TestoCifrato,Lingua,Titolo,Bozza,Letto)"
+                + "VALUES('"
                 + this.getTesto()
                 + "','"
                 + this.getTestoCifrato()

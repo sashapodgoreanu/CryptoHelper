@@ -50,16 +50,18 @@ public class DBController {
         //Query tabella Studenti
         String queryStudenti = "CREATE TABLE Studenti"
                 + "("
-                + "ID INTEGER PRIMARY KEY,"
+                + "ID INTEGER not null primary key "
+                + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                 + "Nome VARCHAR(32),"
                 + "Cognome VARCHAR(32),"
                 + "Password VARCHAR(32),"
-                + "Nickaneme VARCHAR(32)"
+                + "NICKNAME VARCHAR(32)"
                 + ")";
         //Query tabella Messaggi
         String queryMessaggi = "CREATE TABLE Messaggi"
                 + "("
-                + "ID INTEGER PRIMARY KEY,"
+                + "ID INTEGER not null primary key "
+                + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                 + "Testo VARCHAR(2048),"
                 + "TestoCifrato VARCHAR(2048),"
                 + "Lingua VARCHAR(32),"
@@ -70,13 +72,15 @@ public class DBController {
         //Query tabella SistemiCifratura
         String querySistemiCifratura = "CREATE TABLE SistemiCifratura"
                 + "("
-                + "ID INTEGER PRIMARY KEY,"
+                + "ID INTEGER not null primary key "
+                + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                 + "Metodo VARCHAR(256),"
                 + "Chiave VARCHAR(256),"
                 + "Creatore INTEGER,"
                 + "FOREIGN KEY(Creatore) REFERENCES Studenti(ID) ON DELETE CASCADE"
                 + ")";
         try {
+            
             //drop di tutte le tabelle esistenti
             st.execute("DROP TABLE SistemiCifratura");
             System.out.println("Tabella SistemiCifratura eliminata!");
@@ -114,6 +118,7 @@ public class DBController {
         return false;
     }
 
+    //da rivedere
     public static Messaggio getMessaggio(int id) throws SQLException {
         connect();
         Messaggio result = null;
