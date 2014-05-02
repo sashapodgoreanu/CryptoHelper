@@ -21,7 +21,11 @@ public class DBController {
     private static final String dBpwd = "12345";
 
     private DBController() {
-
+       try {
+           registerDB();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public static DBController getInstance() {
