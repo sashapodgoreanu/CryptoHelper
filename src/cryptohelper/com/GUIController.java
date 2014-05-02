@@ -6,13 +6,13 @@
 package cryptohelper.com;
 
 import cryptohelper.GUI.LoginForm;
+import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.View;
 import cryptohelper.data.Model;
 import cryptohelper.data.Studente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 
 /**
  *
@@ -28,11 +28,13 @@ import javax.swing.JFrame;
  */
 public class GUIController {
 
-    private Studente st;
+    private Studente studente;
     private LoginForm loginForm;
+    private PanelloPrincipale panelloPrincipale;
     private static GUIController instance;
 
     private GUIController() {
+        studente = new Studente();
     }
     
     public static GUIController getInstance() {
@@ -44,7 +46,7 @@ public class GUIController {
 
     public void addModel(Model m) {
         if (m instanceof Studente) {
-            st = (Studente) m;
+            studente = (Studente) m;
         }
     }
 
@@ -56,19 +58,30 @@ public class GUIController {
                 public void actionPerformed(ActionEvent e) {
                     JButton ev = (JButton) e.getSource();
                     if (ev.getText().equals("Accedi")) {
-                        loginForm.fillStudent(st);
-                        if (st.authenticate()) {
+                        loginForm.fillStudent(studente);
+                        if (studente.authenticate()) {
                             loginForm.dispose();
-                            JFrame jFrame = new JFrame();
-                            jFrame.setVisible(true);
-                            jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                            PanelloPrincipale pp = new PanelloPrincipale();
                         } else {
                             loginForm.getErorLogin().setText("Error");
                         }
                     }
                 }
             });
+        } else if (v instanceof PanelloPrincipale) {
+            panelloPrincipale = (PanelloPrincipale) v;
         }
     }
+    
+    public void controll(){
+        
+    }
+
+    public Studente getSt() {
+        if (studente != null)
+            return studente;
+        else return new Studente();
+    }
+    
 
 }

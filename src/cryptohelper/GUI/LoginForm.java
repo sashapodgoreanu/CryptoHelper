@@ -26,10 +26,11 @@ public class LoginForm extends JFrame implements View {
     JTextField usernameField;
     
     public LoginForm() {
-        studente = new Studente();
+        //studente = new Studente();
         this.setPreferredSize(new Dimension(320, 200));
         this.setTitle("CryptoHelper - Login");
         sl = new FlowLayout();
+        panel = new JPanel();
         submit = new JButton("Accedi");
         //submit.addActionListener(gc);
         passwordField = new JTextField();
@@ -39,13 +40,14 @@ public class LoginForm extends JFrame implements View {
         username = new JLabel("Username");
         password = new JLabel("Password");
         erorLogin = new JLabel("");
-        this.setLayout(sl);
-        this.add(username);
-        this.add(usernameField);
-        this.add(password);
-        this.add(passwordField);
-        this.add(submit);
-        this.add(erorLogin);
+        panel.setLayout(sl);
+        panel.add(username);
+        panel.add(usernameField);
+        panel.add(password);
+        panel.add(passwordField);
+        panel.add(submit);
+        panel.add(erorLogin);
+        this.add(panel);
         this.pack();
         this.setVisible(true);
         this.setResizable(false);
@@ -58,7 +60,7 @@ public class LoginForm extends JFrame implements View {
     public void registerController(){
         gc = GUIController.getInstance();
         gc.addView(this);
-        gc.addModel(studente);
+        studente = gc.getSt();
     }
 
     public void fillStudent(Studente st) {
