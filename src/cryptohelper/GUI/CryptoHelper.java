@@ -1,4 +1,6 @@
-package cryptohelper.app;
+package cryptohelper.GUI;
+
+import cryptohelper.bean.Studente;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,7 +20,8 @@ public class CryptoHelper {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        LoginForm f = new LoginForm();
+        Studente st = new Studente();
+        LoginForm f = new LoginForm(st);
     }
     
 }

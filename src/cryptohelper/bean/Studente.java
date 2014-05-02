@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 
 public class Studente {
 
+    
+
     private int id;
     private String nome;
     private String cognome;
@@ -25,6 +27,9 @@ public class Studente {
     public Studente(String nickname, String password) {
         this.nickname = nickname;
         this.password = password;
+    }
+    
+    public Studente() {
     }
 
     //METODI GETTER
@@ -89,4 +94,21 @@ public class Studente {
         }
         return result;
     }
+    
+    public boolean authenticate(){
+        boolean result = false;
+        try {
+            result = DBController.verificaUtente(this);
+            System.out.println("authenticate"+this.toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(Studente.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Studente{" + "id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", nickname=" + nickname + ", password=" + password + '}';
+    }
+    
 }

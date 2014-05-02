@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cryptohelper.app;
+package cryptohelper.GUI;
 
+import cryptohelper.bean.Studente;
+import cryptohelper.com.GUIController;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,50 +20,55 @@ import javax.swing.JTextField;
  *
  * @author Sasha Alexandru Podgoreanu
  */
-public class LoginForm  extends JFrame  implements ActionListener  {
+public class LoginForm extends JFrame {
 
-    private JPanel panel;
-    private JButton submit;
-    private JLabel username;
-    private JLabel password;
-    private JTextField passwordField;
-    private JTextField usernameField;
+    JPanel panel;
+    JButton submit;
+    JLabel username;
+    JLabel password;
+    public JLabel erorLogin;
+    JTextField passwordField;
+    JTextField usernameField;
+    Studente studente;
+    GUIController gc;
 
-    public LoginForm(){
+    public LoginForm(Studente st) {
+        studente = st;
+        gc = new GUIController(studente, this);
         this.setTitle("CryptoHelper - Login");
         panel = new JPanel();
         submit = new JButton("Accedi");
-        submit.addActionListener(this);
+        submit.addActionListener(gc);
         passwordField = new JTextField();
-        passwordField.setPreferredSize( new Dimension( 200, 24 ) );
+        passwordField.setPreferredSize(new Dimension(200, 24));
         usernameField = new JTextField();
-        usernameField.setPreferredSize( new Dimension( 200, 24 ) );
+        usernameField.setPreferredSize(new Dimension(200, 24));
         username = new JLabel("Username");
         password = new JLabel("Password");
+        erorLogin = new JLabel("");
         panel.add(username);
         panel.add(usernameField);
         panel.add(password);
         panel.add(passwordField);
         panel.add(submit);
+        panel.add(erorLogin);
         this.add(panel);
         this.pack();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JButton ev = (JButton) e.getSource();
-        if(ev.getText().equals("Accedi")){
-            System.out.println("Clicked accedi");
-            this.dispose();
-            //JFrame jFrame = new JFrame();
-            //jFrame.setVisible(true);
-            //jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            
-        }
-            
-            
+    public void fillStudent(Studente st) {
+        st.setNickanme(usernameField.getText());
+        st.setPassword(passwordField.getText());
+        System.out.println("fill" + st.toString());
     }
 
+    public JLabel getErorLogin() {
+        return erorLogin;
+    }
+
+    public void setErorLogin(JLabel erorLogin) {
+        this.erorLogin = erorLogin;
+    }
 }

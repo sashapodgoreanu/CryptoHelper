@@ -3,6 +3,7 @@
 package cryptohelper.service;
 
 import cryptohelper.bean.Messaggio;
+import cryptohelper.bean.Studente;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -128,6 +129,29 @@ public class DBController {
                 result = new Messaggio(Integer.parseInt(rs.getString("ID")), rs.getString("Testo"),
                         rs.getString("TestoCifrato"), rs.getString("Lingua"), rs.getString("Titolo"),
                         Boolean.parseBoolean(rs.getString("Bozza")), Boolean.parseBoolean(rs.getString("Letto")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            disconnect();
+        }
+        return result;
+    }
+    
+    public static boolean verificaUtente(Studente studente) throws SQLException {
+        connect();
+        boolean result = false;
+        String querry = "SELECT * FROM STUDENTI";
+        try {
+            rs = st.executeQuery(querry);
+            while (rs.next()) {
+                if (rs.getString("NICKNAME").equalsIgnoreCase(studente.getNickanme()) && rs.getString("password").equals(studente.getPassword())) {
+                    studente.setNome(rs.getString("nome"));
+                    studente.setCognome(rs.getString("cognome"));
+                    studente.setId(rs.getInt("ID"));
+                    result = true;
+                    System.out.println("verificaUtente"+studente.toString());
+                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
