@@ -45,7 +45,7 @@ public class GUIController implements ActionListener {
                 jFrame.setVisible(true);
                 jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             } else {
-                loginForm.erorLogin.setText("Error");
+                loginForm.setErrorText("Error");
             }
 
         }
