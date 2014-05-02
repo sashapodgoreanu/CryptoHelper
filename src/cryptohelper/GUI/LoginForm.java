@@ -7,37 +7,27 @@ package cryptohelper.GUI;
 
 import cryptohelper.data.Studente;
 import cryptohelper.com.GUIController;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
 
-/**
- *
- * @author Sasha Alexandru Podgoreanu
- */
 public class LoginForm extends JFrame {
 
-    JPanel panel;
+    Studente studente;
+    GUIController gc;
+    FlowLayout sl;
     JButton submit;
     JLabel username;
     JLabel password;
     public JLabel erorLogin;
     JTextField passwordField;
     JTextField usernameField;
-    Studente studente;
-    GUIController gc;
 
     public LoginForm(Studente st) {
-        this.setPreferredSize(new Dimension(500, 200));
         studente = st;
         gc = new GUIController(studente, this);
+        this.setPreferredSize(new Dimension(320, 200));
         this.setTitle("CryptoHelper - Login");
-        panel = new JPanel();
+        sl = new FlowLayout();
         submit = new JButton("Accedi");
         submit.addActionListener(gc);
         passwordField = new JTextField();
@@ -47,15 +37,17 @@ public class LoginForm extends JFrame {
         username = new JLabel("Username");
         password = new JLabel("Password");
         erorLogin = new JLabel("");
-        panel.add(username);
-        panel.add(usernameField);
-        panel.add(password);
-        panel.add(passwordField);
-        panel.add(submit);
-        panel.add(erorLogin);
-        this.add(panel);
+        this.setLayout(sl);
+        this.add(username);
+        this.add(usernameField);
+        this.add(password);
+        this.add(passwordField);
+        this.add(submit);
+        this.add(erorLogin);
         this.pack();
         this.setVisible(true);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
