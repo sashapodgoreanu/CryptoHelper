@@ -51,7 +51,7 @@ public class GUIController {
     public void addView(View v) {
         if (v instanceof LoginForm) {
             loginForm = (LoginForm) v;
-            loginForm.submit.addActionListener(new ActionListener() {
+            loginForm.getSubmit().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JButton ev = (JButton) e.getSource();
