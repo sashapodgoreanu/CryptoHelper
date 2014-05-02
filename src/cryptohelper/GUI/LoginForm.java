@@ -15,7 +15,7 @@ import java.awt.*;
 public class LoginForm extends JFrame implements View {
     
     JPanel panel;
-    public JButton submit;
+    JButton submit;
     Studente studente;
     GUIController gc;
     FlowLayout sl;
@@ -70,5 +70,13 @@ public class LoginForm extends JFrame implements View {
 
     public void setErorLogin(JLabel erorLogin) {
         this.erorLogin = erorLogin;
+    }
+    
+    public JButton getSubmit() {
+        return submit;
+    }
+
+    public void setSubmit(JButton submit) {
+        this.submit = submit;
     }
 }
