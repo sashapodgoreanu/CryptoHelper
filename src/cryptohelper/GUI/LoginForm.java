@@ -15,7 +15,7 @@ public class LoginForm extends JFrame {
     JButton submit;
     JLabel username;
     JLabel password;
-    public JLabel erorLogin;
+    JLabel erorLogin;
     JTextField passwordField;
     JTextField usernameField;
 
