@@ -1,46 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Classe Login Form - Gestisce il form per l'accesso al servizio da parte degli utenti
+
 package cryptohelper.GUI;
 
 import cryptohelper.data.Studente;
 import cryptohelper.com.GUIController;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
+
 
 /**
  *
  * @author Sasha Alexandru Podgoreanu
  */
 public class LoginForm extends JFrame implements View {
-
+    
     JPanel panel;
     public JButton submit;
+    Studente studente;
+    GUIController gc;
+    FlowLayout sl;
     JLabel username;
     JLabel password;
     public JLabel erorLogin;
     JTextField passwordField;
     JTextField usernameField;
     
-    Studente studente;
-    GUIController gc;
-
     public LoginForm(Studente st) {
-        this.setPreferredSize(new Dimension(500, 200));
         studente = st;
-        gc = new GUIController(studente, this);
+        //gc = new GUIController(studente, this);
+        this.setPreferredSize(new Dimension(320, 200));
         this.setTitle("CryptoHelper - Login");
-        panel = new JPanel();
+        sl = new FlowLayout();
         submit = new JButton("Accedi");
-        submit.addActionListener(gc);
+        //submit.addActionListener(gc);
         passwordField = new JTextField();
         passwordField.setPreferredSize(new Dimension(200, 24));
         usernameField = new JTextField();
@@ -48,15 +40,17 @@ public class LoginForm extends JFrame implements View {
         username = new JLabel("Username");
         password = new JLabel("Password");
         erorLogin = new JLabel("");
-        panel.add(username);
-        panel.add(usernameField);
-        panel.add(password);
-        panel.add(passwordField);
-        panel.add(submit);
-        panel.add(erorLogin);
-        this.add(panel);
+        this.setLayout(sl);
+        this.add(username);
+        this.add(usernameField);
+        this.add(password);
+        this.add(passwordField);
+        this.add(submit);
+        this.add(erorLogin);
         this.pack();
         this.setVisible(true);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);   //centra la finestra sullo schermo
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
