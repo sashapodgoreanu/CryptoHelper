@@ -1,4 +1,4 @@
-//Classe DBController
+//Classe Singleton DBController
 //Crea e gestisce il DB, esegue le query
 package cryptohelper.service;
 
@@ -12,12 +12,24 @@ import java.sql.Statement;
 
 public class DBController {
 
+    private static DBController instance;
     private static Connection conn;
     private static Statement st;
     private static ResultSet rs;
     private static final String dBurl = "jdbc:derby://localhost:1527/CHDB";
     private static final String dBusr = "rossoblu";
     private static final String dBpwd = "12345";
+
+    private DBController() {
+
+    }
+
+    private static DBController getInstance() {
+        if (instance == null) {
+            instance = new DBController();
+        }
+        return instance;
+    }
 
     public static void registerDB() throws SQLException {
         try {
@@ -80,7 +92,7 @@ public class DBController {
                 + "Creatore INTEGER"
                 + ")";
         try {
-            
+
             //drop di tutte le tabelle esistenti
             st.execute("DROP TABLE SistemiCifratura");
             System.out.println("Tabella SistemiCifratura eliminata!");
@@ -121,21 +133,23 @@ public class DBController {
     //Preleva il messaggio indicato come parametro dal db
     public static Messaggio getMessaggio(int id) throws SQLException {
         connect();
-         try{
+        try {
             rs = st.executeQuery("SELECT * FROM Messaggi");
-        } catch (SQLException e) { System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         Messaggio result = null;
-        while (rs.next()){
-            if (Integer.parseInt(rs.getString("ID")) == id)
+        while (rs.next()) {
+            if (Integer.parseInt(rs.getString("ID")) == id) {
                 result = new Messaggio(Integer.parseInt(rs.getString("ID")), rs.getString("Testo"),
                         rs.getString("TestoCifrato"), rs.getString("Lingua"), rs.getString("Titolo"),
                         Boolean.parseBoolean(rs.getString("Bozza")), Boolean.parseBoolean(rs.getString("Letto")));
+            }
         }
         disconnect();
         return result;
     }
-    
+
     //Verifica le credenziali dell'utente per il login al sistema
     public static boolean verificaUtente(Studente studente) throws SQLException {
         connect();
@@ -149,7 +163,7 @@ public class DBController {
                     studente.setCognome(rs.getString("Cognome"));
                     studente.setId(rs.getInt("ID"));
                     result = true;
-                    System.out.println("verificaUtente"+studente.toString());
+                    System.out.println("verificaUtente" + studente.toString());
                 }
             }
         } catch (SQLException e) {
