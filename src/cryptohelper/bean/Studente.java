@@ -74,6 +74,7 @@ public class Studente {
 
     //Salva i dati di un nuovo utente (studente) sul db
     public boolean salva() {
+        DBController dbc = DBController.getInstance();
         boolean result = false;
         //"ID AUTO_INCREMENT - NON FORNIRE UN VALORE"
         String querry = "INSERT INTO STUDENTI(NOME,COGNOME,PASSWORD,NICKNAME) "
@@ -87,7 +88,7 @@ public class Studente {
                 + this.nickname
                 + "')";
         try {
-            result = DBController.execute(querry);
+            result = dbc.execute(querry);
         } catch (SQLException ex) {
             Logger.getLogger(Studente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -95,9 +96,10 @@ public class Studente {
     }
     
     public boolean authenticate(){
+        DBController dbc = DBController.getInstance();
         boolean result = false;
         try {
-            result = DBController.verificaUtente(this);
+            result = dbc.verificaUtente(this);
             System.out.println("authenticate"+this.toString());
         } catch (SQLException ex) {
             Logger.getLogger(Studente.class.getName()).log(Level.SEVERE, null, ex.getMessage());

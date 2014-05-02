@@ -141,6 +141,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     @Override
     public boolean salva() {
         boolean result = false;
+        DBController dbc = DBController.getInstance();
         String query = "INSERT INTO Messaggi(Testo,TestoCifrato,Lingua,Titolo,Bozza,Letto)"
                 + "VALUES('"
                 + this.getTesto()
@@ -156,7 +157,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                 + this.isLetto()
                 + "')";
         try {
-            result = DBController.execute(query);
+            result = dbc.execute(query);
         } catch (SQLException ex) {
             Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -166,10 +167,12 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     //Elimina un messaggio dalla tabella messaggi. Restituisce TRUE se l'oparazione va a buon fine
     @Override
     public boolean elimina() {
+        DBController dbc = DBController.getInstance();
         boolean result = false;
         String query = "DELETE FROM Messaggi WHERE ID=" + this.getId();
         try {
-            result = DBController.execute(query);
+            
+            result = dbc.execute(query);
         } catch (SQLException ex) {
             Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
         }

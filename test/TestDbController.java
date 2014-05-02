@@ -24,7 +24,7 @@ public class TestDbController {
         try {
             
             DBController db = DBController.getInstance();
-            DBController.createTables();
+            db.createTables();
             m.salva();
             m.elimina();
             st.salva();
