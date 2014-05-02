@@ -2,6 +2,9 @@
 package cryptohelper.data;
 
 import cryptohelper.service.DBController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserInfo
 {
@@ -10,9 +13,13 @@ public class UserInfo
     private String cognome;
 
     public UserInfo(int id) {
-        //this.id = id;
-        //DBController db = DBController.getInstance();
-        //db.riempiInfo(this);
+        this.id = id;
+        DBController db = DBController.getInstance();
+        try {
+            db.fillUserInfo(this);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserInfo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public UserInfo() {

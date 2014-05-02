@@ -10,6 +10,7 @@ import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.View;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.MessaggioMittente;
+import cryptohelper.data.UserInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -19,9 +20,9 @@ import javax.swing.JButton;
  * @author Sasha Alexandru Podgoreanu
  */
 /**
- * Il controllore Deve conoscere: i modelli - beans le viste - JFrame 's
+ * Il controllore Deve conoscere: i modelli e  le viste - JFrame 's
  *
- * La vista Deve conoscere: i controllori i modelli
+ * La vista Deve conoscere: i controllori e qualche modello
  *
  * Modello non deve conoscere nessuno dei due.
  *
@@ -32,9 +33,12 @@ public class GUIController {
     private LoginForm loginForm;
     private PanelloPrincipale pp;
     private static GUIController instance;
+    private Messaggio msgMittente;
+    private UserInfo utilDelSistema;
 
     private GUIController() {
         comC = new COMController();
+        
     }
 
     public static GUIController getInstance() {
@@ -66,6 +70,7 @@ public class GUIController {
             if (valid) {
                 loginForm.dispose();
                 PanelloPrincipale pp = new PanelloPrincipale();
+                utilDelSistema = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
             } else {
                 loginForm.getErorLogin().setText("Error");
             }
@@ -78,7 +83,11 @@ public class GUIController {
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked "+ev.getText());
+            //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
+            pp.setDestinatari(comC.getDestinatari());
             pp.initNuovoMessaggio();
+            //predispone il nuovo messaggio
+            msgMittente = new Messaggio();
         }
     }
     private class SalvaMessaggioListener implements ActionListener {
@@ -87,10 +96,11 @@ public class GUIController {
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked "+ev.getText());
-            MessaggioMittente mm = new Messaggio();
-            pp.getDestinatarioMessaggioField()
-            comC.salvaMessaggioBozza(pp.getTittoloMessaggioField(), ,
-            pp.getCorpoMessaggio());
+            System.out.println("Selected "+pp.getSelectedDestinatario().toString()); 
+            UserInfo destinatario = (UserInfo) pp.getSelectedDestinatario();
+            msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilDelSistema, destinatario);
+            msgMittente.salva();
+            System.out.println("Messaggio: "+msgMittente.toString());
         }
     }
 

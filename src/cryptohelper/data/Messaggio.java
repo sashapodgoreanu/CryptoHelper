@@ -44,10 +44,18 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         this.letto = letto;
     }
 
+    //TEST 
+    public Messaggio(int id, String testo, String titolo, boolean bozza, UserInfo mittente, UserInfo destinatario) {
+        this.id = id;
+        this.testo = testo;
+        this.titolo = titolo;
+        this.bozza = bozza;
+        this.mittente = mittente;
+        this.destinatario = destinatario;
+    }
+
     public Messaggio() {
     }
-    
-    
 
     // METODI GETTER
     public int getId() {
@@ -139,7 +147,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
 
     @Override
     public String toString() {
-        return "Messaggio{" + "id=" + id + ", testo=" + testo + ", testoCifrato=" + testoCifrato + ", lingua=" + lingua + ", titolo=" + titolo + ", bozza=" + bozza + ", letto=" + letto + '}';
+        return "Messaggio{" + "id=" + id + ", testo=" + testo + ", testoCifrato=" + testoCifrato + ", lingua=" + lingua + ", titolo=" + titolo + ", bozza=" + bozza + ", letto=" + letto + ", mittente=" + mittente + ", destinatario=" + destinatario + ", sistemaCifratura=" + sistemaCifratura + '}';
     }
 
     //Salva un messaggio nella tabella Messaggi del db. Restituisce TRUE se l'oparazione va a buon fine
@@ -147,7 +155,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     public boolean salva() {
         boolean result = false;
         DBController dbc = DBController.getInstance();
-        String query = "INSERT INTO Messaggi(Testo,TestoCifrato,Lingua,Titolo,Bozza,Letto)"
+        String queryInsert = "INSERT INTO Messaggi(Testo,TestoCifrato,Lingua,Titolo,Bozza,Letto)"
                 + "VALUES('"
                 + this.getTesto()
                 + "','"
@@ -161,8 +169,31 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                 + "','"
                 + this.isLetto()
                 + "')";
+        String querryUpdate = "UPDATE MESSAGGI"
+                + " SET TESTO = '" + this.getTesto()
+                + "',"
+                + " TESTOCIFRATO = '" + this.getTestoCifrato()
+                + "',"
+                + " LINGUA = '" + this.getLingua()
+                + "',"
+                + " TITOLO = '" + this.getTitolo()
+                + "',"
+                + " BOZZA = '" + this.isBozza()
+                + "',"
+                + " LETTO = '" + this.isLetto()
+                + "'"
+                + " WHERE ID = " + this.getId();
+
+                 
         try {
-            result = dbc.execute(query);
+            if (this.id == 0) {
+                System.out.println("Saving");
+                result = dbc.execute(queryInsert, this);
+            } else {
+                System.out.println("Updating");
+                result = dbc.update(querryUpdate);
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -176,7 +207,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         boolean result = false;
         String query = "DELETE FROM Messaggi WHERE ID=" + this.getId();
         try {
-            
+
             result = dbc.execute(query);
         } catch (SQLException ex) {
             Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
@@ -189,5 +220,4 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
- 
 }

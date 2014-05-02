@@ -7,12 +7,18 @@ package cryptohelper.GUI;
 
 import cryptohelper.com.GUIController;
 import cryptohelper.data.Studente;
+import cryptohelper.data.UserInfo;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -43,8 +49,9 @@ public class PanelloPrincipale extends JFrame implements View {
     //Input per Messaggio
     JTextField tittoloMessaggioField;
     //forse è una lista di destinatari con cui o concordato un SCifratura
-    JTextField destinatarioMessaggioField;
+    JList destinatariCC;
     JTextArea corpoMessaggio;
+    ArrayList<UserInfo> destinatari;
 
     Studente studente;
     GUIController gc = GUIController.getInstance();
@@ -87,17 +94,32 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initNuovoMessaggio() {
         remakeCENTERPanels();
         this.setTitle("CryptoHelper - Menu - Nuovo Messaggio");
-        tittoloMessaggioField = new JTextField(20);
-        JLabel DestinatarioMessaggioLabel = new JLabel("Destinatario: ");
-        panelDest.add(DestinatarioMessaggioLabel);
-        panelDest.add(tittoloMessaggioField);
-        destinatarioMessaggioField = new JTextField(20);
+        
         JLabel tittoloMessaggioLabel = new JLabel("Titolo: ");
-        panelTitolo.add(tittoloMessaggioLabel);
-        panelTitolo.add(destinatarioMessaggioField);
+        tittoloMessaggioField = new JTextField(20);
+        panelTitolo.setLayout(new BorderLayout());
+        panelTitolo.add(tittoloMessaggioLabel, BorderLayout.WEST);
+        panelTitolo.add(tittoloMessaggioField); 
+        JLabel destinatarioMessaggioLabel = new JLabel("Destinatario: ");
+        destinatariCC = new JList(new Vector<UserInfo> (destinatari));
+        destinatariCC.setVisibleRowCount(4);
+        destinatariCC.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (renderer instanceof JLabel && value instanceof UserInfo) {
+                    UserInfo temp = (UserInfo) value;
+                    ((JLabel) renderer).setText(temp.getNome()+" "+temp.getCognome());
+                }
+                return renderer;
+            }
+        });
+        panelDest.add(destinatarioMessaggioLabel);
+        panelDest.add(destinatariCC);    
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setPreferredSize(new Dimension(300, 500));
-        panelcorpoMessaggio.add(new JLabel("Messaggio"));
+        JLabel messaggioLabel = new JLabel("Messaggio");
+        panelcorpoMessaggio.add(messaggioLabel);
         panelcorpoMessaggio.add(corpoMessaggio);
         nuovoMessaggioPnl.setLayout(new FlowLayout());
         nuovoMessaggioPnl.add(panelDest);
@@ -110,6 +132,7 @@ public class PanelloPrincipale extends JFrame implements View {
         SwingUtilities.updateComponentTreeUI(this);
         System.out.println("initNuovoMessaggio");
     }
+
 
     private void remakeCENTERPanels() {
 
@@ -128,6 +151,17 @@ public class PanelloPrincipale extends JFrame implements View {
         gc.addView(this);
     }
 
+    public JList getDestinatariCC() {
+        return destinatariCC;
+    }
+
+    public void setDestinatariCC(JList destinatariCC) {
+        this.destinatariCC = destinatariCC;
+    }
+    
+    public Object getSelectedDestinatario(){
+        return destinatariCC.getSelectedValue();
+    }
     public JButton getNuovoMessaggioBtn() {
         return nuovoMessaggioBtn;
     }
@@ -160,13 +194,14 @@ public class PanelloPrincipale extends JFrame implements View {
         this.tittoloMessaggioField.setText(titolo);
     }
 
+    /*
     public String getDestinatarioMessaggioField() {
-        return destinatarioMessaggioField.getText();
+        return destinatariCC.getText();
     }
 
     public void setDestinatarioMessaggioField(String dest) {
-        this.destinatarioMessaggioField.setText(dest);
-    }
+        this.destinatariCC.setText(dest);
+    }*/
 
     public String getCorpoMessaggio() {
         return corpoMessaggio.getText();
@@ -175,6 +210,14 @@ public class PanelloPrincipale extends JFrame implements View {
     public void setCorpoMessaggio(String msg) {
         this.corpoMessaggio.setText(msg);
     }
-    
 
+    public ArrayList<UserInfo> getDestinatari() {
+        return destinatari;
+    }
+
+    public void setDestinatari(ArrayList<UserInfo> destinatari) {
+        this.destinatari = destinatari;
+    }
+    
+    
 }

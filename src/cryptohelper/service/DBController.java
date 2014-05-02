@@ -135,6 +135,23 @@ public class DBController {
         }
         return false;
     }
+    
+    public boolean execute(String query, Messaggio m) throws SQLException {
+        connect();
+        try {
+            st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            rs = st.getGeneratedKeys();
+            while (rs.next()) {
+                m.setId(rs.getInt(1));
+            } 
+            System.out.println("Query eseguita correttamente!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            disconnect();
+        }
+        return false;
+    }
 
     //Preleva il messaggio indicato come parametro dal db
     public Messaggio getMessaggio(int id) throws SQLException {
@@ -156,15 +173,15 @@ public class DBController {
         return result;
     }
 
-    public ArrayList<UserInfo> getDestinatari() throws SQLException{
+    public ArrayList<UserInfo> getDestinatari() throws SQLException {
         connect();
-        
-        ArrayList<UserInfo> ui= new ArrayList<>();
+
+        ArrayList<UserInfo> ui = new ArrayList<>();
         String querry = "SELECT * FROM STUDENTI";
         try {
             rs = st.executeQuery(querry);
             while (rs.next()) {
-                UserInfo tempU = new UserInfo(rs.getInt("id"),rs.getString("nome"),rs.getString("cognome"));
+                UserInfo tempU = new UserInfo(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"));
                 ui.add(tempU);
             }
         } catch (SQLException e) {
@@ -172,7 +189,7 @@ public class DBController {
         } finally {
             disconnect();
         }
-        System.out.println("Extracted:"+ ui.toString());
+        System.out.println("Extracted:" + ui.toString());
         return ui;
     }
 
@@ -198,5 +215,60 @@ public class DBController {
             disconnect();
         }
         return result;
+    }
+
+    public UserInfo getUserInfo(int id) throws SQLException {
+        connect();
+        UserInfo result = new UserInfo();
+        String querry = "SELECT * FROM STUDENTI";
+        try {
+            rs = st.executeQuery(querry);
+            while (rs.next()) {
+                if (rs.getInt("id") == id) {
+                    result.setNome(rs.getString("Nome"));
+                    result.setCognome(rs.getString("Cognome"));
+                    System.out.println("getUserInfo" + result.toString());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            disconnect();
+        }
+        return result;
+    }
+    
+    public void fillUserInfo(UserInfo ui) throws SQLException {
+        connect();
+        UserInfo result = new UserInfo();
+        String querry = "SELECT * FROM STUDENTI";
+        try {
+            rs = st.executeQuery(querry);
+            while (rs.next()) {
+                if (rs.getInt("id") == ui.getId()) {
+                    ui.setNome(rs.getString("Nome"));
+                    ui.setCognome(rs.getString("Cognome"));
+                    System.out.println("fillUserInfo" + result.toString());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            disconnect();
+        }
+    }
+    
+    public boolean update(String querry) throws SQLException{
+        connect();
+        int edit = 0;
+        try {
+            edit = st.executeUpdate(querry);
+        } catch (SQLException e) { System.out.println(e.getMessage());
+        } finally {
+            disconnect();
+        }
+        if (edit == 1) System.out.println("Record edited with success");
+        else System.out.println("Record NOT EDITED with success");
+        return (edit == 1 ? true : false);
     }
 }
