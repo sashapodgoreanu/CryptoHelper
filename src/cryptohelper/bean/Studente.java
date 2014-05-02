@@ -8,8 +8,6 @@ import java.util.logging.Logger;
 
 public class Studente {
 
-    
-
     private int id;
     private String nome;
     private String cognome;
@@ -74,6 +72,7 @@ public class Studente {
         this.password = password;
     }
 
+    //Salva i dati di un nuovo utente (studente) sul db
     public boolean salva() {
         boolean result = false;
         //"ID AUTO_INCREMENT - NON FORNIRE UN VALORE"
