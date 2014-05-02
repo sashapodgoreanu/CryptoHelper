@@ -1,6 +1,6 @@
 
-import cryptohelper.bean.Messaggio;
-import cryptohelper.bean.Studente;
+import cryptohelper.data.Messaggio;
+import cryptohelper.data.Studente;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -21,11 +21,9 @@ public class TestDbController {
 
         Messaggio m = new Messaggio(21, "testo", "testoCifrato", "lingua", "titolo", true, true);
         Studente st = new Studente("Alexandru","Podgoreanu","sasha","1234");
-        try {
-  
+        try {  
             DBController db = DBController.getInstance();
             db.createTables();
-
             m.salva();
             m.elimina();
             st.salva();

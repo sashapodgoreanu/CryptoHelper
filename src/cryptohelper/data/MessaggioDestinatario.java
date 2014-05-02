@@ -1,6 +1,6 @@
 //interfaccia MessaggioDestinatario
 
-package cryptohelper.bean;
+package cryptohelper.data;
 
 public interface MessaggioDestinatario extends MessaggioAstratto
 {

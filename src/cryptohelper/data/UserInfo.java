@@ -1,5 +1,5 @@
 //Classe di supporto UserInfo
-package cryptohelper.bean;
+package cryptohelper.data;
 
 public class UserInfo
 {

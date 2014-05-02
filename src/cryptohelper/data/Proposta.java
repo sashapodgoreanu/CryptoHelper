@@ -1,6 +1,6 @@
 // classe Proposta
 
-package cryptohelper.bean;
+package cryptohelper.data;
 
 public class Proposta
 {

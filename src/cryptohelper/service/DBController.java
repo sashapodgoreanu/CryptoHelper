@@ -2,8 +2,8 @@
 //Crea e gestisce il DB, esegue le query
 package cryptohelper.service;
 
-import cryptohelper.bean.Messaggio;
-import cryptohelper.bean.Studente;
+import cryptohelper.data.Messaggio;
+import cryptohelper.data.Studente;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -35,7 +35,7 @@ public class DBController {
         return instance;
     }
 
-    private  void registerDB() throws SQLException {
+    private void registerDB() throws SQLException {
         try {
             DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
         } catch (SQLException ex) {
@@ -44,7 +44,7 @@ public class DBController {
     }
 
     //Apre la connessione al db
-    private  void connect() throws SQLException {
+    private void connect() throws SQLException {
         try {
             conn = DriverManager.getConnection(dBurl, dBusr, dBpwd);
             st = conn.createStatement();
@@ -62,7 +62,7 @@ public class DBController {
     }
 
     //Crea le tabelle del database
-    public  void createTables() throws SQLException {
+    public void createTables() throws SQLException {
         connect();
         //Query tabella Studenti
         String queryStudenti = "CREATE TABLE Studenti"
@@ -121,7 +121,7 @@ public class DBController {
     }
 
     //Esegue la query passata per parametro
-    public  boolean execute(String query) throws SQLException {
+    public boolean execute(String query) throws SQLException {
         connect();
         try {
             st.executeUpdate(query);
@@ -135,7 +135,7 @@ public class DBController {
     }
 
     //Preleva il messaggio indicato come parametro dal db
-    public  Messaggio getMessaggio(int id) throws SQLException {
+    public Messaggio getMessaggio(int id) throws SQLException {
         connect();
         try {
             rs = st.executeQuery("SELECT * FROM Messaggi");
@@ -155,7 +155,7 @@ public class DBController {
     }
 
     //Verifica le credenziali dell'utente per il login al sistema
-    public  boolean verificaUtente(Studente studente) throws SQLException {
+    public boolean verificaUtente(Studente studente) throws SQLException {
         connect();
         boolean result = false;
         String querry = "SELECT * FROM STUDENTI";

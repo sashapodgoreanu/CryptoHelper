@@ -5,7 +5,7 @@
  */
 package cryptohelper.GUI;
 
-import cryptohelper.bean.Studente;
+import cryptohelper.data.Studente;
 import cryptohelper.com.GUIController;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -62,14 +62,6 @@ public class LoginForm extends JFrame {
     public void fillStudent(Studente st) {
         st.setNickanme(usernameField.getText());
         st.setPassword(passwordField.getText());
-        System.out.println("fill" + st.toString());
-    }
-
-    public JLabel getErorLogin() {
-        return erorLogin;
-    }
-
-    public void setErorLogin(JLabel erorLogin) {
-        this.erorLogin = erorLogin;
+        System.out.println("fill " + st.toString());
     }
 }

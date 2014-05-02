@@ -6,7 +6,7 @@
 package cryptohelper.com;
 
 import cryptohelper.GUI.LoginForm;
-import cryptohelper.bean.Studente;
+import cryptohelper.data.Studente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;

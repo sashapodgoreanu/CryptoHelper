@@ -1,6 +1,6 @@
 //Classe SistemaCifratura
 
-package cryptohelper.bean;
+package cryptohelper.data;
 
 public class SistemaCifratura
 {

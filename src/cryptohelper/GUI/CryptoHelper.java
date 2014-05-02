@@ -1,6 +1,6 @@
 package cryptohelper.GUI;
 
-import cryptohelper.bean.Studente;
+import cryptohelper.data.Studente;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

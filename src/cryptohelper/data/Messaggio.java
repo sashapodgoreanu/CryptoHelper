@@ -1,5 +1,5 @@
 //Classe Messaggio
-package cryptohelper.bean;
+package cryptohelper.data;
 
 import cryptohelper.service.DBController;
 import java.sql.SQLException;

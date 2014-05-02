@@ -1,5 +1,5 @@
 //interfaccia MessaggioAstratto
-package cryptohelper.bean;
+package cryptohelper.data;
 
 public interface MessaggioAstratto
 {
