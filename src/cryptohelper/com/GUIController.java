@@ -6,6 +6,8 @@
 package cryptohelper.com;
 
 import cryptohelper.GUI.LoginForm;
+import cryptohelper.GUI.View;
+import cryptohelper.data.Model;
 import cryptohelper.data.Studente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,30 +26,49 @@ import javax.swing.JFrame;
  * Modello non deve conoscere nessuno dei due.
  *
  */
-public class GUIController implements ActionListener {
+public class GUIController {
 
     private Studente st;
     private LoginForm loginForm;
+    private static GUIController instance;
 
-    public GUIController(Studente st, LoginForm loginForm) {
-        this.st = st;
-        this.loginForm = loginForm;
+    private GUIController() {
+    }
+    
+    public static GUIController getInstance() {
+        if (instance == null) {
+            instance = new GUIController();
+        }
+        return instance;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JButton ev = (JButton) e.getSource();
-        if (ev.getText().equals("Accedi")) {
-            loginForm.fillStudent(st);
-            if (st.authenticate()) {
-                loginForm.dispose();
-                JFrame jFrame = new JFrame();
-                jFrame.setVisible(true);
-                jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            } else {
-                loginForm.setErrorText("Error");
-            }
-
+    public void addModel(Model m) {
+        if (m instanceof Studente) {
+            st = (Studente) m;
         }
     }
+
+    public void addView(View v) {
+        if (v instanceof LoginForm) {
+            loginForm = (LoginForm) v;
+            loginForm.submit.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JButton ev = (JButton) e.getSource();
+                    if (ev.getText().equals("Accedi")) {
+                        loginForm.fillStudent(st);
+                        if (st.authenticate()) {
+                            loginForm.dispose();
+                            JFrame jFrame = new JFrame();
+                            jFrame.setVisible(true);
+                            jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        } else {
+                            loginForm.getErorLogin().setText("Error");
+                        }
+                    }
+                }
+            });
+        }
+    }
+
 }
