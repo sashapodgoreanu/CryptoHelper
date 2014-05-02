@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -102,7 +103,7 @@ public class PanelloPrincipale extends JFrame implements View {
         panelTitolo.add(tittoloMessaggioField); 
         JLabel destinatarioMessaggioLabel = new JLabel("Destinatario: ");
         destinatariCC = new JList(new Vector<UserInfo> (destinatari));
-        destinatariCC.setVisibleRowCount(4);
+        destinatariCC.setVisibleRowCount(6);
         destinatariCC.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -114,8 +115,11 @@ public class PanelloPrincipale extends JFrame implements View {
                 return renderer;
             }
         });
+        destinatariCC.setSelectedIndex(0); 
         panelDest.add(destinatarioMessaggioLabel);
-        panelDest.add(destinatariCC);    
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(destinatariCC);
+        panelDest.add(scrollPane);    
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setPreferredSize(new Dimension(300, 500));
         JLabel messaggioLabel = new JLabel("Messaggio");
