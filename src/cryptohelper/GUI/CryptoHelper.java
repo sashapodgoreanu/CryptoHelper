@@ -1,7 +1,4 @@
 package cryptohelper.GUI;
-
-import cryptohelper.data.Studente;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,13 +12,7 @@ import cryptohelper.data.Studente;
  * @author Giulio
  */
 public class CryptoHelper {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         LoginForm f = new LoginForm();
     }
-    
-    //CIAO QUESTA E' UNA PROVA !!!!!!
 }

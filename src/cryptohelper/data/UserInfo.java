@@ -1,11 +1,32 @@
 //Classe di supporto UserInfo
 package cryptohelper.data;
 
+import cryptohelper.service.DBController;
+
 public class UserInfo
 {
     private int id;
     private String nome;
     private String cognome;
+
+    public UserInfo(int id) {
+        //this.id = id;
+        //DBController db = DBController.getInstance();
+        //db.riempiInfo(this);
+    }
+
+    public UserInfo() {
+    }
+
+    public UserInfo(int id, String nome, String cognome) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+    }
+    
+    
+    
+    
         
     //METODI GETTER
     public int getId() {
@@ -32,5 +53,12 @@ public class UserInfo
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" + "id=" + id + ", nome=" + nome + ", cognome=" + cognome + '}';
+    }
+    
+    
 
 }

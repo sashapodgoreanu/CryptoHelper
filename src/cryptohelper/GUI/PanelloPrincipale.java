@@ -10,7 +10,6 @@ import cryptohelper.data.Studente;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,6 +24,9 @@ import javax.swing.SwingUtilities;
  */
 public class PanelloPrincipale extends JFrame implements View {
 
+    //TO-DO 
+    //aggiungere una JList con lingue
+    //aggiungere una lista con destinatari (Vedi state machine diagram file UML.)
     JPanel panel;
     JPanel nuovoMessaggioPnl;
     JPanel inboxPnl;
@@ -36,9 +38,11 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton nuovoMessaggioBtn;
     JButton inboxBtn;
     JButton apriBozzaBtn;
+    JButton salvaBozzaBtn;
 
-    FlowLayout sl;
+    //Input per Messaggio
     JTextField tittoloMessaggioField;
+    //forse è una lista di destinatari con cui o concordato un SCifratura
     JTextField destinatarioMessaggioField;
     JTextArea corpoMessaggio;
 
@@ -46,6 +50,13 @@ public class PanelloPrincipale extends JFrame implements View {
     GUIController gc = GUIController.getInstance();
 
     public PanelloPrincipale() {
+        this.init();
+    }
+
+    private void init() {
+        System.out.println("Init PanelloPrincipale");
+        this.setPreferredSize(new Dimension(800, 800));
+        this.setTitle("CryptoHelper - Menu");
         panel = new JPanel();
         nuovoMessaggioPnl = new JPanel();
         inboxPnl = new JPanel();
@@ -53,16 +64,10 @@ public class PanelloPrincipale extends JFrame implements View {
         panelcorpoMessaggio = new JPanel();
         panelTitolo = new JPanel();
         panelDest = new JPanel();
-        Init();
-    }
-
-    public void Init() {
-        System.out.println("Init PanelloPrincipale");
-        this.setPreferredSize(new Dimension(800, 600));
-        this.setTitle("CryptoHelper - Menu");
         nuovoMessaggioBtn = new JButton("Nuovo Messaggio");
         inboxBtn = new JButton("Inbox");
         apriBozzaBtn = new JButton("Bozze");
+        salvaBozzaBtn = new JButton("Salva Messaggio");
 
         panel.add(nuovoMessaggioBtn);
         panel.add(inboxBtn);
@@ -73,6 +78,10 @@ public class PanelloPrincipale extends JFrame implements View {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         registerController();
+    }
+
+    public JButton getSalvaBozzaBtn() {
+        return salvaBozzaBtn;
     }
 
     public void initNuovoMessaggio() {
@@ -94,8 +103,10 @@ public class PanelloPrincipale extends JFrame implements View {
         nuovoMessaggioPnl.add(panelDest);
         nuovoMessaggioPnl.add(panelTitolo);
         nuovoMessaggioPnl.add(panelcorpoMessaggio);
+        nuovoMessaggioPnl.add(salvaBozzaBtn);
 
         this.add(nuovoMessaggioPnl, BorderLayout.CENTER);
+        this.pack();
         SwingUtilities.updateComponentTreeUI(this);
         System.out.println("initNuovoMessaggio");
     }
@@ -107,6 +118,7 @@ public class PanelloPrincipale extends JFrame implements View {
         panelDest.removeAll();
         panelTitolo.removeAll();
         panelcorpoMessaggio.removeAll();
+        
         SwingUtilities.updateComponentTreeUI(this);
     }
 
@@ -139,5 +151,30 @@ public class PanelloPrincipale extends JFrame implements View {
     public void setApriBozzaBtn(JButton apriBozzaBtn) {
         this.apriBozzaBtn = apriBozzaBtn;
     }
+
+    public String getTittoloMessaggioField() {
+        return tittoloMessaggioField.getText();
+    }
+
+    public void setTittoloMessaggioField(String titolo) {
+        this.tittoloMessaggioField.setText(titolo);
+    }
+
+    public String getDestinatarioMessaggioField() {
+        return destinatarioMessaggioField.getText();
+    }
+
+    public void setDestinatarioMessaggioField(String dest) {
+        this.destinatarioMessaggioField.setText(dest);
+    }
+
+    public String getCorpoMessaggio() {
+        return corpoMessaggio.getText();
+    }
+
+    public void setCorpoMessaggio(String msg) {
+        this.corpoMessaggio.setText(msg);
+    }
+    
 
 }

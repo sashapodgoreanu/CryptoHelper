@@ -8,8 +8,8 @@ package cryptohelper.com;
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.View;
-import cryptohelper.data.Model;
-import cryptohelper.data.Studente;
+import cryptohelper.data.Messaggio;
+import cryptohelper.data.MessaggioMittente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -30,7 +30,7 @@ public class GUIController {
 
     private COMController comC;
     private LoginForm loginForm;
-    private PanelloPrincipale panelloPrincipale;
+    private PanelloPrincipale pp;
     private static GUIController instance;
 
     private GUIController() {
@@ -44,32 +44,19 @@ public class GUIController {
         return instance;
     }
 
-    /*
-    public void addModel(Model m) {
-        if (m instanceof Studente) {
-            studente = (Studente) m;
-        }
-    }
-    */
-
     public void addView(View v) {
         if (v instanceof LoginForm) {
             loginForm = (LoginForm) v;
+            //solo per il test
+            loginForm.setUsernameField("sasha");
+            loginForm.setPasswordField("1234");
             loginForm.getSubmit().addActionListener(new LoginFormListener());
         } else if (v instanceof PanelloPrincipale) {
-            panelloPrincipale = (PanelloPrincipale) v;
-            panelloPrincipale.getNuovoMessaggioBtn().addActionListener(new PanelloPrincipaleListener());
+            pp = (PanelloPrincipale) v;
+            pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
+            pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
         }
     }
-
-    /*
-    public Studente getStudente() {
-        if (studente != null) {
-            return studente;
-        } else {
-            return new Studente();
-        }
-    }*/
 
     private class LoginFormListener implements ActionListener {
 
@@ -82,19 +69,28 @@ public class GUIController {
             } else {
                 loginForm.getErorLogin().setText("Error");
             }
-            //}
         }
     }
 
-    private class PanelloPrincipaleListener implements ActionListener {
+    private class NuovoMessaggioListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
-            System.out.println("Clicked");
-            //if (ev.getText().equals("Nuovo Messaggio")) {
-            panelloPrincipale.initNuovoMessaggio();
-            //}
+            System.out.println("Clicked "+ev.getText());
+            pp.initNuovoMessaggio();
+        }
+    }
+    private class SalvaMessaggioListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked "+ev.getText());
+            MessaggioMittente mm = new Messaggio();
+            pp.getDestinatarioMessaggioField()
+            comC.salvaMessaggioBozza(pp.getTittoloMessaggioField(), ,
+            pp.getCorpoMessaggio());
         }
     }
 

@@ -44,6 +44,11 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         this.letto = letto;
     }
 
+    public Messaggio() {
+    }
+    
+    
+
     // METODI GETTER
     public int getId() {
         return id;

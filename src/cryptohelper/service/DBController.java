@@ -4,11 +4,13 @@ package cryptohelper.service;
 
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.Studente;
+import cryptohelper.data.UserInfo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class DBController {
 
@@ -21,8 +23,8 @@ public class DBController {
     private static final String dBpwd = "12345";
 
     private DBController() {
-       try {
-           registerDB();
+        try {
+            registerDB();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -55,7 +57,7 @@ public class DBController {
     }
 
     //Chiude la connessione al db
-    private  void disconnect() throws SQLException {
+    private void disconnect() throws SQLException {
         st.close();
         conn.close();
         System.out.println("Disconnesso!");
@@ -152,6 +154,26 @@ public class DBController {
         }
         disconnect();
         return result;
+    }
+
+    public ArrayList<UserInfo> getDestinatari() throws SQLException{
+        connect();
+        
+        ArrayList<UserInfo> ui= new ArrayList<>();
+        String querry = "SELECT * FROM STUDENTI";
+        try {
+            rs = st.executeQuery(querry);
+            while (rs.next()) {
+                UserInfo tempU = new UserInfo(rs.getInt("id"),rs.getString("nome"),rs.getString("cognome"));
+                ui.add(tempU);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            disconnect();
+        }
+        System.out.println("Extracted:"+ ui.toString());
+        return ui;
     }
 
     //Verifica le credenziali dell'utente per il login al sistema

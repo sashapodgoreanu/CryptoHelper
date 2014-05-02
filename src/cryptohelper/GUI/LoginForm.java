@@ -23,13 +23,10 @@ public class LoginForm extends JFrame implements View {
     JTextField usernameField;
     
     public LoginForm() {
-        //studente = new Studente();
         this.setPreferredSize(new Dimension(320, 200));
         this.setTitle("CryptoHelper - Login");
-
         panel = new JPanel();
         submit = new JButton("Accedi");
-        //submit.addActionListener(gc);
         passwordField = new JTextField();
         passwordField.setPreferredSize(new Dimension(200, 24));
         usernameField = new JTextField();
