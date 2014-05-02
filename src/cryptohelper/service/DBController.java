@@ -24,14 +24,14 @@ public class DBController {
 
     }
 
-    private static DBController getInstance() {
+    public static DBController getInstance() {
         if (instance == null) {
             instance = new DBController();
         }
         return instance;
     }
 
-    public static void registerDB() throws SQLException {
+    private static void registerDB() throws SQLException {
         try {
             DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
         } catch (SQLException ex) {
