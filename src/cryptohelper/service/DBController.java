@@ -118,22 +118,21 @@ public class DBController {
         return false;
     }
 
-    //da rivedere
+    //Preleva il messaggio indicato come parametro dal db
     public static Messaggio getMessaggio(int id) throws SQLException {
         connect();
+         try{
+            rs = st.executeQuery("SELECT * FROM Messaggi");
+        } catch (SQLException e) { System.out.println(e.getMessage());
+        }
         Messaggio result = null;
-        try {
-            rs = st.executeQuery("SELECT * FROM Messaggi WHERE ID =" + id);
-            if (rs != null) {
+        while (rs.next()){
+            if (Integer.parseInt(rs.getString("ID")) == id)
                 result = new Messaggio(Integer.parseInt(rs.getString("ID")), rs.getString("Testo"),
                         rs.getString("TestoCifrato"), rs.getString("Lingua"), rs.getString("Titolo"),
                         Boolean.parseBoolean(rs.getString("Bozza")), Boolean.parseBoolean(rs.getString("Letto")));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            disconnect();
         }
+        disconnect();
         return result;
     }
     
