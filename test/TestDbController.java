@@ -21,12 +21,14 @@ public class TestDbController {
 
         Messaggio m = new Messaggio(21, "testo", "testoCifrato", "lingua", "titolo", true, true);
         Studente st = new Studente("Alexandru","Podgoreanu","sasha","1234");
+        Studente st1 = new Studente("1","1","1","1");
         try {  
             DBController db = DBController.getInstance();
             db.createTables();
             m.salva();
             m.elimina();
             st.salva();
+            st1.salva();
 
         } catch (SQLException ex) {
             Logger.getLogger(TestDbController.class.getName()).log(Level.SEVERE, null, ex);

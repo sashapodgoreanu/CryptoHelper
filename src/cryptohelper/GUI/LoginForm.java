@@ -2,7 +2,6 @@
 
 package cryptohelper.GUI;
 
-import cryptohelper.data.Studente;
 import cryptohelper.com.GUIController;
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +15,7 @@ public class LoginForm extends JFrame implements View {
     
     JPanel panel;
     JButton submit;
-    Studente studente;
     GUIController gc;
-    FlowLayout sl;
     JLabel username;
     JLabel password;
     JLabel erorLogin;
@@ -29,7 +26,7 @@ public class LoginForm extends JFrame implements View {
         //studente = new Studente();
         this.setPreferredSize(new Dimension(320, 200));
         this.setTitle("CryptoHelper - Login");
-        sl = new FlowLayout();
+
         panel = new JPanel();
         submit = new JButton("Accedi");
         //submit.addActionListener(gc);
@@ -40,7 +37,7 @@ public class LoginForm extends JFrame implements View {
         username = new JLabel("Username");
         password = new JLabel("Password");
         erorLogin = new JLabel("");
-        panel.setLayout(sl);
+        panel.setLayout(new FlowLayout());
         panel.add(username);
         panel.add(usernameField);
         panel.add(password);
@@ -60,16 +57,8 @@ public class LoginForm extends JFrame implements View {
     public void registerController(){
         gc = GUIController.getInstance();
         gc.addView(this);
-        studente = gc.getSt();
     }
 
-    public void fillStudent(Studente st) {
-        st.setNickanme(usernameField.getText());
-        st.setPassword(passwordField.getText());
-        System.out.println("fill " + st.toString());
-    }
-    
-    
     public JLabel getErorLogin() {
         return erorLogin;
     }
@@ -84,5 +73,23 @@ public class LoginForm extends JFrame implements View {
 
     public void setSubmit(JButton submit) {
         this.submit = submit;
+    }
+    
+     public String getPassword() {
+        return passwordField.getText();
+    }
+
+    public void setPasswordField(String pwd) {
+        this.passwordField.setText(pwd);
+    }
+
+    public String getUsername() {
+        System.out.println(usernameField.getText());
+        return usernameField.getText();
+        
+    }
+
+    public void setUsernameField(String usr) {
+        this.usernameField.setText(usr);
     }
 }

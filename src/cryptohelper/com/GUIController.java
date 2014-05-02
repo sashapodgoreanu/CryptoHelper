@@ -28,15 +28,15 @@ import javax.swing.JButton;
  */
 public class GUIController {
 
-    private Studente studente;
+    private COMController comC;
     private LoginForm loginForm;
     private PanelloPrincipale panelloPrincipale;
     private static GUIController instance;
 
     private GUIController() {
-        studente = new Studente();
+        comC = new COMController();
     }
-    
+
     public static GUIController getInstance() {
         if (instance == null) {
             instance = new GUIController();
@@ -44,44 +44,58 @@ public class GUIController {
         return instance;
     }
 
+    /*
     public void addModel(Model m) {
         if (m instanceof Studente) {
             studente = (Studente) m;
         }
     }
+    */
 
     public void addView(View v) {
         if (v instanceof LoginForm) {
             loginForm = (LoginForm) v;
-            loginForm.getSubmit().addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    JButton ev = (JButton) e.getSource();
-                    if (ev.getText().equals("Accedi")) {
-                        loginForm.fillStudent(studente);
-                        if (studente.authenticate()) {
-                            loginForm.dispose();
-                            PanelloPrincipale pp = new PanelloPrincipale();
-                        } else {
-                            loginForm.getErorLogin().setText("Error");
-                        }
-                    }
-                }
-            });
+            loginForm.getSubmit().addActionListener(new LoginFormListener());
         } else if (v instanceof PanelloPrincipale) {
             panelloPrincipale = (PanelloPrincipale) v;
+            panelloPrincipale.getNuovoMessaggioBtn().addActionListener(new PanelloPrincipaleListener());
         }
     }
-    
-    public void controll(){
-        
+
+    /*
+    public Studente getStudente() {
+        if (studente != null) {
+            return studente;
+        } else {
+            return new Studente();
+        }
+    }*/
+
+    private class LoginFormListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            boolean valid = comC.authenticate(loginForm.getUsername(), loginForm.getPassword());
+            if (valid) {
+                loginForm.dispose();
+                PanelloPrincipale pp = new PanelloPrincipale();
+            } else {
+                loginForm.getErorLogin().setText("Error");
+            }
+            //}
+        }
     }
 
-    public Studente getSt() {
-        if (studente != null)
-            return studente;
-        else return new Studente();
+    private class PanelloPrincipaleListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked");
+            //if (ev.getText().equals("Nuovo Messaggio")) {
+            panelloPrincipale.initNuovoMessaggio();
+            //}
+        }
     }
-    
 
 }
