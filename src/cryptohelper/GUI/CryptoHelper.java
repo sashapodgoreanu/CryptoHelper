@@ -20,8 +20,7 @@ public class CryptoHelper {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Studente st = new Studente();
-        LoginForm f = new LoginForm(st);
+        LoginForm f = new LoginForm();
     }
     
     //CIAO QUESTA E' UNA PROVA !!!!!!

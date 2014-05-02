@@ -11,5 +11,5 @@ package cryptohelper.GUI;
  * @author Sasha Alexandru Podgoreanu
  */
 public interface View {
-    
+    public void registerController();
 }
