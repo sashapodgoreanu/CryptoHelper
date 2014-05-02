@@ -20,15 +20,16 @@ import javax.swing.JTextField;
  *
  * @author Sasha Alexandru Podgoreanu
  */
-public class LoginForm extends JFrame {
+public class LoginForm extends JFrame implements View {
 
     JPanel panel;
-    JButton submit;
+    public JButton submit;
     JLabel username;
     JLabel password;
     public JLabel erorLogin;
     JTextField passwordField;
     JTextField usernameField;
+    
     Studente studente;
     GUIController gc;
 
