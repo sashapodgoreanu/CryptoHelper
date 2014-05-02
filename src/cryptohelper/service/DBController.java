@@ -77,8 +77,7 @@ public class DBController {
                 + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                 + "Metodo VARCHAR(256),"
                 + "Chiave VARCHAR(256),"
-                + "Creatore INTEGER,"
-                + "FOREIGN KEY(Creatore) REFERENCES Studenti(ID) ON DELETE CASCADE"
+                + "Creatore INTEGER"
                 + ")";
         try {
             
@@ -138,6 +137,7 @@ public class DBController {
         return result;
     }
     
+    //Verifica le credenziali dell'utente per il login al sistema
     public static boolean verificaUtente(Studente studente) throws SQLException {
         connect();
         boolean result = false;
@@ -145,9 +145,9 @@ public class DBController {
         try {
             rs = st.executeQuery(querry);
             while (rs.next()) {
-                if (rs.getString("NICKNAME").equalsIgnoreCase(studente.getNickanme()) && rs.getString("password").equals(studente.getPassword())) {
-                    studente.setNome(rs.getString("nome"));
-                    studente.setCognome(rs.getString("cognome"));
+                if (rs.getString("Nickname").equalsIgnoreCase(studente.getNickanme()) && rs.getString("Password").equals(studente.getPassword())) {
+                    studente.setNome(rs.getString("Nome"));
+                    studente.setCognome(rs.getString("Cognome"));
                     studente.setId(rs.getInt("ID"));
                     result = true;
                     System.out.println("verificaUtente"+studente.toString());
