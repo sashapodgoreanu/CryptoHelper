@@ -7,6 +7,7 @@ package cryptohelper.com;
 
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.View;
+import cryptohelper.data.Model;
 import cryptohelper.data.Studente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +26,7 @@ import javax.swing.JFrame;
  * Modello non deve conoscere nessuno dei due.
  *
  */
-public class GUIController{
+public class GUIController {
 
     private Studente st;
     private LoginForm loginForm;
@@ -33,17 +34,17 @@ public class GUIController{
 
     private GUIController() {
     }
-
+    
     public static GUIController getInstance() {
         if (instance == null) {
             instance = new GUIController();
         }
         return instance;
     }
-    
-    public void addModel(Model m){
-        if(m instanceof Studente){
-            
+
+    public void addModel(Model m) {
+        if (m instanceof Studente) {
+            st = (Studente) m;
         }
     }
 
@@ -62,7 +63,7 @@ public class GUIController{
                             jFrame.setVisible(true);
                             jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         } else {
-                            loginForm.erorLogin.setText("Error");
+                            loginForm.getErorLogin().setText("Error");
                         }
                     }
                 }

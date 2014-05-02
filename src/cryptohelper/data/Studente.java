@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Studente {
+public class Studente implements Model {
 
     private int id;
     private String nome;

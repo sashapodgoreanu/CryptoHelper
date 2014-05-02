@@ -21,13 +21,12 @@ public class LoginForm extends JFrame implements View {
     FlowLayout sl;
     JLabel username;
     JLabel password;
-    public JLabel erorLogin;
+    JLabel erorLogin;
     JTextField passwordField;
     JTextField usernameField;
     
     public LoginForm(Studente st) {
         studente = st;
-        //gc = new GUIController(studente, this);
         this.setPreferredSize(new Dimension(320, 200));
         this.setTitle("CryptoHelper - Login");
         sl = new FlowLayout();
@@ -52,11 +51,24 @@ public class LoginForm extends JFrame implements View {
         this.setResizable(false);
         this.setLocationRelativeTo(null);   //centra la finestra sullo schermo
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        gc = GUIController.getInstance();
+        gc.addView(this);
+        gc.addModel(st);
     }
 
     public void fillStudent(Studente st) {
         st.setNickanme(usernameField.getText());
         st.setPassword(passwordField.getText());
         System.out.println("fill " + st.toString());
+    }
+    
+    
+    public JLabel getErorLogin() {
+        return erorLogin;
+    }
+
+    public void setErorLogin(JLabel erorLogin) {
+        this.erorLogin = erorLogin;
     }
 }
