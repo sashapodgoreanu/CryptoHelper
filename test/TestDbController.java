@@ -22,9 +22,10 @@ public class TestDbController {
         Messaggio m = new Messaggio(21, "testo", "testoCifrato", "lingua", "titolo", true, true);
         Studente st = new Studente("Alexandru","Podgoreanu","sasha","1234");
         try {
-            
+  
             DBController db = DBController.getInstance();
             db.createTables();
+
             m.salva();
             m.elimina();
             st.salva();
