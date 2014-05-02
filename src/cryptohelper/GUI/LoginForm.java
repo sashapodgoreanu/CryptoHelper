@@ -33,6 +33,7 @@ public class LoginForm extends JFrame {
     GUIController gc;
 
     public LoginForm(Studente st) {
+        this.setPreferredSize(new Dimension(500, 200));
         studente = st;
         gc = new GUIController(studente, this);
         this.setTitle("CryptoHelper - Login");
