@@ -22,8 +22,8 @@ public class TestDbController {
         Messaggio m = new Messaggio(21, "testo", "testoCifrato", "lingua", "titolo", true, true);
         Studente st = new Studente("Alexandru","Podgoreanu","sasha","1234");
         try {
-            DBController.registerDB();
-            DBController.createTables();
+            DBController dbc = DBController.getInstance();
+            dbc.createTables();
             m.salva();
             m.elimina();
             st.salva();
