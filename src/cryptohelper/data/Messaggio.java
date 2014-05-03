@@ -183,8 +183,6 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                 + " LETTO = '" + this.isLetto()
                 + "'"
                 + " WHERE ID = " + this.getId();
-
-                 
         try {
             if (this.id == 0) {
                 System.out.println("Saving");

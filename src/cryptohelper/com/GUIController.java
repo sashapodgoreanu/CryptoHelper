@@ -94,6 +94,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            //TO-DO una volta salvato il messaggio si deve eliminare la JList e aggiundere una Jlabel con nome del destinatario
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked "+ev.getText());
             System.out.println("Selected "+pp.getSelectedDestinatario().toString()); 
