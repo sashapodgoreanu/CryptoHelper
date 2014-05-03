@@ -97,15 +97,43 @@ public class DBController {
                 + "Chiave VARCHAR(256),"
                 + "Creatore INTEGER"
                 + ")";
+        String querySDCPartners = "CREATE TABLE SDCPartners"
+                + "("
+                + "ID_CREATORE INTEGER not null,"
+                + "ID_PARTNER INTEGER not null,"
+                + "ID_SDC INTEGER not null,"
+                + "STATO_PROPOSTA VARCHAR(16),"
+                + "PRIMARY KEY(ID_CREATORE, ID_PARTNER, ID_SDC),"
+                + "FOREIGN KEY(ID_CREATORE) REFERENCES STUDENTI(ID),"
+                + "FOREIGN KEY(ID_PARTNER) REFERENCES STUDENTI(ID),"
+                + "FOREIGN KEY(ID_SDC) REFERENCES SistemiCifratura(ID)"
+                + ")";
+        String queryMessaggiInviati = "CREATE TABLE MessaggiInviati"
+                + "("
+                + "ID_MITTENTE INTEGER not null,"
+                + "ID_DESTINATARIO INTEGER not null,"
+                + "ID_MESSAGGIO INTEGER not null,"
+                + "PRIMARY KEY(ID_MITTENTE, ID_DESTINATARIO, ID_MESSAGGIO),"
+                + "FOREIGN KEY(ID_MITTENTE) REFERENCES STUDENTI(ID),"
+                + "FOREIGN KEY(ID_DESTINATARIO) REFERENCES STUDENTI(ID),"
+                + "FOREIGN KEY(ID_MESSAGGIO) REFERENCES Messaggi(ID)"
+                + ")";
         try {
-
+            
+            System.out.println("DA TOGLIERE I COMENTI DI ST.EXECUTE(QUERRY) QUANDO SI ESEGUE TESTDBCONTROLLER PER LA SECONDA VOLTA!!!!!!!");
             //drop di tutte le tabelle esistenti
+            //st.execute("DROP TABLE MessaggiInviati");
+            System.out.println("Tabella MessaggiInviati eliminata!");
+            //st.execute("DROP TABLE SDCPartners");
+            System.out.println("Tabella SDCPartners eliminata!");
             st.execute("DROP TABLE SistemiCifratura");
             System.out.println("Tabella SistemiCifratura eliminata!");
             st.execute("DROP TABLE Messaggi");
             System.out.println("Tabella Messaggi eliminata!");
             st.execute("DROP TABLE Studenti");
             System.out.println("Tabella Studenti eliminata!");
+            
+            
 
             //creazione tabelle
             st.executeUpdate(queryStudenti);
@@ -114,6 +142,10 @@ public class DBController {
             System.out.println("Tabella Messaggi creata!");
             st.executeUpdate(querySistemiCifratura);
             System.out.println("Tabella SistemiCifratura creata!");
+            st.executeUpdate(querySDCPartners);
+            System.out.println("Tabella SDCPartners creata!");
+            st.executeUpdate(queryMessaggiInviati);
+            System.out.println("Tabella MessaggiInviati creata!");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
