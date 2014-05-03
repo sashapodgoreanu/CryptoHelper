@@ -136,6 +136,10 @@ public class PanelloPrincipale extends JFrame implements View {
         SwingUtilities.updateComponentTreeUI(this);
         System.out.println("initNuovoMessaggio");
     }
+    
+    public void eliminaListaDestinatariESetDestinatario(){
+        
+    }
 
 
     private void remakeCENTERPanels() {
