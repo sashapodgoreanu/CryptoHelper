@@ -9,6 +9,7 @@ import cryptohelper.com.GUIController;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -41,6 +42,8 @@ public class PanelloPrincipale extends JFrame implements View {
     JPanel panelcorpoMessaggio;
     JPanel panelTitolo;
     JPanel panelDest;
+    
+    JLabel errorlabel;
 
     JButton nuovoMessaggioBtn;
     JButton inboxBtn;
@@ -72,6 +75,8 @@ public class PanelloPrincipale extends JFrame implements View {
         panelcorpoMessaggio = new JPanel();
         panelTitolo = new JPanel();
         panelDest = new JPanel();
+        errorlabel = new JLabel("ERROR - da eliminare la scrita al inizio- prova test");
+        errorlabel.setForeground(Color.red);
         nuovoMessaggioBtn = new JButton("Nuovo Messaggio");
         inboxBtn = new JButton("Inbox");
         apriBozzaBtn = new JButton("Bozze");
@@ -82,6 +87,7 @@ public class PanelloPrincipale extends JFrame implements View {
         panel.add(apriBozzaBtn);
 
         this.add(panel, BorderLayout.WEST);
+        this.add(errorlabel, BorderLayout.SOUTH);
         this.pack();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -160,6 +166,17 @@ public class PanelloPrincipale extends JFrame implements View {
         gc = GUIController.getInstance();
         gc.addView(this);
     }
+
+    public String getErrorlabel() {
+        return errorlabel.getText();
+    }
+    
+
+    public void setErrorlabel(String errorlabel) {
+        this.errorlabel.setText(errorlabel);
+    }
+    
+    
 
     public JList getDestinatariCC() {
         return destinatariCC;

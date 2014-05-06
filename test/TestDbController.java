@@ -63,6 +63,5 @@ public class TestDbController {
         } catch (SQLException ex) {
             Logger.getLogger(TestDbController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }

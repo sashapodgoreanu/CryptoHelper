@@ -9,7 +9,6 @@ import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.View;
 import cryptohelper.data.Messaggio;
-import cryptohelper.data.MessaggioMittente;
 import cryptohelper.data.UserInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +19,7 @@ import javax.swing.JButton;
  * @author Sasha Alexandru Podgoreanu
  */
 /**
- * Il controllore Deve conoscere: i modelli e  le viste - JFrame 's
+ * Il controllore Deve conoscere: i modelli e le viste - JFrame 's
  *
  * La vista Deve conoscere: i controllori e qualche modello
  *
@@ -38,7 +37,7 @@ public class GUIController {
 
     private GUIController() {
         comC = new COMController();
-        
+
     }
 
     public static GUIController getInstance() {
@@ -60,12 +59,11 @@ public class GUIController {
             //listenere dei bottoni delle interface
             //Si crea bottone nella interfaccia con get e set e qui si settano
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
-            pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());  
+            pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
         }
     }
-    
-    //Classe che implementano ActionListener
 
+    //Classe che implementano ActionListener
     private class LoginFormListener implements ActionListener {
 
         @Override
@@ -86,7 +84,7 @@ public class GUIController {
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
-            System.out.println("Clicked "+ev.getText());
+            System.out.println("Clicked " + ev.getText());
             //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
             pp.setDestinatari(comC.getDestinatari());
             pp.initNuovoMessaggio();
@@ -94,18 +92,27 @@ public class GUIController {
             msgMittente = new Messaggio();
         }
     }
+
     private class SalvaMessaggioListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //TO-DO una volta salvato il messaggio si deve eliminare la JList e aggiundere una Jlabel con nome del destinatario
+            //un messaggio senza titolo non si puo salvare
             JButton ev = (JButton) e.getSource();
-            System.out.println("Clicked "+ev.getText());
-            System.out.println("Selected "+pp.getSelectedDestinatario().toString()); 
-            UserInfo destinatario = (UserInfo) pp.getSelectedDestinatario();
-            msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilDelSistema, destinatario);
-            msgMittente.salva();
-            System.out.println("Messaggio: "+msgMittente.toString());
+            System.out.println("Clicked " + ev.getText());
+            System.out.println("Selected " + pp.getSelectedDestinatario().toString());
+            System.out.println(pp.getTittoloMessaggioField()+" - Tittolo del messaggio");
+            //se il tittolo del messaggio e vuouto mostra il messaggio
+            String temp = pp.getTittoloMessaggioField().replaceAll("\\s+","");
+            if (temp.equals("")) {
+                pp.setErrorlabel("Il titolo del messaggio deve contenere almeno un carattere");
+            } else {
+                pp.setErrorlabel("");
+                UserInfo destinatario = (UserInfo) pp.getSelectedDestinatario();
+                msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilDelSistema, destinatario);
+                msgMittente.salva();
+                System.out.println("Messaggio: " + msgMittente.toString());
+            }
         }
     }
 
