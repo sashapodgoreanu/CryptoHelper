@@ -57,10 +57,14 @@ public class GUIController {
             loginForm.getSubmit().addActionListener(new LoginFormListener());
         } else if (v instanceof PanelloPrincipale) {
             pp = (PanelloPrincipale) v;
+            //listenere dei bottoni delle interface
+            //Si crea bottone nella interfaccia con get e set e qui si settano
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
-            pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
+            pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());  
         }
     }
+    
+    //Classe che implementano ActionListener
 
     private class LoginFormListener implements ActionListener {
 

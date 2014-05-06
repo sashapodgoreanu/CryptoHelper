@@ -95,14 +95,14 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initNuovoMessaggio() {
         remakeCENTERPanels();
         this.setTitle("CryptoHelper - Menu - Nuovo Messaggio");
-        
+
         JLabel tittoloMessaggioLabel = new JLabel("Titolo: ");
         tittoloMessaggioField = new JTextField(20);
         panelTitolo.setLayout(new BorderLayout());
         panelTitolo.add(tittoloMessaggioLabel, BorderLayout.WEST);
-        panelTitolo.add(tittoloMessaggioField); 
+        panelTitolo.add(tittoloMessaggioField);
         JLabel destinatarioMessaggioLabel = new JLabel("Destinatario: ");
-        destinatariCC = new JList(new Vector<UserInfo> (destinatari));
+        destinatariCC = new JList(new Vector<UserInfo>(destinatari));
         destinatariCC.setVisibleRowCount(6);
         destinatariCC.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -110,16 +110,16 @@ public class PanelloPrincipale extends JFrame implements View {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof UserInfo) {
                     UserInfo temp = (UserInfo) value;
-                    ((JLabel) renderer).setText(temp.getNome()+" "+temp.getCognome());
+                    ((JLabel) renderer).setText(temp.getNome() + " " + temp.getCognome());
                 }
                 return renderer;
             }
         });
-        destinatariCC.setSelectedIndex(0); 
+        destinatariCC.setSelectedIndex(0);
         panelDest.add(destinatarioMessaggioLabel);
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(destinatariCC);
-        panelDest.add(scrollPane);    
+        panelDest.add(scrollPane);
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setPreferredSize(new Dimension(300, 500));
         JLabel messaggioLabel = new JLabel("Messaggio");
@@ -136,11 +136,10 @@ public class PanelloPrincipale extends JFrame implements View {
         SwingUtilities.updateComponentTreeUI(this);
         System.out.println("initNuovoMessaggio");
     }
-    
-    public void eliminaListaDestinatariESetDestinatario(){
-        
-    }
 
+    public void eliminaListaDestinatariESetDestinatario() {
+
+    }
 
     private void remakeCENTERPanels() {
 
@@ -149,7 +148,10 @@ public class PanelloPrincipale extends JFrame implements View {
         panelDest.removeAll();
         panelTitolo.removeAll();
         panelcorpoMessaggio.removeAll();
-        
+        nuovoMessaggioPnl.removeAll();
+
+        this.remove(nuovoMessaggioPnl);
+
         SwingUtilities.updateComponentTreeUI(this);
     }
 
@@ -166,10 +168,11 @@ public class PanelloPrincipale extends JFrame implements View {
     public void setDestinatariCC(JList destinatariCC) {
         this.destinatariCC = destinatariCC;
     }
-    
-    public Object getSelectedDestinatario(){
+
+    public Object getSelectedDestinatario() {
         return destinatariCC.getSelectedValue();
     }
+
     public JButton getNuovoMessaggioBtn() {
         return nuovoMessaggioBtn;
     }
@@ -203,14 +206,13 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     /*
-    public String getDestinatarioMessaggioField() {
-        return destinatariCC.getText();
-    }
+     public String getDestinatarioMessaggioField() {
+     return destinatariCC.getText();
+     }
 
-    public void setDestinatarioMessaggioField(String dest) {
-        this.destinatariCC.setText(dest);
-    }*/
-
+     public void setDestinatarioMessaggioField(String dest) {
+     this.destinatariCC.setText(dest);
+     }*/
     public String getCorpoMessaggio() {
         return corpoMessaggio.getText();
     }
@@ -226,6 +228,5 @@ public class PanelloPrincipale extends JFrame implements View {
     public void setDestinatari(ArrayList<UserInfo> destinatari) {
         this.destinatari = destinatari;
     }
-    
-    
+
 }

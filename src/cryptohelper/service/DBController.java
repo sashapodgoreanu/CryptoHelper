@@ -251,6 +251,7 @@ public class DBController {
         return result;
     }
 
+    
     public ArrayList<UserInfo> getDestinatari() throws SQLException {
         connect();
 
