@@ -40,12 +40,25 @@ public class TestDbController {
             st5.salva();
             st6.salva();
             st7.salva();
+
+            
+            
             //db.getDestinatari();
-            QueryResult lista = db.executeQuery("SELECT * FROM Studenti");
-            System.out.println(lista.toString());
-            System.out.println(lista.get(0).get("ID"));
-            System.out.println(lista.get(0).get("NOME"));
-            System.out.println(lista.get(0).get("COGNOME"));
+           QueryResult lista = db.executeQuery("SELECT * FROM Studenti");
+
+            try {
+                System.out.println(lista.toString());
+                while(lista.next()){
+                    System.out.println("idh="+ lista.getInt("id")+" "+lista.getString("nome"));
+                }
+                
+     
+            } catch (Exception e) {
+            }
+     //       System.out.println(lista.toString());
+     //       System.out.println(lista.get(0).get("ID"));
+    //        System.out.println(lista.get(0).get("NOME"));
+     //       System.out.println(lista.get(0).get("COGNOME"));
 
         } catch (SQLException ex) {
             Logger.getLogger(TestDbController.class.getName()).log(Level.SEVERE, null, ex);

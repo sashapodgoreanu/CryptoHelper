@@ -177,19 +177,19 @@ public class DBController {
 
     public QueryResult executeQuery(String querry) throws SQLException {
         ArrayList<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
-        Map<String, Object> row = null;
+        Map<String, Object> riga = null;
 
         connect();
         try {
             rs = st.executeQuery(querry);
             ResultSetMetaData metaData = rs.getMetaData();
-            Integer columnCount = metaData.getColumnCount();
+            Integer mt = metaData.getColumnCount();
             while (rs.next()) {
-                row = new HashMap<String, Object>();
-                for (int i = 1; i <= columnCount; i++) {
-                    row.put(metaData.getColumnName(i).toLowerCase(), rs.getObject(i));
+                riga = new HashMap<String, Object>();
+                for (int i = 1; i <= mt; i++) {
+                    riga.put(metaData.getColumnName(i).toLowerCase(), rs.getObject(i));
                 }
-                resultList.add(row);
+                resultList.add(riga);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -197,6 +197,20 @@ public class DBController {
             disconnect();
         }
         return new QueryResult(resultList);
+    }
+
+    public ResultSet executeQuery1(String querry) throws SQLException {
+
+        ResultSet resultSet = null;
+        connect();
+        try {
+            resultSet = st.executeQuery(querry);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            disconnect();
+        }
+        return resultSet;
     }
 
     public int executeUpdateAndReturnKey(String querry) throws SQLException {
@@ -216,7 +230,7 @@ public class DBController {
         }
         return result;
     }
-    
+
     //Preleva il messaggio indicato come parametro dal db
     public Messaggio getMessaggio(int id) throws SQLException {
         connect();
@@ -255,30 +269,6 @@ public class DBController {
         }
         System.out.println("Extracted:" + ui.toString());
         return ui;
-    }
-
-    //Verifica le credenziali dell'utente per il login al sistema
-    public boolean verificaUtente(Studente studente) throws SQLException {
-        connect();
-        boolean result = false;
-        String querry = "SELECT * FROM STUDENTI";
-        try {
-            rs = st.executeQuery(querry);
-            while (rs.next()) {
-                if (rs.getString("Nickname").equalsIgnoreCase(studente.getNickanme()) && rs.getString("Password").equals(studente.getPassword())) {
-                    studente.setNome(rs.getString("Nome"));
-                    studente.setCognome(rs.getString("Cognome"));
-                    studente.setId(rs.getInt("ID"));
-                    result = true;
-                    System.out.println("verificaUtente" + studente.toString());
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            disconnect();
-        }
-        return result;
     }
 
     public UserInfo getUserInfo(int id) throws SQLException {

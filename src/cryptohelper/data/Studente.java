@@ -28,7 +28,7 @@ public class Studente implements Model {
         this.nickname = nickname;
         this.password = password;
     }
-    
+
     public Studente() {
     }
 
@@ -96,29 +96,29 @@ public class Studente implements Model {
         }
         return result;
     }
-    
-    public boolean authenticate(){
+
+    //Controlla le credenziali dell'utente e lo autentica nel sistema
+    public boolean authenticate() {
         DBController dbc = DBController.getInstance();
-        boolean result = false;
         try {
             QueryResult qr = dbc.executeQuery("SELECT * FROM Studenti");
             while (qr.next()) {
-                if(this.nickname.equalsIgnoreCase(qr.getString("nickname")) && this.password.equals(qr.getString("password")))
-                    //fai delle cose
-                    
+                if (this.nickname.equalsIgnoreCase(qr.getString("nickname")) && this.password.equals(qr.getString("password"))) {
+                    this.nome = qr.getString("nome");
+                    this.cognome = qr.getString("cognome");
+                    this.id = qr.getInt("id");
+                    return true;
+                }
             }
-
-//result = dbc.verificaUtente(this);
-            System.out.println("authenticate"+this.toString());
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Studente.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
-        return result;
+        return false;
     }
 
     @Override
     public String toString() {
         return "Studente{" + "id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", nickname=" + nickname + ", password=" + password + '}';
     }
-    
+
 }
