@@ -2,11 +2,17 @@
 package cryptohelper.data;
 
 import cryptohelper.service.DBController;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
+    
+    //debug
+    private Log log = LogFactory.getLog(Messaggio.class);
 
     private int id;
     private String testo;
@@ -185,15 +191,21 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                 + " WHERE ID = " + this.getId();
         try {
             if (this.id == 0) {
-                System.out.println("Saving");
-                result = dbc.execute(queryInsert, this);
+                int newID = dbc.executeUpdateAndReturnKey(queryInsert);
+                log.info("inserito nel db: "+this.toString());
+                //se non e successo qualche errore allora non aggiornare nulla;
+                if (newID != -1){
+                    this.id = newID;
+                    log.info("Added: "+this.toString());
+                    return true;
+                }
             } else {
-                System.out.println("Updating");
                 result = dbc.update(querryUpdate);
+                log.info("Aggiornato: "+this.toString());
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
+            log.fatal(ex.getMessage());
         }
         return result;
     }
@@ -206,7 +218,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         String query = "DELETE FROM Messaggi WHERE ID=" + this.getId();
         try {
 
-            result = dbc.execute(query);
+            result = dbc.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
         }

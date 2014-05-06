@@ -3,16 +3,25 @@
 package cryptohelper.service;
 
 import cryptohelper.data.Messaggio;
+import cryptohelper.data.QueryResult;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class DBController {
+
+    //debug
+    private Log log = LogFactory.getLog(DBController.class);
 
     private static DBController instance;
     private static Connection conn;
@@ -26,7 +35,7 @@ public class DBController {
         try {
             registerDB();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            log.fatal(ex.getMessage());
         }
     }
 
@@ -41,7 +50,7 @@ public class DBController {
         try {
             DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            log.fatal(ex.getMessage());
         }
     }
 
@@ -51,16 +60,16 @@ public class DBController {
             conn = DriverManager.getConnection(dBurl, dBusr, dBpwd);
             st = conn.createStatement();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            log.fatal(e.getMessage());
         }
-        System.out.println("Connesso a:" + dBurl);
+        log.info("Connesso a:" + dBurl);
     }
 
     //Chiude la connessione al db
     private void disconnect() throws SQLException {
         st.close();
         conn.close();
-        System.out.println("Disconnesso!");
+        log.trace("Disconnesso!");
     }
 
     //Crea le tabelle del database
@@ -119,72 +128,95 @@ public class DBController {
                 + "FOREIGN KEY(ID_MESSAGGIO) REFERENCES Messaggi(ID)"
                 + ")";
         try {
-            
-            System.out.println("DA TOGLIERE I COMENTI DI ST.EXECUTE(QUERRY) QUANDO SI ESEGUE TESTDBCONTROLLER PER LA SECONDA VOLTA!!!!!!!");
+
+            log.info("DA TOGLIERE I COMENTI DI ST.EXECUTE(QUERRY) QUANDO SI ESEGUE TESTDBCONTROLLER PER LA SECONDA VOLTA!!!!!!!");
             //drop di tutte le tabelle esistenti
-            //st.execute("DROP TABLE MessaggiInviati");
-            System.out.println("Tabella MessaggiInviati eliminata!");
-            //st.execute("DROP TABLE SDCPartners");
-            System.out.println("Tabella SDCPartners eliminata!");
+            st.execute("DROP TABLE MessaggiInviati");
+            log.info("Tabella MessaggiInviati eliminata!");
+            st.execute("DROP TABLE SDCPartners");
+            log.info("Tabella SDCPartners eliminata!");
             st.execute("DROP TABLE SistemiCifratura");
-            System.out.println("Tabella SistemiCifratura eliminata!");
+            log.info("Tabella SistemiCifratura eliminata!");
             st.execute("DROP TABLE Messaggi");
-            System.out.println("Tabella Messaggi eliminata!");
+            log.info("Tabella Messaggi eliminata!");
             st.execute("DROP TABLE Studenti");
-            System.out.println("Tabella Studenti eliminata!");
-            
-            
+            log.info("Tabella Studenti eliminata!");
 
             //creazione tabelle
             st.executeUpdate(queryStudenti);
-            System.out.println("Tabella Studenti creata!");
+            log.info("Tabella Studenti creata!");
             st.executeUpdate(queryMessaggi);
-            System.out.println("Tabella Messaggi creata!");
+            log.info("Tabella Messaggi creata!");
             st.executeUpdate(querySistemiCifratura);
-            System.out.println("Tabella SistemiCifratura creata!");
+            log.info("Tabella SistemiCifratura creata!");
             st.executeUpdate(querySDCPartners);
-            System.out.println("Tabella SDCPartners creata!");
+            log.info("Tabella SDCPartners creata!");
             st.executeUpdate(queryMessaggiInviati);
-            System.out.println("Tabella MessaggiInviati creata!");
+            log.info("Tabella MessaggiInviati creata!");
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.fatal(e.getMessage());
         } finally {
             disconnect();
         }
     }
 
-    //Esegue la query passata per parametro
-    public boolean execute(String query) throws SQLException {
+    //Per inserimenti
+    public boolean executeUpdate(String query) throws SQLException {
         connect();
         try {
             st.executeUpdate(query);
-            System.out.println("Query eseguita correttamente!");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            disconnect();
-        }
-        return false;
-    }
-    
-    public boolean execute(String query, Messaggio m) throws SQLException {
-        connect();
-        try {
-            st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-            rs = st.getGeneratedKeys();
-            while (rs.next()) {
-                m.setId(rs.getInt(1));
-            } 
-            System.out.println("Query eseguita correttamente!");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info("Query eseguita correttamente!");
+        } catch (SQLException e) {
+            log.fatal(e.getMessage());
         } finally {
             disconnect();
         }
         return false;
     }
 
+    public QueryResult executeQuery(String querry) throws SQLException {
+        ArrayList<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+        Map<String, Object> row = null;
+
+        connect();
+        try {
+            rs = st.executeQuery(querry);
+            ResultSetMetaData metaData = rs.getMetaData();
+            Integer columnCount = metaData.getColumnCount();
+            while (rs.next()) {
+                row = new HashMap<String, Object>();
+                for (int i = 1; i <= columnCount; i++) {
+                    row.put(metaData.getColumnName(i).toLowerCase(), rs.getObject(i));
+                }
+                resultList.add(row);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            disconnect();
+        }
+        return new QueryResult(resultList);
+    }
+
+    public int executeUpdateAndReturnKey(String querry) throws SQLException {
+        connect();
+        int result = -1;
+        try {
+            st.executeUpdate(querry, Statement.RETURN_GENERATED_KEYS);
+            rs = st.getGeneratedKeys();
+            log.info("Query: " + querry + " - eseguita correttamente!");
+            while (rs.next()) {
+                result = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            log.fatal(e.getMessage());
+        } finally {
+            disconnect();
+        }
+        return result;
+    }
+    
     //Preleva il messaggio indicato come parametro dal db
     public Messaggio getMessaggio(int id) throws SQLException {
         connect();
@@ -269,7 +301,7 @@ public class DBController {
         }
         return result;
     }
-    
+
     public void fillUserInfo(UserInfo ui) throws SQLException {
         connect();
         UserInfo result = new UserInfo();
@@ -289,18 +321,22 @@ public class DBController {
             disconnect();
         }
     }
-    
-    public boolean update(String querry) throws SQLException{
+
+    public boolean update(String querry) throws SQLException {
         connect();
         int edit = 0;
         try {
             edit = st.executeUpdate(querry);
-        } catch (SQLException e) { System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } finally {
             disconnect();
         }
-        if (edit == 1) System.out.println("Record edited with success");
-        else System.out.println("Record NOT EDITED with success");
+        if (edit == 1) {
+            System.out.println("Record edited with success");
+        } else {
+            System.out.println("Record NOT EDITED with success");
+        }
         return (edit == 1 ? true : false);
     }
 }

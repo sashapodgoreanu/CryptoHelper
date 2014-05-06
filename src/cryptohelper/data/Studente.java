@@ -3,6 +3,8 @@ package cryptohelper.data;
 
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -88,7 +90,7 @@ public class Studente implements Model {
                 + this.nickname
                 + "')";
         try {
-            result = dbc.execute(querry);
+            result = dbc.executeUpdate(querry);
         } catch (SQLException ex) {
             Logger.getLogger(Studente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -99,7 +101,14 @@ public class Studente implements Model {
         DBController dbc = DBController.getInstance();
         boolean result = false;
         try {
-            result = dbc.verificaUtente(this);
+            QueryResult qr = dbc.executeQuery("SELECT * FROM Studenti");
+            while (qr.next()) {
+                if(this.nickname.equalsIgnoreCase(qr.getString("nickname")) && this.password.equals(qr.getString("password")))
+                    //fai delle cose
+                    
+            }
+
+//result = dbc.verificaUtente(this);
             System.out.println("authenticate"+this.toString());
         } catch (SQLException ex) {
             Logger.getLogger(Studente.class.getName()).log(Level.SEVERE, null, ex.getMessage());
