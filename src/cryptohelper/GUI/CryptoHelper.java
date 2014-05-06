@@ -7,10 +7,6 @@ package cryptohelper.GUI;
 
 
 
-/**
- *
- * @author Giulio
- */
 public class CryptoHelper {
     public static void main(String[] args) {
         LoginForm f = new LoginForm();
