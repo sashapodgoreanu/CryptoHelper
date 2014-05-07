@@ -1,58 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Finestra principale della GUI
 package cryptohelper.GUI;
 
 import cryptohelper.com.GUIController;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Vector;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
-/**
- *
- * @author Sasha Alexandru Podgoreanu
- */
 public class PanelloPrincipale extends JFrame implements View {
 
-    //TO-DO 
-    //aggiungere una JList con lingue
-    //aggiungere una lista con destinatari (Vedi state machine diagram file UML.)
-    JPanel panel;
-    JPanel nuovoMessaggioPnl;
-    JPanel inboxPnl;
-    JPanel apriBozzaPnl;
-    JPanel panelcorpoMessaggio;
-    JPanel panelTitolo;
-    JPanel panelDest;
-    
-    JLabel errorlabel;
-
+    JPanel toolbarPanel;
+    JPanel bodyPanel;
+    JLabel statusLabel;
     JButton nuovoMessaggioBtn;
+    JButton bozzeBtn;
     JButton inboxBtn;
-    JButton apriBozzaBtn;
-    JButton salvaBozzaBtn;
-
-    //Input per Messaggio
-    JTextField tittoloMessaggioField;
-    //forse è una lista di destinatari con cui o concordato un SCifratura
+    JButton logoutBtn;
+    JButton saveBozzaBtn = new JButton("Salva bozza");
+    JButton sendMessageBtn = new JButton("Invia messaggio");
+    JTextField titoloMessaggioField; //Input per Messaggio
     JList destinatariCC;
     JTextArea corpoMessaggio;
     ArrayList<UserInfo> destinatari;
@@ -65,51 +33,59 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     private void init() {
-        System.out.println("Init PanelloPrincipale");
-        this.setPreferredSize(new Dimension(800, 800));
-        this.setTitle("CryptoHelper - Menu");
-        panel = new JPanel();
-        nuovoMessaggioPnl = new JPanel();
-        inboxPnl = new JPanel();
-        apriBozzaPnl = new JPanel();
-        panelcorpoMessaggio = new JPanel();
-        panelTitolo = new JPanel();
-        panelDest = new JPanel();
-        errorlabel = new JLabel("ERROR - da eliminare la scrita al inizio- prova test");
-        errorlabel.setForeground(Color.red);
+        System.out.println("Inizzializzazione PanelloPrincipale...");   //comunicazione di controllo per i log
+
+        //CREAZIONE PANNELLI
+        toolbarPanel = new JPanel();        //pannello in alto con i button "nuovo messaggio", "inbox", ecc...
+        bodyPanel = new JPanel();           //pannello dei contenuti posto sotto al toolbarPanel
+
+        //PROPRIETA' TOOLBAR PANEL
         nuovoMessaggioBtn = new JButton("Nuovo Messaggio");
         inboxBtn = new JButton("Inbox");
-        apriBozzaBtn = new JButton("Bozze");
-        salvaBozzaBtn = new JButton("Salva Messaggio");
+        bozzeBtn = new JButton("Bozze");
+        logoutBtn = new JButton("Logout");
+        toolbarPanel.setBackground(Color.BLUE);
+        toolbarPanel.add(nuovoMessaggioBtn);
+        toolbarPanel.add(inboxBtn);
+        toolbarPanel.add(bozzeBtn);
+        toolbarPanel.add(logoutBtn);
 
-        panel.add(nuovoMessaggioBtn);
-        panel.add(inboxBtn);
-        panel.add(apriBozzaBtn);
+        //PROPRIETA' BODY PANEL
+        bodyPanel.setLayout(new BorderLayout());
 
-        this.add(panel, BorderLayout.WEST);
-        this.add(errorlabel, BorderLayout.SOUTH);
-        this.pack();
+        //STATUS LABEL AL FONDO
+        statusLabel = new JLabel("ERRORE - da eliminare la scrita al inizio- prova test");
+        statusLabel.setForeground(Color.red);
+
+        //MAIN FORM
+        this.setTitle("CryptoHelper - Menu");
+        this.setSize(750, 500);
+        this.setResizable(false);
+        this.setLayout(new BorderLayout());
+        this.add(toolbarPanel, BorderLayout.NORTH);
+        this.add(bodyPanel, BorderLayout.CENTER);
+        this.add(statusLabel, BorderLayout.SOUTH);
+        this.setLocationRelativeTo(null);   //centra la finestra sullo schermo
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         registerController();
     }
 
-    public JButton getSalvaBozzaBtn() {
-        return salvaBozzaBtn;
-    }
-
+    //Riorganizza línterfaccia quando viene premuto il button "nuovo messaggio"
     public void initNuovoMessaggio() {
-        remakeCENTERPanels();
-        this.setTitle("CryptoHelper - Menu - Nuovo Messaggio");
 
-        JLabel tittoloMessaggioLabel = new JLabel("Titolo: ");
-        tittoloMessaggioField = new JTextField(20);
-        panelTitolo.setLayout(new BorderLayout());
-        panelTitolo.add(tittoloMessaggioLabel, BorderLayout.WEST);
-        panelTitolo.add(tittoloMessaggioField);
-        JLabel destinatarioMessaggioLabel = new JLabel("Destinatario: ");
+        cleanBodyPanel();   //pulisce tutti i panel
+        this.setTitle("CryptoHelper - Nuovo Messaggio"); //cambia titolo al form      
+        JLabel msgTitlelLabel = new JLabel("Titolo del messaggio:");
+        titoloMessaggioField = new JTextField(10);
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new FlowLayout());
+        titlePanel.add(msgTitlelLabel);
+        titlePanel.add(titoloMessaggioField);
+        bodyPanel.add(titlePanel, BorderLayout.NORTH);
+        JLabel targetMessageLabel = new JLabel("Destinatari disponibili:");
         destinatariCC = new JList(new Vector<UserInfo>(destinatari));
-        destinatariCC.setVisibleRowCount(6);
+        destinatariCC.setVisibleRowCount(30);
         destinatariCC.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -122,43 +98,38 @@ public class PanelloPrincipale extends JFrame implements View {
             }
         });
         destinatariCC.setSelectedIndex(0);
-        panelDest.add(destinatarioMessaggioLabel);
+        JPanel rightPanel = new JPanel();   //pannello a destra con elenco destinatari
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(destinatariCC);
-        panelDest.add(scrollPane);
-        corpoMessaggio = new JTextArea();
-        corpoMessaggio.setPreferredSize(new Dimension(300, 500));
-        JLabel messaggioLabel = new JLabel("Messaggio");
-        panelcorpoMessaggio.add(messaggioLabel);
-        panelcorpoMessaggio.add(corpoMessaggio);
-        nuovoMessaggioPnl.setLayout(new FlowLayout());
-        nuovoMessaggioPnl.add(panelDest);
-        nuovoMessaggioPnl.add(panelTitolo);
-        nuovoMessaggioPnl.add(panelcorpoMessaggio);
-        nuovoMessaggioPnl.add(salvaBozzaBtn);
+        rightPanel.setLayout(new BorderLayout());
+        rightPanel.add(targetMessageLabel, BorderLayout.NORTH);
+        rightPanel.add(scrollPane, BorderLayout.CENTER);
+        bodyPanel.add(rightPanel, BorderLayout.EAST);
 
-        this.add(nuovoMessaggioPnl, BorderLayout.CENTER);
-        this.pack();
+        JPanel leftPanel = new JPanel();    //pannello con area per la scrittura e opzioni del messaggio    
+        leftPanel.setLayout(new BorderLayout());
+        corpoMessaggio = new JTextArea();
+        corpoMessaggio.setPreferredSize(new Dimension(600, 300));
+        JLabel messaggioLabel = new JLabel("Testo del messaggio:");
+        JPanel msgOptions = new JPanel();   //pannello con button "salva messaggio", "invia messaggio"
+        msgOptions.add(saveBozzaBtn);
+        msgOptions.add(sendMessageBtn);
+        leftPanel.add(messaggioLabel, BorderLayout.NORTH);
+        leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
+        leftPanel.add(msgOptions, BorderLayout.SOUTH);
+        bodyPanel.add(leftPanel, BorderLayout.WEST);
+
         SwingUtilities.updateComponentTreeUI(this);
         System.out.println("initNuovoMessaggio");
     }
 
-    public void eliminaListaDestinatariESetDestinatario() {
-
+    private void cleanBodyPanel() {
+        bodyPanel.removeAll();
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
-    private void remakeCENTERPanels() {
+    public void eliminaListaDestinatariESetDestinatario() {
 
-        System.out.println("remake: Nuovo Messaggio");
-        //remake nuovo messaggio
-        panelDest.removeAll();
-        panelTitolo.removeAll();
-        panelcorpoMessaggio.removeAll();
-        nuovoMessaggioPnl.removeAll();
-
-        this.remove(nuovoMessaggioPnl);
-
-        SwingUtilities.updateComponentTreeUI(this);
     }
 
     @Override
@@ -168,15 +139,12 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     public String getErrorlabel() {
-        return errorlabel.getText();
+        return statusLabel.getText();
     }
-    
 
     public void setErrorlabel(String errorlabel) {
-        this.errorlabel.setText(errorlabel);
+        this.statusLabel.setText(errorlabel);
     }
-    
-    
 
     public JList getDestinatariCC() {
         return destinatariCC;
@@ -194,6 +162,10 @@ public class PanelloPrincipale extends JFrame implements View {
         return nuovoMessaggioBtn;
     }
 
+    public JButton getSalvaBozzaBtn() {
+        return saveBozzaBtn;
+    }
+
     public void setNuovoMessaggioBtn(JButton nuovoMessaggioBtn) {
         this.nuovoMessaggioBtn = nuovoMessaggioBtn;
     }
@@ -206,20 +178,12 @@ public class PanelloPrincipale extends JFrame implements View {
         this.inboxBtn = inboxBtn;
     }
 
-    public JButton getApriBozzaBtn() {
-        return apriBozzaBtn;
-    }
-
-    public void setApriBozzaBtn(JButton apriBozzaBtn) {
-        this.apriBozzaBtn = apriBozzaBtn;
-    }
-
     public String getTittoloMessaggioField() {
-        return tittoloMessaggioField.getText();
+        return titoloMessaggioField.getText();
     }
 
     public void setTittoloMessaggioField(String titolo) {
-        this.tittoloMessaggioField.setText(titolo);
+        this.titoloMessaggioField.setText(titolo);
     }
 
     /*
@@ -244,6 +208,14 @@ public class PanelloPrincipale extends JFrame implements View {
 
     public void setDestinatari(ArrayList<UserInfo> destinatari) {
         this.destinatari = destinatari;
+    }
+
+    public JButton getLogoutBtn() {
+        return logoutBtn;
+    }
+
+    public void setLogoutBtn(JButton logoutBtn) {
+        this.logoutBtn = logoutBtn;
     }
 
 }
