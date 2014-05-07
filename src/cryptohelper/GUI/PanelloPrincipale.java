@@ -18,12 +18,7 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton bozzeBtn;
     JButton inboxBtn;
     JButton logoutBtn;
-
-
-
-    //Input per Messaggio
-    JTextField titoloMessaggioField;
-    //forse è una lista di destinatari con cui o concordato un SCifratura
+    JTextField titoloMessaggioField; //Input per Messaggio
     JList destinatariCC;
     JTextArea corpoMessaggio;
     ArrayList<UserInfo> destinatari;
