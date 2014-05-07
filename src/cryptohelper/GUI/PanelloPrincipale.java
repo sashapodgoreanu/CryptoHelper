@@ -48,6 +48,7 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton nuovoMessaggioBtn;
     JButton inboxBtn;
     JButton apriBozzaBtn;
+    JButton logout;
     JButton salvaBozzaBtn;
 
     //Input per Messaggio
@@ -80,11 +81,14 @@ public class PanelloPrincipale extends JFrame implements View {
         nuovoMessaggioBtn = new JButton("Nuovo Messaggio");
         inboxBtn = new JButton("Inbox");
         apriBozzaBtn = new JButton("Bozze");
+        logout = new JButton("Logout"); 
         salvaBozzaBtn = new JButton("Salva Messaggio");
 
         panel.add(nuovoMessaggioBtn);
         panel.add(inboxBtn);
         panel.add(apriBozzaBtn);
+        panel.add(logout);
+        
 
         this.add(panel, BorderLayout.WEST);
         this.add(errorlabel, BorderLayout.SOUTH);

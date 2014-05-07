@@ -63,7 +63,7 @@ public class GUIController {
         }
     }
 
-    //Classe che implementano ActionListener
+    //Classi che implementano ActionListener
     private class LoginFormListener implements ActionListener {
 
         @Override
