@@ -90,6 +90,8 @@ public class DBController {
                 + "("
                 + "ID INTEGER not null primary key "
                 + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                + "ID_MITTENTE INTEGER,"
+                + "ID_DESTINATARIO INTEGER,"
                 + "FOREIGN KEY(ID_MITTENTE) REFERENCES STUDENTI(ID),"
                 + "FOREIGN KEY(ID_DESTINATARIO) REFERENCES STUDENTI(ID),"
                 + "Testo VARCHAR(2048),"
@@ -131,14 +133,15 @@ public class DBController {
                 st.execute("DROP TABLE SistemiCifratura");
                 System.out.println("Tabella SistemiCifratura eliminata!");
             }
-            if (isTableExist("Messaggi")) {
-                st.execute("DROP TABLE Messaggi");
-                System.out.println("Tabella Messaggi eliminata!");
-            }
             if (isTableExist("Studenti")) {
                 st.execute("DROP TABLE Studenti");
                 System.out.println("Tabella Studenti eliminata!");
             }
+            if (isTableExist("Messaggi")) {
+                st.execute("DROP TABLE Messaggi");
+                System.out.println("Tabella Messaggi eliminata!");
+            }
+            
             //creazione tabelle
             st.executeUpdate(queryStudenti);
             System.out.println("Tabella Studenti creata!");
