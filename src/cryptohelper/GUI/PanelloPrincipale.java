@@ -18,6 +18,8 @@ public class PanelloPrincipale extends JFrame implements View {
     //TO-DO 
     //aggiungere una JList con lingue
     //aggiungere una lista con destinatari (Vedi state machine diagram file UML.)
+    JMenuBar menuBar;
+    JMenu fileMenu;
     JPanel toolbarPanel;
     JPanel nuovoMessaggioPnl;
     JPanel inboxPnl;
@@ -47,30 +49,32 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     private void init() {
-        System.out.println("Init PanelloPrincipale");
-        this.setTitle("CryptoHelper - Menu");    
-        this.setPreferredSize(new Dimension(600, 500));
+        System.out.println("Inizzializzazione PanelloPrincipale...");   //comunicazione di controllo per i log
         
         //CREAZIONE PANNELLI
         toolbarPanel = new JPanel();        //pannello in alto con i button "nuovo messaggio", "inbox", ecc...
         bodyPanel = new JPanel();           //pannello dei contenuti posto sotto al toolbarPanel
         
-        //PRIOPRIETA' TOOLBAR PANEL
+        //PROPRIETA' TOOLBAR PANEL
         nuovoMessaggioBtn = new JButton("Nuovo Messaggio");
         inboxBtn = new JButton("Inbox");
         apriBozzaBtn = new JButton("Bozze");
         logoutBtn = new JButton("Logout"); 
-        toolbarPanel.setBackground(Color.blue);
+        toolbarPanel.setBackground(Color.BLUE);
         toolbarPanel.add(nuovoMessaggioBtn);
         toolbarPanel.add(inboxBtn);
         toolbarPanel.add(apriBozzaBtn);
         toolbarPanel.add(logoutBtn);
+        
+        //PROPRIETA' BODY PANEL
+        bodyPanel.setBackground(Color.GREEN);       
         
         nuovoMessaggioPnl = new JPanel();
         inboxPnl = new JPanel();
         apriBozzaPnl = new JPanel();
         panelcorpoMessaggio = new JPanel();
         panelTitolo = new JPanel();
+        panelTitolo.setBackground(Color.RED);
 
         errorlabel = new JLabel("ERRORE - da eliminare la scrita al inizio- prova test");
         errorlabel.setForeground(Color.red);
@@ -78,20 +82,18 @@ public class PanelloPrincipale extends JFrame implements View {
  
         salvaBozzaBtn = new JButton("Salva Messaggio");
 
-
-        
-
-
-
-
-        this.add(toolbarPanel, BorderLayout.NORTH);
+        this.setTitle("CryptoHelper - Menu");    
+        this.setSize(600, 500);
+        this.setLayout(new BorderLayout());
+        this.add(toolbarPanel,BorderLayout.NORTH);
+        this.add(bodyPanel, BorderLayout.CENTER);
         this.add(errorlabel, BorderLayout.SOUTH);
-        this.pack();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         registerController();
     }
 
+    
     public JButton getSalvaBozzaBtn() {
         return salvaBozzaBtn;
     }
