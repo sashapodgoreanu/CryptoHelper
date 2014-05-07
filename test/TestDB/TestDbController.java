@@ -31,6 +31,7 @@ public class TestDbController {
         Studente st6 = new Studente("Vasco", "Rossi", "vR", "1234");
         Studente st7 = new Studente("Mario", "Rossi", "1", "1");
         try {
+            m.salva();
             DBController db = DBController.getInstance();
             db.createTables();
             //m.salva();
