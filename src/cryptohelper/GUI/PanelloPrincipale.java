@@ -70,10 +70,10 @@ public class PanelloPrincipale extends JFrame implements View {
         logout = new JButton("Logout"); 
         salvaBozzaBtn = new JButton("Salva Messaggio");
 
-        panel.add(nuovoMessaggioBtn);
-        panel.add(inboxBtn);
-        panel.add(apriBozzaBtn);
-        panel.add(logout);
+        toolbarPanel.add(nuovoMessaggioBtn);
+        toolbarPanel.add(inboxBtn);
+        toolbarPanel.add(apriBozzaBtn);
+        toolbarPanel.add(logout);
         
 
         toolbarPanel.add(nuovoMessaggioBtn);
