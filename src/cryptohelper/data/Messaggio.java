@@ -25,6 +25,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     private UserInfo destinatario;
     private SistemaCifratura sistemaCifratura;
 
+    
     //COSTRUTTORE I
     public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto, UserInfo mittente, UserInfo destinatario, SistemaCifratura sc) {
         this.id = id;
