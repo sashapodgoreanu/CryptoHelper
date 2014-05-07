@@ -64,7 +64,7 @@ public class PanelloPrincipale extends JFrame implements View {
         toolbarPanel.add(nuovoMessaggioBtn);
         toolbarPanel.add(inboxBtn);
         toolbarPanel.add(apriBozzaBtn);
-        toolbarPanel.add(apriBozzaBtn);
+        toolbarPanel.add(logoutBtn);
         
         nuovoMessaggioPnl = new JPanel();
         inboxPnl = new JPanel();
