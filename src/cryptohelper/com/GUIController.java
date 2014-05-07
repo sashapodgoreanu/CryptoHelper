@@ -106,7 +106,7 @@ public class GUIController {
             String temp = pp.getTittoloMessaggioField().replaceAll("\\s+","");
             if (temp.equals("")) {
                 pp.setErrorlabel("Il titolo del messaggio deve contenere almeno un carattere");
-            } else {
+            } else { //altrimenti salva il messaggio
                 pp.setErrorlabel("");
                 UserInfo destinatario = (UserInfo) pp.getSelectedDestinatario();
                 msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilDelSistema, destinatario);
@@ -115,5 +115,4 @@ public class GUIController {
             }
         }
     }
-
 }
