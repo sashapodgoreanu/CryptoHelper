@@ -8,13 +8,15 @@ public class SistemaCifratura
     private String chiave;
     private String metodo;
     private UserInfo creatore;
+    private CalcolatoreMappatura cm;
     
     //COSTRUTTORE
-    public SistemaCifratura(int id, String chiave, String metodo, UserInfo creatore){
-       this.id = id;
-       this.chiave = chiave;
-       this.metodo = metodo;
-       this.creatore = creatore;
+    public SistemaCifratura(int id, String chiave, String metodo, UserInfo creatore, CalcolatoreMappatura cm) {
+        this.id = id;
+        this.chiave = chiave;
+        this.metodo = metodo;
+        this.creatore = creatore;
+        this.cm = cm;
     }
          
     //METODI GETTER
