@@ -170,7 +170,7 @@ public class DBController {
 
     }
 
-//Per inserimenti
+    //Per inserimenti
     public boolean executeUpdate(String query) throws SQLException {
         connect();
         try {
@@ -207,7 +207,7 @@ public class DBController {
         }
         return new QueryResult(resultList);
     }
-
+/*
     public ResultSet executeQuery1(String querry) throws SQLException {
 
         ResultSet resultSet = null;
@@ -221,7 +221,8 @@ public class DBController {
         }
         return resultSet;
     }
-
+*/
+    
     public int executeUpdateAndReturnKey(String querry) throws SQLException {
         connect();
         int result = -1;
@@ -240,6 +241,7 @@ public class DBController {
         return result;
     }
 
+    //TO-DO
     //Preleva il messaggio indicato come parametro dal db
     public Messaggio getMessaggio(int id) throws SQLException {
         connect();
@@ -259,7 +261,7 @@ public class DBController {
         disconnect();
         return result;
     }
-
+/*
     public ArrayList<UserInfo> getDestinatari() throws SQLException {
         connect();
 
@@ -278,7 +280,7 @@ public class DBController {
         }
         System.out.println("Extracted:" + ui.toString());
         return ui;
-    }
+    }*/
 
     public UserInfo getUserInfo(int id) throws SQLException {
         connect();

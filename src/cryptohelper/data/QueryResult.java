@@ -31,8 +31,14 @@ public class QueryResult {
         if(iterator == lista.size()){
             return false;
         }
+        if(iterator >= lista.size())
+            throw new Exception("ArrayList out of bound - prova QueryResult (obj).reset().");
         iterator++;    
         return true;
+    }
+    
+    public void reset(){
+        iterator = -1;
     }
     
     public String getString(String key) throws Exception{

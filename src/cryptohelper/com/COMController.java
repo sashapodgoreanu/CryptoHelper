@@ -1,6 +1,6 @@
 package cryptohelper.com;
 
-import cryptohelper.data.Messaggio;
+import cryptohelper.data.QueryResult;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import cryptohelper.service.DBController;
@@ -32,9 +32,16 @@ public class COMController {
     
     //TO-DO  getDestinatari -> getDestinatari(id studente che ha gia concordato sistema di cifratura con vari destinatari))
     public ArrayList<UserInfo> getDestinatari(/*int idStudente*/){
+        String query = "SELECT * FROM STUDENTI";
+        QueryResult qr = null;
+        ArrayList<UserInfo> uInfo = new ArrayList<>();
         try {
-            return dbc.getDestinatari();
-        } catch (SQLException ex) {
+            qr = dbc.executeQuery(query);
+            while(qr.next()){
+                UserInfo temp = new UserInfo(qr.getInt("id"),qr.getString("nome"),qr.getString("cognome"));
+                uInfo.add(temp);
+            }
+        } catch (Exception ex) {
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
         return null;
