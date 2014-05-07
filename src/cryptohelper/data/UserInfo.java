@@ -1,11 +1,6 @@
 //Classe di supporto UserInfo
 package cryptohelper.data;
 
-import cryptohelper.service.DBController;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class UserInfo
 {
     private int id;

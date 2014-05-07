@@ -3,8 +3,6 @@ package cryptohelper.data;
 
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -94,14 +92,14 @@ public class Studente implements Model {
             //se result == -1 è stato un errore nel executeUpdateAndReturnKey(querry)
             if (result != -1) {
                 this.setId(result);
-                System.out.println("INFO:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Aggiunto con successo "+this.toString());
+                System.out.println("INFO DATA:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Aggiunto con successo "+this.toString());
             } else {
                 return false;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Studente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return (result > -1 ? true : false);
+        return (result > -1);
     }
 
     //Controlla le credenziali dell'utente e lo autentica nel sistema

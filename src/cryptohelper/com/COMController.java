@@ -4,7 +4,6 @@ import cryptohelper.data.QueryResult;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import cryptohelper.service.DBController;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;

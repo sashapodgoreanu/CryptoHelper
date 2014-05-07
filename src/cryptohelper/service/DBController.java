@@ -2,9 +2,7 @@
 //Crea e gestisce il DB, esegue le query
 package cryptohelper.service;
 
-import cryptohelper.data.Messaggio;
 import cryptohelper.data.QueryResult;
-import cryptohelper.data.UserInfo;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -21,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
 public class DBController {
 
     //debug
-    private Log log = LogFactory.getLog(DBController.class);
+    private Log log;
 
     private static DBController instance;
     private static Connection conn;
@@ -32,6 +30,7 @@ public class DBController {
     private static final String dBpwd = "12345";
 
     private DBController() {
+        this.log = LogFactory.getLog(DBController.class);
         try {
             registerDB();
         } catch (SQLException ex) {
@@ -167,20 +166,20 @@ public class DBController {
     //Per inserimenti
     public boolean executeUpdate(String query) throws SQLException {
         connect();
-        
+        int result = 0;
         try {
-            st.executeUpdate(query);
+            result = st.executeUpdate(query);
             System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+"Query eseguita correttamente! "+query);
         } catch (SQLException e) {
             log.fatal(e.getMessage());
         } finally {
             disconnect();
         }
-        return false;
+        return (result == 1);
     }
 
     public QueryResult executeQuery(String querry) throws SQLException {
-        ArrayList<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+        ArrayList<Map<String, Object>> resultList = new ArrayList<>();
         Map<String, Object> riga = null;
 
         connect();
@@ -189,7 +188,7 @@ public class DBController {
             ResultSetMetaData metaData = rs.getMetaData();
             Integer mt = metaData.getColumnCount();
             while (rs.next()) {
-                riga = new HashMap<String, Object>();
+                riga = new HashMap<>();
                 for (int i = 1; i <= mt; i++) {
                     riga.put(metaData.getColumnName(i).toLowerCase(), rs.getObject(i));
                 }
@@ -224,7 +223,7 @@ public class DBController {
     
     private boolean isTableExist(String sTablename) throws SQLException {
         DatabaseMetaData dbmd = conn.getMetaData();
-        ResultSet rs = dbmd.getTables(null, null, sTablename.toUpperCase(), null);
+        rs = dbmd.getTables(null, null, sTablename.toUpperCase(), null);
         if (rs.next()) {
             System.out.println("INFO:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+" Table " + rs.getString("TABLE_NAME") + "already exists !!");
             return true;
