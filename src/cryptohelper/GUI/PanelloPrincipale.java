@@ -63,46 +63,41 @@ public class PanelloPrincipale extends JFrame implements View {
         toolbarPanel.add(logoutBtn);
 
         //PROPRIETA' BODY PANEL
-        bodyPanel.setBackground(Color.GREEN);
         bodyPanel.setLayout(new BorderLayout());
 
-        
-       // nuovoMessaggioPnl = new JPanel();
-       // inboxPnl = new JPanel();
-       // apriBozzaPnl = new JPanel();
-       // panelcorpoMessaggio = new JPanel();
-      //  panelTitolo = new JPanel();
-       // panelTitolo.setBackground(Color.RED);
-
+        //STATUS LABEL AL FONDO
         statusLabel = new JLabel("ERRORE - da eliminare la scrita al inizio- prova test");
         statusLabel.setForeground(Color.red);
 
         salvaBozzaBtn = new JButton("Salva Messaggio");
 
+        //MAIN FORM
         this.setTitle("CryptoHelper - Menu");
-        this.setSize(600, 500);
+        this.setSize(750, 500);
+        this.setResizable(false);
         this.setLayout(new BorderLayout());
         this.add(toolbarPanel, BorderLayout.NORTH);
         this.add(bodyPanel, BorderLayout.CENTER);
         this.add(statusLabel, BorderLayout.SOUTH);
+        this.setLocationRelativeTo(null);   //centra la finestra sullo schermo
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         registerController();
     }
-    
+
     //Riorganizza línterfaccia quando viene premuto il button "nuovo messaggio"
-     public void initNuovoMessaggio(){
-         
+    public void initNuovoMessaggio() {
+
         cleanBodyPanel();   //pulisce tutti i panel
-        this.setTitle("CryptoHelper - Menu - Nuovo Messaggio"); //cambia titolo al form      
-        JLabel msgTitlelLabel = new JLabel("Titolo: ");
+        this.setTitle("CryptoHelper - Nuovo Messaggio"); //cambia titolo al form      
+        JLabel msgTitlelLabel = new JLabel("TITOLO DEL MESSAGGIO: ");
         titoloMessaggioField = new JTextField(10);
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout());
         titlePanel.add(msgTitlelLabel);
         titlePanel.add(titoloMessaggioField);
-        bodyPanel.add(titlePanel,BorderLayout.NORTH);
-        JLabel targetMessageLabel = new JLabel("Destinatario: ");
+        bodyPanel.add(titlePanel, BorderLayout.NORTH);
+        JLabel targetMessageLabel = new JLabel("DESTINATARI: ");
         destinatariCC = new JList(new Vector<UserInfo>(destinatari));
         destinatariCC.setVisibleRowCount(30);
         destinatariCC.setCellRenderer(new DefaultListCellRenderer() {
@@ -121,28 +116,28 @@ public class PanelloPrincipale extends JFrame implements View {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(destinatariCC);
         rightPanel.setLayout(new BorderLayout());
-        rightPanel.add(targetMessageLabel,BorderLayout.NORTH);
-        rightPanel.add(scrollPane,BorderLayout.CENTER);
-        bodyPanel.add(rightPanel,BorderLayout.EAST);
-
-
+        rightPanel.add(targetMessageLabel, BorderLayout.NORTH);
+        rightPanel.add(scrollPane, BorderLayout.CENTER);
+        bodyPanel.add(rightPanel, BorderLayout.EAST);
+        
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BorderLayout());
         corpoMessaggio = new JTextArea();
-        corpoMessaggio.setPreferredSize(new Dimension(300, 500));
-        JLabel messaggioLabel = new JLabel("Messaggio");
-        bodyPanel.add(messaggioLabel);
-        bodyPanel.add(corpoMessaggio);
-        bodyPanel.add(salvaBozzaBtn);
+        corpoMessaggio.setPreferredSize(new Dimension(600, 300));
+        JLabel messaggioLabel = new JLabel("TESTO DEL MESSAGGIO:");
+        leftPanel.add(messaggioLabel, BorderLayout.NORTH);
+        leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
+        leftPanel.add(salvaBozzaBtn, BorderLayout.SOUTH);
+        bodyPanel.add(leftPanel, BorderLayout.WEST);
 
-          SwingUtilities.updateComponentTreeUI(this);
+        SwingUtilities.updateComponentTreeUI(this);
         System.out.println("initNuovoMessaggio");
     }
-     
+
     private void cleanBodyPanel() {
         bodyPanel.removeAll();
         SwingUtilities.updateComponentTreeUI(this);
     }
-
-   
 
     public void eliminaListaDestinatariESetDestinatario() {
 
