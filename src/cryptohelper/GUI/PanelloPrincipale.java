@@ -132,7 +132,8 @@ public class PanelloPrincipale extends JFrame implements View {
         bodyPanel.add(messaggioLabel);
         bodyPanel.add(corpoMessaggio);
         bodyPanel.add(salvaBozzaBtn);
-        SwingUtilities.updateComponentTreeUI(this);
+
+          SwingUtilities.updateComponentTreeUI(this);
         System.out.println("initNuovoMessaggio");
     }
      
