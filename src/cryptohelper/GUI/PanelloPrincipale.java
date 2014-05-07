@@ -18,8 +18,8 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton bozzeBtn;
     JButton inboxBtn;
     JButton logoutBtn;
-    JButton saveBozzaBtn;
-    JButton sendMessageBtn;
+    JButton saveBozzaBtn = new JButton("Salva bozza");
+    JButton sendMessageBtn = new JButton("Invia messaggio");
     JTextField titoloMessaggioField; //Input per Messaggio
     JList destinatariCC;
     JTextArea corpoMessaggio;
@@ -112,8 +112,6 @@ public class PanelloPrincipale extends JFrame implements View {
         corpoMessaggio.setPreferredSize(new Dimension(600, 300));
         JLabel messaggioLabel = new JLabel("Testo del messaggio:");
         JPanel msgOptions = new JPanel();   //pannello con button "salva messaggio", "invia messaggio"
-        saveBozzaBtn = new JButton("Salva bozza");
-        sendMessageBtn = new JButton("Invia messaggio");
         msgOptions.add(saveBozzaBtn);
         msgOptions.add(sendMessageBtn);
         leftPanel.add(messaggioLabel, BorderLayout.NORTH);
