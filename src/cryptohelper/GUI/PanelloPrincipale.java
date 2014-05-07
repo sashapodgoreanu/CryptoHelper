@@ -29,7 +29,7 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton nuovoMessaggioBtn;
     JButton inboxBtn;
     JButton apriBozzaBtn;
-    JButton logout;
+    JButton logoutBtn;
     JButton salvaBozzaBtn;
 
     //Input per Messaggio
@@ -56,11 +56,15 @@ public class PanelloPrincipale extends JFrame implements View {
         bodyPanel = new JPanel();           //pannello dei contenuti posto sotto al toolbarPanel
         
         //PRIOPRIETA' TOOLBAR PANEL
+        nuovoMessaggioBtn = new JButton("Nuovo Messaggio");
+        inboxBtn = new JButton("Inbox");
+        apriBozzaBtn = new JButton("Bozze");
+        logoutBtn = new JButton("Logout"); 
         toolbarPanel.setBackground(Color.blue);
         toolbarPanel.add(nuovoMessaggioBtn);
         toolbarPanel.add(inboxBtn);
         toolbarPanel.add(apriBozzaBtn);
-        
+        toolbarPanel.add(logoutBtn);
         
         nuovoMessaggioPnl = new JPanel();
         inboxPnl = new JPanel();
@@ -70,16 +74,11 @@ public class PanelloPrincipale extends JFrame implements View {
 
         errorlabel = new JLabel("ERRORE - da eliminare la scrita al inizio- prova test");
         errorlabel.setForeground(Color.red);
-        nuovoMessaggioBtn = new JButton("Nuovo Messaggio");
-        inboxBtn = new JButton("Inbox");
-        apriBozzaBtn = new JButton("Bozze");
-        logout = new JButton("Logout"); 
+
+ 
         salvaBozzaBtn = new JButton("Salva Messaggio");
 
-        toolbarPanel.add(nuovoMessaggioBtn);
-        toolbarPanel.add(inboxBtn);
-        toolbarPanel.add(apriBozzaBtn);
-        toolbarPanel.add(logout);
+
         
 
 
