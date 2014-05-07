@@ -1,50 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Finestra principale della GUI
+
 package cryptohelper.GUI;
 
 import cryptohelper.com.GUIController;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Vector;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
-/**
- *
- * @author Sasha Alexandru Podgoreanu
- */
+
+
+
 public class PanelloPrincipale extends JFrame implements View {
 
     //TO-DO 
     //aggiungere una JList con lingue
     //aggiungere una lista con destinatari (Vedi state machine diagram file UML.)
-    JPanel panel;
+    JPanel toolbarPanel;
     JPanel nuovoMessaggioPnl;
     JPanel inboxPnl;
     JPanel apriBozzaPnl;
     JPanel panelcorpoMessaggio;
     JPanel panelTitolo;
-    JPanel panelDest;
-    
+    JPanel bodyPanel; 
     JLabel errorlabel;
-
     JButton nuovoMessaggioBtn;
     JButton inboxBtn;
     JButton apriBozzaBtn;
@@ -67,16 +48,21 @@ public class PanelloPrincipale extends JFrame implements View {
 
     private void init() {
         System.out.println("Init PanelloPrincipale");
-        this.setPreferredSize(new Dimension(800, 800));
-        this.setTitle("CryptoHelper - Menu");
-        panel = new JPanel();
+        this.setPreferredSize(new Dimension(600, 500));
+        this.setTitle("CryptoHelper - Menu");     
+        toolbarPanel = new JPanel();        //pannello in alto con i button "nuovo messaggio", "inbox", ecc...
+        toolbarPanel.setBackground(Color.blue);
+        bodyPanel = new JPanel();           //pannello dei contenuti posto sotto al toolbarPanel
+        
+        
+        
         nuovoMessaggioPnl = new JPanel();
         inboxPnl = new JPanel();
         apriBozzaPnl = new JPanel();
         panelcorpoMessaggio = new JPanel();
         panelTitolo = new JPanel();
-        panelDest = new JPanel();
-        errorlabel = new JLabel("ERROR - da eliminare la scrita al inizio- prova test");
+
+        errorlabel = new JLabel("ERRORE - da eliminare la scrita al inizio- prova test");
         errorlabel.setForeground(Color.red);
         nuovoMessaggioBtn = new JButton("Nuovo Messaggio");
         inboxBtn = new JButton("Inbox");
@@ -90,7 +76,12 @@ public class PanelloPrincipale extends JFrame implements View {
         panel.add(logout);
         
 
-        this.add(panel, BorderLayout.WEST);
+        toolbarPanel.add(nuovoMessaggioBtn);
+        toolbarPanel.add(inboxBtn);
+        toolbarPanel.add(apriBozzaBtn);
+
+
+        this.add(toolbarPanel, BorderLayout.NORTH);
         this.add(errorlabel, BorderLayout.SOUTH);
         this.pack();
         this.setVisible(true);
@@ -126,17 +117,17 @@ public class PanelloPrincipale extends JFrame implements View {
             }
         });
         destinatariCC.setSelectedIndex(0);
-        panelDest.add(destinatarioMessaggioLabel);
+        bodyPanel.add(destinatarioMessaggioLabel);
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(destinatariCC);
-        panelDest.add(scrollPane);
+        bodyPanel.add(scrollPane);
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setPreferredSize(new Dimension(300, 500));
         JLabel messaggioLabel = new JLabel("Messaggio");
         panelcorpoMessaggio.add(messaggioLabel);
         panelcorpoMessaggio.add(corpoMessaggio);
         nuovoMessaggioPnl.setLayout(new FlowLayout());
-        nuovoMessaggioPnl.add(panelDest);
+        nuovoMessaggioPnl.add(bodyPanel);
         nuovoMessaggioPnl.add(panelTitolo);
         nuovoMessaggioPnl.add(panelcorpoMessaggio);
         nuovoMessaggioPnl.add(salvaBozzaBtn);
@@ -155,7 +146,7 @@ public class PanelloPrincipale extends JFrame implements View {
 
         System.out.println("remake: Nuovo Messaggio");
         //remake nuovo messaggio
-        panelDest.removeAll();
+        bodyPanel.removeAll();
         panelTitolo.removeAll();
         panelcorpoMessaggio.removeAll();
         nuovoMessaggioPnl.removeAll();

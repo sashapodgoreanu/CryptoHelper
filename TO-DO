@@ -2,3 +2,4 @@ modificare ComController metodo rrayList<UserInfo> getDestinatari
 rivedere interfaccia grafica
 aggiungere bottone logut e implementazione
 DBController    public Messaggio getMessaggio(int id) throws SQLException da modificare/eliminare --- DBController non dve conoscere MEssaggio
+sasha - creaSistemaDicifratura
