@@ -33,7 +33,7 @@ public class GUIController {
     private PanelloPrincipale pp;
     private static GUIController instance;
     private Messaggio msgMittente;
-    private UserInfo utilDelSistema;
+    private UserInfo utilizzatoreSistema;
 
     private GUIController() {
         comC = new COMController();
@@ -72,7 +72,7 @@ public class GUIController {
             if (valid) {
                 loginForm.dispose();
                 PanelloPrincipale pp = new PanelloPrincipale();
-                utilDelSistema = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
+                utilizzatoreSistema = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
             } else {
                 loginForm.getErorLogin().setText("Error");
             }
@@ -109,7 +109,7 @@ public class GUIController {
             } else {
                 pp.setErrorlabel("");
                 UserInfo destinatario = (UserInfo) pp.getSelectedDestinatario();
-                msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilDelSistema, destinatario);
+                msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilizzatoreSistema, destinatario);
                 msgMittente.salva();
                 System.out.println("Messaggio: " + msgMittente.toString());
             }
