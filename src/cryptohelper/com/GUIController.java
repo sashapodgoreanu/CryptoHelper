@@ -10,6 +10,7 @@ import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.View;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.UserInfo;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -87,7 +88,9 @@ public class GUIController {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
+            
             pp.setDestinatari(comC.getDestinatari());
+            System.out.println(comC.getDestinatari().toString());
             pp.initNuovoMessaggio();
             //predispone il nuovo messaggio
             msgMittente = new Messaggio();
@@ -106,12 +109,20 @@ public class GUIController {
             //se il tittolo del messaggio e vuouto mostra il messaggio
             String temp = pp.getTittoloMessaggioField().replaceAll("\\s+","");
             if (temp.equals("")) {
-                pp.setErrorlabel("Il titolo del messaggio deve contenere almeno un carattere");
+                pp.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
+                pp.getStatusLabel().setForeground(Color.RED);
             } else { //altrimenti salva il messaggio
-                pp.setErrorlabel("");
+                pp.setStatus("");
                 UserInfo destinatario = (UserInfo) pp.getSelectedDestinatario();
                 msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilizzatoreSistema, destinatario);
-                msgMittente.salva();
+                //se msg.salva ritorna false allora errore
+                if(msgMittente.salva()){
+                    pp.setStatus("Messaggio Salvato");
+                    pp.getStatusLabel().setForeground(Color.GREEN);
+                } else {
+                    pp.setStatus("E stato un errore nel salvare il messaggio");
+                    pp.getStatusLabel().setForeground(Color.RED);
+                }
                 System.out.println("Messaggio: " + msgMittente.toString());
             }
         }

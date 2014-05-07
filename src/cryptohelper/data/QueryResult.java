@@ -26,40 +26,42 @@ public class QueryResult {
     public String toString() {
         return "QueryResult{" + "lista=" + lista + "}";
     }
- 
+
     public boolean next() throws Exception {
-        if(iterator == lista.size()){
+        if (iterator == lista.size()) {
+            reset();
             return false;
+        } else {
+            iterator++;
+            return true;
         }
-        if(iterator >= lista.size())
-            throw new Exception("ArrayList out of bound - prova QueryResult (obj).reset().");
-        iterator++;    
-        return true;
     }
-    
-    public void reset(){
+
+    public void reset() {
         iterator = -1;
     }
-    
-    public String getString(String key) throws Exception{
-        if(lista.isEmpty())
+
+    public String getString(String key) throws Exception {
+        if (lista.isEmpty()) {
             throw new Exception("Lista vuota");
+        }
         String result = (String) lista.get(iterator).get(key.toLowerCase());
         return result;
     }
 
-   
-
-    public int getInt(String key) throws Exception{
-        if(lista.isEmpty())
+    public int getInt(String key) throws Exception {
+        if (lista.isEmpty()) {
             throw new Exception("Lista vuota");
+        }
         int result = (int) lista.get(iterator).get(key.toLowerCase());
         return result;
     }
 
     public ArrayList<Map<String, Object>> getLista() {
         return lista;
-    } public int getIterator() {
+    }
+
+    public int getIterator() {
         return iterator;
     }
 

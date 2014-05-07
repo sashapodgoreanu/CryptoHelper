@@ -129,6 +129,10 @@ public class DBController {
                 st.execute("DROP TABLE SDCPartners");
                 System.out.println("Tabella SDCPartners eliminata!");
             }
+            if (isTableExist("MessaggiInviati")) {
+                st.execute("DROP TABLE MessaggiInviati");
+                System.out.println("Tabella MessaggiInviati eliminata!");
+            }
             if (isTableExist("SistemiCifratura")) {
                 st.execute("DROP TABLE SistemiCifratura");
                 System.out.println("Tabella SistemiCifratura eliminata!");

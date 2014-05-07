@@ -37,14 +37,16 @@ public class COMController {
         ArrayList<UserInfo> uInfo = new ArrayList<>();
         try {
             qr = dbc.executeQuery(query);
-            System.out.println(qr.toString());
+            //System.out.println(qr.toString());
             while(qr.next()){
                 UserInfo temp = new UserInfo(qr.getInt("id"),qr.getString("nome"),qr.getString("cognome"));
                 uInfo.add(temp);
             }
         } catch (Exception ex) {
+            System.out.println("test");
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
+        System.out.println("test2");
         return uInfo;
     }
     /*

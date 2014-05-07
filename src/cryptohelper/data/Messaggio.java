@@ -2,7 +2,6 @@
 package cryptohelper.data;
 
 import cryptohelper.service.DBController;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -164,11 +163,12 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         DBController dbc = DBController.getInstance();
         String queryInsert = "INSERT INTO Messaggi(Id_Mittente, Id_Destinatario,Testo,TestoCifrato,Lingua,Titolo,Bozza,Letto)"
                 + "VALUES("
-                       
                 + this.getMittente().getId()
                 + ","
                 + this.getDestinatario().getId()
                 + ",'"
+                + this.getTesto()
+                + "','"
                 + this.getTestoCifrato()
                 + "','"
                 + this.getLingua()
@@ -198,15 +198,20 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                 + "'"
                 + " WHERE ID = " + this.getId();
         try {
+            //un nuovo messaggo
             if (this.id == 0) {
                 int newID = dbc.executeUpdateAndReturnKey(queryInsert);
                 log.info("inserito nel db: "+this.toString());
-                //se non e successo qualche errore allora non aggiornare nulla;
+                //se newID = -1 allora è stato un errore nel inserimento nel db;
                 if (newID != -1){
                     this.id = newID;
                     log.info("Added: "+this.toString());
                     return true;
+                } else {
+                    //errore nel inserimento
+                    return false;
                 }
+                //aggiornamento di un messaggio
             } else {
                 result = dbc.update(querryUpdate);
                 log.info("Aggiornato: "+this.toString());

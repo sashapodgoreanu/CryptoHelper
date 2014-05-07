@@ -71,6 +71,7 @@ public class PanelloPrincipale extends JFrame implements View {
         registerController();
     }
 
+
     //Riorganizza línterfaccia quando viene premuto il button "nuovo messaggio"
     public void initNuovoMessaggio() {
 
@@ -137,15 +138,7 @@ public class PanelloPrincipale extends JFrame implements View {
         gc = GUIController.getInstance();
         gc.addView(this);
     }
-
-    public String getErrorlabel() {
-        return statusLabel.getText();
-    }
-
-    public void setErrorlabel(String errorlabel) {
-        this.statusLabel.setText(errorlabel);
-    }
-
+    
     public JList getDestinatariCC() {
         return destinatariCC;
     }
@@ -217,5 +210,22 @@ public class PanelloPrincipale extends JFrame implements View {
     public void setLogoutBtn(JButton logoutBtn) {
         this.logoutBtn = logoutBtn;
     }
+    
+    public String getStatus() {
+        return statusLabel.getText();
+    }
 
+    public void setStatus(String statusLabel) {
+        this.statusLabel.setText(statusLabel);
+    }
+
+    public JLabel getStatusLabel() {
+        return statusLabel;
+    }
+
+    public void setStatusLabel(JLabel statusLabel) {
+        this.statusLabel = statusLabel;
+    }
+    
+    
 }
