@@ -90,6 +90,8 @@ public class DBController {
                 + "("
                 + "ID INTEGER not null primary key "
                 + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                + "FOREIGN KEY(ID_MITTENTE) REFERENCES STUDENTI(ID),"
+                + "FOREIGN KEY(ID_DESTINATARIO) REFERENCES STUDENTI(ID),"
                 + "Testo VARCHAR(2048),"
                 + "TestoCifrato VARCHAR(2048),"
                 + "Lingua VARCHAR(32),"
@@ -117,24 +119,10 @@ public class DBController {
                 + "FOREIGN KEY(ID_PARTNER) REFERENCES STUDENTI(ID),"
                 + "FOREIGN KEY(ID_SDC) REFERENCES SistemiCifratura(ID)"
                 + ")";
-        String queryMessaggiInviati = "CREATE TABLE MessaggiInviati"
-                + "("
-                + "ID_MITTENTE INTEGER not null,"
-                + "ID_DESTINATARIO INTEGER not null,"
-                + "ID_MESSAGGIO INTEGER not null,"
-                + "PRIMARY KEY(ID_MITTENTE, ID_DESTINATARIO, ID_MESSAGGIO),"
-                + "FOREIGN KEY(ID_MITTENTE) REFERENCES STUDENTI(ID),"
-                + "FOREIGN KEY(ID_DESTINATARIO) REFERENCES STUDENTI(ID),"
-                + "FOREIGN KEY(ID_MESSAGGIO) REFERENCES Messaggi(ID)"
-                + ")";
         connect();
         //Non bisogna piu comentare le tabele per far funzionare il Test
         try {
             //drop di tutte le tabelle esistenti
-            if (isTableExist("MessaggiInviati")) {
-                st.execute("DROP TABLE MessaggiInviati");
-                System.out.println("Tabella MessaggiInviati eliminata!");
-            }
             if (isTableExist("SDCPartners")) {
                 st.execute("DROP TABLE SDCPartners");
                 System.out.println("Tabella SDCPartners eliminata!");
@@ -160,8 +148,6 @@ public class DBController {
             System.out.println("Tabella SistemiCifratura creata!");
             st.executeUpdate(querySDCPartners);
             System.out.println("Tabella SDCPartners creata!");
-            st.executeUpdate(queryMessaggiInviati);
-            System.out.println("Tabella MessaggiInviati creata!");
         } catch (SQLException e) {
             log.fatal(e.getMessage());
         } finally {
@@ -207,22 +193,22 @@ public class DBController {
         }
         return new QueryResult(resultList);
     }
-/*
-    public ResultSet executeQuery1(String querry) throws SQLException {
+    /*
+     public ResultSet executeQuery1(String querry) throws SQLException {
 
-        ResultSet resultSet = null;
-        connect();
-        try {
-            resultSet = st.executeQuery(querry);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            disconnect();
-        }
-        return resultSet;
-    }
-*/
-    
+     ResultSet resultSet = null;
+     connect();
+     try {
+     resultSet = st.executeQuery(querry);
+     } catch (SQLException e) {
+     System.out.println(e.getMessage());
+     } finally {
+     disconnect();
+     }
+     return resultSet;
+     }
+     */
+
     public int executeUpdateAndReturnKey(String querry) throws SQLException {
         connect();
         int result = -1;
@@ -261,26 +247,26 @@ public class DBController {
         disconnect();
         return result;
     }
-/*
-    public ArrayList<UserInfo> getDestinatari() throws SQLException {
-        connect();
+    /*
+     public ArrayList<UserInfo> getDestinatari() throws SQLException {
+     connect();
 
-        ArrayList<UserInfo> ui = new ArrayList<>();
-        String querry = "SELECT * FROM STUDENTI";
-        try {
-            rs = st.executeQuery(querry);
-            while (rs.next()) {
-                UserInfo tempU = new UserInfo(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"));
-                ui.add(tempU);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            disconnect();
-        }
-        System.out.println("Extracted:" + ui.toString());
-        return ui;
-    }*/
+     ArrayList<UserInfo> ui = new ArrayList<>();
+     String querry = "SELECT * FROM STUDENTI";
+     try {
+     rs = st.executeQuery(querry);
+     while (rs.next()) {
+     UserInfo tempU = new UserInfo(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"));
+     ui.add(tempU);
+     }
+     } catch (SQLException e) {
+     System.out.println(e.getMessage());
+     } finally {
+     disconnect();
+     }
+     System.out.println("Extracted:" + ui.toString());
+     return ui;
+     }*/
 
     public UserInfo getUserInfo(int id) throws SQLException {
         connect();

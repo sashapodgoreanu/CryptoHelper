@@ -13,7 +13,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     
     //debug
     private Log log = LogFactory.getLog(Messaggio.class);
-
+            
     private int id;
     private String testo;
     private String testoCifrato;
