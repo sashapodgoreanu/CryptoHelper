@@ -37,6 +37,7 @@ public class COMController {
         ArrayList<UserInfo> uInfo = new ArrayList<>();
         try {
             qr = dbc.executeQuery(query);
+            System.out.println(qr.toString());
             while(qr.next()){
                 UserInfo temp = new UserInfo(qr.getInt("id"),qr.getString("nome"),qr.getString("cognome"));
                 uInfo.add(temp);
@@ -44,9 +45,8 @@ public class COMController {
         } catch (Exception ex) {
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
-        return null;
+        return uInfo;
     }
-    
     /*
     public boolean salvaMessaggioBozza(String titolo, String dest, String corpoMsg){
     UserInfo ui = new UserInfo()
