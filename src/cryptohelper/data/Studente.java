@@ -77,7 +77,7 @@ public class Studente implements Model {
     //Salva i dati di un nuovo utente (studente) sul db
     public boolean salva() {
         DBController dbc = DBController.getInstance();
-        boolean result = false;
+        int result = -1;
         //"ID AUTO_INCREMENT - NON FORNIRE UN VALORE"
         String querry = "INSERT INTO STUDENTI(NOME,COGNOME,PASSWORD,NICKNAME) "
                 + "VALUES('"
@@ -90,11 +90,18 @@ public class Studente implements Model {
                 + this.nickname
                 + "')";
         try {
-            result = dbc.executeUpdate(querry);
+            result = dbc.executeUpdateAndReturnKey(querry);
+            //se result == -1 è stato un errore nel executeUpdateAndReturnKey(querry)
+            if (result != -1) {
+                this.setId(result);
+                System.out.println("INFO:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Aggiunto con successo "+this.toString());
+            } else {
+                return false;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Studente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
+        return (result > -1 ? true : false);
     }
 
     //Controlla le credenziali dell'utente e lo autentica nel sistema

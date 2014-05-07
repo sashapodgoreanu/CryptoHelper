@@ -1,6 +1,5 @@
 package TestDB;
 
-
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.MessaggioMittente;
 import cryptohelper.data.QueryResult;
@@ -24,7 +23,7 @@ public class TestDbController {
 
     public static void main(String args[]) {
 
-        MessaggioMittente m = new Messaggio(21, "testo", "testoCifrato", "lingua", "titolo", true, true);
+        MessaggioMittente m = new Messaggio(0, "testo", "testoCifrato", "lingua", "titolo", true, true);
         Studente st1 = new Studente("Alexandru", "Podgoreanu", "sasha", "1234");
         Studente st2 = new Studente("Giulio", "Pighini", "pgh", "1234");
         Studente st3 = new Studente("Luigi", "Solitro", "pipo", "1234");
@@ -32,45 +31,37 @@ public class TestDbController {
         Studente st5 = new Studente("Ciprian", "Melian", "cm", "1234");
         Studente st6 = new Studente("Vasco", "Rossi", "vR", "1234");
         Studente st7 = new Studente("Mario", "Rossi", "1", "1");
-        UserInfo mittente =  new UserInfo(st1.getId(),st1.getNome(), st1.getCognome());
-        UserInfo destinatario =  new UserInfo(st2.getId(),st2.getNome(), st2.getCognome());
-        
+
         try {
-           
-            
             DBController db = DBController.getInstance();
             db.createTables();
-            //m.salva();
-            //m.elimina();
             st1.salva();
+            System.out.println(st1.toString());
             st2.salva();
+            System.out.println(st2.toString());
             st3.salva();
             st4.salva();
             st5.salva();
             st6.salva();
             st7.salva();
-            
+            UserInfo mittente = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
+            UserInfo destinatario = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
             m.setMittente(mittente);
-            m.setDestinatario(destinatario); 
-            System.out.println("messaggio"+m.toString());
+            m.setDestinatario(destinatario);
+            System.out.println("messaggio" + m.toString());
             m.salva();
-
             
+
             //db.getDestinatari();
-           QueryResult lista = db.executeQuery("SELECT * FROM Studenti");
+            QueryResult lista = db.executeQuery("SELECT * FROM Studenti");
 
             try {
                 System.out.println(lista.toString());
-                while(lista.next()){
-                    System.out.println("idh="+ lista.getInt("id")+" "+lista.getString("nome"));
+                while (lista.next()) {
+                    System.out.println("idh=" + lista.getInt("id") + " " + lista.getString("nome"));
                 }
             } catch (Exception e) {
             }
-     //       System.out.println(lista.toString());
-     //       System.out.println(lista.get(0).get("ID"));
-    //        System.out.println(lista.get(0).get("NOME"));
-    //        System.out.println(lista.get(0).get("COGNOME"));
-
         } catch (SQLException ex) {
             Logger.getLogger(TestDbController.class.getName()).log(Level.SEVERE, null, ex);
         }

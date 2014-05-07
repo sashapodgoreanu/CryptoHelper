@@ -127,34 +127,35 @@ public class DBController {
             //drop di tutte le tabelle esistenti
             if (isTableExist("SDCPartners")) {
                 st.execute("DROP TABLE SDCPartners");
-                System.out.println("Tabella SDCPartners eliminata!");
+                System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella SDCPartners eliminata!");
             }
             if (isTableExist("MessaggiInviati")) {
                 st.execute("DROP TABLE MessaggiInviati");
-                System.out.println("Tabella MessaggiInviati eliminata!");
+                System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella MessaggiInviati eliminata!");
             }
             if (isTableExist("SistemiCifratura")) {
                 st.execute("DROP TABLE SistemiCifratura");
-                System.out.println("Tabella SistemiCifratura eliminata!");
-            }
-            if (isTableExist("Studenti")) {
-                st.execute("DROP TABLE Studenti");
-                System.out.println("Tabella Studenti eliminata!");
+                System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella SistemiCifratura eliminata!");
             }
             if (isTableExist("Messaggi")) {
                 st.execute("DROP TABLE Messaggi");
-                System.out.println("Tabella Messaggi eliminata!");
+                System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella Messaggi eliminata!");
             }
+            if (isTableExist("Studenti")) {
+                st.execute("DROP TABLE Studenti");
+                System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella Studenti eliminata!");
+            }
+            
             
             //creazione tabelle
             st.executeUpdate(queryStudenti);
-            System.out.println("Tabella Studenti creata!");
+            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella Studenti creata!");
             st.executeUpdate(queryMessaggi);
-            System.out.println("Tabella Messaggi creata!");
+            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella Messaggi creata!");
             st.executeUpdate(querySistemiCifratura);
-            System.out.println("Tabella SistemiCifratura creata!");
+            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella SistemiCifratura creata!");
             st.executeUpdate(querySDCPartners);
-            System.out.println("Tabella SDCPartners creata!");
+            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella SDCPartners creata!");
         } catch (SQLException e) {
             log.fatal(e.getMessage());
         } finally {
@@ -166,9 +167,10 @@ public class DBController {
     //Per inserimenti
     public boolean executeUpdate(String query) throws SQLException {
         connect();
+        
         try {
             st.executeUpdate(query);
-            System.out.println("Query eseguita correttamente!");
+            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+"Query eseguita correttamente! "+query);
         } catch (SQLException e) {
             log.fatal(e.getMessage());
         } finally {
@@ -198,31 +200,17 @@ public class DBController {
         } finally {
             disconnect();
         }
+        System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Success");
         return new QueryResult(resultList);
     }
-    /*
-     public ResultSet executeQuery1(String querry) throws SQLException {
-
-     ResultSet resultSet = null;
-     connect();
-     try {
-     resultSet = st.executeQuery(querry);
-     } catch (SQLException e) {
-     System.out.println(e.getMessage());
-     } finally {
-     disconnect();
-     }
-     return resultSet;
-     }
-     */
-
+    
     public int executeUpdateAndReturnKey(String querry) throws SQLException {
         connect();
         int result = -1;
         try {
             st.executeUpdate(querry, Statement.RETURN_GENERATED_KEYS);
             rs = st.getGeneratedKeys();
-            System.out.println("Query: " + querry + " - eseguita correttamente!");
+            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Query: " + querry + " - eseguita correttamente!");
             while (rs.next()) {
                 result = rs.getInt(1);
             }
@@ -233,115 +221,15 @@ public class DBController {
         }
         return result;
     }
-
-    //TO-DO
-    //Preleva il messaggio indicato come parametro dal db
-    public Messaggio getMessaggio(int id) throws SQLException {
-        connect();
-        try {
-            rs = st.executeQuery("SELECT * FROM Messaggi");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        Messaggio result = null;
-        while (rs.next()) {
-            if (Integer.parseInt(rs.getString("ID")) == id) {
-                result = new Messaggio(Integer.parseInt(rs.getString("ID")), rs.getString("Testo"),
-                        rs.getString("TestoCifrato"), rs.getString("Lingua"), rs.getString("Titolo"),
-                        Boolean.parseBoolean(rs.getString("Bozza")), Boolean.parseBoolean(rs.getString("Letto")));
-            }
-        }
-        disconnect();
-        return result;
-    }
-    /*
-     public ArrayList<UserInfo> getDestinatari() throws SQLException {
-     connect();
-
-     ArrayList<UserInfo> ui = new ArrayList<>();
-     String querry = "SELECT * FROM STUDENTI";
-     try {
-     rs = st.executeQuery(querry);
-     while (rs.next()) {
-     UserInfo tempU = new UserInfo(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"));
-     ui.add(tempU);
-     }
-     } catch (SQLException e) {
-     System.out.println(e.getMessage());
-     } finally {
-     disconnect();
-     }
-     System.out.println("Extracted:" + ui.toString());
-     return ui;
-     }*/
-
-    public UserInfo getUserInfo(int id) throws SQLException {
-        connect();
-        UserInfo result = new UserInfo();
-        String querry = "SELECT * FROM STUDENTI";
-        try {
-            rs = st.executeQuery(querry);
-            while (rs.next()) {
-                if (rs.getInt("id") == id) {
-                    result.setNome(rs.getString("Nome"));
-                    result.setCognome(rs.getString("Cognome"));
-                    System.out.println("getUserInfo" + result.toString());
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            disconnect();
-        }
-        return result;
-    }
-
-    public void fillUserInfo(UserInfo ui) throws SQLException {
-        connect();
-        UserInfo result = new UserInfo();
-        String querry = "SELECT * FROM STUDENTI";
-        try {
-            rs = st.executeQuery(querry);
-            while (rs.next()) {
-                if (rs.getInt("id") == ui.getId()) {
-                    ui.setNome(rs.getString("Nome"));
-                    ui.setCognome(rs.getString("Cognome"));
-                    System.out.println("fillUserInfo" + result.toString());
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            disconnect();
-        }
-    }
-
-    public boolean update(String querry) throws SQLException {
-        connect();
-        int edit = 0;
-        try {
-            edit = st.executeUpdate(querry);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            disconnect();
-        }
-        if (edit == 1) {
-            System.out.println("Record edited with success");
-        } else {
-            System.out.println("Record NOT EDITED with success");
-        }
-        return (edit == 1 ? true : false);
-    }
-
+    
     private boolean isTableExist(String sTablename) throws SQLException {
         DatabaseMetaData dbmd = conn.getMetaData();
         ResultSet rs = dbmd.getTables(null, null, sTablename.toUpperCase(), null);
         if (rs.next()) {
-            System.out.println("Table " + rs.getString("TABLE_NAME") + "already exists !!");
+            System.out.println("INFO:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+" Table " + rs.getString("TABLE_NAME") + "already exists !!");
             return true;
         } else {
-            System.out.println("creating table: " + sTablename);
+            System.out.println("INFO:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+" creating table: " + sTablename);
             return false;
         }
     }

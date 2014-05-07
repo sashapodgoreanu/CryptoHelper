@@ -226,6 +226,4 @@ public class PanelloPrincipale extends JFrame implements View {
     public void setStatusLabel(JLabel statusLabel) {
         this.statusLabel = statusLabel;
     }
-    
-    
 }

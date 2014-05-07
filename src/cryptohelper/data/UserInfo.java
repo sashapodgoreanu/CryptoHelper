@@ -11,30 +11,15 @@ public class UserInfo
     private int id;
     private String nome;
     private String cognome;
-
-    public UserInfo(int id) {
-        this.id = id;
-        DBController db = DBController.getInstance();
-        try {
-            db.fillUserInfo(this);
-        } catch (SQLException ex) {
-            Logger.getLogger(UserInfo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+    
     public UserInfo() {
     }
-
     public UserInfo(int id, String nome, String cognome) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
     }
-    
-    
-    
-    
-        
+
     //METODI GETTER
     public int getId() {
         return id;

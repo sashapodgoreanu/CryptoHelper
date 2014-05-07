@@ -200,12 +200,11 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         try {
             //un nuovo messaggo
             if (this.id == 0) {
-                int newID = dbc.executeUpdateAndReturnKey(queryInsert);
-                log.info("inserito nel db: "+this.toString());
+                int newID = dbc.executeUpdateAndReturnKey(queryInsert);          
                 //se newID = -1 allora è stato un errore nel inserimento nel db;
                 if (newID != -1){
                     this.id = newID;
-                    log.info("Added: "+this.toString());
+                    System.out.println("INFO:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Aggiunto con successo "+this.toString());
                     return true;
                 } else {
                     //errore nel inserimento
@@ -213,8 +212,8 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                 }
                 //aggiornamento di un messaggio
             } else {
-                result = dbc.update(querryUpdate);
-                log.info("Aggiornato: "+this.toString());
+                result = dbc.executeUpdate(querryUpdate);
+                System.out.println("INFO:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+"Aggiornato: "+this.toString());
             }
 
         } catch (SQLException ex) {
