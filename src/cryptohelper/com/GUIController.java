@@ -33,7 +33,7 @@ public class GUIController {
     private PanelloPrincipale pp;
     private static GUIController instance;
     private Messaggio msgMittente;
-    private UserInfo utilDelSistema;
+    private UserInfo utilizzatoreSistema;
 
     private GUIController() {
         comC = new COMController();
@@ -60,10 +60,11 @@ public class GUIController {
             //Si crea bottone nella interfaccia con get e set e qui si settano
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
             pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
+            pp.getLogoutBtn().addActionListener(new LogoutListener());
         }
     }
 
-    //Classi che implementano ActionListener
+    //Class che implementano ActionListener
     private class LoginFormListener implements ActionListener {
 
         @Override
@@ -72,7 +73,7 @@ public class GUIController {
             if (valid) {
                 loginForm.dispose();
                 PanelloPrincipale pp = new PanelloPrincipale();
-                utilDelSistema = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
+                utilizzatoreSistema = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
             } else {
                 loginForm.getErorLogin().setText("Error");
             }
@@ -109,10 +110,20 @@ public class GUIController {
             } else {
                 pp.setErrorlabel("");
                 UserInfo destinatario = (UserInfo) pp.getSelectedDestinatario();
-                msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilDelSistema, destinatario);
+                msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilizzatoreSistema, destinatario);
                 msgMittente.salva();
                 System.out.println("Messaggio: " + msgMittente.toString());
             }
+        }
+    }
+    
+     private class LogoutListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            pp.dispose();
+            LoginForm f = new LoginForm();
+            System.out.println("Messaggio: Logout");
         }
     }
 

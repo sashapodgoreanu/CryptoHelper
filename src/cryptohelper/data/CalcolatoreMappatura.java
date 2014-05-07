@@ -12,4 +12,5 @@ package cryptohelper.data;
  */
 public interface CalcolatoreMappatura {
     public Mappatura calcola(Object chiave);
+    public CalcolatoreMappatura create(CalcolatoreMappatura metodo);
 }

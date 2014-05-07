@@ -246,4 +246,13 @@ public class PanelloPrincipale extends JFrame implements View {
         this.destinatari = destinatari;
     }
 
+    public JButton getLogoutBtn() {
+        return logoutBtn;
+    }
+
+    public void setLogoutBtn(JButton logoutBtn) {
+        this.logoutBtn = logoutBtn;
+    }
+    
+
 }

@@ -4,21 +4,13 @@ package cryptohelper.data;
 
 public class Proposta
 {
-    private char[] mappa;
-    private char[] mappaIversa;
+    private SistemaCifratura sdc;
     private UserInfo proponente;
     private UserInfo partner;
     private SistemaCifratura sistemaCifratura;
     
     
     //METODI GETTER
-    public char[] getMappa() {
-        return mappa;
-    }
-
-    public char[] getMappaIversa() {
-        return mappaIversa;
-    }
     
     public UserInfo getProponente() {
         return proponente;
@@ -33,14 +25,6 @@ public class Proposta
     }
 
     //METODI SETTER
-    public void setMappa(char[] mappa) {
-        this.mappa = mappa;
-    }
-
-    public void setMappaIversa(char[] mappaIversa) {
-        this.mappaIversa = mappaIversa;
-    }
-    
     public void setProponente(UserInfo proponente) {
         this.proponente = proponente;
     }

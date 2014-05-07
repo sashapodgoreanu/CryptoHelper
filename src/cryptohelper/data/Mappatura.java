@@ -13,6 +13,7 @@ package cryptohelper.data;
 public class Mappatura {
     private char[] mappa;
     private char[] mappaInversa;
+    private SistemaCifratura sdc;
     
     //TO-DO - implement
     public char[] map(char c){
