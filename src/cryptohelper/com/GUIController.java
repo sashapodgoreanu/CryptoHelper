@@ -60,10 +60,11 @@ public class GUIController {
             //Si crea bottone nella interfaccia con get e set e qui si settano
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
             pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
+            pp.getLogoutBtn().addActionListener(new LogoutListener());
         }
     }
 
-    //Classi che implementano ActionListener
+    //Class che implementano ActionListener
     private class LoginFormListener implements ActionListener {
 
         @Override
@@ -113,6 +114,16 @@ public class GUIController {
                 msgMittente.salva();
                 System.out.println("Messaggio: " + msgMittente.toString());
             }
+        }
+    }
+    
+     private class LogoutListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            pp.dispose();
+            LoginForm f = new LoginForm();
+            System.out.println("Messaggio: Logout");
         }
     }
 
