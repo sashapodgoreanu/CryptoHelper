@@ -48,12 +48,18 @@ public class PanelloPrincipale extends JFrame implements View {
 
     private void init() {
         System.out.println("Init PanelloPrincipale");
+        this.setTitle("CryptoHelper - Menu");    
         this.setPreferredSize(new Dimension(600, 500));
-        this.setTitle("CryptoHelper - Menu");     
+        
+        //CREAZIONE PANNELLI
         toolbarPanel = new JPanel();        //pannello in alto con i button "nuovo messaggio", "inbox", ecc...
-        toolbarPanel.setBackground(Color.blue);
         bodyPanel = new JPanel();           //pannello dei contenuti posto sotto al toolbarPanel
         
+        //PRIOPRIETA' TOOLBAR PANEL
+        toolbarPanel.setBackground(Color.blue);
+        toolbarPanel.add(nuovoMessaggioBtn);
+        toolbarPanel.add(inboxBtn);
+        toolbarPanel.add(apriBozzaBtn);
         
         
         nuovoMessaggioPnl = new JPanel();
@@ -76,9 +82,7 @@ public class PanelloPrincipale extends JFrame implements View {
         toolbarPanel.add(logout);
         
 
-        toolbarPanel.add(nuovoMessaggioBtn);
-        toolbarPanel.add(inboxBtn);
-        toolbarPanel.add(apriBozzaBtn);
+
 
 
         this.add(toolbarPanel, BorderLayout.NORTH);
