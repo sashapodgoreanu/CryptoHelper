@@ -162,10 +162,13 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     public boolean salva() {
         boolean result = false;
         DBController dbc = DBController.getInstance();
-        String queryInsert = "INSERT INTO Messaggi(Testo,TestoCifrato,Lingua,Titolo,Bozza,Letto)"
-                + "VALUES('"
-                + this.getTesto()
-                + "','"
+        String queryInsert = "INSERT INTO Messaggi(Id_Mittente, Id_Destinatario,Testo,TestoCifrato,Lingua,Titolo,Bozza,Letto)"
+                + "VALUES("
+                       
+                + this.getMittente().getId()
+                + ","
+                + this.getDestinatario().getId()
+                + ",'"
                 + this.getTestoCifrato()
                 + "','"
                 + this.getLingua()
@@ -181,6 +184,10 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                 + "',"
                 + " TESTOCIFRATO = '" + this.getTestoCifrato()
                 + "',"
+                + " ID_MITTENTE = " + this.getMittente().getId()
+                + ","
+                + " ID_DESTINATARIO = " + this.getDestinatario().getId()
+                + ","
                 + " LINGUA = '" + this.getLingua()
                 + "',"
                 + " TITOLO = '" + this.getTitolo()
