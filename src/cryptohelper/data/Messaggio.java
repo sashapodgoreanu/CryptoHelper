@@ -246,10 +246,10 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
    
 
     //Preleva l'elenco delle bozze
-    public ArrayList<MessaggioMittente> caricaBozze(/*int idStudente*/){
+    public static ArrayList<MessaggioMittente> caricaBozze(int idStudente){
         String query = "SELECT * FROM Messaggi";
         QueryResult qr = null;
-        ArrayList<MessaggioMittente> bozze = new ArrayList<MessaggioMittente>();
+        ArrayList<MessaggioMittente> bozze = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
             while(qr.next()){

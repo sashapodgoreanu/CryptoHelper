@@ -2,6 +2,8 @@
 package cryptohelper.GUI;
 
 import cryptohelper.com.GUIController;
+import cryptohelper.data.Messaggio;
+import cryptohelper.data.MessaggioMittente;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.util.ArrayList;
@@ -16,21 +18,30 @@ public class PanelloPrincipale extends JFrame implements View {
     JPanel bodyPanel = new JPanel();    //pannello contenitore dell'area di lavoro
     JPanel topPanel = new JPanel();     //pannello in alto all'interno del bodyPanel;
     JPanel leftPanel = new JPanel();    //pannello a sinistra all'interno del bodyPanel;
-    JPanel rightPanel = new JPanel();   //pannello a destra con elenco destinatari
+    JPanel rightPanel = new JPanel();   //pannello a destra con elenco destinatariArrLst
     JPanel bottomPanel = new JPanel();  //pannello in basso con i pulsanti all'interno del bosy panel
     JLabel statusLabel;
     JButton nuovoMessaggioBtn;
-    JButton gestisciBozzeBtn;
     JButton inboxBtn;
+    JButton gestisciBozzeBtn;
+    JButton messaggiInviatiBtn;
+    JButton SDCBtn;
+    JButton proponiSDCBtn;
+    JButton creaSDCBtn;
+    JButton inboxProposteSDCBtn;
+    JButton proposteAccetateBtn;
+
     JButton logoutBtn;
+
     JButton saveBozzaBtn = new JButton("Salva bozza");
     JButton deleteBozzaBtn = new JButton("Elimina bozza");
     JButton sendMessageBtn = new JButton("Invia messaggio");
     JTextField titoloMessaggioField;    //Input per Messaggio
-    JList elencoDestinatari;            //visualizza la lista dei destinatari
+    JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
     JList elencoBozze;                  //visualizza lalista delle bozze
     JTextArea corpoMessaggio;
-    ArrayList<UserInfo> destinatari;
+    ArrayList<UserInfo> destinatariArrLst;
+    ArrayList<MessaggioMittente> bozzeArrLst;
 
     Studente studente;
     GUIController gc = GUIController.getInstance();
@@ -46,11 +57,15 @@ public class PanelloPrincipale extends JFrame implements View {
         nuovoMessaggioBtn = new JButton("Nuovo Messaggio");
         inboxBtn = new JButton("Inbox");
         gestisciBozzeBtn = new JButton("Gestisci bozze");
+        messaggiInviatiBtn = new JButton("Messaggi inviati");
+        SDCBtn = new JButton("Sistema di Cifratura");
         logoutBtn = new JButton("Logout");
         toolbarPanel.setBackground(Color.LIGHT_GRAY);
         toolbarPanel.add(nuovoMessaggioBtn);
         toolbarPanel.add(inboxBtn);
         toolbarPanel.add(gestisciBozzeBtn);
+        toolbarPanel.add(messaggiInviatiBtn);
+        toolbarPanel.add(SDCBtn);
         toolbarPanel.add(logoutBtn);
 
         //CONFIG DI BODY PANEL
@@ -105,14 +120,17 @@ public class PanelloPrincipale extends JFrame implements View {
         titoloMessaggioField = new JTextField(21);
         topPanel.add(msgTitlelLabel);
         topPanel.add(titoloMessaggioField);
+        
         JLabel targetListLabel = new JLabel("Destinatari disponibili:");
-        elencoDestinatari = new JList(new Vector<UserInfo>(destinatari));
+        
+        elencoDestinatari = new JList(new Vector<UserInfo>(destinatariArrLst));
         elencoDestinatari.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof UserInfo) {
                     UserInfo temp = (UserInfo) value;
+                    System.out.println("renderer " + temp.toString());
                     ((JLabel) renderer).setText(temp.getNome() + " " + temp.getCognome());
                 }
                 return renderer;
@@ -156,10 +174,38 @@ public class PanelloPrincipale extends JFrame implements View {
         JLabel bozzeListLabel = new JLabel("Bozze disponibili:");
         JScrollPane scrollPane = new JScrollPane();
         //   scrollPane.setViewportView(elencoBozze);
-        elencoBozze = new JList(new Vector<UserInfo>(destinatari));
+        System.out.println("bozze panelo princ: "+ bozzeArrLst.toString());
+        
+        elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
+        elencoBozze.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (renderer instanceof JLabel && value instanceof MessaggioMittente) {
+                    MessaggioMittente temp = (Messaggio) value;
+                    System.out.println("renderer " + temp.toString());
+                    ((JLabel) renderer).setText(temp.getTitolo());
+                }
+                return renderer;
+            }
+        });
+        
+        elencoBozze.setSelectedIndex(0);
+        JScrollPane scrollPane2 = new JScrollPane();
+        scrollPane2.setViewportView(elencoBozze);
+        
         rightPanel.add(bozzeListLabel, BorderLayout.NORTH);
-        rightPanel.add(scrollPane, BorderLayout.CENTER);
+        rightPanel.add(scrollPane2, BorderLayout.CENTER);
         bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
+
+    }
+
+    public void initSDC() {
+        this.resetPanels();
+        proponiSDCBtn = new JButton("Proponi\n Sistema Di Cifratura");
+        inboxProposteSDCBtn = new JButton("Inbox");
+        proposteAccetateBtn = new JButton("Proposte accettate");
+        creaSDCBtn = new JButton("Crea\n Sisteme di Cifratura");
 
     }
 
@@ -219,7 +265,7 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     public ArrayList<UserInfo> getDestinatari() {
-        return destinatari;
+        return destinatariArrLst;
     }
 
     //METODI SETTER
@@ -228,7 +274,7 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     public void setDestinatari(ArrayList<UserInfo> destinatari) {
-        this.destinatari = destinatari;
+        this.destinatariArrLst = destinatari;
     }
 
     public void setLogoutBtn(JButton logoutBtn) {
@@ -257,6 +303,18 @@ public class PanelloPrincipale extends JFrame implements View {
 
     public void setDestinatariCC(JList destinatariCC) {
         this.elencoDestinatari = destinatariCC;
+    }
+
+    public JButton getSDCBtn() {
+        return SDCBtn;
+    }
+
+    public ArrayList<MessaggioMittente> getBozzeArayLst() {
+        return bozzeArrLst;
+    }
+
+    public void setBozzeArayLst(ArrayList<MessaggioMittente> bozzeArayLst) {
+        this.bozzeArrLst = bozzeArayLst;
     }
 
 }

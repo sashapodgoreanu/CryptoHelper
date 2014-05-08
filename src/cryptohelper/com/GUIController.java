@@ -9,10 +9,11 @@ import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.View;
 import cryptohelper.data.Messaggio;
+import cryptohelper.data.MessaggioMittente;
 import cryptohelper.data.UserInfo;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 
 /**
@@ -126,6 +127,9 @@ public class GUIController {
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
+            ArrayList<MessaggioMittente> temp = Messaggio.caricaBozze(utilizzatoreSistema.getId());
+            System.out.println("sssss" +temp.toString());
+            pp.setBozzeArayLst(temp);
             pp.initGestioneBozze();
         }
     }
