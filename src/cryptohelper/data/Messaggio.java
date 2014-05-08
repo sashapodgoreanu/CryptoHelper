@@ -253,7 +253,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         try {
             qr = DBController.getInstance().executeQuery(query);
             while(qr.next()){
-                MessaggioMittente temp = new MessaggioMittente(qr.getInt("ID"),qr.getString("Testo"),qr.getString("TestoCifrato"),
+                MessaggioMittente temp = new Messaggio(qr.getInt("ID"),qr.getString("Testo"),qr.getString("TestoCifrato"),
                         qr.getString("Lingua"),qr.getString("Titolo"),Boolean.parseBoolean(qr.getString("Bozza")),Boolean.parseBoolean(qr.getString("Letto")));
                 bozze.add(temp);
             }       
