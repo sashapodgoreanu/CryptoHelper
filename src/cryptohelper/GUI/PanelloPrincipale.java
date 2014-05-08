@@ -7,9 +7,8 @@ import cryptohelper.data.UserInfo;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
-import javax.swing.border.EmptyBorder;
-
 
 public class PanelloPrincipale extends JFrame implements View {
 
@@ -54,7 +53,8 @@ public class PanelloPrincipale extends JFrame implements View {
 
         //PROPRIETA' BODY PANEL
         bodyPanel.setLayout(new BorderLayout());
-        bodyPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        bodyPanel.setBorder(new EmptyBorder(10, 10, 10, 10));   //padding per separare i controlli dal bordo della finestra
+
         //STATUS LABEL AL FONDO
         statusLabel = new JLabel("ERRORE - da eliminare la scrita al inizio- prova test");
         statusLabel.setOpaque(true);
@@ -75,10 +75,8 @@ public class PanelloPrincipale extends JFrame implements View {
         registerController();
     }
 
-
-    //Riorganizza línterfaccia quando viene premuto il button "nuovo messaggio"
+    //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
     public void initNuovoMessaggio() {
-
         cleanBodyPanel();   //pulisce tutti i panel
         this.setTitle("CryptoHelper - Nuovo Messaggio"); //cambia titolo al form      
         JLabel msgTitlelLabel = new JLabel("Titolo del messaggio:");
@@ -130,6 +128,11 @@ public class PanelloPrincipale extends JFrame implements View {
         System.out.println("initNuovoMessaggio");
     }
 
+    //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"  
+    public void initBozze() {
+
+    }
+
     private void cleanBodyPanel() {
         bodyPanel.removeAll();
         SwingUtilities.updateComponentTreeUI(this);
@@ -144,7 +147,7 @@ public class PanelloPrincipale extends JFrame implements View {
         gc = GUIController.getInstance();
         gc.addView(this);
     }
-    
+
     public JList getDestinatariCC() {
         return destinatariCC;
     }
@@ -216,7 +219,7 @@ public class PanelloPrincipale extends JFrame implements View {
     public void setLogoutBtn(JButton logoutBtn) {
         this.logoutBtn = logoutBtn;
     }
-    
+
     public String getStatus() {
         return statusLabel.getText();
     }
