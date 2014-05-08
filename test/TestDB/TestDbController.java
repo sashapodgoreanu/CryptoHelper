@@ -43,7 +43,7 @@ public class TestDbController {
             st4.salva();
             st5.salva();
             st6.salva();
-            for (int i = 0; i < 2000000; i++) {
+            for (int i = 0; i < 20; i++) {
                 MessaggioMittente m = new Messaggio(0, "testo", "testoCifrato", "lingua", "titolo", true, true);
                st7.salva();
                st3.salva();
