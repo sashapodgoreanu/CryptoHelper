@@ -77,7 +77,7 @@ public class PanelloPrincipale extends JFrame implements View {
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
     public void initNuovoMessaggio() {
-        cleanBodyPanel();                                   //pulisce il pannello body che contiene tutti i controlli
+        bodyPanel.removeAll();       //pulisce il pannello body che contiene tutti i controlli
         this.setTitle("CryptoHelper - Nuovo Messaggio");    //cambia titolo al form      
         JLabel msgTitlelLabel = new JLabel("Titolo del messaggio:");
         titoloMessaggioField = new JTextField(10);
@@ -123,21 +123,19 @@ public class PanelloPrincipale extends JFrame implements View {
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         leftPanel.add(msgOptions, BorderLayout.SOUTH);
         bodyPanel.add(leftPanel, BorderLayout.WEST);
-
         SwingUtilities.updateComponentTreeUI(this);
         System.out.println("initNuovoMessaggio");
+        bodyPanel.revalidate();  //completa l'inizializzazione dell'interfaccia
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"  
     public void initGestioneBozze() {
-        cleanBodyPanel();           //pulisce il pannello body che contiene tutti i controlli
-        this.setTitle("CryptoHelper - Gestisci Bozze"); //cambia titolo al form 
+        bodyPanel.removeAll();       //pulisce il pannello body che contiene tutti i controlli
+        this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form 
+        bodyPanel.add(new JLabel("Testing label"));
+        bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
     }
 
-    private void cleanBodyPanel() {
-        bodyPanel.removeAll();
-        bodyPanel.revalidate();
-    }
 
     public void eliminaListaDestinatariESetDestinatario() {
 
