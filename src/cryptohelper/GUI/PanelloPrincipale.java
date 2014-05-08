@@ -16,7 +16,7 @@ public class PanelloPrincipale extends JFrame implements View {
     JPanel bodyPanel;
     JLabel statusLabel;
     JButton nuovoMessaggioBtn;
-    JButton bozzeBtn;
+    JButton gestisciBozzeBtn;
     JButton inboxBtn;
     JButton logoutBtn;
     JButton saveBozzaBtn = new JButton("Salva bozza");
@@ -43,12 +43,12 @@ public class PanelloPrincipale extends JFrame implements View {
         //PROPRIETA' TOOLBAR PANEL
         nuovoMessaggioBtn = new JButton("Nuovo Messaggio");
         inboxBtn = new JButton("Inbox");
-        bozzeBtn = new JButton("Bozze");
+        gestisciBozzeBtn = new JButton("Gestisci bozze");
         logoutBtn = new JButton("Logout");
         toolbarPanel.setBackground(Color.LIGHT_GRAY);
         toolbarPanel.add(nuovoMessaggioBtn);
         toolbarPanel.add(inboxBtn);
-        toolbarPanel.add(bozzeBtn);
+        toolbarPanel.add(gestisciBozzeBtn);
         toolbarPanel.add(logoutBtn);
 
         //PROPRIETA' BODY PANEL
@@ -77,8 +77,8 @@ public class PanelloPrincipale extends JFrame implements View {
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
     public void initNuovoMessaggio() {
-        cleanBodyPanel();   //pulisce tutti i panel
-        this.setTitle("CryptoHelper - Nuovo Messaggio"); //cambia titolo al form      
+        cleanBodyPanel();                                   //pulisce il pannello body che contiene tutti i controlli
+        this.setTitle("CryptoHelper - Nuovo Messaggio");    //cambia titolo al form      
         JLabel msgTitlelLabel = new JLabel("Titolo del messaggio:");
         titoloMessaggioField = new JTextField(10);
         JPanel titlePanel = new JPanel();
@@ -129,13 +129,14 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"  
-    public void initBozze() {
-
+    public void initGestioneBozze() {
+        cleanBodyPanel();           //pulisce il pannello body che contiene tutti i controlli
+        this.setTitle("CryptoHelper - Gestisci Bozze"); //cambia titolo al form 
     }
 
     private void cleanBodyPanel() {
         bodyPanel.removeAll();
-        SwingUtilities.updateComponentTreeUI(this);
+        bodyPanel.revalidate();
     }
 
     public void eliminaListaDestinatariESetDestinatario() {
@@ -148,12 +149,9 @@ public class PanelloPrincipale extends JFrame implements View {
         gc.addView(this);
     }
 
+    //METODI GETTER
     public JList getDestinatariCC() {
         return destinatariCC;
-    }
-
-    public void setDestinatariCC(JList destinatariCC) {
-        this.destinatariCC = destinatariCC;
     }
 
     public Object getSelectedDestinatario() {
@@ -168,71 +166,73 @@ public class PanelloPrincipale extends JFrame implements View {
         return saveBozzaBtn;
     }
 
-    public void setNuovoMessaggioBtn(JButton nuovoMessaggioBtn) {
-        this.nuovoMessaggioBtn = nuovoMessaggioBtn;
-    }
-
     public JButton getInboxBtn() {
         return inboxBtn;
-    }
-
-    public void setInboxBtn(JButton inboxBtn) {
-        this.inboxBtn = inboxBtn;
     }
 
     public String getTittoloMessaggioField() {
         return titoloMessaggioField.getText();
     }
 
-    public void setTittoloMessaggioField(String titolo) {
-        this.titoloMessaggioField.setText(titolo);
-    }
-
-    /*
-     public String getDestinatarioMessaggioField() {
-     return destinatariCC.getText();
-     }
-
-     public void setDestinatarioMessaggioField(String dest) {
-     this.destinatariCC.setText(dest);
-     }*/
-    public String getCorpoMessaggio() {
-        return corpoMessaggio.getText();
-    }
-
-    public void setCorpoMessaggio(String msg) {
-        this.corpoMessaggio.setText(msg);
-    }
-
-    public ArrayList<UserInfo> getDestinatari() {
-        return destinatari;
-    }
-
-    public void setDestinatari(ArrayList<UserInfo> destinatari) {
-        this.destinatari = destinatari;
-    }
-
-    public JButton getLogoutBtn() {
-        return logoutBtn;
-    }
-
-    public void setLogoutBtn(JButton logoutBtn) {
-        this.logoutBtn = logoutBtn;
+    public JButton getGestisciBozzeBtn() {
+        return gestisciBozzeBtn;
     }
 
     public String getStatus() {
         return statusLabel.getText();
     }
 
-    public void setStatus(String statusLabel) {
-        this.statusLabel.setText(statusLabel);
-    }
-
     public JLabel getStatusLabel() {
         return statusLabel;
+    }
+
+    public JButton getLogoutBtn() {
+        return logoutBtn;
+    }
+
+    public String getCorpoMessaggio() {
+        return corpoMessaggio.getText();
+    }
+
+    public ArrayList<UserInfo> getDestinatari() {
+        return destinatari;
+    }
+
+    //METODI SETTER
+    public void setCorpoMessaggio(String msg) {
+        this.corpoMessaggio.setText(msg);
+    }
+
+    public void setDestinatari(ArrayList<UserInfo> destinatari) {
+        this.destinatari = destinatari;
+    }
+
+    public void setLogoutBtn(JButton logoutBtn) {
+        this.logoutBtn = logoutBtn;
+    }
+
+    public void setStatus(String statusLabel) {
+        this.statusLabel.setText(statusLabel);
     }
 
     public void setStatusLabel(JLabel statusLabel) {
         this.statusLabel = statusLabel;
     }
+
+    public void setTittoloMessaggioField(String titolo) {
+        this.titoloMessaggioField.setText(titolo);
+    }
+
+    public void setInboxBtn(JButton inboxBtn) {
+        this.inboxBtn = inboxBtn;
+    }
+
+    public void setNuovoMessaggioBtn(JButton nuovoMessaggioBtn) {
+        this.nuovoMessaggioBtn = nuovoMessaggioBtn;
+    }
+
+    public void setDestinatariCC(JList destinatariCC) {
+        this.destinatariCC = destinatariCC;
+    }
+
 }
