@@ -16,11 +16,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
- *
- * @author Sasha Alexandru Podgoreanu
- */
-/**
- * Il controllore Deve conoscere: i modelli e le viste - JFrame 's
+ * Il controllore Deve conoscere: i modelli e le viste - JFrame's
  *
  * La vista Deve conoscere: i controllori e qualche modello
  *
@@ -58,16 +54,16 @@ public class GUIController {
         } else if (v instanceof PanelloPrincipale) {
             pp = (PanelloPrincipale) v;
             //listenere dei bottoni delle interface
-            //Si crea bottone nella interfaccia con get e set e qui si settano
+            //Si crea il button nell'interfaccia. Con get e set qui si settano
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
             pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
             pp.getLogoutBtn().addActionListener(new LogoutListener());
+            pp.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
         }
     }
 
-    //Class che implementano ActionListener
+    //classe listener per il login
     private class LoginFormListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             boolean valid = comC.authenticate(loginForm.getUsername(), loginForm.getPassword());
@@ -81,14 +77,14 @@ public class GUIController {
         }
     }
 
+    //classe listener per il button "nuovo messaggio" della finestra principale
     private class NuovoMessaggioListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass()+ " Clicked " + ev.getText());
             //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
-            
+
             pp.setDestinatari(comC.getDestinatari());
             System.out.println(comC.getDestinatari().toString());
             pp.initNuovoMessaggio();
@@ -97,8 +93,8 @@ public class GUIController {
         }
     }
 
+    //classe listener per il button "salva messaggio" della finestra principale
     private class SalvaMessaggioListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             //un messaggio senza titolo non si puo salvare
@@ -107,27 +103,35 @@ public class GUIController {
             System.out.println(this.getClass()+ " Selected " + pp.getSelectedDestinatario().toString());
             System.out.println(pp.getTittoloMessaggioField()+" - Tittolo del messaggio");
             //se il tittolo del messaggio e vuouto mostra il messaggio
-            String temp = pp.getTittoloMessaggioField().replaceAll("\\s+","");
+            String temp = pp.getTittoloMessaggioField().replaceAll("\\s+", "");
             if (temp.equals("")) {
                 pp.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
-                pp.getStatusLabel().setForeground(Color.RED);
             } else { //altrimenti salva il messaggio
                 pp.setStatus("");
                 UserInfo destinatario = (UserInfo) pp.getSelectedDestinatario();
                 msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilizzatoreSistema, destinatario);
                 //se msg.salva ritorna false allora errore
-                if(msgMittente.salva()){
-                    pp.setStatus("Messaggio Salvato");
-                    pp.getStatusLabel().setForeground(Color.GREEN);
+                if (msgMittente.salva()) {
+                    pp.setStatus("Messaggio Salvato!");
                 } else {
-                    pp.setStatus("E stato un errore nel salvare il messaggio");
-                    pp.getStatusLabel().setForeground(Color.RED);
+                    pp.setStatus("Si è verificato un durante il salvataggio del messaggio!");
                 }
             }
+        } 
+    }
+
+    //classe listener per il button "bozze" della finestra principale 
+    private class GestisciBozzeListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            pp.initGestioneBozze();
         }
     }
-     private class LogoutListener implements ActionListener {
-
+ 
+    //classe listener per il button "salva messaggio" della finestra principale
+    private class LogoutListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             pp.dispose();
