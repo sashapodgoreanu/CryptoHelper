@@ -243,8 +243,29 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         }
         return result;
     }
+   
 
-  
+    //Preleva l'elenco delle bozze
+    public ArrayList<MessaggioMittente> caricaBozze(/*int idStudente*/){
+        String query = "SELECT * FROM Messaggi";
+        QueryResult qr = null;
+        ArrayList<MessaggioMittente> bozze = new ArrayList<MessaggioMittente>();
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while(qr.next()){
+                MessaggioMittente temp = new MessaggioMittente(qr.getInt("ID"),qr.getString("Testo"),qr.getString("TestoCifrato"),
+                        qr.getString("Lingua"),qr.getString("Titolo"),Boolean.parseBoolean(qr.getString("Bozza")),Boolean.parseBoolean(qr.getString("Letto")));
+                bozze.add(temp);
+            }       
+        } catch (Exception ex) {
+            System.out.println("test");
+            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        System.out.println("test2");
+        return bozze;
+    }
+    
+    
     @Override
     public void cifra() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
