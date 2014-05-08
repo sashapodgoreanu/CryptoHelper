@@ -23,7 +23,6 @@ public class TestDbController {
 
     public static void main(String args[]) {
 
-        
         Studente st1 = new Studente("Alexandru", "Podgoreanu", "sasha", "1234");
         Studente st2 = new Studente("Giulio", "Pighini", "pgh", "1234");
         Studente st3 = new Studente("Luigi", "Solitro", "pipo", "1234");
@@ -45,26 +44,25 @@ public class TestDbController {
             st6.salva();
             for (int i = 0; i < 20; i++) {
                 MessaggioMittente m = new Messaggio(0, "testo", "testoCifrato", "lingua", "titolo", true, true);
-               st7.salva();
-               st3.salva();
-            st4.salva();
-            st5.salva();
-            st6.salva();
-               UserInfo mittente = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
-            UserInfo destinatario = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
-            m.setMittente(mittente);
-            m.setDestinatario(destinatario);
-            System.out.println("messaggio" + m.toString());
-            m.salva();
+                st7.salva();
+                st3.salva();
+                st4.salva();
+                st5.salva();
+                st6.salva();
+                UserInfo mittente = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
+                UserInfo destinatario = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
+                m.setMittente(mittente);
+                m.setDestinatario(destinatario);
+                System.out.println("messaggio" + m.toString());
+                m.salva();
             }
             /*
-            UserInfo mittente = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
-            UserInfo destinatario = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
-            m.setMittente(mittente);
-            m.setDestinatario(destinatario);
-            System.out.println("messaggio" + m.toString());
-            m.salva();*/
-            
+             UserInfo mittente = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
+             UserInfo destinatario = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
+             m.setMittente(mittente);
+             m.setDestinatario(destinatario);
+             System.out.println("messaggio" + m.toString());
+             m.salva();*/
 
             //db.getDestinatari();
             QueryResult lista = db.executeQuery("SELECT * FROM Studenti");
