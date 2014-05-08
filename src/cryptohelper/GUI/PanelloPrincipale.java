@@ -24,6 +24,7 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton inboxBtn;
     JButton logoutBtn;
     JButton saveBozzaBtn = new JButton("Salva bozza");
+    JButton deleteBozzaBtn = new JButton("Elimina bozza");
     JButton sendMessageBtn = new JButton("Invia messaggio");
     JTextField titoloMessaggioField;    //Input per Messaggio
     JList destinatariCC;
@@ -54,6 +55,17 @@ public class PanelloPrincipale extends JFrame implements View {
         //CONFIG DI BODY PANEL
         bodyPanel.setLayout(new BorderLayout());
         bodyPanel.setBorder(new EmptyBorder(10, 10, 10, 10));   //padding per separare i controlli dal bordo della finestra
+        bodyPanel.add(topPanel, BorderLayout.NORTH);
+        bodyPanel.add(rightPanel, BorderLayout.EAST);
+        bodyPanel.add(leftPanel, BorderLayout.WEST);
+        bodyPanel.add(bottomPanel, BorderLayout.SOUTH);
+              
+                
+        //CONFIG DEI PANNELLI INTERNI AL BODY PANEL
+        topPanel.setLayout(new FlowLayout());
+        leftPanel.setLayout(new BorderLayout());
+        rightPanel.setLayout(new BorderLayout());
+        bottomPanel.setLayout(new FlowLayout());
 
         //CONFIG DI STATUS LABEL
         statusLabel = new JLabel("ERRORE - da eliminare la scrita al inizio- prova test");
@@ -75,16 +87,23 @@ public class PanelloPrincipale extends JFrame implements View {
         registerController();
     }
 
+    //pulisce i panelli dell'area di lavoro
+    private void resetPanels()
+    {
+        topPanel.removeAll();
+        leftPanel.removeAll();
+        rightPanel.removeAll();
+        bottomPanel.removeAll();
+    }
+    
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
     public void initNuovoMessaggio() {
-        bodyPanel.removeAll();       //pulisce il pannello body che contiene tutti i controlli
+        resetPanels();
         this.setTitle("CryptoHelper - Nuovo Messaggio");    //cambia titolo al form      
         JLabel msgTitlelLabel = new JLabel("Titolo del messaggio:");
         titoloMessaggioField = new JTextField(10);
-        topPanel.setLayout(new FlowLayout());
         topPanel.add(msgTitlelLabel);
         topPanel.add(titoloMessaggioField);
-        bodyPanel.add(topPanel, BorderLayout.NORTH);
         JLabel targetMessageLabel = new JLabel("Destinatari disponibili:");
         destinatariCC = new JList(new Vector<UserInfo>(destinatari));
         destinatariCC.setVisibleRowCount(30);
@@ -102,11 +121,8 @@ public class PanelloPrincipale extends JFrame implements View {
         destinatariCC.setSelectedIndex(0);
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(destinatariCC);
-        rightPanel.setLayout(new BorderLayout());
         rightPanel.add(targetMessageLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
-        bodyPanel.add(rightPanel, BorderLayout.EAST);
-        leftPanel.setLayout(new BorderLayout());
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setSize(new Dimension(580, 250));
         corpoMessaggio.setLineWrap(true);
@@ -116,8 +132,6 @@ public class PanelloPrincipale extends JFrame implements View {
         bottomPanel.add(sendMessageBtn);
         leftPanel.add(messaggioLabel, BorderLayout.NORTH);
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
-        leftPanel.add(bottomPanel, BorderLayout.SOUTH);
-        bodyPanel.add(leftPanel, BorderLayout.WEST);
         SwingUtilities.updateComponentTreeUI(this);
         System.out.println("initNuovoMessaggio");
         bodyPanel.revalidate();  //completa l'inizializzazione dell'interfaccia
@@ -125,14 +139,11 @@ public class PanelloPrincipale extends JFrame implements View {
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"  
     public void initGestioneBozze() {
-        bodyPanel.removeAll();       //pulisce il pannello body che contiene tutti i controlli
+        resetPanels();
         this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form 
-        bodyPanel.add(new JLabel("Testing label"));
         bottomPanel.add(saveBozzaBtn);
-        bottomPanel.add(sendMessageBtn);
-
+        bottomPanel.add(deleteBozzaBtn);
         bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
-
     }
 
     public void eliminaListaDestinatariESetDestinatario() {
