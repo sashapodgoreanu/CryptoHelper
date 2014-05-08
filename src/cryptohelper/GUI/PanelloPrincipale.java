@@ -60,8 +60,7 @@ public class PanelloPrincipale extends JFrame implements View {
         bodyPanel.add(rightPanel, BorderLayout.EAST);
         bodyPanel.add(leftPanel, BorderLayout.WEST);
         bodyPanel.add(bottomPanel, BorderLayout.SOUTH);
-              
-                
+
         //CONFIG DEI PANNELLI INTERNI AL BODY PANEL
         topPanel.setLayout(new FlowLayout());
         leftPanel.setLayout(new BorderLayout());
@@ -90,21 +89,20 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     //pulisce i panelli dell'area di lavoro
-    private void resetPanels()
-    {
+    private void resetPanels() {
         topPanel.removeAll();
         leftPanel.removeAll();
         rightPanel.removeAll();
         bottomPanel.removeAll();
         statusLabel.setText(" ");
     }
-    
+
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
     public void initNuovoMessaggio() {
         resetPanels();
         this.setTitle("CryptoHelper - Nuovo Messaggio");    //cambia titolo al form      
         JLabel msgTitlelLabel = new JLabel("Titolo del messaggio:");
-        titoloMessaggioField = new JTextField(10);
+        titoloMessaggioField = new JTextField(21);
         topPanel.add(msgTitlelLabel);
         topPanel.add(titoloMessaggioField);
         JLabel targetListLabel = new JLabel("Destinatari disponibili:");
@@ -126,7 +124,7 @@ public class PanelloPrincipale extends JFrame implements View {
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
         corpoMessaggio = new JTextArea();
-        corpoMessaggio.setSize(new Dimension(560, 250));
+        corpoMessaggio.setSize(new Dimension(540, 250));
         corpoMessaggio.setLineWrap(true);
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         JLabel messaggioLabel = new JLabel("Testo del messaggio:");
@@ -142,15 +140,25 @@ public class PanelloPrincipale extends JFrame implements View {
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"  
     public void initGestioneBozze() {
         resetPanels();
-        this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form 
+        this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form
+        JLabel msgTitlelLabel = new JLabel("Titolo della bozza:");
+        titoloMessaggioField = new JTextField(21);
+        topPanel.add(msgTitlelLabel);
+        topPanel.add(titoloMessaggioField);
         bottomPanel.add(saveBozzaBtn);
         bottomPanel.add(deleteBozzaBtn);
+        corpoMessaggio = new JTextArea();
+        corpoMessaggio.setSize(new Dimension(540, 250));
+        corpoMessaggio.setLineWrap(true);
+        corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+        leftPanel.add(corpoMessaggio);
+
         JLabel bozzeListLabel = new JLabel("Bozze disponibili:");
         JScrollPane scrollPane = new JScrollPane();
-     //   scrollPane.setViewportView(elencoBozze);
+        //   scrollPane.setViewportView(elencoBozze);
         elencoBozze = new JList(new Vector<UserInfo>(destinatari));
-        rightPanel.add(bozzeListLabel,BorderLayout.NORTH);
-        rightPanel.add(scrollPane,BorderLayout.CENTER);
+        rightPanel.add(bozzeListLabel, BorderLayout.NORTH);
+        rightPanel.add(scrollPane, BorderLayout.CENTER);
         bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
 
     }
