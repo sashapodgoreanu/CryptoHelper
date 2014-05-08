@@ -27,8 +27,8 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton deleteBozzaBtn = new JButton("Elimina bozza");
     JButton sendMessageBtn = new JButton("Invia messaggio");
     JTextField titoloMessaggioField;    //Input per Messaggio
-    JList elencoDestinatari;   //visualizza la lista dei destinatari
-    JList elencoBozze;      //visualizza lalista delle bozze
+    JList elencoDestinatari;    //visualizza la lista dei destinatari
+    JList elencoBozze;          //visualizza lalista delle bozze
     JTextArea corpoMessaggio;
     ArrayList<UserInfo> destinatari;
 
@@ -107,7 +107,6 @@ public class PanelloPrincipale extends JFrame implements View {
         topPanel.add(titoloMessaggioField);
         JLabel targetListLabel = new JLabel("Destinatari disponibili:");
         elencoDestinatari = new JList(new Vector<UserInfo>(destinatari));
-        elencoDestinatari.setVisibleRowCount(30);
         elencoDestinatari.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -125,7 +124,7 @@ public class PanelloPrincipale extends JFrame implements View {
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
         corpoMessaggio = new JTextArea();
-        corpoMessaggio.setSize(new Dimension(580, 250));
+        corpoMessaggio.setSize(new Dimension(560, 250));
         corpoMessaggio.setLineWrap(true);
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         JLabel messaggioLabel = new JLabel("Testo del messaggio:");
@@ -145,8 +144,11 @@ public class PanelloPrincipale extends JFrame implements View {
         bottomPanel.add(saveBozzaBtn);
         bottomPanel.add(deleteBozzaBtn);
         JLabel bozzeListLabel = new JLabel("Bozze disponibili:");
+        JScrollPane scrollPane = new JScrollPane();
+     //   scrollPane.setViewportView(elencoBozze);
         elencoBozze = new JList(new Vector<UserInfo>(destinatari));
-        elencoBozze.setVisibleRowCount(30);
+        rightPanel.add(bozzeListLabel,BorderLayout.NORTH);
+        rightPanel.add(scrollPane,BorderLayout.CENTER);
         bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
 
     }
