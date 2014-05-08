@@ -3,19 +3,9 @@
 package cryptohelper.GUI;
 
 import cryptohelper.com.GUIController;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.*;
+import javax.swing.*;
 
-
-/**
- *
- * @author Sasha Alexandru Podgoreanu
- */
 public class LoginForm extends JFrame implements View {
     
     JPanel panel;
@@ -23,7 +13,7 @@ public class LoginForm extends JFrame implements View {
     GUIController gc;
     JLabel username;
     JLabel password;
-    JLabel erorLogin;
+    JLabel errorLoginLabel;
     JTextField passwordField;
     JTextField usernameField;
     
@@ -38,14 +28,15 @@ public class LoginForm extends JFrame implements View {
         usernameField.setPreferredSize(new Dimension(200, 24));
         username = new JLabel("Username");
         password = new JLabel("Password");
-        erorLogin = new JLabel("");
+        errorLoginLabel = new JLabel("");
+        errorLoginLabel.setForeground(Color.RED);
         panel.setLayout(new FlowLayout());
         panel.add(username);
         panel.add(usernameField);
         panel.add(password);
         panel.add(passwordField);
         panel.add(submit);
-        panel.add(erorLogin);
+        panel.add(errorLoginLabel);
         this.add(panel);
         this.pack();
         this.setVisible(true);
@@ -61,12 +52,12 @@ public class LoginForm extends JFrame implements View {
         gc.addView(this);
     }
 
-    public JLabel getErorLogin() {
-        return erorLogin;
+    public JLabel getErrorLoginLabel() {
+        return errorLoginLabel;
     }
 
     public void setErorLogin(JLabel erorLogin) {
-        this.erorLogin = erorLogin;
+        this.errorLoginLabel = erorLogin;
     }
     
     public JButton getSubmit() {

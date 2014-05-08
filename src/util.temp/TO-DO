@@ -1,8 +1,9 @@
-ok - modificare ComController metodo arrayList<UserInfo> getDestinatari
-ok - rivedere interfaccia grafica  OK
-aggiungere bottone logut e implementazione
+OK - modificare ComController metodo arrayList<UserInfo> getDestinatari
+OK - rivedere interfaccia grafica
+OK - aggiungere bottone logut e implementazione
+OK - DBController public Messaggio getMessaggio(int id) throws SQLException da modificare/eliminare --- DBController non deve conoscere Messaggio
+
 aggiungere bottone select languagge con una lista drop-down con elementi prescelti tra inglese e italiano
-ok - DBController public Messaggio getMessaggio(int id) throws SQLException da modificare/eliminare --- DBController non deve conoscere Messaggio
 sasha - creaSistemaDicifratura
 giulio - apri bozza elimina etc
 luigi - inbox
