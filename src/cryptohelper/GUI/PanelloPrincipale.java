@@ -27,7 +27,8 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton deleteBozzaBtn = new JButton("Elimina bozza");
     JButton sendMessageBtn = new JButton("Invia messaggio");
     JTextField titoloMessaggioField;    //Input per Messaggio
-    JList destinatariCC;
+    JList elencoDestinatari;   //visualizza la lista dei destinatari
+    JList elencoBozze;      //visualizza lalista delle bozze
     JTextArea corpoMessaggio;
     ArrayList<UserInfo> destinatari;
 
@@ -68,7 +69,7 @@ public class PanelloPrincipale extends JFrame implements View {
         bottomPanel.setLayout(new FlowLayout());
 
         //CONFIG DI STATUS LABEL
-        statusLabel = new JLabel("ERRORE - da eliminare la scrita al inizio- prova test");
+        statusLabel = new JLabel("STATUS LABEL");
         statusLabel.setOpaque(true);
         statusLabel.setBackground(Color.LIGHT_GRAY);
         statusLabel.setForeground(Color.RED);
@@ -104,10 +105,10 @@ public class PanelloPrincipale extends JFrame implements View {
         titoloMessaggioField = new JTextField(10);
         topPanel.add(msgTitlelLabel);
         topPanel.add(titoloMessaggioField);
-        JLabel targetMessageLabel = new JLabel("Destinatari disponibili:");
-        destinatariCC = new JList(new Vector<UserInfo>(destinatari));
-        destinatariCC.setVisibleRowCount(30);
-        destinatariCC.setCellRenderer(new DefaultListCellRenderer() {
+        JLabel targetListLabel = new JLabel("Destinatari disponibili:");
+        elencoDestinatari = new JList(new Vector<UserInfo>(destinatari));
+        elencoDestinatari.setVisibleRowCount(30);
+        elencoDestinatari.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -118,10 +119,10 @@ public class PanelloPrincipale extends JFrame implements View {
                 return renderer;
             }
         });
-        destinatariCC.setSelectedIndex(0);
+        elencoDestinatari.setSelectedIndex(0);
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setViewportView(destinatariCC);
-        rightPanel.add(targetMessageLabel, BorderLayout.NORTH);
+        scrollPane.setViewportView(elencoDestinatari);
+        rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setSize(new Dimension(580, 250));
@@ -143,7 +144,11 @@ public class PanelloPrincipale extends JFrame implements View {
         this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form 
         bottomPanel.add(saveBozzaBtn);
         bottomPanel.add(deleteBozzaBtn);
+        JLabel bozzeListLabel = new JLabel("Bozze disponibili:");
+        elencoBozze = new JList(new Vector<UserInfo>(destinatari));
+        elencoBozze.setVisibleRowCount(30);
         bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
+
     }
 
     public void eliminaListaDestinatariESetDestinatario() {
@@ -158,11 +163,11 @@ public class PanelloPrincipale extends JFrame implements View {
 
     //METODI GETTER
     public JList getDestinatariCC() {
-        return destinatariCC;
+        return elencoDestinatari;
     }
 
     public Object getSelectedDestinatario() {
-        return destinatariCC.getSelectedValue();
+        return elencoDestinatari.getSelectedValue();
     }
 
     public JButton getNuovoMessaggioBtn() {
@@ -239,7 +244,7 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     public void setDestinatariCC(JList destinatariCC) {
-        this.destinatariCC = destinatariCC;
+        this.elencoDestinatari = destinatariCC;
     }
 
 }
