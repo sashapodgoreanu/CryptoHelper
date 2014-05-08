@@ -86,7 +86,7 @@ public class GUIController {
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
-            System.out.println("Clicked " + ev.getText());
+            System.out.println(this.getClass()+ " Clicked " + ev.getText());
             //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
             
             pp.setDestinatari(comC.getDestinatari());
@@ -103,8 +103,8 @@ public class GUIController {
         public void actionPerformed(ActionEvent e) {
             //un messaggio senza titolo non si puo salvare
             JButton ev = (JButton) e.getSource();
-            System.out.println("Clicked " + ev.getText());
-            System.out.println("Selected " + pp.getSelectedDestinatario().toString());
+            System.out.println(this.getClass()+ " Clicked " + ev.getText());
+            System.out.println(this.getClass()+ " Selected " + pp.getSelectedDestinatario().toString());
             System.out.println(pp.getTittoloMessaggioField()+" - Tittolo del messaggio");
             //se il tittolo del messaggio e vuouto mostra il messaggio
             String temp = pp.getTittoloMessaggioField().replaceAll("\\s+","");
@@ -123,7 +123,6 @@ public class GUIController {
                     pp.setStatus("E stato un errore nel salvare il messaggio");
                     pp.getStatusLabel().setForeground(Color.RED);
                 }
-                System.out.println("Messaggio: " + msgMittente.toString());
             }
         }
     }
@@ -133,7 +132,7 @@ public class GUIController {
         public void actionPerformed(ActionEvent e) {
             pp.dispose();
             LoginForm f = new LoginForm();
-            System.out.println("Messaggio: Logout");
+            System.out.println(this.getClass()+ " Messaggio: Logout");
         }
     }
 }

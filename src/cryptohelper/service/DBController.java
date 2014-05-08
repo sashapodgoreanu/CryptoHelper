@@ -61,14 +61,14 @@ public class DBController {
         } catch (SQLException e) {
             log.fatal(e.getMessage());
         }
-        System.out.println("Connesso a:" + dBurl);
+        //System.out.println("Connesso a:" + dBurl);
     }
 
     //Chiude la connessione al db
     private void disconnect() throws SQLException {
         st.close();
         conn.close();
-        System.out.println("Disconnesso!");
+        //System.out.println("Disconnesso!");
     }
 
     //Crea le tabelle del database
