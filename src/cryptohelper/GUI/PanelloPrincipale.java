@@ -27,8 +27,8 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton deleteBozzaBtn = new JButton("Elimina bozza");
     JButton sendMessageBtn = new JButton("Invia messaggio");
     JTextField titoloMessaggioField;    //Input per Messaggio
-    JList elencoDestinatari;    //visualizza la lista dei destinatari
-    JList elencoBozze;          //visualizza lalista delle bozze
+    JList elencoDestinatari;            //visualizza la lista dei destinatari
+    JList elencoBozze;                  //visualizza lalista delle bozze
     JTextArea corpoMessaggio;
     ArrayList<UserInfo> destinatari;
 
@@ -69,13 +69,13 @@ public class PanelloPrincipale extends JFrame implements View {
         bottomPanel.setLayout(new FlowLayout());
 
         //CONFIG DI STATUS LABEL
-        statusLabel = new JLabel("STATUS LABEL");
+        statusLabel = new JLabel("Selezionare un'opzione per iniziare");
         statusLabel.setOpaque(true);
         statusLabel.setBackground(Color.LIGHT_GRAY);
         statusLabel.setForeground(Color.RED);
 
         //CONFIG DI MAIN FORM
-        this.setTitle("CryptoHelper - Menu");
+        this.setTitle("CryptoHelper - Menu Principale");
         this.setSize(750, 500);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
@@ -95,6 +95,7 @@ public class PanelloPrincipale extends JFrame implements View {
         leftPanel.removeAll();
         rightPanel.removeAll();
         bottomPanel.removeAll();
+        statusLabel.setText(" ");
     }
     
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
