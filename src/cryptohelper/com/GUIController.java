@@ -76,7 +76,7 @@ public class GUIController {
                 PanelloPrincipale pp = new PanelloPrincipale();
                 utilizzatoreSistema = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
             } else {
-                loginForm.getErorLogin().setText("Error");
+                loginForm.getErrorLoginLabel().setText("Error");
             }
         }
     }
