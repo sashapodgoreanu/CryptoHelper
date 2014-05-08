@@ -8,18 +8,13 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Sasha Alexandru Podgoreanu
- */
+
 public class COMController {
     private Studente studente;
     private GUIController gc;
-    private DBController dbc;
 
     
     public COMController() {
-        dbc = DBController.getInstance();
         studente = new Studente();
     }
     
@@ -29,14 +24,13 @@ public class COMController {
         return studente.authenticate();
     }
     
-    //TO-DO  getDestinatari -> getDestinatari(id studente che ha gia concordato sistema di cifratura con vari destinatari))
+    //Preleva i destinatari a cui è possibile inviare dei messaggi (destinatari con cui si è concordato un SDC)
     public ArrayList<UserInfo> getDestinatari(/*int idStudente*/){
         String query = "SELECT * FROM STUDENTI";
         QueryResult qr = null;
         ArrayList<UserInfo> uInfo = new ArrayList<>();
         try {
-            qr = dbc.executeQuery(query);
-            //System.out.println(qr.toString());
+            qr = DBController.getInstance().executeQuery(query);
             while(qr.next()){
                 UserInfo temp = new UserInfo(qr.getInt("id"),qr.getString("nome"),qr.getString("cognome"));
                 uInfo.add(temp);
@@ -48,6 +42,7 @@ public class COMController {
         System.out.println("test2");
         return uInfo;
     }
+  
     /*
     public boolean salvaMessaggioBozza(String titolo, String dest, String corpoMsg){
     UserInfo ui = new UserInfo()
