@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.EmptyBorder;
 
 
 public class PanelloPrincipale extends JFrame implements View {
@@ -45,7 +46,7 @@ public class PanelloPrincipale extends JFrame implements View {
         inboxBtn = new JButton("Inbox");
         bozzeBtn = new JButton("Bozze");
         logoutBtn = new JButton("Logout");
-        toolbarPanel.setBackground(Color.BLUE);
+        toolbarPanel.setBackground(Color.LIGHT_GRAY);
         toolbarPanel.add(nuovoMessaggioBtn);
         toolbarPanel.add(inboxBtn);
         toolbarPanel.add(bozzeBtn);
@@ -53,10 +54,12 @@ public class PanelloPrincipale extends JFrame implements View {
 
         //PROPRIETA' BODY PANEL
         bodyPanel.setLayout(new BorderLayout());
-
+        bodyPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         //STATUS LABEL AL FONDO
         statusLabel = new JLabel("ERRORE - da eliminare la scrita al inizio- prova test");
-        statusLabel.setForeground(Color.red);
+        statusLabel.setOpaque(true);
+        statusLabel.setBackground(Color.LIGHT_GRAY);
+        statusLabel.setForeground(Color.RED);
 
         //MAIN FORM
         this.setTitle("CryptoHelper - Menu");
@@ -111,7 +114,9 @@ public class PanelloPrincipale extends JFrame implements View {
         JPanel leftPanel = new JPanel();    //pannello con area per la scrittura e opzioni del messaggio    
         leftPanel.setLayout(new BorderLayout());
         corpoMessaggio = new JTextArea();
-        corpoMessaggio.setPreferredSize(new Dimension(600, 300));
+        corpoMessaggio.setSize(new Dimension(580, 250));
+        corpoMessaggio.setLineWrap(true);
+        corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         JLabel messaggioLabel = new JLabel("Testo del messaggio:");
         JPanel msgOptions = new JPanel();   //pannello con button "salva messaggio", "invia messaggio"
         msgOptions.add(saveBozzaBtn);
