@@ -1,18 +1,20 @@
 //Classe Messaggio
 package cryptohelper.data;
 
+import cryptohelper.com.COMController;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
-    
+
     //debug
     private Log log = LogFactory.getLog(Messaggio.class);
-            
+
     private int id;
     private String testo;
     private String testoCifrato;
@@ -24,7 +26,6 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     private UserInfo destinatario;
     private SistemaCifratura sistemaCifratura;
 
-    
     //COSTRUTTORE I
     public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto, UserInfo mittente, UserInfo destinatario, SistemaCifratura sc) {
         this.id = id;
@@ -202,14 +203,14 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         try {
             //un nuovo messaggo
             if (this.id == 0) {
-                int newID = dbc.executeUpdateAndReturnKey(queryInsert);          
+                int newID = dbc.executeUpdateAndReturnKey(queryInsert);
                 //se newID = -1 allora è stato un errore nel inserimento nel db;
-                if (newID != -1){
+                if (newID != -1) {
                     this.id = newID;
-                    System.out.println("INFO DATA:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Aggiunto con successo "+this.toString());
+                    System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Aggiunto con successo " + this.toString());
                     System.out.println(true);
                     return true;
-                    
+
                 }
                 if (newID == -1 && this.id != 0) {
                     System.out.println(false);
@@ -219,7 +220,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                 //aggiornamento di un messaggio
             } else {
                 result = dbc.executeUpdate(querryUpdate);
-                System.out.println("INFO DATA:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+"Aggiornato: "+this.toString());
+                System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "Aggiornato: " + this.toString());
             }
 
         } catch (SQLException ex) {
@@ -243,6 +244,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         return result;
     }
 
+  
     @Override
     public void cifra() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
