@@ -73,6 +73,7 @@ public class PanelloPrincipale extends JFrame implements View {
         statusLabel.setOpaque(true);
         statusLabel.setBackground(Color.LIGHT_GRAY);
         statusLabel.setForeground(Color.RED);
+        statusLabel.setBorder(new EmptyBorder(10, 10, 10, 10)); //padding per il tsto della status bar
 
         //CONFIG DI MAIN FORM
         this.setTitle("CryptoHelper - Menu Principale");
