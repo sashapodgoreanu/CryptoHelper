@@ -193,12 +193,11 @@ public class PanelloPrincipale extends JFrame implements View {
         rightPanel.add(bozzeListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
         bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
-
     }
 
-    public void initSDC() {
-        System.out.println("Inizializza sistemi di cifratura...");      
+    public void initSDC() {   
         resetPanels();
+        this.setTitle("CryptoHelper - Gestisci sistemi di cifratura");   //cambia titolo al form
         proponiSDCBtn = new JButton("Proponi Sistema Di Cifratura");
         inboxProposteSDCBtn = new JButton("Inbox");
         proposteAccetateBtn = new JButton("Proposte accettate");
