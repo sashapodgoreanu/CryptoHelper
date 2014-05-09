@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
@@ -25,20 +26,28 @@ public class SdcPanel extends JPanel implements View {
     private JButton creaSDCBtn;
     private JPanel topPanel;
     private JPanel centerSDCPanel;
-    GUIController gc;
+
+    private JRadioButton parolaChiaveRBtn;
+    private JRadioButton cesareRBtn;
+    private JRadioButton pseudocasualeRBtn;
 
     public SdcPanel() {
         init();
         registerController();
     }
 
+    
     private void init() {
+        //creazione dei componenti
         proponiSDCBtn = new JButton("Proponi Sistema Di Cifratura");
         inboxProposteSDCBtn = new JButton("Inbox");
         proposteAccetateBtn = new JButton("Proposte accettate");
         creaSDCBtn = new JButton("Crea Sisteme di Cifratura");
         topPanel = new JPanel();
         centerSDCPanel = new JPanel();
+        parolaChiaveRBtn = new JRadioButton("Parola chiave");
+        cesareRBtn = new JRadioButton("Cesare");
+        pseudocasualeRBtn = new JRadioButton("Pseudocasuale");
         this.setLayout(new BorderLayout());
 
         //aggiungi i bottoni
@@ -55,23 +64,28 @@ public class SdcPanel extends JPanel implements View {
     public void initCreateSDC() {
         System.out.println("inside of initCreateSDC");
         remake();
-        JRadioButton parolaChiaveRBtn = new JRadioButton("Parola chiave");
-        JRadioButton cesareRBtn = new JRadioButton("Cesare");
-        JRadioButton pseudocasualeRBtn = new JRadioButton("Pseudocasuale");
+        
         //ragrupa i bottoni   - when i select a radiobutton will deselect the precedent selected. 
         ButtonGroup group = new ButtonGroup();
         group.add(parolaChiaveRBtn);
         group.add(cesareRBtn);
         group.add(pseudocasualeRBtn);
         //meto i bottoni in un panelo
+        JLabel selectSDClabel = new JLabel("Selezionare un metodo di cifratura");
         JPanel radioPanel = new JPanel(new GridLayout(0, 1));
+        
+        radioPanel.add(selectSDClabel);
         radioPanel.add(parolaChiaveRBtn);
         radioPanel.add(cesareRBtn);
         radioPanel.add(pseudocasualeRBtn);
         centerSDCPanel.add(radioPanel, BorderLayout.LINE_START);
         this.revalidate();
     }
-
+    
+    public void initParolaChiave() {
+        
+    }
+    
     public void remake() {
         centerSDCPanel.removeAll();
         this.revalidate();
@@ -79,7 +93,7 @@ public class SdcPanel extends JPanel implements View {
 
     @Override
     public void registerController() {
-        gc = GUIController.getInstance();
+        GUIController gc = GUIController.getInstance();
         gc.addView(this);
     }
 
@@ -130,5 +144,31 @@ public class SdcPanel extends JPanel implements View {
     public void setCenterSDCPanel(JPanel centerSDCPanel) {
         this.centerSDCPanel = centerSDCPanel;
     }
+
+    public JRadioButton getParolaChiaveRBtn() {
+        return parolaChiaveRBtn;
+    }
+
+    public void setParolaChiaveRBtn(JRadioButton parolaChiaveRBtn) {
+        this.parolaChiaveRBtn = parolaChiaveRBtn;
+    }
+
+    public JRadioButton getCesareRBtn() {
+        return cesareRBtn;
+    }
+
+    public void setCesareRBtn(JRadioButton cesareRBtn) {
+        this.cesareRBtn = cesareRBtn;
+    }
+
+    public JRadioButton getPseudocasualeRBtn() {
+        return pseudocasualeRBtn;
+    }
+
+    public void setPseudocasualeRBtn(JRadioButton pseudocasualeRBtn) {
+        this.pseudocasualeRBtn = pseudocasualeRBtn;
+    }
+
+    
 
 }

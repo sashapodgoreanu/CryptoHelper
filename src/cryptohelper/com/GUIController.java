@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
 
 /**
  * Il controllore Deve conoscere: i modelli e le viste - JFrame's
@@ -66,7 +67,10 @@ public class GUIController {
         } else if (v instanceof SdcPanel) {
             System.out.println(" instanceof SdcPanel");
             sdcp = (SdcPanel) v;
-            sdcp.getCreaSDCBtn().addActionListener(new createSDC());
+            sdcp.getCreaSDCBtn().addActionListener(new CreateSDCListener());
+            sdcp.getCesareRBtn().addActionListener(new MetodoDicifraturaListener());
+            sdcp.getParolaChiaveRBtn().addActionListener(new MetodoDicifraturaListener());
+            sdcp.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
         }
     }
 
@@ -155,7 +159,7 @@ public class GUIController {
         }
     }
 
-    private class createSDC implements ActionListener {
+    private class CreateSDCListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -164,7 +168,26 @@ public class GUIController {
             sdcp.initCreateSDC();
         }
     }
+    
+    private class MetodoDicifraturaListener implements ActionListener {
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JRadioButton ev = (JRadioButton) e.getSource();
+            System.out.println(this.getClass() + " selected " + ev.getText());
+            if(ev.getText().equalsIgnoreCase("parola chiave")){
+                sdcp.initParolaChiave();
+            }
+        }
+    }
+
+    
+    
+    
+    
+    
+    
+    
     //classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {
 
