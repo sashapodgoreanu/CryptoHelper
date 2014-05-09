@@ -53,7 +53,7 @@ public class CreaSDCPanel extends JPanel implements View {
 
     public void initCreateSDC() {
         System.out.println("inside of initCreateSDC");
-        topPanel = new JPanel();
+        topPanel = new JPanel(new FlowLayout());
         bottomPanel = new JPanel(new FlowLayout());
         centerPanel = new JPanel(new BorderLayout());
         parolaChiaveRBtn = new JRadioButton("Parola chiave");
