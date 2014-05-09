@@ -20,7 +20,6 @@ public class PanelloPrincipale extends JFrame implements View {
     JPanel leftPanel = new JPanel();    //pannello a sinistra all'interno del bodyPanel;
     JPanel rightPanel = new JPanel();   //pannello a destra con elenco destinatariArrLst
     JPanel bottomPanel = new JPanel();  //pannello in basso con i pulsanti all'interno del bosy panel
-    JPanel topSDCPanel = new JPanel();  //pannello in alto con i pulsanti di sdc
     JPanel centerSDCPanel = new JPanel();  //pannello in basso con il business logic di sistem di cifratura
     
     JLabel statusLabel;
@@ -173,12 +172,8 @@ public class PanelloPrincipale extends JFrame implements View {
         corpoMessaggio.setLineWrap(true);
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         leftPanel.add(corpoMessaggio);
-
         JLabel bozzeListLabel = new JLabel("Bozze disponibili:");
-        JScrollPane scrollPane = new JScrollPane();
-        //   scrollPane.setViewportView(elencoBozze);
-        System.out.println("bozze panelo princ: "+ bozzeArrLst.toString());
-        
+        System.out.println("bozze panelo princ: "+ bozzeArrLst.toString());     
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
         elencoBozze.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -191,40 +186,34 @@ public class PanelloPrincipale extends JFrame implements View {
                 }
                 return renderer;
             }
-        });
-        
+        });     
         elencoBozze.setSelectedIndex(0);
-        JScrollPane scrollPane2 = new JScrollPane();
-        scrollPane2.setViewportView(elencoBozze);
-        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(elencoBozze);       
         rightPanel.add(bozzeListLabel, BorderLayout.NORTH);
-        rightPanel.add(scrollPane2, BorderLayout.CENTER);
+        rightPanel.add(scrollPane, BorderLayout.CENTER);
         bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
 
     }
 
     public void initSDC() {
-        System.out.println("inside of initSDC");
-        
-        this.resetPanels();
+        System.out.println("Inizializza sistemi di cifratura...");      
+        resetPanels();
         proponiSDCBtn = new JButton("Proponi Sistema Di Cifratura");
         inboxProposteSDCBtn = new JButton("Inbox");
         proposteAccetateBtn = new JButton("Proposte accettate");
-        creaSDCBtn = new JButton("Crea Sisteme di Cifratura");
-        
+        creaSDCBtn = new JButton("Crea Sisteme di Cifratura");    
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setSize(new Dimension(540, 250));
         corpoMessaggio.setLineWrap(true);
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
-        
-        topSDCPanel.add(creaSDCBtn);
-        topSDCPanel.add(proponiSDCBtn);
-        topSDCPanel.add(inboxProposteSDCBtn);
-        topSDCPanel.add(proposteAccetateBtn);
-        leftPanel.add(topSDCPanel,BorderLayout.NORTH);
-        leftPanel.add(centerSDCPanel,BorderLayout.SOUTH);
-        
-        bodyPanel.revalidate();
+        topPanel.add(creaSDCBtn);
+        topPanel.add(proponiSDCBtn);
+        topPanel.add(inboxProposteSDCBtn);
+        topPanel.add(proposteAccetateBtn);
+        leftPanel.add(topPanel,BorderLayout.NORTH);
+        leftPanel.add(centerSDCPanel,BorderLayout.SOUTH);   
+        bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
     }
 
     public void eliminaListaDestinatariESetDestinatario() {
