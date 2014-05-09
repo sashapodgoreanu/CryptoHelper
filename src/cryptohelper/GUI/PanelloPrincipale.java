@@ -145,7 +145,6 @@ public class PanelloPrincipale extends JFrame implements View {
         bottomPanel.add(sendMessageBtn);
         leftPanel.add(messaggioLabel, BorderLayout.NORTH);
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
-        SwingUtilities.updateComponentTreeUI(this);
         System.out.println("initNuovoMessaggio");
         bodyPanel.revalidate();  //completa l'inizializzazione dell'interfaccia
     }

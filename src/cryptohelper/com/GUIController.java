@@ -5,6 +5,7 @@
  */
 package cryptohelper.com;
 
+import cryptohelper.GUI.CreaSDCPanel;
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.SdcPanel;
@@ -32,6 +33,7 @@ public class GUIController {
     private LoginForm loginForm;
     private PanelloPrincipale pp;
     private SdcPanel sdcp;
+    private CreaSDCPanel csdcp;
     private static GUIController instance;
     private Messaggio msgMittente;
     private UserInfo utilizzatoreSistema;
@@ -65,13 +67,15 @@ public class GUIController {
             pp.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
             pp.getSDCBtn().addActionListener(new GestisciSDC());
         } else if (v instanceof SdcPanel) {
-            System.out.println(" instanceof SdcPanel");
             sdcp = (SdcPanel) v;
             sdcp.getCreaSDCBtn().addActionListener(new CreateSDCListener());
-            sdcp.getCesareRBtn().addActionListener(new MetodoDicifraturaListener());
-            sdcp.getParolaChiaveRBtn().addActionListener(new MetodoDicifraturaListener());
-            sdcp.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
+        } else if(v instanceof CreaSDCPanel){
+            csdcp = (CreaSDCPanel) v;
+            csdcp.getCesareRBtn().addActionListener(new MetodoDicifraturaListener());
+            csdcp.getParolaChiaveRBtn().addActionListener(new MetodoDicifraturaListener());
+            csdcp.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
         }
+        
     }
 
     //classe listener per il login
@@ -176,8 +180,10 @@ public class GUIController {
             JRadioButton ev = (JRadioButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if(ev.getText().equalsIgnoreCase("parola chiave")){
-                sdcp.initParolaChiave();
+                csdcp.initParolaChiave();
+                System.out.println("out MetodoDicifraturaListener");
             }
+            System.out.println("out MetodoDicifraturaListener");
         }
     }
 
