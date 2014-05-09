@@ -64,8 +64,9 @@ public class GUIController {
             pp.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
             pp.getSDCBtn().addActionListener(new GestisciSDC());
         } else if (v instanceof SdcPanel) {
+            System.out.println(" instanceof SdcPanel");
             sdcp = (SdcPanel) v;
-            
+            sdcp.getCreaSDCBtn().addActionListener(new createSDC());
         }
     }
 
@@ -151,6 +152,16 @@ public class GUIController {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             pp.initSDC();
+        }
+    }
+
+    private class createSDC implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println(this.getClass() + " Clicked " + ev.getText());
+            sdcp.initCreateSDC();
         }
     }
 

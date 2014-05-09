@@ -20,8 +20,7 @@ public class PanelloPrincipale extends JFrame implements View {
     JPanel leftPanel = new JPanel();    //pannello a sinistra all'interno del bodyPanel;
     JPanel rightPanel = new JPanel();   //pannello a destra con elenco destinatariArrLst
     JPanel bottomPanel = new JPanel();  //pannello in basso con i pulsanti all'interno del bosy panel
-    JPanel topSDCPanel = new JPanel();  //pannello in alto con i pulsanti di sdc
-    JPanel centerSDCPanel = new JPanel();  //pannello in basso con il business logic di sistem di cifratura
+    JPanel sdcPanel =  new SdcPanel();;
     
     JLabel statusLabel;
     JButton nuovoMessaggioBtn;
@@ -51,6 +50,7 @@ public class PanelloPrincipale extends JFrame implements View {
 
     public PanelloPrincipale() {
         this.init();
+        
     }
 
     private void init() {
@@ -206,7 +206,7 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initSDC() {
         System.out.println("inside of initSDC");
         this.resetPanels();
-        leftPanel.add(new SdcPanel());
+        leftPanel.add(sdcPanel);
         bodyPanel.revalidate();
     }
 

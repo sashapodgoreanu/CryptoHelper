@@ -8,7 +8,6 @@ package cryptohelper.GUI;
 import cryptohelper.com.GUIController;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import static java.lang.System.gc;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -26,8 +25,14 @@ public class SdcPanel extends JPanel implements View {
     private JButton creaSDCBtn;
     private JPanel topPanel;
     private JPanel centerSDCPanel;
+    GUIController gc;
 
     public SdcPanel() {
+        init();
+        registerController();
+    }
+
+    private void init() {
         proponiSDCBtn = new JButton("Proponi Sistema Di Cifratura");
         inboxProposteSDCBtn = new JButton("Inbox");
         proposteAccetateBtn = new JButton("Proposte accettate");
@@ -35,7 +40,7 @@ public class SdcPanel extends JPanel implements View {
         topPanel = new JPanel();
         centerSDCPanel = new JPanel();
         this.setLayout(new BorderLayout());
-        
+
         //aggiungi i bottoni
         topPanel.add(creaSDCBtn);
         topPanel.add(proponiSDCBtn);
@@ -43,12 +48,13 @@ public class SdcPanel extends JPanel implements View {
         topPanel.add(proposteAccetateBtn);
 
         //aggiungi 2 panelli
-        this.add(topPanel,BorderLayout.NORTH);
-        this.add(centerSDCPanel,BorderLayout.SOUTH);
+        this.add(topPanel, BorderLayout.NORTH);
+        this.add(centerSDCPanel, BorderLayout.SOUTH);
     }
-    
-    public void initCreateSDC(){
-        
+
+    public void initCreateSDC() {
+        System.out.println("inside of initCreateSDC");
+        remake();
         JRadioButton parolaChiaveRBtn = new JRadioButton("Parola chiave");
         JRadioButton cesareRBtn = new JRadioButton("Cesare");
         JRadioButton pseudocasualeRBtn = new JRadioButton("Pseudocasuale");
@@ -63,15 +69,17 @@ public class SdcPanel extends JPanel implements View {
         radioPanel.add(cesareRBtn);
         radioPanel.add(pseudocasualeRBtn);
         centerSDCPanel.add(radioPanel, BorderLayout.LINE_START);
+        this.revalidate();
     }
-    
-    public void remake(){
-        
+
+    public void remake() {
+        centerSDCPanel.removeAll();
+        this.revalidate();
     }
 
     @Override
     public void registerController() {
-        GUIController gc = GUIController.getInstance();
+        gc = GUIController.getInstance();
         gc.addView(this);
     }
 
@@ -122,7 +130,5 @@ public class SdcPanel extends JPanel implements View {
     public void setCenterSDCPanel(JPanel centerSDCPanel) {
         this.centerSDCPanel = centerSDCPanel;
     }
-    
-    
 
 }
