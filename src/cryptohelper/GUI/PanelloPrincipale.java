@@ -20,6 +20,9 @@ public class PanelloPrincipale extends JFrame implements View {
     JPanel leftPanel = new JPanel();    //pannello a sinistra all'interno del bodyPanel;
     JPanel rightPanel = new JPanel();   //pannello a destra con elenco destinatariArrLst
     JPanel bottomPanel = new JPanel();  //pannello in basso con i pulsanti all'interno del bosy panel
+    JPanel topSDCPanel = new JPanel();  //pannello in alto con i pulsanti di sdc
+    JPanel centerSDCPanel = new JPanel();  //pannello in basso con il business logic di sistem di cifratura
+    
     JLabel statusLabel;
     JButton nuovoMessaggioBtn;
     JButton inboxBtn;
@@ -201,12 +204,27 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     public void initSDC() {
+        System.out.println("inside of initSDC");
+        
         this.resetPanels();
-        proponiSDCBtn = new JButton("Proponi\n Sistema Di Cifratura");
+        proponiSDCBtn = new JButton("Proponi Sistema Di Cifratura");
         inboxProposteSDCBtn = new JButton("Inbox");
         proposteAccetateBtn = new JButton("Proposte accettate");
-        creaSDCBtn = new JButton("Crea\n Sisteme di Cifratura");
-
+        creaSDCBtn = new JButton("Crea Sisteme di Cifratura");
+        
+        corpoMessaggio = new JTextArea();
+        corpoMessaggio.setSize(new Dimension(540, 250));
+        corpoMessaggio.setLineWrap(true);
+        corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+        
+        topSDCPanel.add(creaSDCBtn);
+        topSDCPanel.add(proponiSDCBtn);
+        topSDCPanel.add(inboxProposteSDCBtn);
+        topSDCPanel.add(proposteAccetateBtn);
+        leftPanel.add(topSDCPanel,BorderLayout.NORTH);
+        leftPanel.add(centerSDCPanel,BorderLayout.SOUTH);
+        
+        bodyPanel.revalidate();
     }
 
     public void eliminaListaDestinatariESetDestinatario() {

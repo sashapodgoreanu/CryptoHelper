@@ -60,11 +60,13 @@ public class GUIController {
             pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
             pp.getLogoutBtn().addActionListener(new LogoutListener());
             pp.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
+            pp.getSDCBtn().addActionListener(new GestisciSDC());
         }
     }
 
     //classe listener per il login
     private class LoginFormListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             boolean valid = comC.authenticate(loginForm.getUsername(), loginForm.getPassword());
@@ -80,10 +82,11 @@ public class GUIController {
 
     //classe listener per il button "nuovo messaggio" della finestra principale
     private class NuovoMessaggioListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
-            System.out.println(this.getClass()+ " Clicked " + ev.getText());
+            System.out.println(this.getClass() + " Clicked " + ev.getText());
             //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
 
             pp.setDestinatari(comC.getDestinatari());
@@ -96,13 +99,14 @@ public class GUIController {
 
     //classe listener per il button "salva messaggio" della finestra principale
     private class SalvaMessaggioListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             //un messaggio senza titolo non si puo salvare
             JButton ev = (JButton) e.getSource();
-            System.out.println(this.getClass()+ " Clicked " + ev.getText());
-            System.out.println(this.getClass()+ " Selected " + pp.getSelectedDestinatario().toString());
-            System.out.println(pp.getTittoloMessaggioField()+" - Tittolo del messaggio");
+            System.out.println(this.getClass() + " Clicked " + ev.getText());
+            System.out.println(this.getClass() + " Selected " + pp.getSelectedDestinatario().toString());
+            System.out.println(pp.getTittoloMessaggioField() + " - Tittolo del messaggio");
             //se il tittolo del messaggio e vuouto mostra il messaggio
             String temp = pp.getTittoloMessaggioField().replaceAll("\\s+", "");
             if (temp.equals("")) {
@@ -118,29 +122,42 @@ public class GUIController {
                     pp.setStatus("Si è verificato un durante il salvataggio del messaggio!");
                 }
             }
-        } 
+        }
     }
 
     //classe listener per il button "bozze" della finestra principale 
     private class GestisciBozzeListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioMittente> temp = Messaggio.caricaBozze(utilizzatoreSistema.getId());
-            System.out.println("sssss" +temp.toString());
             pp.setBozzeArayLst(temp);
             pp.initGestioneBozze();
         }
     }
- 
+
+    //classe listener per il button "Sistema di cifratura" della finestra principale
+    private class GestisciSDC implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            pp.initSDC();
+        }
+    }
+
     //classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             pp.dispose();
             LoginForm f = new LoginForm();
-            System.out.println(this.getClass()+ " Messaggio: Logout");
+            System.out.println(this.getClass() + " Messaggio: Logout");
         }
     }
+
 }
