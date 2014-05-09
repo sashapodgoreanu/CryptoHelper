@@ -177,7 +177,7 @@ public class PanelloPrincipale extends JFrame implements View {
         JLabel bozzeListLabel = new JLabel("Bozze disponibili:");
         JScrollPane scrollPane = new JScrollPane();
         //   scrollPane.setViewportView(elencoBozze);
-        System.out.println("bozze panelo princ: "+ bozzeArrLst.toString());
+        System.out.println("bozze panelo princ: "+ bozzeArrLst.toString());     
         
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
         elencoBozze.setCellRenderer(new DefaultListCellRenderer() {
@@ -191,7 +191,7 @@ public class PanelloPrincipale extends JFrame implements View {
                 }
                 return renderer;
             }
-        });
+        });     
         
         elencoBozze.setSelectedIndex(0);
         JScrollPane scrollPane2 = new JScrollPane();
