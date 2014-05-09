@@ -106,14 +106,6 @@ public class PanelloPrincipale extends JFrame implements View {
         registerController();
     }
 
-    //pulisce i panelli dell'area di lavoro
-    private void resetPanels() {
-        topPanel.removeAll();
-        leftPanel.removeAll();
-        rightPanel.removeAll();
-        bottomPanel.removeAll();
-        statusLabel.setText(" ");
-    }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
     public void initNuovoMessaggio() {
@@ -206,10 +198,24 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initSDC() {
         System.out.println("inside of initSDC");
         this.resetPanels();
+        sdcPanel = new SdcPanel();
         leftPanel.add(sdcPanel);
         bodyPanel.revalidate();
     }
 
+    
+    //pulisce i panelli dell'area di lavoro
+    private void resetPanels() {
+        topPanel.removeAll();
+        leftPanel.removeAll();
+        rightPanel.removeAll();
+        bottomPanel.removeAll();
+        sdcPanel.removeAll();
+        statusLabel.setText(" ");
+        
+    }
+    
+    
     @Override
     public void registerController() {
         GUIController gc = GUIController.getInstance();
