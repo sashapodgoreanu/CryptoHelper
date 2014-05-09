@@ -47,7 +47,7 @@ public class PanelloPrincipale extends JFrame implements View {
     ArrayList<MessaggioMittente> bozzeArrLst;
 
     Studente studente;
-    GUIController gc = GUIController.getInstance();
+    
 
     public PanelloPrincipale() {
         this.init();
@@ -205,35 +205,14 @@ public class PanelloPrincipale extends JFrame implements View {
 
     public void initSDC() {
         System.out.println("inside of initSDC");
-        
         this.resetPanels();
-        proponiSDCBtn = new JButton("Proponi Sistema Di Cifratura");
-        inboxProposteSDCBtn = new JButton("Inbox");
-        proposteAccetateBtn = new JButton("Proposte accettate");
-        creaSDCBtn = new JButton("Crea Sisteme di Cifratura");
-        
-        corpoMessaggio = new JTextArea();
-        corpoMessaggio.setSize(new Dimension(540, 250));
-        corpoMessaggio.setLineWrap(true);
-        corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
-        
-        topSDCPanel.add(creaSDCBtn);
-        topSDCPanel.add(proponiSDCBtn);
-        topSDCPanel.add(inboxProposteSDCBtn);
-        topSDCPanel.add(proposteAccetateBtn);
-        leftPanel.add(topSDCPanel,BorderLayout.NORTH);
-        leftPanel.add(centerSDCPanel,BorderLayout.SOUTH);
-        
+        leftPanel.add(new SdcPanel());
         bodyPanel.revalidate();
-    }
-
-    public void eliminaListaDestinatariESetDestinatario() {
-
     }
 
     @Override
     public void registerController() {
-        gc = GUIController.getInstance();
+        GUIController gc = GUIController.getInstance();
         gc.addView(this);
     }
 

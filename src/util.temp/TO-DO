@@ -10,3 +10,5 @@ OK - DBController public Messaggio getMessaggio(int id) throws SQLException da m
 sasha - creaSistemaDicifratura
 giulio - apri bozza elimina etc [IN CORSO]
 luigi - inbox
+
+- quando si elimina una bozza, sistema di cifratura, messaggio si utilizza observer observable in modo da aggiornare la JList (il elemento deve scomparire) 

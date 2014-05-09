@@ -7,6 +7,7 @@ package cryptohelper.com;
 
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.PanelloPrincipale;
+import cryptohelper.GUI.SdcPanel;
 import cryptohelper.GUI.View;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.MessaggioMittente;
@@ -29,6 +30,7 @@ public class GUIController {
     private COMController comC;
     private LoginForm loginForm;
     private PanelloPrincipale pp;
+    private SdcPanel sdcp;
     private static GUIController instance;
     private Messaggio msgMittente;
     private UserInfo utilizzatoreSistema;
@@ -61,6 +63,9 @@ public class GUIController {
             pp.getLogoutBtn().addActionListener(new LogoutListener());
             pp.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
             pp.getSDCBtn().addActionListener(new GestisciSDC());
+        } else if (v instanceof SdcPanel) {
+            sdcp = (SdcPanel) v;
+            
         }
     }
 
