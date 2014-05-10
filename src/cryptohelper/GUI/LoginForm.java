@@ -85,7 +85,7 @@ public class LoginForm extends JFrame implements View {
         this.usernameField.setText(usr);
     }
 
-    public void setErorLogin(JLabel erorLogin) {
+    public void setErrorLogin(JLabel erorLogin) {
         this.errorLoginLabel = erorLogin;
     }
 
