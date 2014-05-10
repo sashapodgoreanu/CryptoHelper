@@ -17,8 +17,6 @@ public class LoginForm extends JFrame implements View {
     JTextField usernameField;
 
     public LoginForm() {
-        this.setTitle("CryptoHelper - Login");
-        this.setSize(new Dimension(320, 200));
         submitBtn = new JButton("Accedi");
         registrationBtn = new JButton("Nuovo utente");
         passwordField = new JTextField();
@@ -29,6 +27,8 @@ public class LoginForm extends JFrame implements View {
         passwordLabel = new JLabel("Password");
         errorLoginLabel = new JLabel("");
         errorLoginLabel.setForeground(Color.RED);
+        this.setTitle("CryptoHelper - Login");
+        this.setSize(new Dimension(320, 200));
         this.setLayout(new FlowLayout());
         this.add(usernameLabel);
         this.add(usernameField);
