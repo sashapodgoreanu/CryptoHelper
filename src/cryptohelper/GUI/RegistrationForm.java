@@ -55,6 +55,7 @@ public class RegistrationForm extends JFrame implements View {
         this.setVisible(true);
         this.setResizable(false);
         this.setLocationRelativeTo(null);   //centra la finestra sullo schermo
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.registerController();
     }
 
@@ -64,10 +65,21 @@ public class RegistrationForm extends JFrame implements View {
         gc.addView(this);
     }
 
+    //METODI GETTER
     public JLabel getErrorLoginLabel() {
         return errorLoginLabel;
     }
 
+    public JButton getSubmitBtn() {
+        return submitBtn;
+    }
+
+    public JButton getCancelBtn() {
+        return cancelBtn;
+    }
+  
+    
+    //METODI SETTER
     public void setErorLogin(JLabel erorLogin) {
         this.errorLoginLabel = erorLogin;
     }
