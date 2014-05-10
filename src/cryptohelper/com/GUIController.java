@@ -13,6 +13,7 @@ import cryptohelper.GUI.SdcPanel;
 import cryptohelper.GUI.View;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.MessaggioMittente;
+import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.awt.event.ActionEvent;
@@ -20,7 +21,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
-import javax.swing.JTable;
 
 /**
  * Il controllore Deve conoscere: i modelli e le viste - JFrame's
@@ -41,6 +41,7 @@ public class GUIController {
     private static GUIController instance;
     private Messaggio msgMittente;
     private UserInfo utilizzatoreSistema;
+    private SistemaCifratura sdc;
 
     private GUIController() {
         comC = new COMController();
@@ -195,21 +196,26 @@ public class GUIController {
         }
     }
 
-    //classe listener per salvare SDC
+    //classe listener per salvare SDC - ascolta il bottone salva
     private class SalvaMetodoDicifraturaListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            sdc = new SistemaCifratura(utilizzatoreSistema);
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("Salva cifrario parola chiave")) {
+                String metodo = "parola chiave";
                 if (csdcp.getTable().isEditing()) {
                     csdcp.getTable().getCellEditor().stopCellEditing();
                 }
+                String chiave = "";
                 for (int i = 0; i < 26; i++) {
-                    System.out.println(csdcp.getData(0, i));
+                    chiave = chiave+""+csdcp.getData(0, i);
                 }
-
+                if(sdc.valid(metodo,chiave)){
+                    
+                }
             }
         }
     }

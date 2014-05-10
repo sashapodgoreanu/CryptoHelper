@@ -13,4 +13,5 @@ luigi - inbox
 
 CREARE TUTTI I COMPONENTI CHE SARANNO REGITRATI PRESO CONTROLLER NEI METODI init() di ogni GUI 
 
+--aggoingere validate a sistemcifratura in modello di progetto
 - quando si elimina una bozza, sistema di cifratura, messaggio si utilizza observer observable in modo da aggiornare la JList (il elemento deve scomparire) 

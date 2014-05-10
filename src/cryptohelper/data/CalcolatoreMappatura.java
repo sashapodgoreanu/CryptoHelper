@@ -11,6 +11,6 @@ package cryptohelper.data;
  * @author st116628
  */
 public interface CalcolatoreMappatura {
-    public Mappatura calcola(Object chiave);
-    public CalcolatoreMappatura create(CalcolatoreMappatura metodo);
+    public Mappatura calcola(java.lang.String chiave);
+    public CalcolatoreMappatura create(java.lang.String metodo);
 }
