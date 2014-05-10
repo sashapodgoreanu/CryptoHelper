@@ -8,6 +8,7 @@ package cryptohelper.com;
 import cryptohelper.GUI.CreaSDCPanel;
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.PanelloPrincipale;
+import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
 import cryptohelper.GUI.View;
 import cryptohelper.data.Messaggio;
@@ -31,6 +32,7 @@ public class GUIController {
 
     private COMController comC;
     private LoginForm loginForm;
+    private RegistrationForm regForm;
     private PanelloPrincipale pp;
     private SdcPanel sdcp;
     private CreaSDCPanel csdcp;
@@ -57,6 +59,7 @@ public class GUIController {
             loginForm.setUsernameField("sasha");
             loginForm.setPasswordField("1234");
             loginForm.getSubmit().addActionListener(new LoginFormListener());
+            loginForm.getRegistration().addActionListener(new RegistrationFormListener());
         } else if (v instanceof PanelloPrincipale) {
             pp = (PanelloPrincipale) v;
             //listenere dei bottoni delle interface
@@ -69,12 +72,16 @@ public class GUIController {
         } else if (v instanceof SdcPanel) {
             sdcp = (SdcPanel) v;
             sdcp.getCreaSDCBtn().addActionListener(new CreateSDCListener());
-        } else if(v instanceof CreaSDCPanel){
+        } else if (v instanceof CreaSDCPanel) {
             csdcp = (CreaSDCPanel) v;
             csdcp.getCesareRBtn().addActionListener(new MetodoDicifraturaListener());
             csdcp.getParolaChiaveRBtn().addActionListener(new MetodoDicifraturaListener());
             csdcp.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
-        }      
+        } else if (v instanceof RegistrationForm) {
+            regForm = (RegistrationForm) v;
+            regForm.getCancelBtn().addActionListener(new CancelListener());
+            regForm.getSubmitBtn().addActionListener(new MetodoDicifraturaListener());
+        }
     }
 
     //classe listener per il login
@@ -171,14 +178,14 @@ public class GUIController {
             sdcp.initCreateSDC();
         }
     }
-    
+
     private class MetodoDicifraturaListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             JRadioButton ev = (JRadioButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
-            if(ev.getText().equalsIgnoreCase("parola chiave")){
+            if (ev.getText().equalsIgnoreCase("parola chiave")) {
                 csdcp.initParolaChiave();
                 System.out.println("out MetodoDicifraturaListener");
             }
@@ -186,21 +193,32 @@ public class GUIController {
         }
     }
 
-    
-    
-    
-    
-    
-    
-    
     //classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             pp.dispose();
             LoginForm f = new LoginForm();
             System.out.println(this.getClass() + " Messaggio: Logout");
+        }
+    }
+
+    //classe listener per la reistrazione dell'utente
+    private class RegistrationFormListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            loginForm.dispose();
+            RegistrationForm rf = new RegistrationForm();
+        }
+    }
+    
+     //classe listener per il button "annulla" della finestra registrazione utente
+    private class CancelListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            regForm.dispose();
+            LoginForm f = new LoginForm();
+            System.out.println(this.getClass() + "Registration: cancel");
         }
     }
 
