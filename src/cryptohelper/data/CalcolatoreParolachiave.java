@@ -15,9 +15,11 @@ public class CalcolatoreParolachiave extends CalcolatoreMappatura {
     @Override
     public Mappatura calcola(String chiave) {
         Mappatura m = new Mappatura();
+        char[] res = new char[26];
         for (int i = 0; i < chiave.length(); i++) {
-           m.map(chiave.charAt(i));
+           res[i] = chiave.charAt(i);
         }
+        m.setMappaInversa(res);
         return m;
     }   
 }

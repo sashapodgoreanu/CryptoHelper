@@ -217,6 +217,11 @@ public class GUIController {
                 }
                 if(sdc.valid(metodo,chiave)){
                     mp = sdc.create(metodo, chiave);
+
+                        System.out.print(mp.inverseMap('a'));
+                        System.out.print(mp.inverseMap('b'));
+                        System.out.print(mp.inverseMap('c'));
+                    
                 }
             }
         }

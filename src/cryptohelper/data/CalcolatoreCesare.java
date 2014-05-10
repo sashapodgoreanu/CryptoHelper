@@ -16,10 +16,4 @@ public class CalcolatoreCesare extends cryptohelper.data.CalcolatoreMappatura  {
     public Mappatura calcola(java.lang.String chiave) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public CalcolatoreMappatura create(String metodo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

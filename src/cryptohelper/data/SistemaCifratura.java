@@ -34,23 +34,24 @@ public class SistemaCifratura {
     public String prova(String testo) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    public void calcolaMappatura() {
-
+    /*
+    public String cifra(String testo) {
+        
     }
+*/
 
     //TO -DO SALVA 
     public Mappatura create(String metodo, String chiave) {
         this.metodo = metodo;
         this.chiave = chiave;
-        //salva();
-        cm = cm.create(metodo);
+        //this.id = salva();
+        cm = CalcolatoreMappatura.create(metodo);
         map = cm.calcola(chiave);
         return map;
     }
     
     //TO - DO
-    private void salva() {
+    private int salva() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

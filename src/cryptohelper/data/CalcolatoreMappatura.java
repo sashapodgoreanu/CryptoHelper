@@ -13,7 +13,7 @@ public abstract class CalcolatoreMappatura {
 
     public abstract Mappatura calcola(String chiave);
 
-    public CalcolatoreMappatura create(String metodo) {
+    public static CalcolatoreMappatura create(String metodo) {
         if (metodo.equals("parola chiave")) {
             return new CalcolatoreParolachiave();
         } else if (metodo.equals("cesare")) {

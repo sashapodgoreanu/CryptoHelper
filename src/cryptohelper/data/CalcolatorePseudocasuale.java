@@ -17,9 +17,5 @@ public class CalcolatorePseudocasuale extends CalcolatoreMappatura {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public CalcolatoreMappatura create(String metodo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }
