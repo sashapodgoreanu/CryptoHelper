@@ -15,7 +15,7 @@ public class RegistrationForm extends JFrame implements View {
     JLabel surnameLabel;
     JLabel nicknameLabel;
     JLabel passwordLabel;
-    JLabel errorLoginLabel;
+    JLabel errorLabel;
     JTextField nameField;
     JTextField surnameField;
     JTextField nicknameField;
@@ -38,10 +38,10 @@ public class RegistrationForm extends JFrame implements View {
         surnameLabel = new JLabel("Cognome");
         nicknameLabel = new JLabel("Nickname");
         passwordLabel = new JLabel("Password");
-        errorLoginLabel = new JLabel("");
-        errorLoginLabel.setForeground(Color.RED);
+        errorLabel = new JLabel("");
+        errorLabel.setForeground(Color.RED);
         this.setTitle("CryptoHelper - Registrazione di un nuovo utente");
-        this.setSize(new Dimension(300, 200));
+        this.setSize(new Dimension(300, 250));
         this.setLayout(new FlowLayout());
         this.add(nameLabel);
         this.add(nameField);
@@ -51,6 +51,7 @@ public class RegistrationForm extends JFrame implements View {
         this.add(nicknameField);
         this.add(passwordLabel);
         this.add(passwordField);
+        this.add(errorLabel);
         this.add(cancelBtn);
         this.add(submitBtn);
         this.setVisible(true);
@@ -68,7 +69,7 @@ public class RegistrationForm extends JFrame implements View {
 
     //METODI GETTER
     public JLabel getErrorLoginLabel() {
-        return errorLoginLabel;
+        return errorLabel;
     }
 
     public JButton getSubmitBtn() {
@@ -95,9 +96,8 @@ public class RegistrationForm extends JFrame implements View {
         return passwordField.getText();
     }
   
-    
     //METODI SETTER
-    public void setErorLogin(JLabel erorLogin) {
-        this.errorLoginLabel = erorLogin;
+    public void setErrorLabel(String errorMessage) {
+        this.errorLabel.setText(errorMessage);
     }
 }
