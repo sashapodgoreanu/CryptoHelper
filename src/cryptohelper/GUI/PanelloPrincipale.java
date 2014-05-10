@@ -166,10 +166,7 @@ public class PanelloPrincipale extends JFrame implements View {
         leftPanel.add(corpoMessaggio);
 
         JLabel bozzeListLabel = new JLabel("Bozze disponibili:");
-        JScrollPane scrollPane = new JScrollPane();
-        //   scrollPane.setViewportView(elencoBozze);
-        System.out.println("bozze panelo princ: "+ bozzeArrLst.toString());     
-        
+        System.out.println("bozze panelo princ: "+ bozzeArrLst.toString());            
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
         elencoBozze.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -182,14 +179,12 @@ public class PanelloPrincipale extends JFrame implements View {
                 }
                 return renderer;
             }
-        });     
-        
+        });         
         elencoBozze.setSelectedIndex(0);
-        JScrollPane scrollPane2 = new JScrollPane();
-        scrollPane2.setViewportView(elencoBozze);
-        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(elencoBozze);     
         rightPanel.add(bozzeListLabel, BorderLayout.NORTH);
-        rightPanel.add(scrollPane2, BorderLayout.CENTER);
+        rightPanel.add(scrollPane, BorderLayout.CENTER);
         bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
 
     }
