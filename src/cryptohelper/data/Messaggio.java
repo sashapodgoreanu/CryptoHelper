@@ -11,10 +11,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
-
-    //debug
-    private Log log = LogFactory.getLog(Messaggio.class);
-
+ 
+    private Log log = LogFactory.getLog(Messaggio.class);   //per debug
     private int id;
     private String testo;
     private String testoCifrato;
