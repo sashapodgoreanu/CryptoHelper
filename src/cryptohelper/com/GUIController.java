@@ -74,8 +74,7 @@ public class GUIController {
             csdcp.getCesareRBtn().addActionListener(new MetodoDicifraturaListener());
             csdcp.getParolaChiaveRBtn().addActionListener(new MetodoDicifraturaListener());
             csdcp.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
-        }
-        
+        }      
     }
 
     //classe listener per il login
