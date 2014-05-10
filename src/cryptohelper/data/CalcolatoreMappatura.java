@@ -3,14 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package cryptohelper.data;
 
 /**
  *
  * @author st116628
  */
-public interface CalcolatoreMappatura {
-    public Mappatura calcola(java.lang.String chiave);
-    public CalcolatoreMappatura create(java.lang.String metodo);
+public abstract class CalcolatoreMappatura {
+
+    public abstract Mappatura calcola(String chiave);
+
+    public CalcolatoreMappatura create(String metodo) {
+        if (metodo.equals("parola chiave")) {
+            return new CalcolatoreParolachiave();
+        } else if (metodo.equals("cesare")) {
+            return new CalcolatoreCesare();
+        } else {
+            return new CalcolatorePseudocasuale();
+        }
+    }
 }

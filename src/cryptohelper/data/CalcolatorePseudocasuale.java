@@ -10,7 +10,7 @@ package cryptohelper.data;
  *
  * @author Sasha Alexandru Podgoreanu
  */
-public class CalcolatorePseudocasuale implements CalcolatoreMappatura {
+public class CalcolatorePseudocasuale extends CalcolatoreMappatura {
 
     @Override
     public Mappatura calcola(java.lang.String chiave) {

@@ -11,6 +11,7 @@ import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
 import cryptohelper.GUI.View;
+import cryptohelper.data.Mappatura;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.MessaggioMittente;
 import cryptohelper.data.SistemaCifratura;
@@ -42,6 +43,7 @@ public class GUIController {
     private Messaggio msgMittente;
     private UserInfo utilizzatoreSistema;
     private SistemaCifratura sdc;
+    private Mappatura mp;
 
     private GUIController() {
         comC = new COMController();
@@ -214,7 +216,7 @@ public class GUIController {
                     chiave = chiave+""+csdcp.getData(0, i);
                 }
                 if(sdc.valid(metodo,chiave)){
-                    
+                    mp = sdc.create(metodo, chiave);
                 }
             }
         }

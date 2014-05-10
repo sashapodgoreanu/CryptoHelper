@@ -7,21 +7,13 @@ public class SistemaCifratura {
     private String chiave;
     private String metodo;
     private UserInfo creatore;
-    private Mappatura mp;
+    private Mappatura map;
     private CalcolatoreMappatura cm;
 
     //COSTRUTTORE
-    public SistemaCifratura(int id, String chiave, String metodo, UserInfo creatore, CalcolatoreMappatura cm) {
-        this.id = id;
-        this.chiave = chiave;
-        this.metodo = metodo;
-        this.creatore = creatore;
-    }
-
     public SistemaCifratura(UserInfo creatore) {
         this.creatore = creatore;
     }
-    
 
     public SistemaCifratura(String chiave, String metodo) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -44,11 +36,52 @@ public class SistemaCifratura {
     }
 
     public void calcolaMappatura() {
-        
+
+    }
+
+    //TO -DO SALVA 
+    public Mappatura create(String metodo, String chiave) {
+        this.metodo = metodo;
+        this.chiave = chiave;
+        //salva();
+        cm = cm.create(metodo);
+        map = cm.calcola(chiave);
+        return map;
     }
     
-    public Mappatura create(String metodo, String chiave){
-       throw new UnsupportedOperationException("Not supported yet.");
+    //TO - DO
+    private void salva() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Il metodo verifica se la chiave introdota per il metodo e valida
+     *
+     * @param metodo di cifratura
+     * @param chiave per la cifratura
+     * @return true se valid
+     */
+    public boolean valid(String metodo, String chiave) {
+        System.out.println(chiave.length());
+        if (metodo.equals("parola chiave")) {
+            if (!chiave.matches("[a-zA-Z]*")) {
+                return false;
+            }
+            if (chiave.length() > 26) {
+                return false;
+            }
+            char[] alfabeto = new char[26];
+            for (int i = 0; i < chiave.length(); i++) {
+                for (int j = 0; j < i; j++) {
+                    if (alfabeto[j] == chiave.charAt(i)) {
+                        return false;
+                    }
+                }
+                alfabeto[i] = chiave.charAt(i);
+            }
+            return true;
+        }
+        return false;
     }
 
     public int getId() {
@@ -84,31 +117,12 @@ public class SistemaCifratura {
     }
 
     public Mappatura getMp() {
-        return mp;
+        return map;
     }
 
-    public void setMp(Mappatura mp) {
-        this.mp = mp;
+    public void setMp(Mappatura map) {
+        this.map = map;
     }
 
-    public boolean valid(String metodo, String chiave) {
-        System.out.println(chiave.length());
-        if (chiave.length() > 26)
-            return false;
-        char[] alfabeto = new char[26];
-        for (int i = 0; i < chiave.length(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (alfabeto[j] == chiave.charAt(i))
-                    return false;
-            }
-            alfabeto[i] = chiave.charAt(i);
-        }
-        for (int i = 0; i < chiave.length(); i++) {
-           System.out.println(alfabeto[i]);
-        }
-        
-        return true;
-    }
-    
     
 }

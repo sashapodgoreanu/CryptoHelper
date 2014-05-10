@@ -10,16 +10,14 @@ package cryptohelper.data;
  *
  * @author Sasha Alexandru Podgoreanu
  */
-public class CalcolatoreParolachiave implements CalcolatoreMappatura {
+public class CalcolatoreParolachiave extends CalcolatoreMappatura {
 
     @Override
-    public Mappatura calcola(java.lang.String chiave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public CalcolatoreMappatura create(String metodo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    public Mappatura calcola(String chiave) {
+        Mappatura m = new Mappatura();
+        for (int i = 0; i < chiave.length(); i++) {
+           m.map(chiave.charAt(i));
+        }
+        return m;
+    }   
 }
