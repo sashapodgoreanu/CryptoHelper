@@ -89,7 +89,7 @@ public class GUIController {
                 PanelloPrincipale pp = new PanelloPrincipale();
                 utilizzatoreSistema = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
             } else {
-                loginForm.getErrorLoginLabel().setText("Error");
+                loginForm.getErrorLoginLabel().setText("Errore di autenticazione");
             }
         }
     }
