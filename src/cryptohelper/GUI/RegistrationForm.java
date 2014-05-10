@@ -3,6 +3,7 @@ package cryptohelper.GUI;
 
 import cryptohelper.com.GUIController;
 import java.awt.*;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class RegistrationForm extends JFrame implements View {
@@ -76,6 +77,22 @@ public class RegistrationForm extends JFrame implements View {
 
     public JButton getCancelBtn() {
         return cancelBtn;
+    }
+
+    public String getNameField() {
+        return nameField.getText();
+    }
+
+    public String getSurnameField() {
+        return surnameField.getText();
+    }
+
+    public String getNicknameField() {
+        return nicknameField.getText();
+    }
+  
+    public String getPasswordField() {
+        return passwordField.getText();
     }
   
     
