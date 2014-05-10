@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
 
 /**
  * Il controllore Deve conoscere: i modelli e le viste - JFrame's
@@ -78,6 +79,7 @@ public class GUIController {
             csdcp.getCesareRBtn().addActionListener(new MetodoDicifraturaListener());
             csdcp.getParolaChiaveRBtn().addActionListener(new MetodoDicifraturaListener());
             csdcp.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
+            csdcp.getSalvaSdcBtn().addActionListener(new SalvaMetodoDicifraturaListener());
         } else if (v instanceof RegistrationForm) {
             regForm = (RegistrationForm) v;
             regForm.getCancelBtn().addActionListener(new CancelListener());
@@ -180,6 +182,7 @@ public class GUIController {
         }
     }
 
+    //classe listener per JRadioButtons per selezionare il metodo di cifratura
     private class MetodoDicifraturaListener implements ActionListener {
 
         @Override
@@ -188,14 +191,32 @@ public class GUIController {
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("parola chiave")) {
                 csdcp.initParolaChiave();
-                System.out.println("out MetodoDicifraturaListener");
             }
-            System.out.println("out MetodoDicifraturaListener");
+        }
+    }
+
+    //classe listener per salvare SDC
+    private class SalvaMetodoDicifraturaListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println(this.getClass() + " selected " + ev.getText());
+            if (ev.getText().equalsIgnoreCase("Salva cifrario parola chiave")) {
+                if (csdcp.getTable().isEditing()) {
+                    csdcp.getTable().getCellEditor().stopCellEditing();
+                }
+                for (int i = 0; i < 26; i++) {
+                    System.out.println(csdcp.getData(0, i));
+                }
+
+            }
         }
     }
 
     //classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             pp.dispose();
@@ -206,15 +227,17 @@ public class GUIController {
 
     //classe listener per la reistrazione dell'utente
     private class RegistrationFormListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             loginForm.dispose();
             RegistrationForm rf = new RegistrationForm();
         }
     }
-    
-     //classe listener per il button "annulla" della finestra registrazione utente
+
+    //classe listener per il button "annulla" della finestra registrazione utente
     private class CancelListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             regForm.dispose();
@@ -222,13 +245,14 @@ public class GUIController {
             System.out.println(this.getClass() + "Registration: cancel");
         }
     }
-    
+
     //classe listener per il button "OK" della finestra registrazione utente
     private class RegisterListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            Studente s = new Studente(regForm.getNameField(),regForm.getSurnameField(),
-                    regForm.getNicknameField(),regForm.getPasswordField());
+            Studente s = new Studente(regForm.getNameField(), regForm.getSurnameField(),
+                    regForm.getNicknameField(), regForm.getPasswordField());
             s.salva();
             regForm.dispose();
             LoginForm f = new LoginForm();

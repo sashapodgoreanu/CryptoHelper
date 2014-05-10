@@ -60,6 +60,7 @@ public class CreaSDCPanel extends JPanel implements View {
         cesareRBtn = new JRadioButton("Cesare");
         pseudocasualeRBtn = new JRadioButton("Pseudocasuale");
         scrollPane = new JScrollPane();
+        salvaSdcBtn = new JButton("Salva cifrario parola chiave");
 
         
         
@@ -91,14 +92,15 @@ public class CreaSDCPanel extends JPanel implements View {
         
         remake();
         scrollPane = new JScrollPane();
-        String[] columnNames = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X"};
-        Object[][] data = {
-            new String[23]
+        String[] columnNames = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};               	      				
+        Object[][] data = {    
+            new String[26]
         };
-        salvaSdcBtn = new JButton("Salva");
+        //salvaSdcBtn = new JButton("Salva cifrario parola chiave");
         provasdcBtn = new JButton("Prova la cifratura");
         nomeCifraturaField = new JTextField(20);
         table = new JTable(data, columnNames);
+        table.setCellSelectionEnabled(true);
         scrollPane.setViewportView(table);
         scrollPane.setPreferredSize(new Dimension(500, 39));
         JTextArea corpoMessaggio = new JTextArea();
@@ -110,6 +112,7 @@ public class CreaSDCPanel extends JPanel implements View {
         centerPanel.add(scrollPane, BorderLayout.NORTH);
         centerPanel.add(corpoMessaggio, BorderLayout.CENTER);
         centerPanel.revalidate();
+        
         
         bottomPanel.add(provasdcBtn);
         bottomPanel.add(new JLabel("Nome cifratura"));
@@ -133,6 +136,10 @@ public class CreaSDCPanel extends JPanel implements View {
     public void registerController() {
         GUIController gc = GUIController.getInstance();
         gc.addView(this);
+    }
+
+    public JButton getSalvaSdcBtn() {
+        return salvaSdcBtn;
     }
 
     public JRadioButton getParolaChiaveRBtn() {
@@ -159,4 +166,12 @@ public class CreaSDCPanel extends JPanel implements View {
         this.pseudocasualeRBtn = pseudocasualeRBtn;
     }
 
+    public JTable getTable() {
+        return table;
+    }
+    
+    public String getData(int row_index, int col_index) {
+        return (String) table.getModel().getValueAt(row_index, col_index);
+    }
+    
 }
