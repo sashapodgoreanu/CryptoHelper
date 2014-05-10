@@ -13,6 +13,7 @@ import cryptohelper.GUI.SdcPanel;
 import cryptohelper.GUI.View;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.MessaggioMittente;
+import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -80,7 +81,7 @@ public class GUIController {
         } else if (v instanceof RegistrationForm) {
             regForm = (RegistrationForm) v;
             regForm.getCancelBtn().addActionListener(new CancelListener());
-            regForm.getSubmitBtn().addActionListener(new MetodoDicifraturaListener());
+            regForm.getSubmitBtn().addActionListener(new RegisterListener());
         }
     }
 
@@ -219,6 +220,19 @@ public class GUIController {
             regForm.dispose();
             LoginForm f = new LoginForm();
             System.out.println(this.getClass() + "Registration: cancel");
+        }
+    }
+    
+    //classe listener per il button "OK" della finestra registrazione utente
+    private class RegisterListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Studente s = new Studente(regForm.getNameField(),regForm.getSurnameField(),
+                    regForm.getNicknameField(),regForm.getPasswordField());
+            s.salva();
+            regForm.dispose();
+            LoginForm f = new LoginForm();
+            System.out.println(this.getClass() + "Registration: OK");
         }
     }
 
