@@ -83,6 +83,7 @@ public class GUIController {
             csdcp.getParolaChiaveRBtn().addActionListener(new MetodoDicifraturaListener());
             csdcp.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
             csdcp.getSalvaSdcBtn().addActionListener(new SalvaMetodoDicifraturaListener());
+            csdcp.getProvasdcBtn().addActionListener(new ProvaMetodoDicifraturaListener());
         } else if (v instanceof RegistrationForm) {
             regForm = (RegistrationForm) v;
             regForm.getCancelBtn().addActionListener(new CancelListener());
@@ -203,6 +204,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatus("");
             sdc = new SistemaCifratura(utilizzatoreSistema);
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
@@ -213,17 +215,45 @@ public class GUIController {
                 }
                 String chiave = "";
                 for (int i = 0; i < 26; i++) {
-                    chiave = chiave+""+csdcp.getData(0, i);
+                    chiave = chiave + "" + csdcp.getData(0, i);
                 }
-                if(sdc.valid(metodo,chiave)){
+                if (sdc.valid(metodo, chiave)) {
                     mp = sdc.create(metodo, chiave);
-
-                        System.out.print(mp.inverseMap('a'));
-                        System.out.print(mp.inverseMap('b'));
-                        System.out.print(mp.inverseMap('c'));
-                    
+                    System.out.print(mp.inverseMap('a'));
+                    System.out.print(mp.inverseMap('b'));
+                    System.out.print(mp.inverseMap('c'));
+                } else {
+                    pp.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
                 }
             }
+        }
+    }
+
+    //classe listener per provare SDC - ascolta il bottone prova sdc
+    private class ProvaMetodoDicifraturaListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            pp.setStatus("");
+            JButton ev = (JButton) e.getSource();
+            System.out.println(this.getClass() + " selected " + ev.getText());
+            sdc = new SistemaCifratura(utilizzatoreSistema);
+            String metodo = "parola chiave";
+            if (csdcp.getTable().isEditing()) {
+                csdcp.getTable().getCellEditor().stopCellEditing();
+            }
+            String chiave = "";
+            for (int i = 0; i < 26; i++) {
+                chiave = chiave + "" + csdcp.getData(0, i);
+            }
+            if (sdc.valid(metodo, chiave)) {
+                mp = sdc.create(metodo, chiave);
+                String a = csdcp.getCorpoMessaggioProva().getText();
+                csdcp.getCorpoMessaggioResult().setText(sdc.prova(a));
+            } else {
+                pp.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
+            }
+
         }
     }
 

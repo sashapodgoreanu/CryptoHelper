@@ -31,18 +31,19 @@ public class CreaSDCPanel extends JPanel implements View {
     private JRadioButton parolaChiaveRBtn;
     private JRadioButton cesareRBtn;
     private JRadioButton pseudocasualeRBtn;
-    
+
     private JButton salvaSdcBtn;
     private JButton provasdcBtn;
     private JTextField nomeCifraturaField;
+    private JTextArea corpoMessaggioProva;
+    private JTextArea corpoMessaggioResult;
 
     private JPanel topPanel;//contiene i JRadioButtons
     private JPanel centerPanel; // contiene la logica applicativa per creare un sistema di cifratura
     private JPanel bottomPanel; //scrollpane per table
-    
+
     private JTable table; // tabela per mappatura per cifrario parolachiave
     private JScrollPane scrollPane; //scrollpane per table
-
 
     public CreaSDCPanel() {
 
@@ -61,11 +62,8 @@ public class CreaSDCPanel extends JPanel implements View {
         pseudocasualeRBtn = new JRadioButton("Pseudocasuale");
         scrollPane = new JScrollPane();
         salvaSdcBtn = new JButton("Salva cifrario parola chiave");
+        provasdcBtn = new JButton("Prova la cifratura");
 
-        
-        
-        
-        
         this.setLayout(new BorderLayout());
 
         //ragrupa i bottoni   - when i select a radiobutton will deselect the precedent selected. 
@@ -88,48 +86,49 @@ public class CreaSDCPanel extends JPanel implements View {
     }
 
     public void initParolaChiave() {
-        
-        
+
         remake();
         scrollPane = new JScrollPane();
-        String[] columnNames = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};               	      				
-        Object[][] data = {    
-            new String[26]
+        String[] columnNames = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        Object[][] data = {
+            {"Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M"}
         };
         //salvaSdcBtn = new JButton("Salva cifrario parola chiave");
-        provasdcBtn = new JButton("Prova la cifratura");
+        
         nomeCifraturaField = new JTextField(20);
         table = new JTable(data, columnNames);
         table.setCellSelectionEnabled(true);
+        
         scrollPane.setViewportView(table);
         scrollPane.setPreferredSize(new Dimension(500, 39));
-        JTextArea corpoMessaggio = new JTextArea();
-        corpoMessaggio.setSize(new Dimension(100, 150));
-        corpoMessaggio.setLineWrap(true);
-        corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
-        
-        
+        corpoMessaggioProva = new JTextArea();
+        corpoMessaggioProva.setSize(new Dimension(60, 60));
+        corpoMessaggioProva.setLineWrap(true);
+        corpoMessaggioProva.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+        corpoMessaggioResult = new JTextArea();
+        corpoMessaggioResult.setSize(new Dimension(60, 60));
+        corpoMessaggioResult.setLineWrap(true);
+        corpoMessaggioResult.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+
         centerPanel.add(scrollPane, BorderLayout.NORTH);
-        centerPanel.add(corpoMessaggio, BorderLayout.CENTER);
+        centerPanel.add(corpoMessaggioProva, BorderLayout.CENTER);
+        centerPanel.add(corpoMessaggioResult, BorderLayout.SOUTH);
         centerPanel.revalidate();
-        
-        
+
         bottomPanel.add(provasdcBtn);
         bottomPanel.add(new JLabel("Nome cifratura"));
         bottomPanel.add(nomeCifraturaField);
         bottomPanel.add(salvaSdcBtn);
         bottomPanel.revalidate();
-        
-        
+
     }
-    
-    private void remake(){
+
+    private void remake() {
         centerPanel.removeAll();
         centerPanel.revalidate();
         bottomPanel.removeAll();
         bottomPanel.revalidate();
 
-        
     }
 
     @Override
@@ -169,9 +168,40 @@ public class CreaSDCPanel extends JPanel implements View {
     public JTable getTable() {
         return table;
     }
-    
+
     public String getData(int row_index, int col_index) {
         return (String) table.getModel().getValueAt(row_index, col_index);
     }
+
+    public JButton getProvasdcBtn() {
+        return provasdcBtn;
+    }
+
+    public void setProvasdcBtn(JButton provasdcBtn) {
+        this.provasdcBtn = provasdcBtn;
+    }
+
+    public JTextArea getCorpoMessaggioResult() {
+        return corpoMessaggioResult;
+    }
+
+    public void setCorpoMessaggioResult(JTextArea corpoMessaggioResult) {
+        this.corpoMessaggioResult = corpoMessaggioResult;
+    }
+
+    public JTextArea getCorpoMessaggioProva() {
+        return corpoMessaggioProva;
+    }
+
+    public void setCorpoMessaggioProva(JTextArea corpoMessaggioProva) {
+        this.corpoMessaggioProva = corpoMessaggioProva;
+    }
     
+    
+    
+    
+    
+    
+    
+
 }

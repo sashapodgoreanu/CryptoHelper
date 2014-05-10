@@ -27,8 +27,8 @@ public class Mappatura {
      */
     public char map(char c) {
         for (int i = 0; i < 26; i++) {
-            if (mappaInversa[i] == c) {
-                return mappa[i];
+            if (mappa[i] == c) {
+                return mappaInversa[i];
             }
         }
         return 1;
@@ -36,8 +36,8 @@ public class Mappatura {
 
     public char inverseMap(char c) {
         for (int i = 0; i < 26; i++) {
-            if (mappa[i] == c) {
-                return mappaInversa[i];
+            if (mappaInversa[i] == c) {
+                return mappa[i];
             }
         }
         return 1;

@@ -32,7 +32,7 @@ public class SistemaCifratura {
     }
 
     public String prova(String testo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return Cifratore.cifraMonoalfabetica(map, testo);
     }
     /*
     public String cifra(String testo) {
@@ -63,12 +63,13 @@ public class SistemaCifratura {
      * @return true se valid
      */
     public boolean valid(String metodo, String chiave) {
+        chiave = chiave.toLowerCase();
         System.out.println(chiave.length());
         if (metodo.equals("parola chiave")) {
             if (!chiave.matches("[a-zA-Z]*")) {
                 return false;
             }
-            if (chiave.length() > 26) {
+            if (chiave.length() != 26) {
                 return false;
             }
             char[] alfabeto = new char[26];

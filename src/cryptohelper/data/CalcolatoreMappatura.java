@@ -11,6 +11,11 @@ package cryptohelper.data;
  */
 public abstract class CalcolatoreMappatura {
 
+    /**
+     *
+     * @param chiave
+     * @return
+     */
     public abstract Mappatura calcola(String chiave);
 
     public static CalcolatoreMappatura create(String metodo) {
