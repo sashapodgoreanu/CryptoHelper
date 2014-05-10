@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Pannello per le operazioni con il sistema di cifratura
 package cryptohelper.GUI;
 
 import cryptohelper.com.GUIController;
@@ -10,10 +6,6 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Sasha Alexandru Podgoreanu
- */
 public class SdcPanel extends JPanel implements View {
 
     private JButton proponiSDCBtn;
@@ -24,13 +16,11 @@ public class SdcPanel extends JPanel implements View {
     private JPanel centerSDCPanel;
     private CreaSDCPanel creasdc;
 
-
-
     public SdcPanel() {
         init();
         registerController();
     }
-
+    
     public void init() {
         //creazione dei componenti
         proponiSDCBtn = new JButton("Proponi Sistema Di Cifratura");
@@ -56,7 +46,7 @@ public class SdcPanel extends JPanel implements View {
         System.out.println("initCreateSDC");
         //pulisci
         this.resetpanels();
-        //crea nuovo panelo 
+        //crea nuovo panello 
         creasdc = new CreaSDCPanel();
         centerSDCPanel.add(creasdc);
         this.revalidate();
