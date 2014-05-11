@@ -3,6 +3,7 @@ package cryptohelper.GUI;
 
 import cryptohelper.com.GUIController;
 import cryptohelper.data.Messaggio;
+import cryptohelper.data.MessaggioDestinatario;
 import cryptohelper.data.MessaggioMittente;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
@@ -40,9 +41,11 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton sendMessageBtn = new JButton("Invia messaggio");
     JTextField titoloMessaggioField;    //Input per Messaggio
     JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
+    JList elencoMessaggiRicevuti;       //elenca i mittenti di tutti i messaggi ricevuti  
     JList elencoBozze;                  //visualizza lalista delle bozze
     JTextArea corpoMessaggio;
     ArrayList<UserInfo> destinatariArrLst;
+    ArrayList<MessaggioDestinatario> mittentiMessaggiArrLst;
     ArrayList<MessaggioMittente> bozzeArrLst;
 
     Studente studente;
@@ -149,6 +152,54 @@ public class PanelloPrincipale extends JFrame implements View {
         bodyPanel.revalidate();  //completa l'inizializzazione dell'interfaccia
     }
 
+    //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "InBox"
+    public void initInBox() {
+        resetPanels();
+        this.setTitle("CryptoHelper - Gestisci InBox");    //cambia titolo al form      
+        JLabel msgTitlelLabel = new JLabel("Titolo del messaggio:");
+        titoloMessaggioField = new JTextField(21);
+        topPanel.add(msgTitlelLabel);
+        topPanel.add(titoloMessaggioField);
+        
+        JLabel targetListLabel = new JLabel("Messaggi ricevuti:");
+        
+        elencoMessaggiRicevuti = new JList(new Vector<MessaggioDestinatario>(mittentiMessaggiArrLst));
+        elencoMessaggiRicevuti.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (renderer instanceof JLabel && value instanceof MessaggioDestinatario) {
+                    MessaggioDestinatario temp = (MessaggioDestinatario) value;
+                    System.out.println("renderer " + temp.toString());
+      //              ((JLabel) renderer).setText(temp.getMittente().getNome() + " " + temp.getMittente().getCognome());     
+                }
+                return renderer;
+            }
+        });
+        elencoMessaggiRicevuti.setSelectedIndex(0);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(elencoMessaggiRicevuti);
+        rightPanel.add(targetListLabel, BorderLayout.NORTH);
+        rightPanel.add(scrollPane, BorderLayout.CENTER);
+        corpoMessaggio = new JTextArea();
+        corpoMessaggio.setSize(new Dimension(540, 250));
+        corpoMessaggio.setLineWrap(true);
+        corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+        JLabel messaggioLabel = new JLabel("Testo del messaggio:");
+        leftPanel.add(messaggioLabel, BorderLayout.NORTH);
+        leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
+        System.out.println("initInBox");
+        bodyPanel.revalidate();  //completa l'inizializzazione dell'interfaccia
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"  
     public void initGestioneBozze() {
         resetPanels();
@@ -306,6 +357,14 @@ public class PanelloPrincipale extends JFrame implements View {
         return SDCBtn;
     }
 
+    public ArrayList<MessaggioDestinatario> getMittentiMessaggiArrLst() {
+        return mittentiMessaggiArrLst;
+    }
+
+    public void setMittentiMessaggiArrLst(ArrayList<MessaggioDestinatario> bozzeArayLst) {
+        this.mittentiMessaggiArrLst = bozzeArayLst;
+    }   
+    
     public ArrayList<MessaggioMittente> getBozzeArayLst() {
         return bozzeArrLst;
     }

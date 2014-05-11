@@ -27,7 +27,13 @@ public class Studente implements Model {
         this.password = password;
     }
 
-    public Studente() {
+    public Studente() {        
+    }
+    
+    public Studente(int id, String nome, String cognome) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
     }
 
     //METODI GETTER
