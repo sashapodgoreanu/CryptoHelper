@@ -171,7 +171,7 @@ public class PanelloPrincipale extends JFrame implements View {
                 if (renderer instanceof JLabel && value instanceof MessaggioDestinatario) {
                     MessaggioDestinatario temp = (MessaggioDestinatario) value;
                     System.out.println("renderer " + temp.toString());
-      //              ((JLabel) renderer).setText(temp.getMittente().getNome() + " " + temp.getMittente().getCognome());
+      //              ((JLabel) renderer).setText(temp.getMittente().getNome() + " " + temp.getMittente().getCognome());     
                 }
                 return renderer;
             }

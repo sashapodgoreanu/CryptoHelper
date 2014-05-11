@@ -14,6 +14,7 @@ import cryptohelper.GUI.View;
 import cryptohelper.data.Mappatura;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.MessaggioMittente;
+import cryptohelper.data.MessaggioDestinatario;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
@@ -71,6 +72,7 @@ public class GUIController {
             //Si crea il button nell'interfaccia. Con get e set qui si settano
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
             pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
+            pp.getInboxBtn().addActionListener(new GestisciInBox());
             pp.getLogoutBtn().addActionListener(new LogoutListener());
             pp.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
             pp.getSDCBtn().addActionListener(new GestisciSDC());
@@ -151,6 +153,23 @@ public class GUIController {
             }
         }
     }
+    
+    //classe listener per il butto "InBox" della finestra principale
+    private class GestisciInBox implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
+            pp.setMittentiMessaggiArrLst(temp);            
+            pp.initInBox();
+        }
+    }
+        
+    
+    
+    
 
     //classe listener per il button "bozze" della finestra principale 
     private class GestisciBozzeListener implements ActionListener {

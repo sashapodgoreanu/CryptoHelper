@@ -243,6 +243,31 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     }
    
 
+    //Preleva l'elenco dei messaggi destinatario
+    public static ArrayList<MessaggioDestinatario> caricaMessaggiDestinatario(int idStudente){
+        System.out.println("STAMPO ID STUDENTE"+idStudente);
+        String query = "SELECT * FROM Messaggi WHERE (ID_DESTINATARIO = "+idStudente+")";
+        QueryResult qr = null;
+        ArrayList<MessaggioDestinatario> messaggi = new ArrayList<>();
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+ //           System.out.println(qr.toString());
+            while(qr.next()){
+                MessaggioDestinatario temp = new Messaggio(qr.getInt("ID"),qr.getString("Testo"),qr.getString("TestoCifrato"),
+                        qr.getString("Lingua"),qr.getString("Titolo"),Boolean.parseBoolean(qr.getString("Bozza")),Boolean.parseBoolean(qr.getString("Letto")));
+                messaggi.add(temp);
+            }       
+        } catch (Exception ex) {
+            System.out.println("test");
+            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        System.out.println("test2");
+        System.out.println("messaggi ricevuti panelo princ: "+ messaggi.toString());
+        return messaggi;
+    }
+    
+    
+    
     //Preleva l'elenco delle bozze
     public static ArrayList<MessaggioMittente> caricaBozze(int idStudente){
         String query = "SELECT * FROM Messaggi";

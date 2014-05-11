@@ -5,4 +5,5 @@ package cryptohelper.data;
 public interface MessaggioDestinatario extends MessaggioAstratto
 {
     public boolean isLetto();
+    public UserInfo getMittente();    
 }
