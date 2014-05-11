@@ -195,6 +195,8 @@ public class GUIController {
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("parola chiave")) {
                 csdcp.initParolaChiave();
+            } else if (ev.getText().equalsIgnoreCase("cesare")) {
+                csdcp.initCesare();
             }
         }
     }
