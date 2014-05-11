@@ -36,6 +36,7 @@ public class CreaSDCPanel extends JPanel implements View {
     private JButton salvaSdcBtn;
     private JButton provasdcBtn;
     private JTextField nomeCifraturaField;
+    private JTextField chiave;
     private JTextArea corpoMessaggioProva;
     private JTextArea corpoMessaggioResult;
 
@@ -67,6 +68,7 @@ public class CreaSDCPanel extends JPanel implements View {
         scrollPane = new JScrollPane();
         salvaSdcBtn = new JButton("Salva cifrario parola chiave");
         provasdcBtn = new JButton("Prova la cifratura");
+        
 
         //ragrupa i bottoni   - when i select a radiobutton will deselect the precedent selected. 
         ButtonGroup group = new ButtonGroup();
@@ -107,7 +109,7 @@ public class CreaSDCPanel extends JPanel implements View {
          //Setup per table 
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(table);
-        scrollPane.setPreferredSize(new Dimension(400, 39));
+        scrollPane.setPreferredSize(new Dimension(550, 39));
         
         //text area per provare sdc
         corpoMessaggioProva = new JTextArea();
@@ -141,6 +143,38 @@ public class CreaSDCPanel extends JPanel implements View {
     
     public void initCesare(){
         remake();
+        
+        //50 - la dimensione del textfield - qui si inserisce la chiave
+        chiave = new JTextField(50);
+        
+        //text area per provare sdc
+        corpoMessaggioProva = new JTextArea();
+        corpoMessaggioProva.setSize(new Dimension(60, 60));
+        corpoMessaggioProva.setLineWrap(true);
+        corpoMessaggioProva.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+        
+         //resultato di cifratura
+        corpoMessaggioResult = new JTextArea();
+        corpoMessaggioResult.setSize(new Dimension(60, 60));
+        corpoMessaggioResult.setLineWrap(true);
+        corpoMessaggioResult.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+
+        //la parte della creatione della mapatura
+        leftPanel.add(new JLabel("Chiave: "),BorderLayout.NORTH);
+        rightPanel.add(chiave,BorderLayout.NORTH);
+        leftPanel.add(new JLabel("Prova: "),BorderLayout.CENTER);
+        rightPanel.add(corpoMessaggioProva,BorderLayout.CENTER);
+        leftPanel.add(new JLabel("Resultato: "),BorderLayout.SOUTH);
+        rightPanel.add(corpoMessaggioResult,BorderLayout.SOUTH);
+        leftPanel.revalidate();
+        rightPanel.revalidate();
+
+        //nome per salvare la cifratura
+        nomeCifraturaField = new JTextField(20);
+        bottomPanel.add(provasdcBtn);
+        bottomPanel.add(new JLabel("Nome cifratura"));
+        bottomPanel.add(nomeCifraturaField);
+        bottomPanel.add(salvaSdcBtn);
     }
 
     private void remake() {
