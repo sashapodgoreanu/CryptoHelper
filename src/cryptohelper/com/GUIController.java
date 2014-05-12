@@ -69,7 +69,7 @@ public class GUIController {
             regForm = (RegistrationForm) v;
             regForm.getCancelBtn().addActionListener(new CancelListener());
             regForm.getSubmitBtn().addActionListener(new RegisterListener());
-        } else if (v instanceof PanelloPrincipale) {
+        } else if (v instanceof InboxPanel) {
             ip.getVisualizzaMessaggioBtn().addActionListener(new ViewReceivedMsgListener());
         } else if (v instanceof PanelloPrincipale) {
             pp = (PanelloPrincipale) v;
@@ -141,7 +141,6 @@ public class GUIController {
 
 //classe listener per la Jlist "ElencoMessaggiRicevuti" 
     private class ViewReceivedMsgListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             MessaggioDestinatario mess = (MessaggioDestinatario) ip.getElencoMessaggiRicevuti().getSelectedValue();
