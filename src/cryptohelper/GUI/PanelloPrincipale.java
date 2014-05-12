@@ -111,9 +111,9 @@ public class PanelloPrincipale extends JFrame implements View {
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
     public void initNuovoMessaggio() {
         this.resetPanels();
-        this.setTitle("CryptoHelper - Nuovo Messggio"); //cambia titolo al form
-        bodyPanel.add(new MessagePanel(destinatariArrLst));              //aggiunge il nuovo pannello
-        bodyPanel.revalidate();                         //completa l'inizializzazione dell'interfaccia
+        this.setTitle("CryptoHelper - Nuovo Messggio");     //cambia titolo al form
+        bodyPanel.add(new MessagePanel(destinatariArrLst)); //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
     }
 
     
@@ -160,7 +160,7 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initGestioneBozze() {
         this.resetPanels();
         this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form
-        bodyPanel.add(new BozzePanel(bozzeArrLst));                  //aggiunge il nuovo pannello
+        bodyPanel.add(new BozzePanel(bozzeArrLst));       //aggiunge il nuovo pannello
         bodyPanel.revalidate();                           //completa l'inizializzazione dell'interfaccia
     }
 
