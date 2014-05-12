@@ -158,7 +158,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per il butto "InBox" della finestra principale
+    //classe listener per il button Inbox della finestra principale
     private class GestisciInBox implements ActionListener {
 
         @Override
