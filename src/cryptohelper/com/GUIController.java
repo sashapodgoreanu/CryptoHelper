@@ -70,6 +70,7 @@ public class GUIController {
             regForm.getCancelBtn().addActionListener(new CancelListener());
             regForm.getSubmitBtn().addActionListener(new RegisterListener());
         } else if (v instanceof InboxPanel) {
+            ip = (InboxPanel) v;
             ip.getVisualizzaMessaggioBtn().addActionListener(new ViewReceivedMsgListener());
         } else if (v instanceof PanelloPrincipale) {
             pp = (PanelloPrincipale) v;
