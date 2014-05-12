@@ -29,13 +29,12 @@ public class BozzePanel extends JPanel implements View {
     JList elencoBozze;                  //visualizza lalista delle bozze
     JScrollPane scrollPane;
     JTextArea corpoMessaggio;
-    ArrayList<UserInfo> destinatariArrLst;
-    ArrayList<MessaggioDestinatario> mittentiMessaggiArrLst;
-    ArrayList<MessaggioMittente> bozzeArrLst;
+    ArrayList<MessaggioMittente> bozzeArrLst;   //array list con elenco delle bozze disponibili
 
     Studente studente;
 
-    public BozzePanel() {
+    public BozzePanel(ArrayList<MessaggioMittente> bozzeArrLst) {
+        this.bozzeArrLst = bozzeArrLst;     
         this.init();
     }
 
@@ -106,67 +105,5 @@ public class BozzePanel extends JPanel implements View {
         GUIController gc = GUIController.getInstance();
         gc.addView(this);
     }
-
-    //METODI GETTER
-    public JList getDestinatariCC() {
-        return elencoDestinatari;
-    }
-
-    public Object getSelectedDestinatario() {
-        return elencoDestinatari.getSelectedValue();
-    }
-
-    public JList getElencoDestinatari() {
-        return elencoDestinatari;
-    }
-
-    public JButton getSalvaBozzaBtn() {
-        return saveBozzaBtn;
-    }
-
-    public String getCorpoMessaggio() {
-        return corpoMessaggio.getText();
-    }
-
-    public ArrayList<UserInfo> getDestinatari() {
-        return destinatariArrLst;
-    }
-
-    public ArrayList<MessaggioDestinatario> getMittentiMessaggiArrLst() {
-        return mittentiMessaggiArrLst;
-    }
-
-    public ArrayList<MessaggioMittente> getBozzeArayLst() {
-        return bozzeArrLst;
-    }
-
-    //METODI SETTER
-    public void setCorpoMessaggio(String msg) {
-        this.corpoMessaggio.setText(msg);
-    }
-
-    public void setDestinatari(ArrayList<UserInfo> destinatari) {
-        this.destinatariArrLst = destinatari;
-    }
-
-    public void setElencoDestinatari(JList elencoDestinatari) {
-        this.elencoDestinatari = elencoDestinatari;
-    }
-
-    public void setTittoloMessaggioField(String titolo) {
-        this.titoloMessaggioField.setText(titolo);
-    }
-
-    public void setDestinatariCC(JList destinatariCC) {
-        this.elencoDestinatari = destinatariCC;
-    }
-
-    public void setMittentiMessaggiArrLst(ArrayList<MessaggioDestinatario> bozzeArayLst) {
-        this.mittentiMessaggiArrLst = bozzeArayLst;
-    }
-
-    public void setBozzeArayLst(ArrayList<MessaggioMittente> bozzeArayLst) {
-        this.bozzeArrLst = bozzeArayLst;
-    }
-
+  
 }
