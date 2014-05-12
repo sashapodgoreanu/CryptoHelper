@@ -2,16 +2,12 @@
 package cryptohelper.GUI;
 
 import cryptohelper.com.GUIController;
-import cryptohelper.data.Messaggio;
-import cryptohelper.data.MessaggioDestinatario;
-import cryptohelper.data.MessaggioMittente;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
+import java.util.Vector;
 
 public class MessagePanel extends JPanel implements View {
 
@@ -31,8 +27,7 @@ public class MessagePanel extends JPanel implements View {
     JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
     ArrayList<UserInfo> destinatariArrLst;
 
-    Studente studente;
-
+    
     public MessagePanel(ArrayList<UserInfo> destinatariArrLst) {
         this.destinatariArrLst = destinatariArrLst;
         this.init();
@@ -41,7 +36,7 @@ public class MessagePanel extends JPanel implements View {
 
     //inizializza il pannello
     private void init() {
-        System.out.println("Inizzializzazione Nuovo Messaggio...");   //comunicazione di controllo per i log
+        System.out.println("Inizializzazione Pannello Nuovo Messaggio...");   //comunicazione di controllo per i log
 
         //INIT DEI PANNELLI E DEI LAYOUT
         this.setLayout(new BorderLayout());
@@ -78,8 +73,6 @@ public class MessagePanel extends JPanel implements View {
         elencoDestinatari.setSelectedIndex(0);
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoDestinatari);
-        rightPanel.add(targetListLabel, BorderLayout.NORTH);
-        rightPanel.add(scrollPane, BorderLayout.CENTER);
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setSize(new Dimension(540, 250));
         corpoMessaggio.setLineWrap(true);
@@ -90,6 +83,8 @@ public class MessagePanel extends JPanel implements View {
         topPanel.add(titoloMessaggioField);
         leftPanel.add(messageTextLabel, BorderLayout.NORTH);
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
+        rightPanel.add(targetListLabel, BorderLayout.NORTH);
+        rightPanel.add(scrollPane, BorderLayout.CENTER);
         bottomPanel.add(saveBozzaBtn);
         bottomPanel.add(sendMessageBtn);
 
@@ -142,7 +137,6 @@ public class MessagePanel extends JPanel implements View {
         return destinatariArrLst;
     }
 
-    
     //METODI SETTER
     public void setCorpoMessaggio(String msg) {
         this.corpoMessaggio.setText(msg);
@@ -167,6 +161,5 @@ public class MessagePanel extends JPanel implements View {
     public void setElencoDestinatari(JList elencoDestinatari) {
         this.elencoDestinatari = elencoDestinatari;
     }
-
 
 }
