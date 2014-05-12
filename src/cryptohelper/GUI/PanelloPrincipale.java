@@ -7,7 +7,6 @@ import cryptohelper.data.MessaggioMittente;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -107,7 +106,9 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     public void initSDC() {
+        System.out.println("inside initSDC");
         this.resetPanels();
+        sdcPanel = new SdcPanel();
         bodyPanel.add(sdcPanel);
         bodyPanel.revalidate();
     }

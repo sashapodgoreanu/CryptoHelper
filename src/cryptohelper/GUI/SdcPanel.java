@@ -22,6 +22,7 @@ public class SdcPanel extends JPanel implements View {
     }
     
     public void init() {
+        System.out.println("initCreateSDC");
         //creazione dei componenti
         proponiSDCBtn = new JButton("Proponi Sistema Di Cifratura");
         inboxProposteSDCBtn = new JButton("Inbox");

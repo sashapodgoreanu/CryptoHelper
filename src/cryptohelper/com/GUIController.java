@@ -70,6 +70,7 @@ public class GUIController {
             regForm.getCancelBtn().addActionListener(new CancelListener());
             regForm.getSubmitBtn().addActionListener(new RegisterListener());
         } else if (v instanceof InboxPanel) {
+            ip = (InboxPanel) v;
             ip.getVisualizzaMessaggioBtn().addActionListener(new ViewReceivedMsgListener());
         } else if (v instanceof PanelloPrincipale) {
             pp = (PanelloPrincipale) v;
@@ -91,6 +92,9 @@ public class GUIController {
             csdcp.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
             csdcp.getSalvaSdcBtn().addActionListener(new SalvaMetodoDicifraturaListener());
             csdcp.getProvasdcBtn().addActionListener(new ProvaMetodoDicifraturaListener());
+        } else if (v instanceof MessagePanel) {
+            msgp = (MessagePanel) v;
+            msgp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
         }
     }
 
