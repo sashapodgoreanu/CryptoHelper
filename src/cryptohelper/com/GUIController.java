@@ -1,6 +1,8 @@
 package cryptohelper.com;
 
+import cryptohelper.GUI.BozzePanel;
 import cryptohelper.GUI.CreaSDCPanel;
+import cryptohelper.GUI.InboxPanel;
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.MessagePanel;
 import cryptohelper.GUI.PanelloPrincipale;
@@ -14,12 +16,10 @@ import cryptohelper.data.MessaggioDestinatario;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.JRadioButton;
+import javax.swing.*;
 
 /**
  * Il controllore Deve conoscere: i modelli e le viste - JFrame's
@@ -37,7 +37,8 @@ public class GUIController {
     private PanelloPrincipale pp;
     private SdcPanel sdcp;
     private MessagePanel msgp;
-
+    private BozzePanel bp;
+    private InboxPanel ip;
     private CreaSDCPanel csdcp;
     private static GUIController instance;
     private Messaggio msgMittente;
@@ -47,7 +48,6 @@ public class GUIController {
 
     private GUIController() {
         comC = new COMController();
-
     }
 
     public static GUIController getInstance() {
@@ -65,15 +65,22 @@ public class GUIController {
             loginForm.setPasswordField("1234");
             loginForm.getSubmit().addActionListener(new LoginFormListener());
             loginForm.getRegistration().addActionListener(new RegistrationFormListener());
+        } else if (v instanceof RegistrationForm) {
+            regForm = (RegistrationForm) v;
+            regForm.getCancelBtn().addActionListener(new CancelListener());
+            regForm.getSubmitBtn().addActionListener(new RegisterListener());
+        } else if (v instanceof PanelloPrincipale) {
+            ip.getVisualizzaMessaggioBtn().addActionListener(new ViewReceivedMsgListener());
         } else if (v instanceof PanelloPrincipale) {
             pp = (PanelloPrincipale) v;
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
-            pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
             pp.getInboxBtn().addActionListener(new GestisciInbox());
-            pp.getVisualizzaMessaggioBtn().addActionListener(new visualizzaMessRicevListener());
             pp.getLogoutBtn().addActionListener(new LogoutListener());
             pp.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
             pp.getSDCBtn().addActionListener(new GestisciSDC());
+
+         //   bp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
+            //  bp.getVisualizzaMessaggioBtn().addActionListener(new ViewReceivedMsgListener());
         } else if (v instanceof SdcPanel) {
             sdcp = (SdcPanel) v;
             sdcp.getCreaSDCBtn().addActionListener(new CreateSDCListener());
@@ -84,14 +91,10 @@ public class GUIController {
             csdcp.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
             csdcp.getSalvaSdcBtn().addActionListener(new SalvaMetodoDicifraturaListener());
             csdcp.getProvasdcBtn().addActionListener(new ProvaMetodoDicifraturaListener());
-        } else if (v instanceof RegistrationForm) {
-            regForm = (RegistrationForm) v;
-            regForm.getCancelBtn().addActionListener(new CancelListener());
-            regForm.getSubmitBtn().addActionListener(new RegisterListener());
         }
     }
 
-    //classe listener per il login
+//classe listener per il login
     private class LoginFormListener implements ActionListener {
 
         @Override
@@ -107,7 +110,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per il button "nuovo messaggio" della finestra principale
+//classe listener per il button "nuovo messaggio" della finestra principale
     private class NuovoMessaggioListener implements ActionListener {
 
         @Override
@@ -123,7 +126,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per il button Inbox della finestra principale
+//classe listener per il button Inbox della finestra principale
     private class GestisciInbox implements ActionListener {
 
         @Override
@@ -135,23 +138,18 @@ public class GUIController {
             pp.initInBox();
         }
     }
-    
-    //classe listener per la Jlist "ElencoMessaggiRicevuti" 
-    private class visualizzaMessRicevListener implements ActionListener {
-        
+
+//classe listener per la Jlist "ElencoMessaggiRicevuti" 
+    private class ViewReceivedMsgListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
-  //          System.out.println("QUIIIIIIIIIIIIIIIIIIIIIIII");
-            MessaggioDestinatario mess = (MessaggioDestinatario) pp.getElencoMessaggiRicevuti().getSelectedValue();
-  //          System.out.println(mess.getTesto());
-             pp.modificaCorpoMessaggio(mess.getTesto());
+            MessaggioDestinatario mess = (MessaggioDestinatario) ip.getElencoMessaggiRicevuti().getSelectedValue();
+            ip.modificaCorpoMessaggio(mess.getTesto());
         }
-    } 
-    
-    
-    
+    }
 
-    //classe listener per il button "bozze" della finestra principale 
+//classe listener per il button "bozze" della finestra principale 
     private class GestisciBozzeListener implements ActionListener {
 
         @Override
@@ -164,7 +162,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per il button "Sistema di cifratura" della finestra principale
+//classe listener per il button "Sistema di cifratura" della finestra principale
     private class GestisciSDC implements ActionListener {
 
         @Override
@@ -185,7 +183,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per JRadioButtons per selezionare il metodo di cifratura
+//classe listener per JRadioButtons per selezionare il metodo di cifratura
     private class MetodoDicifraturaListener implements ActionListener {
 
         @Override
@@ -200,7 +198,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per il button "salva messaggio" della finestra principale
+//classe listener per il button "salva messaggio" della finestra principale
     private class SalvaMessaggioListener implements ActionListener {
 
         @Override
@@ -208,18 +206,18 @@ public class GUIController {
             //un messaggio senza titolo non si puo salvare
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
-            System.out.println(this.getClass() + " Selected " + pp.getSelectedDestinatario().toString());
-            System.out.println(pp.getTittoloMessaggioField() + " - Tittolo del messaggio");
+            System.out.println(this.getClass() + " Selected " + msgp.getSelectedDestinatario().toString());
+            System.out.println(msgp.getTitoloMessaggioField() + " - Tittolo del messaggio");
             //se il tittolo del messaggio e vuouto mostra il messaggio
-            String temp = pp.getTittoloMessaggioField().replaceAll("\\s+", "");
+            String temp = msgp.getTitoloMessaggioField().replaceAll("\\s+", "");
             if (temp.equals("")) {
                 pp.setStatusLabelText("Il titolo del messaggio deve contenere almeno un carattere");
             } else { //altrimenti salva il messaggio
                 pp.setStatusLabelText("");
-                JList list = pp.getElencoDestinatari();
+                JList list = msgp.getElencoDestinatari();
                 UserInfo destinatario = (UserInfo) list.getSelectedValue();
                 System.out.println("Destinatario selected: " + destinatario.toString());
-                msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilizzatoreSistema, destinatario);
+                msgMittente = new Messaggio(msgMittente.getId(), msgp.getCorpoMessaggio(), msgp.getTitoloMessaggioField(), true, utilizzatoreSistema, destinatario);
                 //se msg.salva ritorna false allora errore
                 if (msgMittente.salva()) {
                     pp.setStatusLabelText("Messaggio Salvato!");
@@ -230,7 +228,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per salvare SDC - ascolta il bottone salva
+//classe listener per salvare SDC - ascolta il bottone salva
     private class SalvaMetodoDicifraturaListener implements ActionListener {
 
         @Override
@@ -260,7 +258,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per provare SDC - ascolta il bottone prova sdc
+//classe listener per provare SDC - ascolta il bottone prova sdc
     private class ProvaMetodoDicifraturaListener implements ActionListener {
 
         @Override
@@ -288,7 +286,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per il button "salva messaggio" della finestra principale
+//classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {
 
         @Override
@@ -299,7 +297,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per la reistrazione dell'utente
+//classe listener per la reistrazione dell'utente
     private class RegistrationFormListener implements ActionListener {
 
         @Override
@@ -309,7 +307,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per il button "annulla" della finestra registrazione utente
+//classe listener per il button "annulla" della finestra registrazione utente
     private class CancelListener implements ActionListener {
 
         @Override
@@ -320,7 +318,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per il button "OK" della finestra registrazione utente
+//classe listener per il button "OK" della finestra registrazione utente
     private class RegisterListener implements ActionListener {
 
         @Override
