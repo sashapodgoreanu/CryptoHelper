@@ -7,6 +7,7 @@ package cryptohelper.com;
 
 import cryptohelper.GUI.CreaSDCPanel;
 import cryptohelper.GUI.LoginForm;
+import cryptohelper.GUI.MessagePanel;
 import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
@@ -40,6 +41,8 @@ public class GUIController {
     private RegistrationForm regForm;
     private PanelloPrincipale pp;
     private SdcPanel sdcp;
+    private MessagePanel msgp;
+
     private CreaSDCPanel csdcp;
     private static GUIController instance;
     private Messaggio msgMittente;
@@ -69,8 +72,6 @@ public class GUIController {
             loginForm.getRegistration().addActionListener(new RegistrationFormListener());
         } else if (v instanceof PanelloPrincipale) {
             pp = (PanelloPrincipale) v;
-            //listenere dei bottoni delle interface
-            //Si crea il button nell'interfaccia. Con get e set qui si settano
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
             pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
             pp.getInboxBtn().addActionListener(new GestisciInBox());
@@ -145,7 +146,7 @@ public class GUIController {
                 pp.setStatus("");
                 JList list = pp.getElencoDestinatari();
                 UserInfo destinatario = (UserInfo) list.getSelectedValue();
-                System.out.println("Destinatario selected: "+destinatario.toString());
+                System.out.println("Destinatario selected: " + destinatario.toString());
                 msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilizzatoreSistema, destinatario);
                 //se msg.salva ritorna false allora errore
                 if (msgMittente.salva()) {
@@ -156,23 +157,19 @@ public class GUIController {
             }
         }
     }
-    
+
     //classe listener per il butto "InBox" della finestra principale
     private class GestisciInBox implements ActionListener {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
-            pp.setMittentiMessaggiArrLst(temp);            
+            pp.setMittentiMessaggiArrLst(temp);
             pp.initInBox();
         }
     }
-        
-    
-    
-    
 
     //classe listener per il button "bozze" della finestra principale 
     private class GestisciBozzeListener implements ActionListener {
