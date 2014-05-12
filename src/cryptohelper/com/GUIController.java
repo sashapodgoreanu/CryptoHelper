@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JRadioButton;
 
 /**
@@ -142,7 +143,9 @@ public class GUIController {
                 pp.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
             } else { //altrimenti salva il messaggio
                 pp.setStatus("");
-                UserInfo destinatario = (UserInfo) pp.getSelectedDestinatario();
+                JList list = pp.getElencoDestinatari();
+                UserInfo destinatario = (UserInfo) list.getSelectedValue();
+                System.out.println("Destinatario selected: "+destinatario.toString());
                 msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilizzatoreSistema, destinatario);
                 //se msg.salva ritorna false allora errore
                 if (msgMittente.salva()) {

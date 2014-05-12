@@ -128,8 +128,8 @@ public class PanelloPrincipale extends JFrame implements View {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof UserInfo) {
                     UserInfo temp = (UserInfo) value;
-                    System.out.println("renderer " + temp.toString());
-                    ((JLabel) renderer).setText(temp.getNome() + " " + temp.getCognome());
+                    //System.out.println("renderer " + temp.toString());
+                    ((JLabel) renderer).setText(temp.getId()+" "+temp.getNome() + " " + temp.getCognome());
                 }
                 return renderer;
             }
@@ -170,9 +170,7 @@ public class PanelloPrincipale extends JFrame implements View {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof MessaggioDestinatario) {
                     MessaggioDestinatario temp = (MessaggioDestinatario) value;
-                    System.out.println("renderer " + temp.toString());
-      //              ((JLabel) renderer).setText(temp.getMittente().getNome() + " " + temp.getMittente().getCognome()); 
-                    ((JLabel) renderer).setText(temp.getTitolo());
+                    ((JLabel) renderer).setText(temp.getTitolo()+" "+temp.getId());
                 }
                 return renderer;
             }
@@ -226,8 +224,8 @@ public class PanelloPrincipale extends JFrame implements View {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof MessaggioMittente) {
                     MessaggioMittente temp = (Messaggio) value;
-                    System.out.println("renderer " + temp.toString());
-                    ((JLabel) renderer).setText(temp.getTitolo());
+                    //System.out.println("renderer " + temp.toString());
+                    ((JLabel) renderer).setText(temp.getTitolo()+" "+temp.getTesto());
                 }
                 return renderer;
             }
@@ -276,6 +274,16 @@ public class PanelloPrincipale extends JFrame implements View {
     public Object getSelectedDestinatario() {
         return elencoDestinatari.getSelectedValue();
     }
+
+    public JList getElencoDestinatari() {
+        return elencoDestinatari;
+    }
+
+    public void setElencoDestinatari(JList elencoDestinatari) {
+        this.elencoDestinatari = elencoDestinatari;
+    }
+    
+    
 
     public JButton getNuovoMessaggioBtn() {
         return nuovoMessaggioBtn;
