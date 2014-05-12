@@ -93,7 +93,7 @@ public class PanelloPrincipale extends JFrame implements View {
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Inbox"
     public void initInBox() {
         this.resetPanels();
-        this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form
+        this.setTitle("CryptoHelper - Inbox");   //cambia titolo al form
         bodyPanel.add(new InboxPanel(mittentiArrLst));       //aggiunge il nuovo pannello
         bodyPanel.revalidate();                           //completa l'inizializzazione dell'interfaccia
     }
@@ -104,10 +104,6 @@ public class PanelloPrincipale extends JFrame implements View {
         this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form
         bodyPanel.add(new BozzePanel(bozzeArrLst));       //aggiunge il nuovo pannello
         bodyPanel.revalidate();                           //completa l'inizializzazione dell'interfaccia
-    }
-
-    public void modificaCorpoMessaggio(String testo) {
-        corpoMessaggio.setText(testo);
     }
 
     public void initSDC() {
@@ -130,67 +126,43 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     //METODI GETTER
-    public JList getDestinatariCC() {
-        return elencoDestinatari;
-    }
-
-    public Object getSelectedDestinatario() {
-        return elencoDestinatari.getSelectedValue();
-    }
-
-    public JList getElencoDestinatari() {
-        return elencoDestinatari;
-    }
-
-    public void setElencoDestinatari(JList elencoDestinatari) {
-        this.elencoDestinatari = elencoDestinatari;
-    }
-
     public JButton getNuovoMessaggioBtn() {
         return nuovoMessaggioBtn;
-    }
-
-    public JList getElencoMessaggiRicevuti() {
-        return elencoMessaggiRicevuti;
     }
 
     public JButton getInboxBtn() {
         return inboxBtn;
     }
 
-    public String getTittoloMessaggioField() {
-        return titoloMessaggioField.getText();
+    public JButton getSDCBtn() {
+        return SDCBtn;
     }
 
     public JButton getGestisciBozzeBtn() {
         return gestisciBozzeBtn;
     }
 
-    public String getStatus() {
+    public String getStatusLabelText() {
         return statusLabel.getText();
-    }
-
-    public JLabel getStatusLabel() {
-        return statusLabel;
     }
 
     public JButton getLogoutBtn() {
         return logoutBtn;
     }
 
-    public String getCorpoMessaggio() {
-        return corpoMessaggio.getText();
-    }
-
     public ArrayList<UserInfo> getDestinatari() {
         return destinatariArrLst;
     }
 
-    //METODI SETTER
-    public void setCorpoMessaggio(String msg) {
-        this.corpoMessaggio.setText(msg);
+    public ArrayList<MessaggioDestinatario> getMittentiMessaggiArrLst() {
+        return mittentiArrLst;
     }
 
+    public ArrayList<MessaggioMittente> getBozzeArayLst() {
+        return bozzeArrLst;
+    }
+
+    //METODI SETTER
     public void setDestinatariArrLst(ArrayList<UserInfo> destinatari) {
         this.destinatariArrLst = destinatari;
     }
@@ -199,16 +171,8 @@ public class PanelloPrincipale extends JFrame implements View {
         this.logoutBtn = logoutBtn;
     }
 
-    public void setStatus(String statusLabel) {
+    public void setStatusLabelText(String statusLabel) {
         this.statusLabel.setText(statusLabel);
-    }
-
-    public void setStatusLabel(JLabel statusLabel) {
-        this.statusLabel = statusLabel;
-    }
-
-    public void setTittoloMessaggioField(String titolo) {
-        this.titoloMessaggioField.setText(titolo);
     }
 
     public void setInboxBtn(JButton inboxBtn) {
@@ -219,24 +183,8 @@ public class PanelloPrincipale extends JFrame implements View {
         this.nuovoMessaggioBtn = nuovoMessaggioBtn;
     }
 
-    public void setDestinatariCC(JList destinatariCC) {
-        this.elencoDestinatari = destinatariCC;
-    }
-
-    public JButton getSDCBtn() {
-        return SDCBtn;
-    }
-
-    public ArrayList<MessaggioDestinatario> getMittentiMessaggiArrLst() {
-        return mittentiArrLst;
-    }
-
     public void setMittentiMessaggiArrLst(ArrayList<MessaggioDestinatario> bozzeArayLst) {
         this.mittentiArrLst = bozzeArayLst;
-    }
-
-    public ArrayList<MessaggioMittente> getBozzeArayLst() {
-        return bozzeArrLst;
     }
 
     public void setBozzeArrayLst(ArrayList<MessaggioMittente> bozzeArayLst) {
