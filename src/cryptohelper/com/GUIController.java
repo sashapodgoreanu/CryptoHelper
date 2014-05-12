@@ -81,7 +81,7 @@ public class GUIController {
             pp.getSDCBtn().addActionListener(new GestisciSDC());
             } else if (v instanceof BozzePanel) {
             bp = (BozzePanel) v;
-            bp.getSaveBozzaBtn().addActionListener(new SalvaMessaggioListener());
+            //bp.getSaveBozzaBtn().addActionListener(new SalvaMessaggioListener());
         } else if (v instanceof SdcPanel) {
             sdcp = (SdcPanel) v;
             sdcp.getCreaSDCBtn().addActionListener(new CreateSDCListener());
