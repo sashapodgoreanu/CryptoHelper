@@ -75,6 +75,7 @@ public class GUIController {
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
             pp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
             pp.getInboxBtn().addActionListener(new GestisciInbox());
+            pp.getVisualizzaMessaggioBtn().addActionListener(new visualizzaMessRicevListener());
             pp.getLogoutBtn().addActionListener(new LogoutListener());
             pp.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
             pp.getSDCBtn().addActionListener(new GestisciSDC());
@@ -139,6 +140,21 @@ public class GUIController {
             pp.initInBox();
         }
     }
+    
+    //classe listener per la Jlist "ElencoMessaggiRicevuti" 
+    private class visualizzaMessRicevListener implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+  //          System.out.println("QUIIIIIIIIIIIIIIIIIIIIIIII");
+            MessaggioDestinatario mess = (MessaggioDestinatario) pp.getElencoMessaggiRicevuti().getSelectedValue();
+  //          System.out.println(mess.getTesto());
+             pp.modificaCorpoMessaggio(mess.getTesto());
+        }
+    } 
+    
+    
+    
 
     //classe listener per il button "bozze" della finestra principale 
     private class GestisciBozzeListener implements ActionListener {

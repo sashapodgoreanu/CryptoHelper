@@ -22,6 +22,7 @@ public class PanelloPrincipale extends JFrame implements View {
     JPanel bottomPanel = new JPanel();  //pannello in basso con i pulsanti all'interno del bosy panel
     JPanel sdcPanel = new SdcPanel();
 
+    JButton visualizzaMessaggioBtn = new JButton("Visualizza Messaggio");
     JButton saveBozzaBtn = new JButton("salva messaggio");
     JButton sendMessageBtn = new JButton("invia messaggio");
 
@@ -35,12 +36,13 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton creaSDCBtn;
     JButton inboxProposteSDCBtn;
     JButton proposteAccetateBtn;
-
+    
+    
     JButton logoutBtn;
 
     JTextField titoloMessaggioField;    //Input per Messaggio
     JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
-    JList elencoMessaggiRicevuti;       //elenca i mittenti di tutti i messaggi ricevuti  
+    JList elencoMessaggiRicevuti;         
     JList elencoBozze;                  //visualizza lalista delle bozze
     JTextArea corpoMessaggio;
     ArrayList<UserInfo> destinatariArrLst;                   //elenco destinatari
@@ -125,6 +127,7 @@ public class PanelloPrincipale extends JFrame implements View {
         titoloMessaggioField = new JTextField(21);
         topPanel.add(msgTitlelLabel);
         topPanel.add(titoloMessaggioField);
+        bottomPanel.add(visualizzaMessaggioBtn);
 
         JLabel targetListLabel = new JLabel("Messaggi ricevuti:");
 
@@ -154,6 +157,10 @@ public class PanelloPrincipale extends JFrame implements View {
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         System.out.println("initInBox");
         bodyPanel.revalidate();  //completa l'inizializzazione dell'interfaccia
+    }
+    
+    public void modificaCorpoMessaggio (String testo) {        
+        corpoMessaggio.setText(testo);        
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"  
@@ -212,6 +219,10 @@ public class PanelloPrincipale extends JFrame implements View {
         return saveBozzaBtn;
     }
 
+    public JList getElencoMessaggiRicevuti() {
+        return elencoMessaggiRicevuti;
+    }   
+    
     public JButton getInboxBtn() {
         return inboxBtn;
     }
@@ -240,6 +251,10 @@ public class PanelloPrincipale extends JFrame implements View {
         return corpoMessaggio.getText();
     }
 
+     public JButton getVisualizzaMessaggioBtn() {
+        return visualizzaMessaggioBtn;
+    }    
+    
     public ArrayList<UserInfo> getDestinatari() {
         return destinatariArrLst;
     }
@@ -299,6 +314,7 @@ public class PanelloPrincipale extends JFrame implements View {
 
     public void setBozzeArrayLst(ArrayList<MessaggioMittente> bozzeArayLst) {
         this.bozzeArrLst = bozzeArayLst;
-    }
+    }    
+   
 
 }
