@@ -79,9 +79,9 @@ public class GUIController {
             pp.getLogoutBtn().addActionListener(new LogoutListener());
             pp.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
             pp.getSDCBtn().addActionListener(new GestisciSDC());
-
-         //   bp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
-            //  bp.getVisualizzaMessaggioBtn().addActionListener(new ViewReceivedMsgListener());
+            } else if (v instanceof BozzePanel) {
+            bp = (BozzePanel) v;
+            bp.getSaveBozzaBtn().addActionListener(new SalvaMessaggioListener());
         } else if (v instanceof SdcPanel) {
             sdcp = (SdcPanel) v;
             sdcp.getCreaSDCBtn().addActionListener(new CreateSDCListener());
