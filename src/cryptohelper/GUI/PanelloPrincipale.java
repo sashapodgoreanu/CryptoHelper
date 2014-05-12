@@ -23,6 +23,9 @@ public class PanelloPrincipale extends JFrame implements View {
     JPanel bottomPanel = new JPanel();  //pannello in basso con i pulsanti all'interno del bosy panel
     JPanel sdcPanel = new SdcPanel();
 
+    JButton saveBozzaBtn = new JButton("salva messaggio");
+    JButton sendMessageBtn = new JButton("invia messaggio");
+
     JLabel statusLabel;
     JButton nuovoMessaggioBtn;
     JButton inboxBtn;
@@ -107,11 +110,10 @@ public class PanelloPrincipale extends JFrame implements View {
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
     public void initNuovoMessaggio() {
-
         this.resetPanels();
-        this.setTitle("CryptoHelper - Nuovo Messaggio");   //cambia titolo al form
+        this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form
         bodyPanel.add(new MessagePanel());
-        bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia 
+        bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
     }
 
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "InBox"
@@ -204,6 +206,10 @@ public class PanelloPrincipale extends JFrame implements View {
 
     public JButton getNuovoMessaggioBtn() {
         return nuovoMessaggioBtn;
+    }
+
+    public JButton getSalvaBozzaBtn() {
+        return saveBozzaBtn;
     }
 
     public JButton getInboxBtn() {
