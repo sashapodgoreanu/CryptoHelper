@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cryptohelper.com;
 
 import cryptohelper.GUI.CreaSDCPanel;
@@ -218,18 +213,18 @@ public class GUIController {
             //se il tittolo del messaggio e vuouto mostra il messaggio
             String temp = pp.getTittoloMessaggioField().replaceAll("\\s+", "");
             if (temp.equals("")) {
-                pp.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
+                pp.setStatusLabelText("Il titolo del messaggio deve contenere almeno un carattere");
             } else { //altrimenti salva il messaggio
-                pp.setStatus("");
+                pp.setStatusLabelText("");
                 JList list = pp.getElencoDestinatari();
                 UserInfo destinatario = (UserInfo) list.getSelectedValue();
                 System.out.println("Destinatario selected: " + destinatario.toString());
                 msgMittente = new Messaggio(msgMittente.getId(), pp.getCorpoMessaggio(), pp.getTittoloMessaggioField(), true, utilizzatoreSistema, destinatario);
                 //se msg.salva ritorna false allora errore
                 if (msgMittente.salva()) {
-                    pp.setStatus("Messaggio Salvato!");
+                    pp.setStatusLabelText("Messaggio Salvato!");
                 } else {
-                    pp.setStatus("Si è verificato un durante il salvataggio del messaggio!");
+                    pp.setStatusLabelText("Si è verificato un durante il salvataggio del messaggio!");
                 }
             }
         }
@@ -240,7 +235,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            pp.setStatus("");
+            pp.setStatusLabelText("");
             sdc = new SistemaCifratura(utilizzatoreSistema);
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
@@ -259,7 +254,7 @@ public class GUIController {
                     System.out.print(mp.inverseMap('b'));
                     System.out.print(mp.inverseMap('c'));
                 } else {
-                    pp.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
+                    pp.setStatusLabelText("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
                 }
             }
         }
@@ -270,7 +265,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            pp.setStatus("");
+            pp.setStatusLabelText("");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             sdc = new SistemaCifratura(utilizzatoreSistema);
@@ -287,7 +282,7 @@ public class GUIController {
                 String a = csdcp.getCorpoMessaggioProva().getText();
                 csdcp.getCorpoMessaggioResult().setText(sdc.prova(a));
             } else {
-                pp.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
+                pp.setStatusLabelText("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
             }
 
         }
