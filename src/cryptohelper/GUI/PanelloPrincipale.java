@@ -162,8 +162,8 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initGestioneBozze() {
         this.resetPanels();
         this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form
-        bodyPanel.add(new BozzePanel());
-        bodyPanel.revalidate();     //completa l'inizializzazione dell'interfaccia
+        bodyPanel.add(new BozzePanel());                  //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                           //completa l'inizializzazione dell'interfaccia
     }
 
     public void initSDC() {
