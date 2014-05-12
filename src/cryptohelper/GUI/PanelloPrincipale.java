@@ -2,7 +2,6 @@
 package cryptohelper.GUI;
 
 import cryptohelper.com.GUIController;
-import cryptohelper.data.Messaggio;
 import cryptohelper.data.MessaggioDestinatario;
 import cryptohelper.data.MessaggioMittente;
 import cryptohelper.data.Studente;
@@ -44,9 +43,9 @@ public class PanelloPrincipale extends JFrame implements View {
     JList elencoMessaggiRicevuti;       //elenca i mittenti di tutti i messaggi ricevuti  
     JList elencoBozze;                  //visualizza lalista delle bozze
     JTextArea corpoMessaggio;
-    ArrayList<UserInfo> destinatariArrLst;
-    ArrayList<MessaggioDestinatario> mittentiMessaggiArrLst;
-    ArrayList<MessaggioMittente> bozzeArrLst;
+    ArrayList<UserInfo> destinatariArrLst;                   //elenco destinatari
+    ArrayList<MessaggioDestinatario> mittentiMessaggiArrLst; //elenco mittenti
+    ArrayList<MessaggioMittente> bozzeArrLst;                //elenco delle bozze
 
     Studente studente;
 
@@ -113,7 +112,7 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initNuovoMessaggio() {
         this.resetPanels();
         this.setTitle("CryptoHelper - Nuovo Messggio"); //cambia titolo al form
-        bodyPanel.add(new MessagePanel());              //aggiunge il nuovo pannello
+        bodyPanel.add(new MessagePanel(destinatariArrLst));              //aggiunge il nuovo pannello
         bodyPanel.revalidate();                         //completa l'inizializzazione dell'interfaccia
     }
 
@@ -155,14 +154,13 @@ public class PanelloPrincipale extends JFrame implements View {
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         System.out.println("initInBox");
         bodyPanel.revalidate();  //completa l'inizializzazione dell'interfaccia
-
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"  
     public void initGestioneBozze() {
         this.resetPanels();
         this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form
-        bodyPanel.add(new BozzePanel());                  //aggiunge il nuovo pannello
+        bodyPanel.add(new BozzePanel(bozzeArrLst));                  //aggiunge il nuovo pannello
         bodyPanel.revalidate();                           //completa l'inizializzazione dell'interfaccia
     }
 
@@ -251,7 +249,7 @@ public class PanelloPrincipale extends JFrame implements View {
         this.corpoMessaggio.setText(msg);
     }
 
-    public void setDestinatari(ArrayList<UserInfo> destinatari) {
+    public void setDestinatariArrLst(ArrayList<UserInfo> destinatari) {
         this.destinatariArrLst = destinatari;
     }
 
@@ -299,7 +297,7 @@ public class PanelloPrincipale extends JFrame implements View {
         return bozzeArrLst;
     }
 
-    public void setBozzeArayLst(ArrayList<MessaggioMittente> bozzeArayLst) {
+    public void setBozzeArrayLst(ArrayList<MessaggioMittente> bozzeArayLst) {
         this.bozzeArrLst = bozzeArayLst;
     }
 
