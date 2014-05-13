@@ -1,9 +1,13 @@
 //Classe SistemaCifratura
 package cryptohelper.data;
 
+import cryptohelper.service.DBController;
+import java.sql.SQLException;
+
 public class SistemaCifratura {
 
     private int id;
+    private String nome;
     private String chiave;
     private String metodo;
     private UserInfo creatore;
@@ -44,15 +48,59 @@ public class SistemaCifratura {
     public Mappatura create(String metodo, String chiave) {
         this.metodo = metodo;
         this.chiave = chiave;
-        //this.id = salva();
         cm = CalcolatoreMappatura.create(metodo);
-        map = cm.calcola(chiave);
+        map = cm.calcola(chiave); 
         return map;
     }
     
     //TO - DO
-    private int salva() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean salva() {
+        boolean result = false;
+        DBController dbc = DBController.getInstance();
+        //querry per salvare la prima volta
+        String queryInsert = "INSERT INTO SISTEMICIFRATURA(NOME, METODO, CHIAVE, CREATORE)"
+                + " VALUES('"
+                + this.nome
+                + "','"
+                + this.metodo
+                + "','"
+                + this.chiave
+                + "',"
+                + this.creatore.getId()
+                + ")";
+        //querry per update sdc
+        String querryUpdate = "UPDATE SISTEMICIFRATURA"
+                + " SET CHIAVE = '" + this.getChiave()
+                + "',"
+                + " NOME = '" + this.getNome()
+                + "' WHERE ID = " + this.getId();
+        try {
+            //un nuovo SDC
+            if (this.id == 0) {
+                int newID = dbc.executeUpdateAndReturnKey(queryInsert);
+                //se newID = -1 allora è stato un errore nel inserimento nel db;
+                if (newID != -1) {
+                    this.id = newID;
+                    System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Aggiunto con successo " + this.toString());
+                    System.out.println(true);
+                    return true;
+
+                }
+                if (newID == -1 && this.id != 0) {
+                    System.out.println(false);
+                    //errore nel inserimento
+                    return false;
+                }
+                //aggiornamento di UN SDC
+            } else {
+                result = dbc.executeUpdate(querryUpdate);
+                System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "Aggiornato: " + this.toString());
+            }
+
+        } catch (SQLException ex) {
+            
+        }
+        return result;
     }
 
     /**
@@ -63,6 +111,8 @@ public class SistemaCifratura {
      * @return true se valid
      */
     public boolean valid(String metodo, String chiave) {
+        if (metodo == null || chiave == null)
+            return false;
         chiave = chiave.toLowerCase();
         System.out.println(chiave.length());
         if (metodo.equals("parola chiave")) {
@@ -125,6 +175,23 @@ public class SistemaCifratura {
     public void setMp(Mappatura map) {
         this.map = map;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    
+
+    @Override
+    public String toString() {
+        return "SistemaCifratura{" + "id=" + id + ", chiave=" + chiave + ", metodo=" + metodo + ", creatore=" + creatore + ", map=" + map + ", cm=" + cm + '}';
+    }
+    
+    
 
     
 }

@@ -195,10 +195,13 @@ public class GUIController {
             JRadioButton ev = (JRadioButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("parola chiave")) {
+                
                 csdcp.initParolaChiave();
             } else if (ev.getText().equalsIgnoreCase("cesare")) {
                 csdcp.initCesare();
             }
+            //crea sistema di cifratura
+            sdc = new SistemaCifratura(utilizzatoreSistema);
         }
     }
 
@@ -238,7 +241,6 @@ public class GUIController {
         @Override
         public void actionPerformed(ActionEvent e) {
             pp.setStatusLabelText("");
-            sdc = new SistemaCifratura(utilizzatoreSistema);
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("Salva cifrario parola chiave")) {
@@ -252,9 +254,10 @@ public class GUIController {
                 }
                 if (sdc.valid(metodo, chiave)) {
                     mp = sdc.create(metodo, chiave);
-                    System.out.print(mp.inverseMap('a'));
-                    System.out.print(mp.inverseMap('b'));
-                    System.out.print(mp.inverseMap('c'));
+                    sdc.setNome(csdcp.getNomeCifraturaField().getText());
+                    if(sdc.salva())
+                        pp.setStatusLabelText("Salvato con sucesso");
+                    else pp.setStatusLabelText("E stato un errore! non salvato");
                 } else {
                     pp.setStatusLabelText("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
                 }

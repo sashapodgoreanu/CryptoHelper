@@ -105,6 +105,7 @@ public class DBController {
                 + "("
                 + "ID INTEGER not null primary key "
                 + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                + "NOME VARCHAR(32),"
                 + "Metodo VARCHAR(256),"
                 + "Chiave VARCHAR(256),"
                 + "Creatore INTEGER"

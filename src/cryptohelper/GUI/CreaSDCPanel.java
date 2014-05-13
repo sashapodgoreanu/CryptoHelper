@@ -66,7 +66,7 @@ public class CreaSDCPanel extends JPanel implements View {
         cesareRBtn = new JRadioButton("Cesare");
         pseudocasualeRBtn = new JRadioButton("Pseudocasuale");
         scrollPane = new JScrollPane();
-        salvaSdcBtn = new JButton("Salva cifrario parola chiave");
+        salvaSdcBtn = new JButton();
         provasdcBtn = new JButton("Prova la cifratura");
         
 
@@ -101,7 +101,8 @@ public class CreaSDCPanel extends JPanel implements View {
         Object[][] data = {
             {"Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M"}
         };
-        //salvaSdcBtn = new JButton("Salva cifrario parola chiave");
+        //cambia il nome del butttone.
+        salvaSdcBtn.setText("Salva cifrario parola chiave");
         
         nomeCifraturaField = new JTextField(20);
         table = new JTable(data, columnNames);
@@ -252,6 +253,16 @@ public class CreaSDCPanel extends JPanel implements View {
     public void setCorpoMessaggioProva(JTextArea corpoMessaggioProva) {
         this.corpoMessaggioProva = corpoMessaggioProva;
     }
+
+    public JTextField getNomeCifraturaField() {
+        return nomeCifraturaField;
+    }
+
+    public void setNomeCifraturaField(JTextField nomeCifraturaField) {
+        this.nomeCifraturaField = nomeCifraturaField;
+    }
+    
+    
     
     
     
