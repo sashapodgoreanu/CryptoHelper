@@ -20,3 +20,14 @@ CREARE TUTTI I COMPONENTI CHE SARANNO REGITRATI PRESO CONTROLLER NEI METODI init
 - quando si elimina una bozza, sistema di cifratura, messaggio si utilizza observer observable in modo da aggiornare la JList (il elemento deve scomparire) 
 -- setSelectedindex(0) di elencoMessaggiRicevuti in InboxPanel
 -- deve visionare immediatamente il primo messaggio una volta clicato su inbox
+
+
+Sasha
+*****************************
+
+save di proposta
+inviaProposta di COMController
+invia di nuovo messaggio
+collegare la lingua del messaggio
+
+****************************

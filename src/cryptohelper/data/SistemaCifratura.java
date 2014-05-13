@@ -3,6 +3,9 @@ package cryptohelper.data;
 
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SistemaCifratura {
 
@@ -16,6 +19,14 @@ public class SistemaCifratura {
 
     //COSTRUTTORE
     public SistemaCifratura(UserInfo creatore) {
+        this.creatore = creatore;
+    }
+
+    public SistemaCifratura(int id, String nome, String chiave, String metodo, UserInfo creatore) {
+        this.id = id;
+        this.nome = nome;
+        this.chiave = chiave;
+        this.metodo = metodo;
         this.creatore = creatore;
     }
 
@@ -39,20 +50,20 @@ public class SistemaCifratura {
         return Cifratore.cifraMonoalfabetica(map, testo);
     }
     /*
-    public String cifra(String testo) {
+     public String cifra(String testo) {
         
-    }
-*/
+     }
+     */
 
     //TO -DO SALVA 
     public Mappatura create(String metodo, String chiave) {
         this.metodo = metodo;
         this.chiave = chiave;
         cm = CalcolatoreMappatura.create(metodo);
-        map = cm.calcola(chiave); 
+        map = cm.calcola(chiave);
         return map;
     }
-    
+
     //TO - DO
     public boolean salva() {
         boolean result = false;
@@ -98,7 +109,7 @@ public class SistemaCifratura {
             }
 
         } catch (SQLException ex) {
-            
+
         }
         return result;
     }
@@ -111,8 +122,9 @@ public class SistemaCifratura {
      * @return true se valid
      */
     public boolean valid(String metodo, String chiave) {
-        if (metodo == null || chiave == null)
+        if (metodo == null || chiave == null) {
             return false;
+        }
         chiave = chiave.toLowerCase();
         System.out.println(chiave.length());
         if (metodo.equals("parola chiave")) {
@@ -134,6 +146,27 @@ public class SistemaCifratura {
             return true;
         }
         return false;
+    }
+
+    public static ArrayList<SistemaCifratura> caricaSistemiCifratura(UserInfo stud) {
+        String query = "SELECT * FROM SISTEMICIFRATURA";
+        QueryResult qr = null;
+        ArrayList<SistemaCifratura> sdcs = new ArrayList<>();
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while (qr.next()) {
+                if (qr.getInt("creatore") == stud.getId()) {
+                    SistemaCifratura temp = new SistemaCifratura(qr.getInt("id"), qr.getString("nome"), qr.getString("chiave"), qr.getString("metodo"), stud);
+                    System.out.println("caricaSistemiCifratura: "+temp.toString());
+                    sdcs.add(temp);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        return sdcs;
     }
 
     public int getId() {
@@ -183,15 +216,10 @@ public class SistemaCifratura {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    
 
     @Override
     public String toString() {
         return "SistemaCifratura{" + "id=" + id + ", chiave=" + chiave + ", metodo=" + metodo + ", creatore=" + creatore + ", map=" + map + ", cm=" + cm + '}';
     }
-    
-    
 
-    
 }

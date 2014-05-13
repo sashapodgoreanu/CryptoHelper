@@ -2,7 +2,10 @@
 package cryptohelper.GUI;
 
 import cryptohelper.com.GUIController;
+import cryptohelper.data.SistemaCifratura;
+import cryptohelper.data.UserInfo;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -15,6 +18,7 @@ public class SdcPanel extends JPanel implements View {
     private JPanel topPanel;
     private JPanel centerSDCPanel;
     private CreaSDCPanel creasdc;
+    private ProponiSDCPanel psdcp;
 
     public SdcPanel() {
         init();
@@ -50,6 +54,16 @@ public class SdcPanel extends JPanel implements View {
         //crea nuovo panello 
         creasdc = new CreaSDCPanel();
         centerSDCPanel.add(creasdc);
+        this.revalidate();
+    }
+    
+    public void initProponiSDCPanel(ArrayList<UserInfo> destinatariArrLst, ArrayList<SistemaCifratura> sdc){
+        System.out.println("proponi sistema di cifratura");
+        //pulisci
+        this.resetpanels();
+        //crea nuovo panello 
+        psdcp = new ProponiSDCPanel(destinatariArrLst,sdc);
+        centerSDCPanel.add(psdcp);
         this.revalidate();
     }
 

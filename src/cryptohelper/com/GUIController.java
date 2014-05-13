@@ -6,6 +6,7 @@ import cryptohelper.GUI.InboxPanel;
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.MessagePanel;
 import cryptohelper.GUI.PanelloPrincipale;
+import cryptohelper.GUI.ProponiSDCPanel;
 import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
 import cryptohelper.GUI.View;
@@ -47,6 +48,7 @@ public class GUIController {
     private UserInfo utilizzatoreSistema;
     private SistemaCifratura sdc;
     private Mappatura mp;
+    private ProponiSDCPanel psdc;
 
     private GUIController() {
         comC = new COMController();
@@ -89,6 +91,7 @@ public class GUIController {
         } else if (v instanceof SdcPanel) {
             sdcp = (SdcPanel) v;
             sdcp.getCreaSDCBtn().addActionListener(new CreateSDCListener());
+            sdcp.getProponiSDCBtn().addActionListener(new ProponiSDCListener());
         } else if (v instanceof CreaSDCPanel) {
             csdcp = (CreaSDCPanel) v;
             csdcp.getCesareRBtn().addActionListener(new MetodoDicifraturaListener());
@@ -99,6 +102,9 @@ public class GUIController {
         } else if (v instanceof MessagePanel) {
             msgp = (MessagePanel) v;
             msgp.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
+        } else if (v instanceof ProponiSDCPanel) {
+            psdc = (ProponiSDCPanel) v;
+            psdc.getProponiSDCBtn().addActionListener(new SendProponiSDCListener());
         }
     }
 
@@ -298,6 +304,34 @@ public class GUIController {
 
         }
     }
+    //classe listener per inizializare il panello proponi sistema di cifratura
+    private class ProponiSDCListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println(this.getClass() + " selected " + ev.getText());
+            sdcp.initProponiSDCPanel(comC.getDestinatari(), SistemaCifratura.caricaSistemiCifratura(utilizzatoreSistema));
+        }
+    }
+    //classe listener per inviare una proposta di sistema di cifratura
+    private class SendProponiSDCListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println(this.getClass() + " selected " + ev.getText());
+            SistemaCifratura sdc = (SistemaCifratura) psdc.getElencoSDC().getSelectedValue();
+            UserInfo partner = (UserInfo) psdc.getElencoDestinatari().getSelectedValue();
+            comC.inviaProposta(utilizzatoreSistema,partner,sdc);
+            
+            
+            
+
+        }
+    }
+    
+    
 
 //classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {

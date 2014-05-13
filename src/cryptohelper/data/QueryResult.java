@@ -27,7 +27,7 @@ public class QueryResult {
         return "QueryResult{" + "lista=" + lista + "}";
     }
 
-    public boolean next() throws Exception {
+    public boolean next(){
         if (iterator == lista.size()) {
             reset();
             return false;
@@ -43,14 +43,16 @@ public class QueryResult {
 
     public String getString(String key) throws Exception {
         if (lista.isEmpty()) {
+            System.out.println(lista.isEmpty());
             throw new Exception("Lista vuota");
         }
         String result = (String) lista.get(iterator).get(key.toLowerCase());
         return result;
     }
 
-    public int getInt(String key) throws Exception {
+    public int getInt(String key) throws Exception { 
         if (lista.isEmpty()) {
+            System.out.println(lista.isEmpty());
             throw new Exception("Lista vuota");
         }
         int result = (int) lista.get(iterator).get(key.toLowerCase());

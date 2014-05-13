@@ -26,6 +26,7 @@ public class MessagePanel extends JPanel implements View {
     JScrollPane scrollPane;
     JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
     ArrayList<UserInfo> destinatariArrLst;
+    JComboBox linguaDropdown;
 
     
     public MessagePanel(ArrayList<UserInfo> destinatariArrLst) {
@@ -50,7 +51,11 @@ public class MessagePanel extends JPanel implements View {
         bottomPanel.setLayout(new FlowLayout());
 
         //INIT DEI CONTROLLI
-        newMessageBtn = new JButton("Nuovo Messaggio");
+        //drop box
+        String[] lingua = {"inglese", "italiano"};
+        linguaDropdown = new JComboBox(lingua);
+        
+        newMessageBtn = new JButton("Invia Messaggio");
         saveBozzaBtn = new JButton("Salva messaggio come bozza");
         sendMessageBtn = new JButton("nuovo Messaggio");
         msgTitlelLabel = new JLabel("Titolo del messaggio:");
@@ -81,6 +86,7 @@ public class MessagePanel extends JPanel implements View {
         //AGGIUNTA DEI CONTROLLI AI PANNELLI
         topPanel.add(msgTitlelLabel);
         topPanel.add(titoloMessaggioField);
+        topPanel.add(linguaDropdown);
         leftPanel.add(messageTextLabel, BorderLayout.NORTH);
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
