@@ -3,11 +3,14 @@ OK - rivedere interfaccia grafica
 OK - aggiungere bottone logut e implementazione
 OK - DBController public Messaggio getMessaggio(int id) throws SQLException da modificare/eliminare --- DBController non deve conoscere Messaggio
 
-- creare interfaccia per inbox
+OK - creare interfaccia per inbox
+
 - modificare i metodi getBozze e getDestinatari in modo che siano visualizzati solo le bozze e i destinatari con cui si
   è concordato il sistema di cifratura
+
 - aggiungere bottone select languagge con una lista drop-down con elementi prescelti tra inglese e italiano
 sasha - creaSistemaDicifratura
+
 giulio - apri bozza elimina etc [IN CORSO]
 luigi - inbox
 
@@ -15,3 +18,5 @@ CREARE TUTTI I COMPONENTI CHE SARANNO REGITRATI PRESO CONTROLLER NEI METODI init
 
 --aggoingere validate a sistemcifratura in modello di progetto
 - quando si elimina una bozza, sistema di cifratura, messaggio si utilizza observer observable in modo da aggiornare la JList (il elemento deve scomparire) 
+-- setSelectedindex(0) di elencoMessaggiRicevuti in InboxPanel
+-- deve visionare immediatamente il primo messaggio una volta clicato su inbox

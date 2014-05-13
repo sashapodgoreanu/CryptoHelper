@@ -50,12 +50,12 @@ public class CreaSDCPanel extends JPanel implements View {
 
     public CreaSDCPanel() {
 
-        initCreateSDC();
+        init();
         registerController();
 
     }
 
-    public void initCreateSDC() {
+    public void init() {
         System.out.println("inside of initCreateSDC");
         topPanel = new JPanel(new GridLayout(1, 4));
         leftPanel = new JPanel(new BorderLayout());

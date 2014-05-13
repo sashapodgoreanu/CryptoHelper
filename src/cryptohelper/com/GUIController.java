@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * Il controllore Deve conoscere: i modelli e le viste - JFrame's
@@ -71,7 +73,8 @@ public class GUIController {
             regForm.getSubmitBtn().addActionListener(new RegisterListener());
         } else if (v instanceof InboxPanel) {
             ip = (InboxPanel) v;
-            ip.getVisualizzaMessaggioBtn().addActionListener(new ViewReceivedMsgListener());
+            //ip.getVisualizzaMessaggioBtn().addActionListener(new ViewReceivedMsgListener());
+            ip.getElencoMessaggiRicevuti().addListSelectionListener(new ViewReceivedMsgListener());
         } else if (v instanceof PanelloPrincipale) {
             pp = (PanelloPrincipale) v;
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
@@ -145,11 +148,14 @@ public class GUIController {
     }
 
 //classe listener per la Jlist "ElencoMessaggiRicevuti" 
-    private class ViewReceivedMsgListener implements ActionListener {
+    private class ViewReceivedMsgListener implements ListSelectionListener {
+
+        
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void valueChanged(ListSelectionEvent e) {
+            System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) ip.getElencoMessaggiRicevuti().getSelectedValue();
-            ip.modificaCorpoMessaggio(mess.getTesto());
+            ip.modificaCorpoMessaggio("Mittente: "+mess.getMittente()+"\nTitolo messaggio: "+mess.getTitolo()+"\n"+mess.getTesto());
         }
     }
 
