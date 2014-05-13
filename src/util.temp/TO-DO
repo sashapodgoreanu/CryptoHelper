@@ -29,5 +29,9 @@ save di proposta
 inviaProposta di COMController
 invia di nuovo messaggio
 collegare la lingua del messaggio
+----------TestDB----------------------------------------------
+aggiungere nel TestDb qualche sistema di cifratura da inviare
+Creare qualche sitema di cifratura e salvare 
+--------------------------------------------------------------
 
 ****************************
