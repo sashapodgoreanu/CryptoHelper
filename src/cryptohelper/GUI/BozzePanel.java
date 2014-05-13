@@ -105,5 +105,7 @@ public class BozzePanel extends JPanel implements View {
         GUIController gc = GUIController.getInstance();
         gc.addView(this);
     }
+    
+    
   
 }
