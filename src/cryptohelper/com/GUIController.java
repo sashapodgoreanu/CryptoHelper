@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * Il controllore Deve conoscere: i modelli e le viste - JFrame's
@@ -71,7 +73,8 @@ public class GUIController {
             regForm.getSubmitBtn().addActionListener(new RegisterListener());
         } else if (v instanceof InboxPanel) {
             ip = (InboxPanel) v;
-            ip.getVisualizzaMessaggioBtn().addActionListener(new ViewReceivedMsgListener());
+            //ip.getVisualizzaMessaggioBtn().addActionListener(new ViewReceivedMsgListener());
+            ip.getElencoMessaggiRicevuti().addListSelectionListener(new ViewReceivedMsgListener());
         } else if (v instanceof PanelloPrincipale) {
             pp = (PanelloPrincipale) v;
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
@@ -145,11 +148,14 @@ public class GUIController {
     }
 
 //classe listener per la Jlist "ElencoMessaggiRicevuti" 
-    private class ViewReceivedMsgListener implements ActionListener {
+    private class ViewReceivedMsgListener implements ListSelectionListener {
+
+        
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void valueChanged(ListSelectionEvent e) {
+            System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) ip.getElencoMessaggiRicevuti().getSelectedValue();
-            ip.modificaCorpoMessaggio(mess.getTesto());
+            ip.modificaCorpoMessaggio("Mittente: "+mess.getMittente()+"\nTitolo messaggio: "+mess.getTitolo()+"\n"+mess.getTesto());
         }
     }
 
@@ -195,10 +201,13 @@ public class GUIController {
             JRadioButton ev = (JRadioButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("parola chiave")) {
+                
                 csdcp.initParolaChiave();
             } else if (ev.getText().equalsIgnoreCase("cesare")) {
                 csdcp.initCesare();
             }
+            //crea sistema di cifratura
+            sdc = new SistemaCifratura(utilizzatoreSistema);
         }
     }
 
@@ -238,7 +247,6 @@ public class GUIController {
         @Override
         public void actionPerformed(ActionEvent e) {
             pp.setStatusLabelText("");
-            sdc = new SistemaCifratura(utilizzatoreSistema);
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("Salva cifrario parola chiave")) {
@@ -252,9 +260,10 @@ public class GUIController {
                 }
                 if (sdc.valid(metodo, chiave)) {
                     mp = sdc.create(metodo, chiave);
-                    System.out.print(mp.inverseMap('a'));
-                    System.out.print(mp.inverseMap('b'));
-                    System.out.print(mp.inverseMap('c'));
+                    sdc.setNome(csdcp.getNomeCifraturaField().getText());
+                    if(sdc.salva())
+                        pp.setStatusLabelText("Salvato con sucesso");
+                    else pp.setStatusLabelText("E stato un errore! non salvato");
                 } else {
                     pp.setStatusLabelText("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
                 }

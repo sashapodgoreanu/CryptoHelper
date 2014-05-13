@@ -23,7 +23,6 @@ public class InboxPanel extends JPanel implements View {
     JLabel msgTitlelLabel;
     JLabel messageTextLabel;
     JTextField titoloMessaggioField;
-    JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
     JList elencoMessaggiRicevuti;
     JTextArea corpoMessaggio;
     JScrollPane scrollPane;
@@ -105,21 +104,7 @@ public class InboxPanel extends JPanel implements View {
     }
 
     //METODI GETTER
-    public JList getDestinatariCC() {
-        return elencoDestinatari;
-    }
 
-    public Object getSelectedDestinatario() {
-        return elencoDestinatari.getSelectedValue();
-    }
-
-    public JList getElencoDestinatari() {
-        return elencoDestinatari;
-    }
-
-    public void setElencoDestinatari(JList elencoDestinatari) {
-        this.elencoDestinatari = elencoDestinatari;
-    }
 
     public JList getElencoMessaggiRicevuti() {
         return elencoMessaggiRicevuti;
@@ -146,10 +131,6 @@ public class InboxPanel extends JPanel implements View {
         this.titoloMessaggioField.setText(titolo);
     }
 
-    public void setDestinatariCC(JList destinatariCC) {
-        this.elencoDestinatari = destinatariCC;
-    }
-
     public ArrayList<MessaggioDestinatario> getMittentiMessaggiArrLst() {
         return mittentiMessaggiArrLst;
     }
@@ -157,5 +138,7 @@ public class InboxPanel extends JPanel implements View {
     public void setMittentiMessaggiArrLst(ArrayList<MessaggioDestinatario> bozzeArayLst) {
         this.mittentiMessaggiArrLst = bozzeArayLst;
     }
+    
+    
 
 }

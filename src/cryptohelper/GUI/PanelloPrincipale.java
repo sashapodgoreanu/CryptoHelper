@@ -108,6 +108,7 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initSDC() {
         System.out.println("inside initSDC");
         this.resetPanels();
+        this.setTitle("CryptoHelper - Sistema di Cifratura");   //cambia titolo al form
         sdcPanel = new SdcPanel();
         bodyPanel.add(sdcPanel);
         bodyPanel.revalidate();
