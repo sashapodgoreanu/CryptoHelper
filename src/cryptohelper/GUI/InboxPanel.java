@@ -18,11 +18,8 @@ public class InboxPanel extends JPanel implements View {
     JPanel leftPanel;        //pannello a sinistra
     JPanel rightPanel;       //pannello a destra
     JPanel bottomPanel;      //pannello in basso
-    JButton viewMessageBtn;
     JLabel targetListLabel;
-    JLabel msgTitlelLabel;
     JLabel messageTextLabel;
-    JTextField titoloMessaggioField;
     JList elencoMessaggiRicevuti;
     JTextArea corpoMessaggio;
     JScrollPane scrollPane;
@@ -49,11 +46,8 @@ public class InboxPanel extends JPanel implements View {
         bottomPanel.setLayout(new FlowLayout());
 
         //INIT DEI CONTROLLI
-        viewMessageBtn = new JButton("Visualizza Messaggio");
         targetListLabel = new JLabel("Messaggi ricevuti:");
         messageTextLabel = new JLabel("Testo del messaggio:");
-        msgTitlelLabel = new JLabel("Tiolo messaggio: ");
-        titoloMessaggioField = new JTextField(21);
         elencoMessaggiRicevuti = new JList(new Vector<MessaggioDestinatario>(mittentiMessaggiArrLst));
         elencoMessaggiRicevuti.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -71,17 +65,14 @@ public class InboxPanel extends JPanel implements View {
         scrollPane.setViewportView(elencoMessaggiRicevuti);
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setSize(new Dimension(540, 250));
-        corpoMessaggio.setLineWrap(true);
+        corpoMessaggio.setLineWrap(true);  //manda a capo il testo al bordo del controllo
+        corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
-        topPanel.add(msgTitlelLabel);
-        topPanel.add(titoloMessaggioField);
-        leftPanel.add(messageTextLabel, BorderLayout.NORTH);
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
-        bottomPanel.add(viewMessageBtn);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
@@ -110,25 +101,14 @@ public class InboxPanel extends JPanel implements View {
         return elencoMessaggiRicevuti;
     }
 
-    public String getTittoloMessaggioField() {
-        return titoloMessaggioField.getText();
-    }
-
     public String getCorpoMessaggio() {
         return corpoMessaggio.getText();
     }
 
-    public JButton getVisualizzaMessaggioBtn() {
-        return viewMessageBtn;
-    }
 
     //METODI SETTER
     public void setCorpoMessaggio(String msg) {
         this.corpoMessaggio.setText(msg);
-    }
-
-    public void setTittoloMessaggioField(String titolo) {
-        this.titoloMessaggioField.setText(titolo);
     }
 
     public ArrayList<MessaggioDestinatario> getMittentiMessaggiArrLst() {
