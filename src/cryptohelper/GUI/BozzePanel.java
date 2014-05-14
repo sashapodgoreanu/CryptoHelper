@@ -77,7 +77,7 @@ public class BozzePanel extends JPanel implements View {
                 return renderer;
             }
         });
-        elencoBozze.setSelectedIndex(0);
+        //elencoBozze.setSelectedIndex(0);
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoBozze);
 
@@ -99,13 +99,15 @@ public class BozzePanel extends JPanel implements View {
         registerController();
     }
     
+    //TO-DO
     public boolean deleteSelectedIndex(){
         this.removeAll();
         int toDelete = elencoBozze.getSelectedIndex();
-        bozzeArrLst.remove(toDelete);
-        init();
-        this.revalidate();
-        
+        if(toDelete > 0){
+            bozzeArrLst.remove(toDelete);
+            init();
+            revalidate();
+        } //else pp.setStatus  - devi selezionare almeno un lemento per fare delete. 
         //TO-DO - da aggiornare pp.setStatus se qualcosa è andato storto.    bozzeArrLst.remove(toDelete); restituisce true o false.... 
         return true;
     }

@@ -217,14 +217,7 @@ public class GUIController {
             MessaggioMittente mess = (MessaggioMittente) bp.getElencoBozze().getSelectedValue();
             //mess.eliminaMessaggio();
             //DefaultListModel model = (DefaultListModel) bp.getElencoBozze().getModel();
-
-
             bp.deleteSelectedIndex();
-            //bp.setTitoloBozza("");
-            //bp.setCorpoBozza("");
-            //bp.getScrollPane().repaint();
-            //bp.revalidate();
-
         }
     }
 
