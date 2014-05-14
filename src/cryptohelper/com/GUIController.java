@@ -213,9 +213,14 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            MessaggioDestinatario mess = (MessaggioDestinatario) bp.getElencoBozze().getSelectedValue();
+            MessaggioMittente mess = (MessaggioMittente) bp.getElencoBozze().getSelectedValue();
             mess.eliminaMessaggio();
-            bp.getElencoBozze().repaint();
+            bp.setTitoloBozza("");
+            bp.setCorpoBozza("");
+            bp.
+            bp.getScrollPane().repaint();
+             bp.revalidate();
+
         }
     }
 
