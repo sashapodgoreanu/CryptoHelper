@@ -95,9 +95,19 @@ public class BozzePanel extends JPanel implements View {
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
         this.add(bottomPanel, BorderLayout.SOUTH);
-
         //REGISTRAZIONE VISTA NEL COTROLLER
         registerController();
+    }
+    
+    public boolean deleteSelectedIndex(){
+        this.removeAll();
+        int toDelete = elencoBozze.getSelectedIndex();
+        bozzeArrLst.remove(toDelete);
+        init();
+        this.revalidate();
+        
+        //TO-DO - da aggiornare pp.setStatus se qualcosa è andato storto.    bozzeArrLst.remove(toDelete); restituisce true o false.... 
+        return true;
     }
 
     @Override
