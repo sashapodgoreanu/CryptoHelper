@@ -207,7 +207,18 @@ public class GUIController {
             pp.initGestioneBozze();
         }
     }
-    
+//classe listener per il button "bozze" della finestra principale 
+
+    private class ElimnaBozzaListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MessaggioDestinatario mess = (MessaggioDestinatario) bp.getElencoBozze().getSelectedValue();
+            mess.eliminaMessaggio();
+            bp.getElencoBozze().repaint();
+        }
+    }
+
 //classe listener per il button "elimina bozza" del pannello bozze
     private class GestisciSDC implements ActionListener {
 
