@@ -28,7 +28,7 @@ public class BozzePanel extends JPanel implements View {
     JList elencoMessaggiRicevuti;       //elenca i mittenti di tutti i messaggi ricevuti  
     JList elencoBozze;                  //visualizza lalista delle bozze
     JScrollPane scrollPane;
-    JTextArea corpoMessaggio;
+    JTextArea corpoBozza;
     ArrayList<MessaggioMittente> bozzeArrLst;   //array list con elenco delle bozze disponibili
 
     Studente studente;
@@ -60,10 +60,10 @@ public class BozzePanel extends JPanel implements View {
         msgTitleLabel = new JLabel("Titolo della bozza:");
         bozzeListLabel = new JLabel("Bozze disponibili:");
         titoloMessaggioField = new JTextField(21);
-        corpoMessaggio = new JTextArea();
-        corpoMessaggio.setSize(new Dimension(540, 250));
-        corpoMessaggio.setLineWrap(true);
-        corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+        corpoBozza = new JTextArea();
+        corpoBozza.setSize(new Dimension(540, 250));
+        corpoBozza.setLineWrap(true);
+        corpoBozza.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
         elencoBozze.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -86,7 +86,7 @@ public class BozzePanel extends JPanel implements View {
         topPanel.add(titoloMessaggioField);
         bottomPanel.add(saveBozzaBtn);
         bottomPanel.add(deleteBozzaBtn);
-        leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
+        leftPanel.add(corpoBozza, BorderLayout.CENTER);
         rightPanel.add(bozzeListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
 
@@ -107,7 +107,7 @@ public class BozzePanel extends JPanel implements View {
     }
 
     public void modificaCorpoMessaggio(String testo) {
-        corpoMessaggio.setText(testo);
+        corpoBozza.setText(testo);
     }
 
     //METODI GETTER
@@ -123,16 +123,29 @@ public class BozzePanel extends JPanel implements View {
         return deleteBozzaBtn;
     }
 
-    public JButton getSendMessageBtn() {
+    public JButton getSendBozzaBtn() {
         return sendBozzaBtn;
     }
 
-     public JButton getSaveMessageBtn() {
+     public JButton getSaveBozzaBtn() {
         return saveBozzaBtn;
     }
 
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public ArrayList<MessaggioMittente> getBozzeArrLst() {
+        return bozzeArrLst;
+    }
+
+ 
     //METODI SETTER
     public void setTitoloBozza(String titolo) {
         titoloMessaggioField.setText(titolo);
+    }
+    
+     public void setCorpoBozza(String testo) {
+        corpoBozza.setText(testo);
     }
 }
