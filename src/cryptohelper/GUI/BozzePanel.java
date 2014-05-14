@@ -20,7 +20,7 @@ public class BozzePanel extends JPanel implements View {
     JPanel bottomPanel;      //pannello in basso
     JButton saveBozzaBtn;
     JButton deleteBozzaBtn;
-    JButton sendMessageBtn;
+    JButton sendBozzaBtn;
     JLabel msgTitleLabel;
     JLabel bozzeListLabel;
     JTextField titoloMessaggioField;    //inputBox per il messaggio
@@ -56,7 +56,7 @@ public class BozzePanel extends JPanel implements View {
         //INIT DEI CONTROLLI
         saveBozzaBtn = new JButton("Salva bozza");
         deleteBozzaBtn = new JButton("Elimina bozza");
-        sendMessageBtn = new JButton("Invia messaggio");
+        sendBozzaBtn = new JButton("Invia messaggio");
         msgTitleLabel = new JLabel("Titolo della bozza:");
         bozzeListLabel = new JLabel("Bozze disponibili:");
         titoloMessaggioField = new JTextField(21);
@@ -110,16 +110,29 @@ public class BozzePanel extends JPanel implements View {
         corpoMessaggio.setText(testo);
     }
 
+    //METODI GETTER
     public JList getElencoBozze() {
         return elencoBozze;
     }
-    
-     public void setTitoloBozza(String titolo) {
-        titoloMessaggioField.setText(titolo);
-    }
-     
+
     public String getTitoloBozza() {
         return titoloMessaggioField.getText();
     }
-     
+
+    public JButton getDeleteBozzaBtn() {
+        return deleteBozzaBtn;
+    }
+
+    public JButton getSendMessageBtn() {
+        return sendBozzaBtn;
+    }
+
+     public JButton getSaveMessageBtn() {
+        return saveBozzaBtn;
+    }
+
+    //METODI SETTER
+    public void setTitoloBozza(String titolo) {
+        titoloMessaggioField.setText(titolo);
+    }
 }
