@@ -11,7 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
- 
+
     private Log log = LogFactory.getLog(Messaggio.class);   //per debug
     private int id;
     private String testo;
@@ -241,45 +241,42 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         }
         return result;
     }
-   
 
     //Preleva l'elenco dei messaggi destinatario
-    public static ArrayList<MessaggioDestinatario> caricaMessaggiDestinatario(int idStudente){
-        System.out.println("STAMPO ID STUDENTE"+idStudente);
-        String query = "SELECT * FROM Messaggi WHERE (ID_DESTINATARIO = "+idStudente+")";
+    public static ArrayList<MessaggioDestinatario> caricaMessaggiDestinatario(int idStudente) {
+        System.out.println("STAMPO ID STUDENTE" + idStudente);
+        String query = "SELECT * FROM Messaggi WHERE (ID_DESTINATARIO = " + idStudente + ")";
         QueryResult qr = null;
         ArrayList<MessaggioDestinatario> messaggi = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
- //           System.out.println(qr.toString());
-            while(qr.next()){
-                MessaggioDestinatario temp = new Messaggio(qr.getInt("ID"),qr.getString("Testo"),qr.getString("TestoCifrato"),
-                        qr.getString("Lingua"),qr.getString("Titolo"),Boolean.parseBoolean(qr.getString("Bozza")),Boolean.parseBoolean(qr.getString("Letto")));
+            //           System.out.println(qr.toString());
+            while (qr.next()) {
+                MessaggioDestinatario temp = new Messaggio(qr.getInt("ID"), qr.getString("Testo"), qr.getString("TestoCifrato"),
+                        qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")));
                 messaggi.add(temp);
-            }       
+            }
         } catch (Exception ex) {
             System.out.println("test");
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
         System.out.println("test2");
-        System.out.println("messaggi ricevuti panelo princ: "+ messaggi.toString());
+        System.out.println("messaggi ricevuti panelo princ: " + messaggi.toString());
         return messaggi;
     }
-    
-    
-    
+
     //Preleva l'elenco delle bozze
-    public static ArrayList<MessaggioMittente> caricaBozze(int idStudente){
+    public static ArrayList<MessaggioMittente> caricaBozze(int idStudente) {
         String query = "SELECT * FROM Messaggi";
         QueryResult qr = null;
         ArrayList<MessaggioMittente> bozze = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
-            while(qr.next()){
-                MessaggioMittente temp = new Messaggio(qr.getInt("ID"),qr.getString("Testo"),qr.getString("TestoCifrato"),
-                        qr.getString("Lingua"),qr.getString("Titolo"),Boolean.parseBoolean(qr.getString("Bozza")),Boolean.parseBoolean(qr.getString("Letto")));
+            while (qr.next()) {
+                MessaggioMittente temp = new Messaggio(qr.getInt("ID"), qr.getString("Testo"), qr.getString("TestoCifrato"),
+                        qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")));
                 bozze.add(temp);
-            }       
+            }
         } catch (Exception ex) {
             System.out.println("test");
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
@@ -287,8 +284,27 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         System.out.println("test2");
         return bozze;
     }
-    
-    
+
+    //Preleva l'elenco dei messaggi inviati
+    public static ArrayList<MessaggioMittente> caricaMessaggiInviati(int idStudente) {
+        String query = "SELECT * FROM Messaggi WHERE";
+        QueryResult qr = null;
+        ArrayList<MessaggioMittente> inviati = new ArrayList<>();
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while (qr.next()) {
+                MessaggioMittente temp = new Messaggio(qr.getInt("ID"), qr.getString("Testo"), qr.getString("TestoCifrato"),
+                        qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")));
+                inviati.add(temp);
+            }
+        } catch (Exception ex) {
+            System.out.println("test");
+            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        System.out.println("test2");
+        return inviati;
+    }
+
     @Override
     public void cifra() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
