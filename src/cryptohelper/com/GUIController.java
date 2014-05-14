@@ -155,8 +155,7 @@ public class GUIController {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
-            pp.setMittentiMessaggiArrLst(temp);
-            pp.initInbox();
+            pp.initInbox(temp);
         }
     }
 

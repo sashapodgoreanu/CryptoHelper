@@ -23,9 +23,7 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton SDCBtn;
     JButton logoutBtn;
     ArrayList<UserInfo> destinatariArrLst;                //elenco destinatari
-    ArrayList<MessaggioDestinatario> mittentiArrLst;      //elenco messaggi inbox
-                  //elenco messaggi outobx
-                 //elenco delle bozze
+
 
     JPanel sdcPanel = new SdcPanel();
     JButton proponiSDCBtn;
@@ -91,7 +89,7 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Inbox"
-    public void initInbox() {
+    public void initInbox( ArrayList<MessaggioDestinatario> mittentiArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Inbox");    //cambia titolo al form
         this.setStatusLabelText("Selezionare un messaggio per aprirlo"); //messaggio per la status label
@@ -100,7 +98,7 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Outbox"
-    public void initOutbox(ArrayList<MessaggioDestinatario> destArrLst) {
+    public void initOutbox(ArrayList<MessaggioMittente> destArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Messaggi inviati");    //cambia titolo al form
         this.setStatusLabelText("Selezionare un messaggio per visualizzarlo"); //messaggio per la status label
@@ -171,12 +169,6 @@ public class PanelloPrincipale extends JFrame implements View {
     public ArrayList<UserInfo> getDestinatari() {
         return destinatariArrLst;
     }
-
-    public ArrayList<MessaggioDestinatario> getMittentiMessaggiArrLst() {
-        return mittentiArrLst;
-    }
-
-
     //METODI SETTER
     public void setDestinatariArrLst(ArrayList<UserInfo> destinatari) {
         this.destinatariArrLst = destinatari;
@@ -196,9 +188,5 @@ public class PanelloPrincipale extends JFrame implements View {
 
     public void setNuovoMessaggioBtn(JButton nuovoMessaggioBtn) {
         this.nuovoMessaggioBtn = nuovoMessaggioBtn;
-    }
-
-    public void setMittentiMessaggiArrLst(ArrayList<MessaggioDestinatario> bozzeArayLst) {
-        this.mittentiArrLst = bozzeArayLst;
     }
 }
