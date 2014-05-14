@@ -5,6 +5,7 @@ import cryptohelper.GUI.CreaSDCPanel;
 import cryptohelper.GUI.InboxPanel;
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.MessagePanel;
+import cryptohelper.GUI.OutboxPanel;
 import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.ProponiSDCPanel;
 import cryptohelper.GUI.RegistrationForm;
@@ -42,6 +43,7 @@ public class GUIController {
     private MessagePanel msgp;
     private BozzePanel bp;
     private InboxPanel ip;
+    private OutboxPanel op;
     private CreaSDCPanel csdcp;
     private static GUIController instance;
     private Messaggio msgMittente;
@@ -75,16 +77,19 @@ public class GUIController {
             regForm.getSubmitBtn().addActionListener(new RegisterListener());
         } else if (v instanceof InboxPanel) {
             ip = (InboxPanel) v;
-            //ip.getVisualizzaMessaggioBtn().addActionListener(new ViewReceivedMsgListener());
             ip.getElencoMessaggiRicevuti().addListSelectionListener(new ViewReceivedMsgListener());
+        } else if (v instanceof OutboxPanel) {
+            op = (OutboxPanel) v;
+            op.getElencoMessaggiInviati().addListSelectionListener(new ViewReceivedMsgListener());
         } else if (v instanceof PanelloPrincipale) {
             pp = (PanelloPrincipale) v;
             pp.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
             pp.getInboxBtn().addActionListener(new GestisciInbox());
+            pp.getOutboxBtn().addActionListener(new GestisciOutbox());
             pp.getLogoutBtn().addActionListener(new LogoutListener());
             pp.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
             pp.getSDCBtn().addActionListener(new GestisciSDC());
-            } else if (v instanceof BozzePanel) {
+        } else if (v instanceof BozzePanel) {
             bp = (BozzePanel) v;
             //to-do
             //bp.getSaveBozzaBtn().addActionListener(new SalvaMessaggioListener());
@@ -149,19 +154,31 @@ public class GUIController {
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
             pp.setMittentiMessaggiArrLst(temp);
-            pp.initInBox();
+            pp.initInbox();
+        }
+    }
+
+    //classe listener per il button Inbox della finestra principale
+    private class GestisciOutbox implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
+            pp.setMittentiMessaggiArrLst(temp);
+            pp.initOutbox();
         }
     }
 
 //classe listener per la Jlist "ElencoMessaggiRicevuti" 
     private class ViewReceivedMsgListener implements ListSelectionListener {
 
-        
         @Override
         public void valueChanged(ListSelectionEvent e) {
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) ip.getElencoMessaggiRicevuti().getSelectedValue();
-            ip.modificaCorpoMessaggio("Mittente: "+mess.getMittente()+"\nTitolo messaggio: "+mess.getTitolo()+"\n\n"+mess.getTesto());
+            ip.modificaCorpoMessaggio("Mittente: " + mess.getMittente() + "\nTitolo messaggio: " + mess.getTitolo() + "\n\n" + mess.getTesto());
         }
     }
 
@@ -207,7 +224,7 @@ public class GUIController {
             JRadioButton ev = (JRadioButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("parola chiave")) {
-                
+
                 csdcp.initParolaChiave();
             } else if (ev.getText().equalsIgnoreCase("cesare")) {
                 csdcp.initCesare();
@@ -267,9 +284,11 @@ public class GUIController {
                 if (sdc.valid(metodo, chiave)) {
                     mp = sdc.create(metodo, chiave);
                     sdc.setNome(csdcp.getNomeCifraturaField().getText());
-                    if(sdc.salva())
+                    if (sdc.salva()) {
                         pp.setStatusLabelText("Salvato con sucesso");
-                    else pp.setStatusLabelText("E stato un errore! non salvato");
+                    } else {
+                        pp.setStatusLabelText("E stato un errore! non salvato");
+                    }
                 } else {
                     pp.setStatusLabelText("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
                 }
@@ -304,6 +323,7 @@ public class GUIController {
 
         }
     }
+
     //classe listener per inizializare il panello proponi sistema di cifratura
     private class ProponiSDCListener implements ActionListener {
 
@@ -314,6 +334,7 @@ public class GUIController {
             sdcp.initProponiSDCPanel(comC.getDestinatari(), SistemaCifratura.caricaSistemiCifratura(utilizzatoreSistema));
         }
     }
+
     //classe listener per inviare una proposta di sistema di cifratura
     private class SendProponiSDCListener implements ActionListener {
 
@@ -323,15 +344,10 @@ public class GUIController {
             System.out.println(this.getClass() + " selected " + ev.getText());
             SistemaCifratura sdc = (SistemaCifratura) psdc.getElencoSDC().getSelectedValue();
             UserInfo partner = (UserInfo) psdc.getElencoDestinatari().getSelectedValue();
-            comC.inviaProposta(utilizzatoreSistema,partner,sdc);
-            
-            
-            
+            comC.inviaProposta(utilizzatoreSistema, partner, sdc);
 
         }
     }
-    
-    
 
 //classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {
