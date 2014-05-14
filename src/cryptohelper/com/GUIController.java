@@ -167,9 +167,8 @@ public class GUIController {
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
-            pp.setMittentiMessaggiArrLst(temp);
-            pp.initOutbox();
+            //ArrayList<MessaggioMittente> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
+            //pp.initOutbox(temp);
         }
     }
 
@@ -179,8 +178,9 @@ public class GUIController {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             System.out.println("Clicked LIST");
-            MessaggioDestinatario mess = (MessaggioDestinatario) ip.getElencoMessaggiRicevuti().getSelectedValue();
-            ip.modificaCorpoMessaggio("Mittente: " + mess.getMittente() + "\nTitolo messaggio: " + mess.getTitolo() + "\n\n" + mess.getTesto());
+            MessaggioMittente mess = (MessaggioMittente) ip.getElencoMessaggiRicevuti().getSelectedValue();
+            System.out.println(mess.toString());
+            ip.modificaCorpoMessaggio("Mittente: " + mess.getMittente().getNome() + "\nTitolo messaggio: " + mess.getTitolo() + "\n\n" + mess.getTesto());
         }
     }
 
@@ -191,7 +191,7 @@ public class GUIController {
         public void valueChanged(ListSelectionEvent e) {
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) bp.getElencoBozze().getSelectedValue();
-            bp.modificaCorpoMessaggio("Mittente: " + mess.getMittente() + "\n" + mess.getTesto());
+            bp.modificaCorpoMessaggio("Destinatario: " + mess.getDestinatario().getNome() + "\n" + mess.getTesto());
             bp.setTitoloBozza(mess.getTitolo());
         }
     }
@@ -204,8 +204,7 @@ public class GUIController {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioMittente> temp = Messaggio.caricaBozze(utilizzatoreSistema.getId());
-            pp.setBozzeArrayLst(temp);
-            pp.initGestioneBozze();
+            pp.initGestioneBozze(temp);
         }
     }
 //classe listener per il button "bozze" della finestra principale 

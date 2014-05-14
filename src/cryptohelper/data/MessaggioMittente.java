@@ -8,6 +8,6 @@ public interface MessaggioMittente extends MessaggioAstratto
     public boolean salva();
     public void cifra();
     public void setMittente(UserInfo user);
-    public void setDestinatario(UserInfo user);
+    public UserInfo getMittente();
     
 }

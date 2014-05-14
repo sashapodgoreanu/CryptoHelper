@@ -77,7 +77,7 @@ public class BozzePanel extends JPanel implements View {
                 return renderer;
             }
         });
-        //elencoBozze.setSelectedIndex(0);
+        elencoBozze.setSelectedIndex(0);
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoBozze);
 
@@ -99,6 +99,10 @@ public class BozzePanel extends JPanel implements View {
         registerController();
     }
     
+    public void setSelectedIndex(){
+        
+    }
+    
     //TO-DO
     public boolean deleteSelectedIndex(){
         this.removeAll();
@@ -117,7 +121,7 @@ public class BozzePanel extends JPanel implements View {
         GUIController gc = GUIController.getInstance();
         gc.addView(this);
     }
-
+    
     public void modificaCorpoMessaggio(String testo) {
         corpoBozza.setText(testo);
     }

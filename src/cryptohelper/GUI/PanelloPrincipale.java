@@ -24,8 +24,8 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton logoutBtn;
     ArrayList<UserInfo> destinatariArrLst;                //elenco destinatari
     ArrayList<MessaggioDestinatario> mittentiArrLst;      //elenco messaggi inbox
-    ArrayList<MessaggioMittente> destArrLst;              //elenco messaggi outobx
-    ArrayList<MessaggioMittente> bozzeArrLst;             //elenco delle bozze
+                  //elenco messaggi outobx
+                 //elenco delle bozze
 
     JPanel sdcPanel = new SdcPanel();
     JButton proponiSDCBtn;
@@ -100,7 +100,7 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Outbox"
-    public void initOutbox() {
+    public void initOutbox(ArrayList<MessaggioDestinatario> destArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Messaggi inviati");    //cambia titolo al form
         this.setStatusLabelText("Selezionare un messaggio per visualizzarlo"); //messaggio per la status label
@@ -109,7 +109,7 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "gestisci bozze"  
-    public void initGestioneBozze() {
+    public void initGestioneBozze(ArrayList<MessaggioMittente> bozzeArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form
         this.setStatusLabelText("Selezionare una bozza per visualizzarla"); //messaggio per la status label
@@ -176,9 +176,6 @@ public class PanelloPrincipale extends JFrame implements View {
         return mittentiArrLst;
     }
 
-    public ArrayList<MessaggioMittente> getBozzeArayLst() {
-        return bozzeArrLst;
-    }
 
     //METODI SETTER
     public void setDestinatariArrLst(ArrayList<UserInfo> destinatari) {
@@ -204,9 +201,4 @@ public class PanelloPrincipale extends JFrame implements View {
     public void setMittentiMessaggiArrLst(ArrayList<MessaggioDestinatario> bozzeArayLst) {
         this.mittentiArrLst = bozzeArayLst;
     }
-
-    public void setBozzeArrayLst(ArrayList<MessaggioMittente> bozzeArayLst) {
-        this.bozzeArrLst = bozzeArayLst;
-    }
-
 }
