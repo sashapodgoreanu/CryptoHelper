@@ -23,7 +23,8 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton SDCBtn;
     JButton logoutBtn;
     ArrayList<UserInfo> destinatariArrLst;                //elenco destinatari
-    ArrayList<MessaggioDestinatario> mittentiArrLst;      //elenco mittenti
+    ArrayList<MessaggioDestinatario> mittentiArrLst;      //elenco messaggi inbox
+    ArrayList<MessaggioMittente> destArrLst;              //elenco messaggi outobx
     ArrayList<MessaggioMittente> bozzeArrLst;             //elenco delle bozze
 
     JPanel sdcPanel = new SdcPanel();
@@ -100,16 +101,17 @@ public class PanelloPrincipale extends JFrame implements View {
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Outbox"
     public void initOutbox() {
         this.resetPanels();
-        this.setTitle("CryptoHelper - Messaggi inviati");              //cambia titolo al form
-        bodyPanel.add(new OutboxPanel(mittentiArrLst));      //aggiunge il nuovo pannello
-        this.setStatusLabelText("Selezionare un messaggio per aprirlo"); //messaggio per la status label
-        bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
+        this.setTitle("CryptoHelper - Messaggi inviati");    //cambia titolo al form
+        bodyPanel.add(new OutboxPanel(destArrLst));          //aggiunge il nuovo pannello
+        this.setStatusLabelText("Selezionare un messaggio per visualizzarlo"); //messaggio per la status label
+        bodyPanel.revalidate();                              //completa l'inizializzazione dell'interfaccia
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "gestisci bozze"  
     public void initGestioneBozze() {
         this.resetPanels();
         this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form
+        this.setStatusLabelText("Selezionare una bozza per visualizzarla"); //messaggio per la status label
         bodyPanel.add(new BozzePanel(bozzeArrLst));       //aggiunge il nuovo pannello
         bodyPanel.revalidate();                           //completa l'inizializzazione dell'interfaccia
     }
