@@ -34,6 +34,10 @@ public class BozzePanel extends JPanel implements View {
     Studente studente;
 
     public BozzePanel(ArrayList<MessaggioMittente> bozzeArrLst) {
+        topPanel = new JPanel();
+        leftPanel = new JPanel();
+        rightPanel = new JPanel();
+        bottomPanel = new JPanel();
         this.bozzeArrLst = bozzeArrLst;
         this.init();
     }
@@ -44,10 +48,6 @@ public class BozzePanel extends JPanel implements View {
 
         //INIT DEI PANNELLI E DEI LAYOUT
         this.setLayout(new BorderLayout());
-        topPanel = new JPanel();
-        leftPanel = new JPanel();
-        rightPanel = new JPanel();
-        bottomPanel = new JPanel();
         topPanel.setLayout(new FlowLayout());
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
@@ -65,7 +65,7 @@ public class BozzePanel extends JPanel implements View {
         corpoBozza.setLineWrap(true);
         corpoBozza.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
-        elencoBozze.setFixedCellWidth(200);
+        elencoBozze.setFixedCellWidth(160);
         elencoBozze.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -108,9 +108,16 @@ public class BozzePanel extends JPanel implements View {
     public boolean deleteSelectedIndex() {
         int toDelete = elencoBozze.getSelectedIndex();
         if (toDelete >= 0) {
+            rightPanel.removeAll();
+            topPanel.removeAll();
+            leftPanel.removeAll();
+            bottomPanel.removeAll();
             bozzeArrLst.remove(toDelete);
             init();
-            revalidate();
+            rightPanel.revalidate();
+            topPanel.revalidate();
+            leftPanel.revalidate();
+            bottomPanel.revalidate();
         } //else pp.setStatus  - devi selezionare almeno un lemento per fare delete. 
         //TO-DO - da aggiornare pp.setStatus se qualcosa è andato storto.    bozzeArrLst.remove(toDelete); restituisce true o false.... 
         return true;

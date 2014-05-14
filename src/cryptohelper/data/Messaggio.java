@@ -229,7 +229,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
 
     //Elimina un messaggio dalla tabella messaggi. Restituisce TRUE se l'oparazione va a buon fine
     @Override
-    public boolean eliminaMessaggio() {
+    public boolean elimina() {
         DBController dbc = DBController.getInstance();
         boolean result = false;
         String query = "DELETE FROM Messaggi WHERE ID=" + this.getId();

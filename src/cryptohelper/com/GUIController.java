@@ -190,7 +190,7 @@ public class GUIController {
         public void valueChanged(ListSelectionEvent e) {
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) bp.getElencoBozze().getSelectedValue();
-            bp.modificaCorpoMessaggio("Destinatario: " + mess.getDestinatario().getNome() + "\n" + mess.getTesto());
+            //bp.modificaCorpoMessaggio("Destinatario: " + mess.getDestinatario().getNome() + "\n" + mess.getTesto());
             bp.setTitoloBozza(mess.getTitolo());
         }
     }
@@ -213,8 +213,6 @@ public class GUIController {
         @Override
         public void actionPerformed(ActionEvent e) {
             MessaggioMittente mess = (MessaggioMittente) bp.getElencoBozze().getSelectedValue();
-            //mess.eliminaMessaggio();
-            //DefaultListModel model = (DefaultListModel) bp.getElencoBozze().getModel();
             bp.deleteSelectedIndex();
         }
     }
