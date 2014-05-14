@@ -91,10 +91,9 @@ public class GUIController {
             pp.getSDCBtn().addActionListener(new GestisciSDC());
         } else if (v instanceof BozzePanel) {
             bp = (BozzePanel) v;
-            //to-do
-            //bp.getSaveBozzaBtn().addActionListener(new SalvaMessaggioListener());
-            
-            bp.getElencoBozze().addListSelectionListener(new ViewBozzeMsgListener());            
+            bp.getSaveBozzaBtn().addActionListener(new SalvaMessaggioListener());
+            bp.getDeleteBozzaBtn().addActionListener(new ElimnaBozzaListener());
+            bp.getElencoBozze().addListSelectionListener(new ViewBozzeMsgListener());
         } else if (v instanceof SdcPanel) {
             sdcp = (SdcPanel) v;
             sdcp.getCreaSDCBtn().addActionListener(new CreateSDCListener());
@@ -183,18 +182,18 @@ public class GUIController {
             ip.modificaCorpoMessaggio("Mittente: " + mess.getMittente() + "\nTitolo messaggio: " + mess.getTitolo() + "\n\n" + mess.getTesto());
         }
     }
-    
+
     //classe listener per la Jlist "ElencoBozze" 
     private class ViewBozzeMsgListener implements ListSelectionListener {
-        
+
         @Override
         public void valueChanged(ListSelectionEvent e) {
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) bp.getElencoBozze().getSelectedValue();
-            bp.modificaCorpoMessaggio("Mittente: "+mess.getMittente()+"\nTitolo messaggio: "+mess.getTitolo()+"\n\n"+mess.getTesto());
+            bp.modificaCorpoMessaggio("Mittente: " + mess.getMittente() + "\n" + mess.getTesto());
+            bp.setTitoloBozza(mess.getTitolo());
         }
     }
-    
 
 //classe listener per il button "bozze" della finestra principale 
     private class GestisciBozzeListener implements ActionListener {
@@ -208,8 +207,8 @@ public class GUIController {
             pp.initGestioneBozze();
         }
     }
-
-//classe listener per il button "Sistema di cifratura" della finestra principale
+    
+//classe listener per il button "elimina bozza" del pannello bozze
     private class GestisciSDC implements ActionListener {
 
         @Override
