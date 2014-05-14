@@ -18,8 +18,8 @@ public class PanelloPrincipale extends JFrame implements View {
     JLabel statusLabel;                 //status bar per messaggi in basso
     JButton nuovoMessaggioBtn;
     JButton inboxBtn;
+    JButton outboxBtn;    
     JButton gestisciBozzeBtn;
-    JButton messaggiInviatiBtn;
     JButton SDCBtn;
     JButton logoutBtn;
     ArrayList<UserInfo> destinatariArrLst;                //elenco destinatari
@@ -45,14 +45,14 @@ public class PanelloPrincipale extends JFrame implements View {
         nuovoMessaggioBtn = new JButton("Nuovo Messaggio");
         inboxBtn = new JButton("Inbox");
         gestisciBozzeBtn = new JButton("Gestisci bozze");
-        messaggiInviatiBtn = new JButton("Messaggi inviati");
-        SDCBtn = new JButton("Sistema di Cifratura");
+        outboxBtn = new JButton("Messaggi inviati");
+        SDCBtn = new JButton("Sistemi di Cifratura");
         logoutBtn = new JButton("Logout");
         toolbarPanel.setBackground(Color.LIGHT_GRAY);
         toolbarPanel.add(nuovoMessaggioBtn);
         toolbarPanel.add(inboxBtn);
         toolbarPanel.add(gestisciBozzeBtn);
-        toolbarPanel.add(messaggiInviatiBtn);
+        toolbarPanel.add(outboxBtn);
         toolbarPanel.add(SDCBtn);
         toolbarPanel.add(logoutBtn);
 
@@ -92,7 +92,6 @@ public class PanelloPrincipale extends JFrame implements View {
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Inbox"
     public void initInbox() {
         this.resetPanels();
-        this.setTitle("CryptoHelper - Inbox");              //cambia titolo al form
         bodyPanel.add(new InboxPanel(mittentiArrLst));      //aggiunge il nuovo pannello
         this.setStatusLabelText("Selezionare un messaggio per aprirlo"); //messaggio per la status label
         bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
@@ -102,7 +101,7 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initOutbox() {
         this.resetPanels();
         this.setTitle("CryptoHelper - Messaggi inviati");              //cambia titolo al form
-        bodyPanel.add(new InboxPanel(mittentiArrLst));      //aggiunge il nuovo pannello
+        bodyPanel.add(new OutboxPanel(mittentiArrLst));      //aggiunge il nuovo pannello
         this.setStatusLabelText("Selezionare un messaggio per aprirlo"); //messaggio per la status label
         bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
     }
@@ -146,6 +145,11 @@ public class PanelloPrincipale extends JFrame implements View {
         return inboxBtn;
     }
 
+    
+    public JButton getOutboxBtn() {
+        return outboxBtn;
+    }
+    
     public JButton getSDCBtn() {
         return SDCBtn;
     }
