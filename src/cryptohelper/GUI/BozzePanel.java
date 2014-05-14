@@ -65,6 +65,7 @@ public class BozzePanel extends JPanel implements View {
         corpoBozza.setLineWrap(true);
         corpoBozza.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
+        elencoBozze.setFixedCellWidth(200);
         elencoBozze.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -98,16 +99,15 @@ public class BozzePanel extends JPanel implements View {
         //REGISTRAZIONE VISTA NEL COTROLLER
         registerController();
     }
-    
-    public void setSelectedIndex(){
-        
+
+    public void setSelectedIndex() {
+
     }
-    
+
     //TO-DO
-    public boolean deleteSelectedIndex(){
-        this.removeAll();
+    public boolean deleteSelectedIndex() {
         int toDelete = elencoBozze.getSelectedIndex();
-        if(toDelete > 0){
+        if (toDelete >= 0) {
             bozzeArrLst.remove(toDelete);
             init();
             revalidate();
@@ -121,7 +121,7 @@ public class BozzePanel extends JPanel implements View {
         GUIController gc = GUIController.getInstance();
         gc.addView(this);
     }
-    
+
     public void modificaCorpoMessaggio(String testo) {
         corpoBozza.setText(testo);
     }
@@ -143,7 +143,7 @@ public class BozzePanel extends JPanel implements View {
         return sendBozzaBtn;
     }
 
-     public JButton getSaveBozzaBtn() {
+    public JButton getSaveBozzaBtn() {
         return saveBozzaBtn;
     }
 
@@ -155,13 +155,12 @@ public class BozzePanel extends JPanel implements View {
         return bozzeArrLst;
     }
 
- 
     //METODI SETTER
     public void setTitoloBozza(String titolo) {
         titoloMessaggioField.setText(titolo);
     }
-    
-     public void setCorpoBozza(String testo) {
+
+    public void setCorpoBozza(String testo) {
         corpoBozza.setText(testo);
     }
 }
