@@ -90,11 +90,21 @@ public class PanelloPrincipale extends JFrame implements View {
     }
 
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Inbox"
-    public void initInBox() {
+    public void initInbox() {
         this.resetPanels();
-        this.setTitle("CryptoHelper - Inbox");   //cambia titolo al form
-        bodyPanel.add(new InboxPanel(mittentiArrLst));       //aggiunge il nuovo pannello
-        bodyPanel.revalidate();                           //completa l'inizializzazione dell'interfaccia
+        this.setTitle("CryptoHelper - Inbox");              //cambia titolo al form
+        bodyPanel.add(new InboxPanel(mittentiArrLst));      //aggiunge il nuovo pannello
+        this.setStatusLabelText("Selezionare un messaggio per aprirlo"); //messaggio per la status label
+        bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
+    }
+
+    //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Outbox"
+    public void initOutbox() {
+        this.resetPanels();
+        this.setTitle("CryptoHelper - Messaggi inviati");              //cambia titolo al form
+        bodyPanel.add(new InboxPanel(mittentiArrLst));      //aggiunge il nuovo pannello
+        this.setStatusLabelText("Selezionare un messaggio per aprirlo"); //messaggio per la status label
+        bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "gestisci bozze"  
