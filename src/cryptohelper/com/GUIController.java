@@ -93,6 +93,8 @@ public class GUIController {
             bp = (BozzePanel) v;
             //to-do
             //bp.getSaveBozzaBtn().addActionListener(new SalvaMessaggioListener());
+            
+            bp.getElencoBozze().addListSelectionListener(new ViewBozzeMsgListener());            
         } else if (v instanceof SdcPanel) {
             sdcp = (SdcPanel) v;
             sdcp.getCreaSDCBtn().addActionListener(new CreateSDCListener());
@@ -181,6 +183,18 @@ public class GUIController {
             ip.modificaCorpoMessaggio("Mittente: " + mess.getMittente() + "\nTitolo messaggio: " + mess.getTitolo() + "\n\n" + mess.getTesto());
         }
     }
+    
+    //classe listener per la Jlist "ElencoBozze" 
+    private class ViewBozzeMsgListener implements ListSelectionListener {
+        
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            System.out.println("Clicked LIST");
+            MessaggioDestinatario mess = (MessaggioDestinatario) bp.getElencoBozze().getSelectedValue();
+            bp.modificaCorpoMessaggio("Mittente: "+mess.getMittente()+"\nTitolo messaggio: "+mess.getTitolo()+"\n\n"+mess.getTesto());
+        }
+    }
+    
 
 //classe listener per il button "bozze" della finestra principale 
     private class GestisciBozzeListener implements ActionListener {
