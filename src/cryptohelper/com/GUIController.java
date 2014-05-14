@@ -161,7 +161,7 @@ public class GUIController {
         public void valueChanged(ListSelectionEvent e) {
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) ip.getElencoMessaggiRicevuti().getSelectedValue();
-            ip.modificaCorpoMessaggio("Mittente: "+mess.getMittente()+"\nTitolo messaggio: "+mess.getTitolo()+"\n"+mess.getTesto());
+            ip.modificaCorpoMessaggio("Mittente: "+mess.getMittente()+"\nTitolo messaggio: "+mess.getTitolo()+"\n\n"+mess.getTesto());
         }
     }
 
