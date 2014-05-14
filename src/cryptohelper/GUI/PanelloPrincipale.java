@@ -23,8 +23,6 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton SDCBtn;
     JButton logoutBtn;
     ArrayList<UserInfo> destinatariArrLst;                //elenco destinatari
-
-
     JPanel sdcPanel = new SdcPanel();
     JButton proponiSDCBtn;
     JButton creaSDCBtn;
@@ -83,7 +81,7 @@ public class PanelloPrincipale extends JFrame implements View {
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
     public void initNuovoMessaggio() {
         this.resetPanels();
-        this.setTitle("CryptoHelper - Nuovo Messggio");     //cambia titolo al form
+        this.setTitle("CryptoHelper - Nuovo Messaggio");    //cambia titolo al form
         bodyPanel.add(new MessagePanel(destinatariArrLst)); //aggiunge il nuovo pannello
         bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
     }
