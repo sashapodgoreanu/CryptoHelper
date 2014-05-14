@@ -229,7 +229,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
 
     //Elimina un messaggio dalla tabella messaggi. Restituisce TRUE se l'oparazione va a buon fine
     @Override
-    public boolean elimina() {
+    public boolean eliminaMessaggio() {
         DBController dbc = DBController.getInstance();
         boolean result = false;
         String query = "DELETE FROM Messaggi WHERE ID=" + this.getId();
@@ -284,10 +284,11 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         System.out.println("test2");
         return bozze;
     }
-
-    //Preleva l'elenco dei messaggi inviati
+   
+    
+    //Preleva l'elenco dei messaggi inviati     TODO _ CORREGGERE
     public static ArrayList<MessaggioMittente> caricaMessaggiInviati(int idStudente) {
-        String query = "SELECT * FROM Messaggi WHERE";
+        String query = "SELECT * FROM Messaggi";
         QueryResult qr = null;
         ArrayList<MessaggioMittente> inviati = new ArrayList<>();
         try {
@@ -298,10 +299,8 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                 inviati.add(temp);
             }
         } catch (Exception ex) {
-            System.out.println("test");
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
-        System.out.println("test2");
         return inviati;
     }
 
