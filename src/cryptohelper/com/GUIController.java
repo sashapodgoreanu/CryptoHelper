@@ -18,6 +18,7 @@ import cryptohelper.data.MessaggioDestinatario;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
+import java.awt.List;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -214,12 +215,15 @@ public class GUIController {
         @Override
         public void actionPerformed(ActionEvent e) {
             MessaggioMittente mess = (MessaggioMittente) bp.getElencoBozze().getSelectedValue();
-            mess.eliminaMessaggio();
-            bp.setTitoloBozza("");
-            bp.setCorpoBozza("");
-            bp.
-            bp.getScrollPane().repaint();
-             bp.revalidate();
+            //mess.eliminaMessaggio();
+            //DefaultListModel model = (DefaultListModel) bp.getElencoBozze().getModel();
+
+
+            bp.deleteSelectedIndex();
+            //bp.setTitoloBozza("");
+            //bp.setCorpoBozza("");
+            //bp.getScrollPane().repaint();
+            //bp.revalidate();
 
         }
     }
