@@ -18,7 +18,7 @@ public class PanelloPrincipale extends JFrame implements View {
     JLabel statusLabel;                 //status bar per messaggi in basso
     JButton nuovoMessaggioBtn;
     JButton inboxBtn;
-    JButton outboxBtn;    
+    JButton outboxBtn;
     JButton gestisciBozzeBtn;
     JButton SDCBtn;
     JButton logoutBtn;
@@ -93,8 +93,9 @@ public class PanelloPrincipale extends JFrame implements View {
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Inbox"
     public void initInbox() {
         this.resetPanels();
-        bodyPanel.add(new InboxPanel(mittentiArrLst));      //aggiunge il nuovo pannello
+        this.setTitle("CryptoHelper - Inbox");    //cambia titolo al form
         this.setStatusLabelText("Selezionare un messaggio per aprirlo"); //messaggio per la status label
+        bodyPanel.add(new InboxPanel(mittentiArrLst));      //aggiunge il nuovo pannello
         bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
     }
 
@@ -102,8 +103,8 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initOutbox() {
         this.resetPanels();
         this.setTitle("CryptoHelper - Messaggi inviati");    //cambia titolo al form
-        bodyPanel.add(new OutboxPanel(destArrLst));          //aggiunge il nuovo pannello
         this.setStatusLabelText("Selezionare un messaggio per visualizzarlo"); //messaggio per la status label
+        bodyPanel.add(new OutboxPanel(destArrLst));          //aggiunge il nuovo pannello
         bodyPanel.revalidate();                              //completa l'inizializzazione dell'interfaccia
     }
 
@@ -147,11 +148,10 @@ public class PanelloPrincipale extends JFrame implements View {
         return inboxBtn;
     }
 
-    
     public JButton getOutboxBtn() {
         return outboxBtn;
     }
-    
+
     public JButton getSDCBtn() {
         return SDCBtn;
     }
