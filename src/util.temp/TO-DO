@@ -46,4 +46,16 @@ GIULIO
 //TO-DO
 guarda dentro BozzePanel 
 deleteSelectedIndex();
+da rivedere 
+//Preleva l'elenco delle bozze 
+public static ArrayList<MessaggioMittente> caricaBozze(int idStudente)
+questo metodo non funziona perche destinatario e null.. invece nella db ha un valore(id dello studente) - deve essere un oggetto UserInfo
+vale anche per messaggi inviati. 
 **************************** 
+
+
+luigi
+********************************
+ private class GestisciOutbox implements ActionListener  ---  non corretta
+
+********************************************************
