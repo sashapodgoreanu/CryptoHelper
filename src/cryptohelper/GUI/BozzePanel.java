@@ -34,13 +34,9 @@ public class BozzePanel extends JPanel implements View {
     Studente studente;
 
     public BozzePanel(ArrayList<MessaggioMittente> bozzeArrLst) {
-        this.bozzeArrLst = bozzeArrLst;     
+        this.bozzeArrLst = bozzeArrLst;
         this.init();
     }
-    
-    public void modificaCorpoMessaggio(String testo) {
-        corpoMessaggio.setText(testo);
-    }   
 
     //inizializza il pannello
     private void init() {
@@ -108,9 +104,22 @@ public class BozzePanel extends JPanel implements View {
     public void registerController() {
         GUIController gc = GUIController.getInstance();
         gc.addView(this);
-    }    
-    
+    }
+
+    public void modificaCorpoMessaggio(String testo) {
+        corpoMessaggio.setText(testo);
+    }
+
     public JList getElencoBozze() {
         return elencoBozze;
     }
+    
+     public void setTitoloBozza(String titolo) {
+        titoloMessaggioField.setText(titolo);
+    }
+     
+    public String getTitoloBozza() {
+        return titoloMessaggioField.getText();
+    }
+     
 }
