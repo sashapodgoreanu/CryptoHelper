@@ -265,7 +265,8 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         return messaggi;
     }
 
-    //Preleva l'elenco delle bozze
+    //Preleva l'elenco delle bozze  TODO _ Aggiungere destinatraio e mittente
+
     public static ArrayList<MessaggioMittente> caricaBozze(int idStudente) {
         String query = "SELECT * FROM Messaggi";
         QueryResult qr = null;
