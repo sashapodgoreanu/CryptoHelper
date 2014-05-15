@@ -2,7 +2,6 @@ OK - modificare ComController metodo arrayList<UserInfo> getDestinatari
 OK - rivedere interfaccia grafica
 OK - aggiungere bottone logut e implementazione
 OK - DBController public Messaggio getMessaggio(int id) throws SQLException da modificare/eliminare --- DBController non deve conoscere Messaggio
-
 OK - creare interfaccia per inbox
 
 - modificare i metodi getBozze e getDestinatari in modo che siano visualizzati solo le bozze e i destinatari con cui si
