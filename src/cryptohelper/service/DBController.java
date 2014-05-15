@@ -127,35 +127,34 @@ public class DBController {
             //drop di tutte le tabelle esistenti
             if (isTableExist("SDCPartners")) {
                 st.execute("DROP TABLE SDCPartners");
-                System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella SDCPartners eliminata!");
+                System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SDCPartners eliminata!");
             }
             if (isTableExist("MessaggiInviati")) {
                 st.execute("DROP TABLE MessaggiInviati");
-                System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella MessaggiInviati eliminata!");
+                System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella MessaggiInviati eliminata!");
             }
             if (isTableExist("SistemiCifratura")) {
                 st.execute("DROP TABLE SistemiCifratura");
-                System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella SistemiCifratura eliminata!");
+                System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SistemiCifratura eliminata!");
             }
             if (isTableExist("Messaggi")) {
                 st.execute("DROP TABLE Messaggi");
-                System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella Messaggi eliminata!");
+                System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella Messaggi eliminata!");
             }
             if (isTableExist("Studenti")) {
                 st.execute("DROP TABLE Studenti");
-                System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella Studenti eliminata!");
+                System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella Studenti eliminata!");
             }
-            
-            
+
             //creazione tabelle
             st.executeUpdate(queryStudenti);
-            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella Studenti creata!");
+            System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella Studenti creata!");
             st.executeUpdate(queryMessaggi);
-            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella Messaggi creata!");
+            System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella Messaggi creata!");
             st.executeUpdate(querySistemiCifratura);
-            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella SistemiCifratura creata!");
+            System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SistemiCifratura creata!");
             st.executeUpdate(querySDCPartners);
-            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Tabella SDCPartners creata!");
+            System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SDCPartners creata!");
         } catch (SQLException e) {
             log.fatal(e.getMessage());
         } finally {
@@ -170,7 +169,7 @@ public class DBController {
         int result = 0;
         try {
             result = st.executeUpdate(query);
-            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+"Query eseguita correttamente! "+query);
+            System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "Query eseguita correttamente! " + query);
         } catch (SQLException e) {
             log.fatal(e.getMessage());
         } finally {
@@ -200,17 +199,17 @@ public class DBController {
         } finally {
             disconnect();
         }
-        System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Success");
+        System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Success");
         return new QueryResult(resultList);
     }
-    
+
     public int executeUpdateAndReturnKey(String querry) throws SQLException {
         connect();
         int result = -1;
         try {
             st.executeUpdate(querry, Statement.RETURN_GENERATED_KEYS);
             rs = st.getGeneratedKeys();
-            System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Query: " + querry + " - eseguita correttamente!");
+            System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Query: " + querry + " - eseguita correttamente!");
             while (rs.next()) {
                 result = rs.getInt(1);
             }
@@ -221,15 +220,15 @@ public class DBController {
         }
         return result;
     }
-    
+
     private boolean isTableExist(String sTablename) throws SQLException {
         DatabaseMetaData dbmd = conn.getMetaData();
         rs = dbmd.getTables(null, null, sTablename.toUpperCase(), null);
         if (rs.next()) {
-            System.out.println("INFO:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+" Table " + rs.getString("TABLE_NAME") + "already exists !!");
+            System.out.println("INFO:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + " Table " + rs.getString("TABLE_NAME") + "already exists !!");
             return true;
         } else {
-            System.out.println("INFO:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+" creating table: " + sTablename);
+            System.out.println("INFO:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + " creating table: " + sTablename);
             return false;
         }
     }
