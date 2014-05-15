@@ -1,5 +1,6 @@
 package cryptohelper.com;
 
+import cryptohelper.data.Proposta;
 import cryptohelper.data.QueryResult;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
@@ -85,7 +86,10 @@ public class COMController {
         this.studente = studente;
     }
 
-    public boolean inviaProposta(UserInfo utilizzatoreSistema, UserInfo partner, SistemaCifratura sdc) {
+    public boolean proponiSistemaCifratura(UserInfo utilizzatoreSistema, UserInfo partner, SistemaCifratura sdc) {
+        Proposta proposta =  new Proposta(sdc,utilizzatoreSistema,partner);
+        if(proposta.salva())
+            return true;
         return false;
     }
 

@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 public class SdcPanel extends JPanel implements View {
 
     private JButton proponiSDCBtn;
+    private JButton gestisciSDCBtn;
     private JButton inboxProposteSDCBtn;
     private JButton proposteAccetateBtn;
     private JButton creaSDCBtn;
@@ -28,16 +29,18 @@ public class SdcPanel extends JPanel implements View {
     public void init() {
         System.out.println("initCreateSDC");
         //creazione dei componenti
-        proponiSDCBtn = new JButton("Proponi Sistema Di Cifratura");
+        proponiSDCBtn = new JButton("<html>Proponi<br/>Sistema di Cifratura</html>");
         inboxProposteSDCBtn = new JButton("Inbox");
         proposteAccetateBtn = new JButton("Proposte accettate");
-        creaSDCBtn = new JButton("Crea Sistema di Cifratura");
+        creaSDCBtn = new JButton("<html>Crea<br/>Sistema di Cifratura</html>");
+        gestisciSDCBtn = new JButton("<html>Gestisci<br/>Sistemi di Cifratura</html>");
         topPanel = new JPanel();
         centerSDCPanel = new JPanel(new BorderLayout());
         this.setLayout(new BorderLayout());
         
         //aggiungi i bottoni
         topPanel.add(creaSDCBtn);
+        topPanel.add(gestisciSDCBtn);
         topPanel.add(proponiSDCBtn);
         topPanel.add(inboxProposteSDCBtn);
         topPanel.add(proposteAccetateBtn);

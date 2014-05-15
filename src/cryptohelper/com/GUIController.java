@@ -136,6 +136,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatusLabelText(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
             //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
@@ -152,6 +153,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatusLabelText(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
@@ -164,6 +166,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatusLabelText(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             //ArrayList<MessaggioMittente> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
@@ -176,6 +179,7 @@ public class GUIController {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
+            pp.setStatusLabelText(" ");
             System.out.println("Clicked LIST");
             MessaggioMittente mess = (MessaggioMittente) ip.getElencoMessaggiRicevuti().getSelectedValue();
             System.out.println(mess.toString());
@@ -188,6 +192,7 @@ public class GUIController {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
+            pp.setStatusLabelText(" ");
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) bp.getElencoBozze().getSelectedValue();
             //bp.modificaCorpoMessaggio("Destinatario: " + mess.getDestinatario().getNome() + "\n" + mess.getTesto());
@@ -200,6 +205,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatusLabelText(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioMittente> temp = Messaggio.caricaBozze(utilizzatoreSistema.getId());
@@ -212,6 +218,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatusLabelText(" ");
             MessaggioMittente mess = (MessaggioMittente) bp.getElencoBozze().getSelectedValue();
             mess.elimina();
             bp.deleteSelectedIndex();
@@ -223,6 +230,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatusLabelText(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             pp.initSDC();
@@ -233,6 +241,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatusLabelText(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
             sdcp.initCreateSDC();
@@ -244,6 +253,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatusLabelText(" ");
             JRadioButton ev = (JRadioButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("parola chiave")) {
@@ -262,6 +272,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatusLabelText(" ");
             //un messaggio senza titolo non si puo salvare
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
@@ -352,6 +363,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatusLabelText(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             sdcp.initProponiSDCPanel(comC.getDestinatari(), SistemaCifratura.caricaSistemiCifratura(utilizzatoreSistema));
@@ -363,11 +375,14 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            pp.setStatusLabelText(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             SistemaCifratura sdc = (SistemaCifratura) psdc.getElencoSDC().getSelectedValue();
             UserInfo partner = (UserInfo) psdc.getElencoDestinatari().getSelectedValue();
-            comC.inviaProposta(utilizzatoreSistema, partner, sdc);
+            if(comC.proponiSistemaCifratura(utilizzatoreSistema, partner, sdc))
+                pp.setStatusLabelText("Inviato con successo");
+            else pp.setStatusLabelText("Proposta dublicata o errore di sistema");
 
         }
     }

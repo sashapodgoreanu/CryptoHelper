@@ -24,11 +24,11 @@ CREARE TUTTI I COMPONENTI CHE SARANNO REGITRATI PRESO CONTROLLER NEI METODI init
 Sasha
 *****************************
 
-save di proposta
-inviaProposta di COMController
-invia di nuovo messaggio
+ok - save di proposta
+ ok - inviaProposta di COMController
+invia  nuovo messaggio
 collegare la lingua del messaggio
-Da aggiungere status se un sistema cifratura inviato correttamente 
+ok - Da aggiungere status se un sistema cifratura inviato correttamente 
 
 ----------TestDB----------------------------------------------
 aggiungere nel TestDb qualche sistema di cifratura da inviare
