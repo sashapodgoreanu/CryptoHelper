@@ -266,7 +266,19 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     }
 
     //Preleva l'elenco delle bozze  TODO _ Aggiungere destinatraio e mittente
-
+/*
+    this.id = id;
+        this.testo = testo;
+        this.testoCifrato = testoCifrato;
+        this.lingua = lingua;
+        this.titolo = titolo;
+        this.bozza = bozza;
+        this.letto = letto;
+        this.mittente = mittente;
+        this.destinatario = destinatario;
+        this.sistemaCifratura = sc;
+    */    
+        
     public static ArrayList<MessaggioMittente> caricaBozze(int idStudente) {
         String query = "SELECT * FROM Messaggi";
         QueryResult qr = null;
@@ -279,10 +291,8 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                 bozze.add(temp);
             }
         } catch (Exception ex) {
-            System.out.println("test");
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
-        System.out.println("test2");
         return bozze;
     }
    
