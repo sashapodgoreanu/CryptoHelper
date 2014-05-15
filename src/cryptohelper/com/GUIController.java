@@ -213,6 +213,7 @@ public class GUIController {
         @Override
         public void actionPerformed(ActionEvent e) {
             MessaggioMittente mess = (MessaggioMittente) bp.getElencoBozze().getSelectedValue();
+            mess.elimina();
             bp.deleteSelectedIndex();
         }
     }
