@@ -265,19 +265,6 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         return messaggi;
     }
 
-/*
-    this.id = id;
-        this.testo = testo;
-        this.testoCifrato = testoCifrato;
-        this.lingua = lingua;
-        this.titolo = titolo;
-        this.bozza = bozza;
-        this.letto = letto;
-        this.mittente = mittente;
-        this.destinatario = destinatario;
-        this.sistemaCifratura = sc;
-    */    
-    
     //Preleva l'elenco delle bozze  TODO _ Aggiungere destinatraio e mittente
     public static ArrayList<MessaggioMittente> caricaBozze(int idStudente) {
         String query = "SELECT * FROM Messaggi WHERE mittente = " + idStudente;
@@ -291,12 +278,11 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                 bozze.add(temp);
             }
         } catch (Exception ex) {
-           Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
         return bozze;
     }
-   
-    
+
     //Preleva l'elenco dei messaggi inviati     TODO _ CORREGGERE
     public static ArrayList<MessaggioMittente> caricaMessaggiInviati(int idStudente) {
         String query = "SELECT * FROM Messaggi WHERE mittente = " + idStudente;
