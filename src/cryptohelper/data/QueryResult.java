@@ -30,6 +30,7 @@ public class QueryResult {
     public boolean next(){
         if (iterator == lista.size()) {
             reset();
+            //qui esce pero fa il reset
             return false;
         } else {
             iterator++;

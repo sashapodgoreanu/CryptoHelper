@@ -3,6 +3,7 @@ package cryptohelper.data;
 
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,6 +65,26 @@ public class Proposta {
             Logger.getLogger(Proposta.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+    
+    public static ArrayList<Proposta> caricaProposteSistemiCifratura(UserInfo stud) {
+        String query = "SELECT * FROM SDCPARTNERS WHERE ID_PARTNER ="+stud.getId();
+        QueryResult qr = null;
+        ArrayList<Proposta> sdcs = new ArrayList<>();
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while (qr.next()) {
+                    Proposta temp = new Proposta(SistemaCifratura.getSistemaCifratura(qr.getInt("ID_SDC")), UserInfo.getUserInfo(qr.getInt("ID_CREATORE")), UserInfo.getUserInfo(qr.getInt("ID_PARTNER")));
+                    System.out.println("Proposta: "+temp.toString());
+                    sdcs.add(temp);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        return sdcs;
     }
 
     @Override
