@@ -58,3 +58,11 @@ luigi
  private class GestisciOutbox implements ActionListener  ---  non corretta
 
 ********************************************************
+
+uml 
+MappaSostituzioni
+
+nella Mappatura********************
+public char getChar(int posizione)
+public int getposizione(char carattere)
+**********************************

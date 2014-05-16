@@ -11,11 +11,10 @@ package cryptohelper.data;
  */
 public class Mappatura {
 
-    private final char[] mappa;
+    private static final char[] mappa = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
     private char[] mappaInversa;
 
     public Mappatura() {
-        mappa = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
         mappaInversa = new char[26];
     }
 
@@ -40,7 +39,19 @@ public class Mappatura {
                 return mappa[i];
             }
         }
-        return 1;
+        return 0;
+    }
+  
+    public static char getChar(int posizione){
+        return mappa[posizione];
+    }
+    
+    public static int getposizione(char carattere){
+        for (int i = 0; i < mappa.length; i++) {
+            if (mappa[i] == carattere)
+                return i;
+        }
+        return -1;
     }
 
     public void setMappaInversa(char[] mappaInversa) {
