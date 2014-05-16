@@ -1,6 +1,12 @@
 //Classe di supporto UserInfo
 package cryptohelper.data;
 
+import cryptohelper.service.DBController;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class UserInfo
 {
     private int id;
@@ -39,6 +45,26 @@ public class UserInfo
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
+    }
+    
+    public static UserInfo getUserInfo(int id){
+        String query = "SELECT * FROM STUDENTI WHERE ID ="+id;
+        QueryResult qr = null;
+        UserInfo temp = new UserInfo();
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while (qr.next()) {
+                    temp.setId(qr.getInt("ID"));
+                    temp.setNome(qr.getString("NOME"));
+                    temp.setCognome(qr.getString("COGNOME"));
+                    System.out.println("UserInfo: "+temp.toString());               
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        return temp;
     }
 
     @Override

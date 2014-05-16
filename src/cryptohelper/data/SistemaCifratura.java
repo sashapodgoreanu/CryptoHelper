@@ -34,6 +34,13 @@ public class SistemaCifratura {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public SistemaCifratura(int id, String nome, String chiave, String metodo) {
+        this.id = id;
+        this.nome = nome;
+        this.chiave = chiave;
+        this.metodo = metodo;
+    }
+
     public SistemaCifratura(String queryresult) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -168,6 +175,26 @@ public class SistemaCifratura {
         }
         return sdcs;
     }
+    
+    public static SistemaCifratura getSistemaCifratura(int id){
+        String query = "SELECT * FROM SISTEMICIFRATURA WHERE ID ="+id;
+        QueryResult qr = null;
+        SistemaCifratura temp = null;
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while (qr.next()) {
+                    temp = new SistemaCifratura(qr.getInt("id"), qr.getString("nome"), qr.getString("chiave"), qr.getString("metodo"));
+                    System.out.println("SistemaCifratura: "+temp.toString());               
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        return temp;
+    }
+    
+    
 
     public int getId() {
         return id;

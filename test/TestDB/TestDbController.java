@@ -3,6 +3,7 @@ package TestDB;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.MessaggioMittente;
 import cryptohelper.data.QueryResult;
+import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import cryptohelper.service.DBController;
@@ -30,7 +31,6 @@ public class TestDbController {
         Studente st5 = new Studente("Ciprian", "Melian", "cm", "1234");
         Studente st6 = new Studente("Vasco", "Rossi", "vR", "1234");
         Studente st7 = new Studente("Mario", "Rossi", "1", "1");
-
         try {
             DBController db = DBController.getInstance();
             db.createTables();
@@ -66,14 +66,10 @@ public class TestDbController {
 
             //db.getDestinatari();
             QueryResult lista = db.executeQuery("SELECT * FROM Studenti");
+            System.out.println(SistemaCifratura.getSistemaCifratura(1).toString());
 
-            try {
-                System.out.println(lista.toString());
-                while (lista.next()) {
-                    System.out.println("idh=" + lista.getInt("id") + " " + lista.getString("nome"));
-                }
-            } catch (Exception e) {
-            }
+            
+        
         } catch (SQLException ex) {
             Logger.getLogger(TestDbController.class.getName()).log(Level.SEVERE, null, ex);
         }

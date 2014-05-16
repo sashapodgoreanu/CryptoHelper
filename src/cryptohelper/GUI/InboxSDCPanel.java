@@ -20,7 +20,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class ProponiSDCPanel  extends JPanel implements View {
+public class InboxSDCPanel  extends JPanel implements View {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
@@ -36,7 +36,7 @@ public class ProponiSDCPanel  extends JPanel implements View {
     ArrayList<SistemaCifratura> sdcArrLst;
 
     
-    public ProponiSDCPanel(ArrayList<UserInfo> destinatariArrLst, ArrayList<SistemaCifratura> sdc) {
+    public InboxSDCPanel(ArrayList<UserInfo> destinatariArrLst, ArrayList<SistemaCifratura> sdc) {
         this.destinatariArrLst = destinatariArrLst;
         sdcArrLst = sdc;
         this.init();
