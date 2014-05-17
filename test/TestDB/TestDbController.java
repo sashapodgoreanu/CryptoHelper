@@ -66,7 +66,7 @@ public class TestDbController {
 
             //db.getDestinatari();
             QueryResult lista = db.executeQuery("SELECT * FROM Studenti");
-            System.out.println(SistemaCifratura.getSistemaCifratura(1).toString());
+            //System.out.println(SistemaCifratura.getSistemaCifratura(1).toString());
 
             
         

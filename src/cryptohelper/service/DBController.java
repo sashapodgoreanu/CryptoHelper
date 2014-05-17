@@ -116,7 +116,7 @@ public class DBController {
                 + "ID_PARTNER INTEGER not null,"
                 + "ID_SDC INTEGER not null,"
                 + "Stato_Proposta VARCHAR(16),"
-                + "PRIMARY KEY(ID_CREATORE, ID_PARTNER, ID_SDC),"
+                + "PRIMARY KEY(ID_CREATORE, ID_PARTNER),"
                 + "FOREIGN KEY(ID_CREATORE) REFERENCES STUDENTI(ID),"
                 + "FOREIGN KEY(ID_PARTNER) REFERENCES STUDENTI(ID),"
                 + "FOREIGN KEY(ID_SDC) REFERENCES SistemiCifratura(ID)"

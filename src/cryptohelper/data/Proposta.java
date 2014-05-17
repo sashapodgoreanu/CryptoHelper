@@ -50,11 +50,11 @@ public class Proposta {
         DBController dbc = DBController.getInstance();
         String queryInsert = "INSERT INTO SDCPARTNERS(ID_CREATORE, ID_PARTNER,ID_SDC,STATO_PROPOSTA)"
                 + "VALUES("
-                + this.sdc.getId()
-                + ","
                 + this.proponente.getId()
                 + ","
                 +this.partner.getId()
+                + ","
+                + this.sdc.getId()
                 + ",'"
                 +this.stato
                 + "')";
