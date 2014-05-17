@@ -46,29 +46,31 @@ public class InboxSDCPanel extends JPanel implements View {
         bottomPanel.setLayout(new FlowLayout());
 
         //INIT DEI CONTROLLI
-        JLabel targetListLabel = new JLabel("Proposte ricevuti:");
+        JLabel targetListLabel = new JLabel("Proposte ricevute:");
         accettaBtn = new JButton("Accetta");
-        rifiutaBtn= new JButton("Rifiuta");
-        
+        rifiutaBtn = new JButton("Rifiuta");
+        infoSdcLabel = new JLabel();
+
         elencoProposteRicevute = new JList(new Vector<Proposta>(proposteArrLst));
         elencoProposteRicevute.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (renderer instanceof JLabel && value instanceof MessaggioDestinatario) {
-                    MessaggioDestinatario temp = (MessaggioDestinatario) value;
-                    ((JLabel) renderer).setText(temp.getTitolo() + " " + temp.getId());
+                if (renderer instanceof JLabel && value instanceof Proposta) {
+                    Proposta temp = (Proposta) value;
+                    ((JLabel) renderer).setText(temp.getSdc().getNome());
                 }
                 return renderer;
             }
         });
         elencoProposteRicevute.setSelectedIndex(0);
         Proposta index0 = (Proposta) elencoProposteRicevute.getSelectedValue();
-        Visitor visitor= new HtmlVisitor();
-        infoSdcLabel = new JLabel(visitor.visit(index0));
+        if (index0 != null) {
+            infoSdcLabel.setText(new HtmlVisitor().visit(index0));
+        }
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoProposteRicevute);
-        
+
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
         leftPanel.add(infoSdcLabel, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
@@ -85,7 +87,6 @@ public class InboxSDCPanel extends JPanel implements View {
         //REGISTRAZIONE VISTA NEL COTROLLER
         registerController();
     }
-
 
     @Override
     public void registerController() {
@@ -108,6 +109,15 @@ public class InboxSDCPanel extends JPanel implements View {
     public void setInfoSdcLabel(JLabel infoSdcLabel) {
         this.infoSdcLabel = infoSdcLabel;
     }
+
+    public JButton getAccettaBtn() {
+        return accettaBtn;
+    }
+
+    public JButton getRifiutaBtn() {
+        return rifiutaBtn;
+    }
     
     
+
 }

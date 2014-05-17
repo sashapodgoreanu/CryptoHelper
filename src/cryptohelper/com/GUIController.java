@@ -119,7 +119,9 @@ public class GUIController {
         } else if (v instanceof InboxSDCPanel) {
             inboxSDCPanel = (InboxSDCPanel) v;
             inboxSDCPanel.getElencoProposteRicevute().addListSelectionListener(new ViewProponiSDCListener());
-            
+            inboxSDCPanel.getAccettaBtn().addActionListener(new AccettaRifiutaSDCListener());
+            inboxSDCPanel.getRifiutaBtn().addActionListener(new AccettaRifiutaSDCListener());
+
         }
     }
 
@@ -388,13 +390,15 @@ public class GUIController {
             System.out.println(this.getClass() + " selected " + ev.getText());
             SistemaCifratura sdc = (SistemaCifratura) proponiSDCPanel.getElencoSDC().getSelectedValue();
             UserInfo partner = (UserInfo) proponiSDCPanel.getElencoDestinatari().getSelectedValue();
-            if(comC.proponiSistemaCifratura(utilizzatoreSistema, partner, sdc))
+            if (comC.proponiSistemaCifratura(utilizzatoreSistema, partner, sdc)) {
                 panelloPrincipale.setStatusLabelText("Inviato con successo");
-            else panelloPrincipale.setStatusLabelText("Proposta dublicata o errore di sistema");
+            } else {
+                panelloPrincipale.setStatusLabelText("Proposta dublicata o errore di sistema");
+            }
 
         }
     }
-    
+
     //classe listener per visualizare il panello con le proposte inbox sdc
     private class InboxSDCListener implements ActionListener {
 
@@ -404,11 +408,29 @@ public class GUIController {
             JButton ev = (JButton) e.getSource();
             sdcPanel.initInboxSDCPanel(Proposta.caricaProposteSistemiCifratura(utilizzatoreSistema));
 
-
         }
     }
-    
-    //classe listener per la Jlist "ElencoBozze" 
+
+    //classe listener per visualizare il panello con le proposte inbox sdc
+
+    private class AccettaRifiutaSDCListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println(" AccettaRifiutaSDCListener ");
+            panelloPrincipale.setStatusLabelText(" ");
+            JButton ev = (JButton) e.getSource();
+            Proposta proposta = (Proposta) inboxSDCPanel.getElencoProposteRicevute().getSelectedValue();
+            if (ev.getText().equalsIgnoreCase("accetta")) {
+                proposta.setStato("accettata");
+                proposta.salva();
+            } else if (ev.getText().equalsIgnoreCase("rifiuta")) {
+                proposta.setStato("rifiutata");
+            }
+        }
+    }
+
+    //classe listener per la Jlist "elencoProposte" 
     private class ViewProponiSDCListener implements ListSelectionListener {
 
         @Override
@@ -420,8 +442,6 @@ public class GUIController {
             inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)));
         }
     }
-    
-    
 
 //classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {
