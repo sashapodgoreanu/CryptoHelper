@@ -1,50 +1,38 @@
-
-/**
- *
- * @author Sasha Alexandru Podgoreanu
- */
+//Finestra principale della GUI
 package cryptohelper.GUI;
 
+import cryptohelper.abstractC.View;
 import cryptohelper.com.GUIController;
-import cryptohelper.data.SistemaCifratura;
-import cryptohelper.data.UserInfo;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
+import cryptohelper.abstractC.MessaggioDestinatario;
+import cryptohelper.abstractC.Visitor;
+import cryptohelper.data.HtmlVisitor;
+import cryptohelper.data.Proposta;
 import java.util.ArrayList;
 import java.util.Vector;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
+import java.awt.*;
 
-public class InboxSDCPanel  extends JPanel implements View {
+public class InboxSDCPanel extends JPanel implements View {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
     JPanel rightPanel;       //pannello a destra
     JPanel bottomPanel;      //pannello in basso
-    JButton proponiSDCBtn;
-    
-    JScrollPane scrollPaneDest;
-    JScrollPane scrollPaneSdc;
-    JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
-    JList elencoSDC;            //visualizza la lista dei destinatariArrLst
-    ArrayList<UserInfo> destinatariArrLst;
-    ArrayList<SistemaCifratura> sdcArrLst;
+    JList elencoProposteRicevute;
+    JButton accettaBtn;
+    JButton rifiutaBtn;
+    JLabel infoSdcLabel;
+    JScrollPane scrollPane;
+    ArrayList<Proposta> proposteArrLst; //elenco mittenti
 
-    
-    public InboxSDCPanel(ArrayList<UserInfo> destinatariArrLst, ArrayList<SistemaCifratura> sdc) {
-        this.destinatariArrLst = destinatariArrLst;
-        sdcArrLst = sdc;
+    public InboxSDCPanel(ArrayList<Proposta> proposteArrLst) {
+        this.proposteArrLst = proposteArrLst;
         this.init();
     }
 
     //inizializza il pannello
     private void init() {
-        System.out.println("Inizializzazione Pannello Nuovo Messaggio...");   //comunicazione di controllo per i log
+        System.out.println("Inizzializzazione Pannello Inbox...");   //comunicazione di controllo per i log
 
         //INIT DEI PANNELLI E DEI LAYOUT
         this.setLayout(new BorderLayout());
@@ -57,55 +45,36 @@ public class InboxSDCPanel  extends JPanel implements View {
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
 
-        //INIT DEI CONTROLLI   
-        proponiSDCBtn = new JButton("Invia Proposta");
+        //INIT DEI CONTROLLI
+        JLabel targetListLabel = new JLabel("Proposte ricevuti:");
+        accettaBtn = new JButton("Accetta");
+        rifiutaBtn= new JButton("Rifiuta");
         
-        elencoDestinatari = new JList(new Vector<UserInfo>(destinatariArrLst));
-        elencoDestinatari.setCellRenderer(new DefaultListCellRenderer() {
+        elencoProposteRicevute = new JList(new Vector<Proposta>(proposteArrLst));
+        elencoProposteRicevute.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (renderer instanceof JLabel && value instanceof UserInfo) {
-                    UserInfo temp = (UserInfo) value;
-                    //System.out.println("renderer " + temp.toString());
-                    ((JLabel) renderer).setText(temp.getId() + " " + temp.getNome() + " " + temp.getCognome());
+                if (renderer instanceof JLabel && value instanceof MessaggioDestinatario) {
+                    MessaggioDestinatario temp = (MessaggioDestinatario) value;
+                    ((JLabel) renderer).setText(temp.getTitolo() + " " + temp.getId());
                 }
                 return renderer;
             }
         });
-        elencoDestinatari.setSelectedIndex(0);
-        scrollPaneDest = new JScrollPane();
-        scrollPaneDest.setViewportView(elencoDestinatari);
+        elencoProposteRicevute.setSelectedIndex(0);
+        Proposta index0 = (Proposta) elencoProposteRicevute.getSelectedValue();
+        Visitor visitor= new HtmlVisitor();
+        infoSdcLabel = new JLabel(visitor.visit(index0));
+        scrollPane = new JScrollPane();
+        scrollPane.setViewportView(elencoProposteRicevute);
         
-        elencoSDC = new JList(new Vector<SistemaCifratura>(sdcArrLst));
-        elencoSDC.setCellRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (renderer instanceof JLabel && value instanceof SistemaCifratura) {
-                    SistemaCifratura temp = (SistemaCifratura) value;
-                    //System.out.println("renderer " + temp.toString());
-                    ((JLabel) renderer).setText(temp.getId() + " " + temp.getNome() + " - " + temp.getMetodo());
-                }
-                return renderer;
-            }
-        });
-        elencoSDC.setSelectedIndex(0);
-        scrollPaneSdc = new JScrollPane();
-        scrollPaneSdc.setViewportView(elencoSDC);
-       
-
-        //AGGIUNTA DEI CONTROLLI AI PANNELLI
-
-        leftPanel.add(new JLabel("<html>Sistemi <br/> di cifratura <br/> disponibili</html>"), BorderLayout.WEST);
-        leftPanel.add(scrollPaneSdc, BorderLayout.CENTER);
-        
-        rightPanel.add(new JLabel("Destinatario:"), BorderLayout.WEST);
-        rightPanel.add(scrollPaneDest, BorderLayout.CENTER);
-        
-        
-        
-        bottomPanel.add(proponiSDCBtn);
+        //AGGIUNTA DEI CONTROLLI AI PANNELLI        
+        leftPanel.add(infoSdcLabel, BorderLayout.CENTER);
+        rightPanel.add(targetListLabel, BorderLayout.NORTH);
+        rightPanel.add(scrollPane, BorderLayout.CENTER);
+        bottomPanel.add(accettaBtn);
+        bottomPanel.add(rifiutaBtn);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
@@ -117,37 +86,28 @@ public class InboxSDCPanel  extends JPanel implements View {
         registerController();
     }
 
+
     @Override
     public void registerController() {
         GUIController gc = GUIController.getInstance();
         gc.addView(this);
     }
 
-    public JButton getProponiSDCBtn() {
-        return proponiSDCBtn;
+    public JList getElencoProposteRicevute() {
+        return elencoProposteRicevute;
     }
 
-    public void setProponiSDCBtn(JButton proponiSDCBtn) {
-        this.proponiSDCBtn = proponiSDCBtn;
+    public void setElencoProposteRicevute(JList elencoProposteRicevute) {
+        this.elencoProposteRicevute = elencoProposteRicevute;
     }
 
-    public JList getElencoDestinatari() {
-        return elencoDestinatari;
+    public JLabel getInfoSdcLabel() {
+        return infoSdcLabel;
     }
 
-    public void setElencoDestinatari(JList elencoDestinatari) {
-        this.elencoDestinatari = elencoDestinatari;
+    public void setInfoSdcLabel(JLabel infoSdcLabel) {
+        this.infoSdcLabel = infoSdcLabel;
     }
-
-    public JList getElencoSDC() {
-        return elencoSDC;
-    }
-
-    public void setElencoSDC(JList elencoSDC) {
-        this.elencoSDC = elencoSDC;
-    }
-    
-    
     
     
 }

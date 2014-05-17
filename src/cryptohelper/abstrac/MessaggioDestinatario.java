@@ -1,6 +1,8 @@
 //interfaccia MessaggioDestinatario
 
-package cryptohelper.data;
+package cryptohelper.abstractC;
+
+import cryptohelper.data.UserInfo;
 
 public interface MessaggioDestinatario extends MessaggioAstratto
 {

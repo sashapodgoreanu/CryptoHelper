@@ -6,6 +6,8 @@
 
 package cryptohelper.data;
 
+import cryptohelper.abstractC.CalcolatoreMappatura;
+
 /**
  *
  * @author Sasha Alexandru Podgoreanu

@@ -1,6 +1,7 @@
 //Classe SistemaCifratura
 package cryptohelper.data;
 
+import cryptohelper.abstractC.CalcolatoreMappatura;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;

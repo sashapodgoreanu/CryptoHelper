@@ -25,21 +25,19 @@ Sasha
 *****************************
 
 ok - save di proposta
- ok - inviaProposta di COMController
+ok - inviaProposta di COMController
+ok - Da aggiungere status se un sistema cifratura inviato correttamente 
+Da IMPLEMENTARE i rimanenti cifrari.
+da implementare inbox proposte. 
 invia  nuovo messaggio
 collegare la lingua del messaggio
-ok - Da aggiungere status se un sistema cifratura inviato correttamente 
 
-----------TestDB----------------------------------------------
+OK ----------TestDB----------------------------------------------
 aggiungere nel TestDb qualche sistema di cifratura da inviare
 Creare qualche sitema di cifratura e salvare 
---------------------------------------------------------------
+OK --------------------------------------------------------------
 
 ****************************
-
-
-
-
 GIULIO
 *******************************
 //TO-DO

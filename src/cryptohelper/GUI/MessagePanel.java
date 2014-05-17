@@ -1,6 +1,7 @@
 //Finestra principale della GUI
 package cryptohelper.GUI;
 
+import cryptohelper.abstractC.View;
 import cryptohelper.com.GUIController;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
@@ -56,7 +57,7 @@ public class MessagePanel extends JPanel implements View {
         linguaDropdown = new JComboBox(lingua);
         
         newMessageBtn = new JButton("Invia Messaggio");
-        saveBozzaBtn = new JButton("Salva messaggio come bozza");
+        saveBozzaBtn = new JButton("Salva messaggio");
         sendMessageBtn = new JButton("nuovo Messaggio");
         msgTitlelLabel = new JLabel("Titolo del messaggio:");
         targetListLabel = new JLabel("Destinatari disponibili:");

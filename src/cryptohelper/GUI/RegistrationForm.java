@@ -1,6 +1,7 @@
 //Classe RegistrationForm - Gestisce l'interfaccia per la registrazione di nuovi utenti
 package cryptohelper.GUI;
 
+import cryptohelper.abstractC.View;
 import cryptohelper.com.GUIController;
 import java.awt.*;
 import java.util.logging.Logger;

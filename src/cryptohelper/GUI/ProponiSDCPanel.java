@@ -5,6 +5,7 @@
  */
 package cryptohelper.GUI;
 
+import cryptohelper.abstractC.View;
 import cryptohelper.com.GUIController;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.UserInfo;

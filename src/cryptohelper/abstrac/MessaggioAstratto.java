@@ -1,5 +1,5 @@
 //interfaccia MessaggioAstratto
-package cryptohelper.data;
+package cryptohelper.abstractC;
 
 public interface MessaggioAstratto {
 

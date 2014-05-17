@@ -26,8 +26,6 @@ public class Proposta {
     }
 
     
-    
-    //METODI GETTER
     public UserInfo getProponente() {
         return proponente;
     }
@@ -35,8 +33,6 @@ public class Proposta {
     public UserInfo getPartner() {
         return partner;
     }
-
-    //METODI SETTER
     public void setProponente(UserInfo proponente) {
         this.proponente = proponente;
     }
@@ -44,6 +40,24 @@ public class Proposta {
     public void setPartner(UserInfo partner) {
         this.partner = partner;
     }
+
+    public SistemaCifratura getSdc() {
+        return sdc;
+    }
+
+    public void setSdc(SistemaCifratura sdc) {
+        this.sdc = sdc;
+    }
+
+    public String getStato() {
+        return stato;
+    }
+
+    public void setStato(String stato) {
+        this.stato = stato;
+    }
+    
+    
 
     public boolean salva() {
         boolean result = false;

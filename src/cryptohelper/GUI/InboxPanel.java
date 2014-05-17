@@ -1,15 +1,11 @@
-//Finestra principale della GUI
 package cryptohelper.GUI;
 
+import cryptohelper.abstractC.MessaggioDestinatario;
+import cryptohelper.abstractC.View;
 import cryptohelper.com.GUIController;
-import cryptohelper.data.MessaggioDestinatario;
-import cryptohelper.data.MessaggioMittente;
-import cryptohelper.data.Studente;
-import cryptohelper.data.UserInfo;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 
 public class InboxPanel extends JPanel implements View {
@@ -119,6 +115,4 @@ public class InboxPanel extends JPanel implements View {
         this.mittentiMessaggiArrLst = bozzeArayLst;
     }
     
-    
-
 }

@@ -1,6 +1,8 @@
 //Classe Messaggio
 package cryptohelper.data;
 
+import cryptohelper.abstractC.MessaggioDestinatario;
+import cryptohelper.abstractC.MessaggioMittente;
 import cryptohelper.com.COMController;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;

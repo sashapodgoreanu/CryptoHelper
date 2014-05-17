@@ -1,7 +1,7 @@
-package TestDB;
+package cryptohelper.service;
 
 import cryptohelper.data.Messaggio;
-import cryptohelper.data.MessaggioMittente;
+import cryptohelper.abstractC.MessaggioMittente;
 import cryptohelper.data.QueryResult;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;

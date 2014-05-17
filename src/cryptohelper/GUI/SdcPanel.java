@@ -1,7 +1,9 @@
 //Pannello per le operazioni con il sistema di cifratura
 package cryptohelper.GUI;
 
+import cryptohelper.abstractC.View;
 import cryptohelper.com.GUIController;
+import cryptohelper.data.Proposta;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.UserInfo;
 import java.awt.BorderLayout;
@@ -20,6 +22,7 @@ public class SdcPanel extends JPanel implements View {
     private JPanel centerSDCPanel;
     private CreaSDCPanel creasdc;
     private ProponiSDCPanel psdcp;
+    private InboxSDCPanel isdcp;
 
     public SdcPanel() {
         init();
@@ -67,6 +70,16 @@ public class SdcPanel extends JPanel implements View {
         //crea nuovo panello 
         psdcp = new ProponiSDCPanel(destinatariArrLst,sdc);
         centerSDCPanel.add(psdcp);
+        this.revalidate();
+    }
+    
+    public void initInboxSDCPanel(ArrayList<Proposta> proposteArrLst){
+        System.out.println("proponi sistema di cifratura");
+        //pulisci
+        this.resetpanels();
+        //crea nuovo panello 
+        isdcp = new InboxSDCPanel(proposteArrLst);
+        centerSDCPanel.add(isdcp);
         this.revalidate();
     }
 

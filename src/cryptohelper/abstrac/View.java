@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package TestInterfaces;
+package cryptohelper.abstractC;
 
 /**
  *
- * @author st116628
+ * @author Sasha Alexandru Podgoreanu
  */
-public interface MessaggioMittente {
-    public void StampaMittente();
+public interface View {
+    public void registerController();
 }

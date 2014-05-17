@@ -1,5 +1,7 @@
 //interfaccia MessaggioMittente
-package cryptohelper.data;
+package cryptohelper.abstractC;
+
+import cryptohelper.data.UserInfo;
 
 public interface MessaggioMittente extends MessaggioAstratto {
 
