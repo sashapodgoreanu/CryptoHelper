@@ -39,7 +39,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         this.destinatario = destinatario;
         this.sistemaCifratura = sc;
     }
-
+    
     //COSTRUTTORE II
     public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto) {
         this.id = id;
@@ -50,6 +50,23 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         this.bozza = bozza;
         this.letto = letto;
     }
+
+    public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto, UserInfo mittente, UserInfo destinatario) {
+        this.id = id;
+        this.testo = testo;
+        this.testoCifrato = testoCifrato;
+        this.lingua = lingua;
+        this.titolo = titolo;
+        this.bozza = bozza;
+        this.letto = letto;
+        this.mittente = mittente;
+        this.destinatario = destinatario;
+    }
+    
+    
+    
+    
+    
 
     //TEST 
     public Messaggio(int id, String testo, String titolo, boolean bozza, UserInfo mittente, UserInfo destinatario) {

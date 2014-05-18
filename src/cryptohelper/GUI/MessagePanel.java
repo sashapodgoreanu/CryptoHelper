@@ -18,16 +18,18 @@ public class MessagePanel extends JPanel implements View {
     JPanel bottomPanel;      //pannello in basso
     JButton newMessageBtn;
     JButton saveBozzaBtn;
-    JButton sendMessageBtn;
+    JButton inviaMessageBtn;
     JLabel msgTitlelLabel;
     JLabel targetListLabel;
     JLabel messageTextLabel;
     JTextArea corpoMessaggio;
     JTextField titoloMessaggioField;
+    JTextField chiaveField;
     JScrollPane scrollPane;
     JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
     ArrayList<UserInfo> destinatariArrLst;
     JComboBox linguaDropdown;
+    JLabel chiaveMsg;
 
     
     public MessagePanel(ArrayList<UserInfo> destinatariArrLst) {
@@ -56,13 +58,15 @@ public class MessagePanel extends JPanel implements View {
         String[] lingua = {"inglese", "italiano"};
         linguaDropdown = new JComboBox(lingua);
         
-        newMessageBtn = new JButton("Invia Messaggio");
-        saveBozzaBtn = new JButton("Salva messaggio");
-        sendMessageBtn = new JButton("nuovo Messaggio");
+        newMessageBtn = new JButton("");
+        saveBozzaBtn = new JButton("Salva");
+        inviaMessageBtn = new JButton("Invia");
         msgTitlelLabel = new JLabel("Titolo del messaggio:");
         targetListLabel = new JLabel("Destinatari disponibili:");
         messageTextLabel = new JLabel("Testo del messaggio:");
         titoloMessaggioField = new JTextField(21);
+        chiaveField = new JTextField(21);
+        chiaveMsg = new JLabel();
         elencoDestinatari = new JList(new Vector<UserInfo>(destinatariArrLst));
         elencoDestinatari.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -93,7 +97,7 @@ public class MessagePanel extends JPanel implements View {
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
         bottomPanel.add(saveBozzaBtn);
-        bottomPanel.add(sendMessageBtn);
+        bottomPanel.add(inviaMessageBtn);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
@@ -123,6 +127,19 @@ public class MessagePanel extends JPanel implements View {
     public JList getElencoDestinatari() {
         return elencoDestinatari;
     }
+    
+    /*
+    public void initChiave(String metodo){
+        bottomPanel.remove(chiaveField);
+        bottomPanel.remove(chiaveMsg);
+        if(metodo.equals("parola chiave")){
+            chiaveField = new JTextField(26);
+            chiaveMsg.setText("Parola-chiave password");
+            bottomPanel.add(chiaveMsg, 0);
+            bottomPanel.add(chiaveField, 1);
+            bottomPanel.revalidate();
+        }
+    }*/
 
     public JButton getNuovoMessaggioBtn() {
         return newMessageBtn;
@@ -168,5 +185,18 @@ public class MessagePanel extends JPanel implements View {
     public void setElencoDestinatari(JList elencoDestinatari) {
         this.elencoDestinatari = elencoDestinatari;
     }
+
+    public JComboBox getLinguaDropdown() {
+        return linguaDropdown;
+    }
+
+    public JButton getInviaMessageBtn() {
+        return inviaMessageBtn;
+    }
+    
+    
+    
+    
+    
 
 }

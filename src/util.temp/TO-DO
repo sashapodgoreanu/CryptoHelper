@@ -44,6 +44,7 @@ GIULIO
 *******************************
 //TO-DO
 guarda dentro BozzePanel 
+ bozzePanel.getSaveBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());   da rifare --- puo darsi che devi creari una nuova classe listener
 deleteSelectedIndex();
 da rivedere 
 //Preleva l'elenco delle bozze 

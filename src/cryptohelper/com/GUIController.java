@@ -11,6 +11,7 @@ import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.ProponiSDCPanel;
 import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
+import cryptohelper.data.Cifratore;
 import cryptohelper.interfaces.View;
 import cryptohelper.data.Mappatura;
 import cryptohelper.data.Messaggio;
@@ -95,7 +96,7 @@ public class GUIController {
             panelloPrincipale.getSDCBtn().addActionListener(new GestisciSDC());
         } else if (v instanceof BozzePanel) {
             bozzePanel = (BozzePanel) v;
-            bozzePanel.getSaveBozzaBtn().addActionListener(new SalvaMessaggioListener());
+            //TO-DO bozzePanel.getSaveBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
             bozzePanel.getDeleteBozzaBtn().addActionListener(new ElimnaBozzaListener());
             bozzePanel.getElencoBozze().addListSelectionListener(new ViewBozzeMsgListener());
         } else if (v instanceof SdcPanel) {
@@ -112,8 +113,10 @@ public class GUIController {
             creaSDCPanel.getProvasdcBtn().addActionListener(new ProvaMetodoDicifraturaListener());
         } else if (v instanceof MessagePanel) {
             messagePanel = (MessagePanel) v;
-            messagePanel.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
+            messagePanel.getSalvaBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
+            messagePanel.getInviaMessageBtn().addActionListener(new SalvaInviaMessaggioListener());
             messagePanel.getElencoDestinatari().addListSelectionListener(new SelectDestinatarioListener());
+            
         } else if (v instanceof ProponiSDCPanel) {
             proponiSDCPanel = (ProponiSDCPanel) v;
             proponiSDCPanel.getProponiSDCBtn().addActionListener(new SendProponiSDCListener());
@@ -268,7 +271,6 @@ public class GUIController {
             JRadioButton ev = (JRadioButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("parola chiave")) {
-
                 creaSDCPanel.initParolaChiave();
             } else if (ev.getText().equalsIgnoreCase("cesare")) {
                 creaSDCPanel.initCesare();
@@ -279,7 +281,7 @@ public class GUIController {
     }
 
 //classe listener per il button "salva messaggio" della finestra principale
-    private class SalvaMessaggioListener implements ActionListener {
+    private class SalvaInviaMessaggioListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -287,32 +289,62 @@ public class GUIController {
             //un messaggio senza titolo non si puo salvare
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
-            if (messagePanel.getSelectedDestinatario() != null) {
-                System.out.println(messagePanel.getTitoloMessaggioField() + " - Tittolo del messaggio");
-                //se il tittolo del messaggio e vuouto mostra un  messaggio di errore
+            if (ev.getText().equalsIgnoreCase("Salva")) {
+                if (messagePanel.getSelectedDestinatario() != null) {
+                    System.out.println(messagePanel.getTitoloMessaggioField() + " - Tittolo del messaggio");
+                    //se il tittolo del messaggio e vuouto mostra un  messaggio di errore
+                    String temp = messagePanel.getTitoloMessaggioField().replaceAll("\\s+", "");
+                    if (temp.equals("")) {
+                        panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
+                    } else { //altrimenti salva il messaggio
+                        panelloPrincipale.setStatus("");
+                        JList list = messagePanel.getElencoDestinatari();
+                        UserInfo destinatario = (UserInfo) list.getSelectedValue();
+                        System.out.println("Destinatario selected: " + destinatario.toString());
+                        msgMittente = new Messaggio(msgMittente.getId(), messagePanel.getCorpoMessaggio(), messagePanel.getTitoloMessaggioField(), true, utilizzatoreSistema, destinatario);
+                        //se msg.salva ritorna false allora errore
+                        if (msgMittente.salva()) {
+                            panelloPrincipale.setStatus("Messaggio Salvato!");
+                        } else {
+                            panelloPrincipale.setStatus("Si è verificato un errore durante il salvataggio del messaggio!");
+                        }
+                    }
+                } else {
+                    panelloPrincipale.setStatus("Devi selezionare un destinatario");
+                }
+            } else if (ev.getText().equalsIgnoreCase("invia")) {
                 String temp = messagePanel.getTitoloMessaggioField().replaceAll("\\s+", "");
                 if (temp.equals("")) {
                     panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
-                } else { //altrimenti salva il messaggio
+                } else { //altrimenti invia il messaggio
+                    System.out.println("INVIA MESSAGGIO");
                     panelloPrincipale.setStatus("");
-                    JList list = messagePanel.getElencoDestinatari();
-                    UserInfo destinatario = (UserInfo) list.getSelectedValue();
-                    System.out.println("Destinatario selected: " + destinatario.toString());
-                    msgMittente = new Messaggio(msgMittente.getId(), messagePanel.getCorpoMessaggio(), messagePanel.getTitoloMessaggioField(), true, utilizzatoreSistema, destinatario);
+                    UserInfo destinatario = (UserInfo) messagePanel.getElencoDestinatari().getSelectedValue();
+                    SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema, destinatario);
+                    
+                    String testoCifrato = Cifratore.cifraMonoalfabetica(sdc.getMp(), messagePanel.getCorpoMessaggio());
+                    //Messaggio( String titolo, boolean bozza, boolean letto)
+                    msgMittente = new Messaggio(msgMittente.getId(),//id
+                            messagePanel.getCorpoMessaggio(),//testo in chiaro
+                            testoCifrato,//testo cifrato
+                            (String) messagePanel.getLinguaDropdown().getSelectedItem(), //lingua
+                            messagePanel.getTitoloMessaggioField(),// titolo messaggio
+                            false,// isBooza
+                            false,//isLeto
+                            utilizzatoreSistema,//mittente
+                            destinatario);//destinatario
                     //se msg.salva ritorna false allora errore
                     if (msgMittente.salva()) {
-                        panelloPrincipale.setStatus("Messaggio Salvato!");
+                        panelloPrincipale.setStatus("Messaggio Inviato!");
                     } else {
-                        panelloPrincipale.setStatus("Si è verificato un errore durante il salvataggio del messaggio!");
+                        panelloPrincipale.setStatus("Si è verificato un errore durante il invio del messaggio!");
                     }
                 }
-            } else {
-                panelloPrincipale.setStatus("Devi selezionare un destinatario");
-            }
 
+            }
         }
     }
-    
+
     //classe listener per la Jlist "elencoProposte" 
     private class SelectDestinatarioListener implements ListSelectionListener {
 
@@ -323,8 +355,7 @@ public class GUIController {
             UserInfo userInfo = (UserInfo) messagePanel.getElencoDestinatari().getSelectedValue();
             SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema, userInfo);
             System.out.println(sdc.toString());
-            
-            
+            //messagePanel.initChiave(sdc.getMetodo());
         }
     }
 
@@ -467,7 +498,7 @@ public class GUIController {
             inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)));
         }
     }
-    
+
 //classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {
 

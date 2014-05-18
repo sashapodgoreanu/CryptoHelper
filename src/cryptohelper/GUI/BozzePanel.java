@@ -55,8 +55,8 @@ public class BozzePanel extends JPanel implements View {
         bottomPanel.setLayout(new FlowLayout());
 
         //INIT DEI CONTROLLI
-        saveBozzaBtn = new JButton("Salva bozza");
-        deleteBozzaBtn = new JButton("Elimina bozza");
+        saveBozzaBtn = new JButton("Salva"); //non modificare 
+        deleteBozzaBtn = new JButton("Elimina");//non modificare 
         sendBozzaBtn = new JButton("Invia messaggio");
         msgTitleLabel = new JLabel("Titolo della bozza:");
         bozzeListLabel = new JLabel("Bozze disponibili:");

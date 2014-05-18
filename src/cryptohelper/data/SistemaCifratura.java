@@ -30,7 +30,6 @@ public class SistemaCifratura {
         this.metodo = metodo;
         this.creatore = creatore;
         map = create(metodo, chiave);
-        
     }
 
     public SistemaCifratura(String chiave, String metodo) {
@@ -42,10 +41,7 @@ public class SistemaCifratura {
         this.nome = nome;
         this.chiave = chiave;
         this.metodo = metodo;
-    }
-
-    public SistemaCifratura(String queryresult) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        map = create(metodo, chiave);
     }
 
     public static void caricaSistemiCifratura(Studente st) {
