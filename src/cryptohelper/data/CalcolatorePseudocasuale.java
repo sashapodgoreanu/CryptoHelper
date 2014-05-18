@@ -6,7 +6,7 @@
 
 package cryptohelper.data;
 
-import cryptohelper.abstractC.CalcolatoreMappatura;
+import cryptohelper.interfaces.CalcolatoreMappatura;
 
 /**
  *

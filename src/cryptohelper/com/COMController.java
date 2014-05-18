@@ -32,10 +32,22 @@ public class COMController {
         studente.setPassword(pwd);
         return studente.authenticate();
     }
+    /*
+     select mondial.city.name, mondial.city.latitude
+     from mondial.city
+     where mondial.city.latitude < 10
+     intersect 
+     select mondial.city.name, mondial.city.latitude
+     from mondial.city
+     where mondial.city.latitude > -10;*/
 
     //Preleva i destinatari a cui è possibile inviare dei messaggi (destinatari con cui si è concordato un SDC)
     public ArrayList<UserInfo> getDestinatari(UserInfo st) {
-        String query = "SELECT * FROM STUDENTI";
+        String query = "SELECT *"
+                + " FROM STUDENTI JOIN SDCPARTNERS "
+                + " ON("+st.getId()+" = SDCPARTNERS.ID_CREATORE "
+                + " AND STUDENTI.ID = SDCPARTNERS.ID_PARTNER "
+                + " AND SDCPARTNERS.STATO_PROPOSTA = 'accettata')";
         QueryResult qr = null;
         ArrayList<UserInfo> uInfo = new ArrayList<>();
         try {
@@ -47,10 +59,8 @@ public class COMController {
         } catch (SQLException ex) {
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         } catch (Exception ex) {
-            System.out.println("test2");
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
-        System.out.println("test2");
         return uInfo;
     }
 
@@ -87,9 +97,10 @@ public class COMController {
     }
 
     public boolean proponiSistemaCifratura(UserInfo utilizzatoreSistema, UserInfo partner, SistemaCifratura sdc) {
-        Proposta proposta =  new Proposta(sdc,utilizzatoreSistema,partner);
-        if(proposta.salva())
+        Proposta proposta = new Proposta(sdc, utilizzatoreSistema, partner);
+        if (proposta.salva()) {
             return true;
+        }
         return false;
     }
 

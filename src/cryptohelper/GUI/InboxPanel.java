@@ -1,7 +1,7 @@
 package cryptohelper.GUI;
 
-import cryptohelper.abstractC.MessaggioDestinatario;
-import cryptohelper.abstractC.View;
+import cryptohelper.interfaces.MessaggioDestinatario;
+import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
 import java.util.ArrayList;
 import java.util.Vector;

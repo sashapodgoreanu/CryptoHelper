@@ -29,6 +29,8 @@ ok - inviaProposta di COMController
 ok - Da aggiungere status se un sistema cifratura inviato correttamente 
 Da IMPLEMENTARE i rimanenti cifrari.
 da implementare inbox proposte. 
+
+RIMASTO A SelectDestinatarioListener() 
 invia  nuovo messaggio
 collegare la lingua del messaggio
 

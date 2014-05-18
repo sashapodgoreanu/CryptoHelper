@@ -1,11 +1,11 @@
 //Finestra principale della GUI
 package cryptohelper.GUI;
 
-import cryptohelper.abstractC.View;
+import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
 import cryptohelper.data.Messaggio;
-import cryptohelper.abstractC.MessaggioDestinatario;
-import cryptohelper.abstractC.MessaggioMittente;
+import cryptohelper.interfaces.MessaggioDestinatario;
+import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import javax.swing.*;

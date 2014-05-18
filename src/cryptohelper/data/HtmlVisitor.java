@@ -16,7 +16,7 @@
 
 package cryptohelper.data;
 
-import cryptohelper.abstractC.Visitor;
+import cryptohelper.interfaces.Visitor;
 
 /**
  *

@@ -1,12 +1,9 @@
 package cryptohelper.service;
 
 import cryptohelper.data.Messaggio;
-import cryptohelper.abstractC.MessaggioMittente;
 import cryptohelper.data.QueryResult;
-import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
-import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -1,7 +1,7 @@
 //Classe SistemaCifratura
 package cryptohelper.data;
 
-import cryptohelper.abstractC.CalcolatoreMappatura;
+import cryptohelper.interfaces.CalcolatoreMappatura;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,6 +29,8 @@ public class SistemaCifratura {
         this.chiave = chiave;
         this.metodo = metodo;
         this.creatore = creatore;
+        map = create(metodo, chiave);
+        
     }
 
     public SistemaCifratura(String chiave, String metodo) {
@@ -50,20 +52,33 @@ public class SistemaCifratura {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public static SistemaCifratura load(int id1, int id2) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public static SistemaCifratura load(UserInfo u1, UserInfo u2) {
+        String query = "SELECT * "
+                + " FROM SDCPARTNERS"
+                + " WHERE (ID_CREATORE = " + u1.getId()
+                + " AND ID_PARTNER = " + u2.getId()
+                + ") OR (ID_CREATORE = " + u2.getId()
+                + " AND ID_PARTNER = " + u1.getId()
+                + ") AND STATO_PROPOSTA = 'accettato'";
+        QueryResult qr = null;
+        SistemaCifratura temp = null;
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while (qr.next()) {
+                temp = getSistemaCifratura(qr.getInt("ID_SDC"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        return temp;
     }
 
     public String prova(String testo) {
         return Cifratore.cifraMonoalfabetica(map, testo);
     }
-    /*
-     public String cifra(String testo) {
-        
-     }
-     */
-
-    //TO -DO SALVA 
+    
     public Mappatura create(String metodo, String chiave) {
         this.metodo = metodo;
         this.chiave = chiave;
@@ -72,7 +87,6 @@ public class SistemaCifratura {
         return map;
     }
 
-    //TO - DO
     public boolean salva() {
         boolean result = false;
         DBController dbc = DBController.getInstance();

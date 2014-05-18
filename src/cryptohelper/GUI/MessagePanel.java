@@ -1,7 +1,7 @@
 //Finestra principale della GUI
 package cryptohelper.GUI;
 
-import cryptohelper.abstractC.View;
+import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
@@ -76,7 +76,7 @@ public class MessagePanel extends JPanel implements View {
                 return renderer;
             }
         });
-        elencoDestinatari.setSelectedIndex(0);
+        //elencoDestinatari.setSelectedIndex(0);
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoDestinatari);
         corpoMessaggio = new JTextArea();

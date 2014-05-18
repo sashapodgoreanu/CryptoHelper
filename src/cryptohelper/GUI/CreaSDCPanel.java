@@ -5,7 +5,7 @@
  */
 package cryptohelper.GUI;
 
-import cryptohelper.abstractC.View;
+import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -1,7 +1,7 @@
 //Classe Login Form - Gestisce il form per l'accesso al servizio da parte degli utenti
 package cryptohelper.GUI;
 
-import cryptohelper.abstractC.View;
+import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
 import java.awt.*;
 import javax.swing.*;

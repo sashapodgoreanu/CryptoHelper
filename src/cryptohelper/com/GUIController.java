@@ -11,11 +11,11 @@ import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.ProponiSDCPanel;
 import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
-import cryptohelper.abstractC.View;
+import cryptohelper.interfaces.View;
 import cryptohelper.data.Mappatura;
 import cryptohelper.data.Messaggio;
-import cryptohelper.abstractC.MessaggioMittente;
-import cryptohelper.abstractC.MessaggioDestinatario;
+import cryptohelper.interfaces.MessaggioMittente;
+import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Proposta;
 import cryptohelper.data.SistemaCifratura;
@@ -113,6 +113,7 @@ public class GUIController {
         } else if (v instanceof MessagePanel) {
             messagePanel = (MessagePanel) v;
             messagePanel.getSalvaBozzaBtn().addActionListener(new SalvaMessaggioListener());
+            messagePanel.getElencoDestinatari().addListSelectionListener(new SelectDestinatarioListener());
         } else if (v instanceof ProponiSDCPanel) {
             proponiSDCPanel = (ProponiSDCPanel) v;
             proponiSDCPanel.getProponiSDCBtn().addActionListener(new SendProponiSDCListener());
@@ -150,7 +151,7 @@ public class GUIController {
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
             //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
-            panelloPrincipale.setDestinatariArrLst(comC.getDestinatari());
+            panelloPrincipale.setDestinatariArrLst(comC.getDestinatari(utilizzatoreSistema));
             System.out.println(comC.getDestinatari().toString());
             panelloPrincipale.initNuovoMessaggio();
             //predispone il nuovo messaggio
@@ -286,25 +287,44 @@ public class GUIController {
             //un messaggio senza titolo non si puo salvare
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
-            System.out.println(this.getClass() + " Selected " + messagePanel.getSelectedDestinatario().toString());
-            System.out.println(messagePanel.getTitoloMessaggioField() + " - Tittolo del messaggio");
-            //se il tittolo del messaggio e vuouto mostra il messaggio
-            String temp = messagePanel.getTitoloMessaggioField().replaceAll("\\s+", "");
-            if (temp.equals("")) {
-                panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
-            } else { //altrimenti salva il messaggio
-                panelloPrincipale.setStatus("");
-                JList list = messagePanel.getElencoDestinatari();
-                UserInfo destinatario = (UserInfo) list.getSelectedValue();
-                System.out.println("Destinatario selected: " + destinatario.toString());
-                msgMittente = new Messaggio(msgMittente.getId(), messagePanel.getCorpoMessaggio(), messagePanel.getTitoloMessaggioField(), true, utilizzatoreSistema, destinatario);
-                //se msg.salva ritorna false allora errore
-                if (msgMittente.salva()) {
-                    panelloPrincipale.setStatus("Messaggio Salvato!");
-                } else {
-                    panelloPrincipale.setStatus("Si è verificato un durante il salvataggio del messaggio!");
+            if (messagePanel.getSelectedDestinatario() != null) {
+                System.out.println(messagePanel.getTitoloMessaggioField() + " - Tittolo del messaggio");
+                //se il tittolo del messaggio e vuouto mostra un  messaggio di errore
+                String temp = messagePanel.getTitoloMessaggioField().replaceAll("\\s+", "");
+                if (temp.equals("")) {
+                    panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
+                } else { //altrimenti salva il messaggio
+                    panelloPrincipale.setStatus("");
+                    JList list = messagePanel.getElencoDestinatari();
+                    UserInfo destinatario = (UserInfo) list.getSelectedValue();
+                    System.out.println("Destinatario selected: " + destinatario.toString());
+                    msgMittente = new Messaggio(msgMittente.getId(), messagePanel.getCorpoMessaggio(), messagePanel.getTitoloMessaggioField(), true, utilizzatoreSistema, destinatario);
+                    //se msg.salva ritorna false allora errore
+                    if (msgMittente.salva()) {
+                        panelloPrincipale.setStatus("Messaggio Salvato!");
+                    } else {
+                        panelloPrincipale.setStatus("Si è verificato un errore durante il salvataggio del messaggio!");
+                    }
                 }
+            } else {
+                panelloPrincipale.setStatus("Devi selezionare un destinatario");
             }
+
+        }
+    }
+    
+    //classe listener per la Jlist "elencoProposte" 
+    private class SelectDestinatarioListener implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            panelloPrincipale.setStatus(" ");
+            System.out.println("Clicked LIST");
+            UserInfo userInfo = (UserInfo) messagePanel.getElencoDestinatari().getSelectedValue();
+            SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema, userInfo);
+            System.out.println(sdc.toString());
+            
+            
         }
     }
 
@@ -411,7 +431,6 @@ public class GUIController {
     }
 
     //classe listener per visualizare il panello con le proposte inbox sdc
-
     private class AccettaRifiutaSDCListener implements ActionListener {
 
         @Override
@@ -426,7 +445,10 @@ public class GUIController {
             } else if (ev.getText().equalsIgnoreCase("rifiuta") && proposta != null) {
                 proposta.setStato("rifiutata");
                 proposta.salva();
+                inboxSDCPanel.getInfoSdcLabel().setText("");
                 inboxSDCPanel.deleteSelectedIndex();
+                //panelloPrincipale.setStatus("Non si puo cancelare");
+
             } else {
                 panelloPrincipale.setStatus("Seleziona una proposta!");
             }
@@ -445,7 +467,7 @@ public class GUIController {
             inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)));
         }
     }
-
+    
 //classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {
 

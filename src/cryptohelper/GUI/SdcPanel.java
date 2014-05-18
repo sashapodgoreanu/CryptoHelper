@@ -1,7 +1,7 @@
 //Pannello per le operazioni con il sistema di cifratura
 package cryptohelper.GUI;
 
-import cryptohelper.abstractC.View;
+import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
 import cryptohelper.data.Proposta;
 import cryptohelper.data.SistemaCifratura;

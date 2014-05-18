@@ -100,14 +100,14 @@ public class Proposta {
     public static ArrayList<Proposta> caricaProposteSistemiCifratura(UserInfo stud) {
         String query = "SELECT * FROM SDCPARTNERS WHERE ID_PARTNER =" + stud.getId();
         QueryResult qr = null;
-        ArrayList<Proposta> sdcs = new ArrayList<>();
+        ArrayList<Proposta> proposte = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
                 if (qr.getString("stato_proposta").equals("pending")) {
                     Proposta temp = new Proposta(SistemaCifratura.getSistemaCifratura(qr.getInt("ID_SDC")), UserInfo.getUserInfo(qr.getInt("ID_CREATORE")), UserInfo.getUserInfo(qr.getInt("ID_PARTNER")));
                     System.out.println("Proposta: " + temp.toString());
-                    sdcs.add(temp);
+                    proposte.add(temp);
                 }
 
             }
@@ -116,9 +116,14 @@ public class Proposta {
         } catch (Exception ex) {
             Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
-        return sdcs;
+        return proposte;
     }
 
+    /*
+    public static Proposta getProposta(UserInfo u1, UserInfo u2) {
+        
+    }
+*/
     @Override
     public String toString() {
         return "Proposta{" + "sdc=" + sdc.getId() + ", proponente=" + proponente.getId() + ", partner=" + partner.getId() + ", stato=" + stato + '}';

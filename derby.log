@@ -1,0 +1,99 @@
+Sun May 18 13:36:42 CEST 2014 : Server di rete Apache Derby: 10.10.1.2 - (1495037) avviato e pronto ad accettare connessioni sulla porta 1527
+----------------------------------------------------------------
+Sun May 18 13:36:43 CEST 2014:
+Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.10.1.2 - (1495037): istanza a816c00e-0146-0f1e-9c14-fffffc776a94
+sulla directory di database C:\Users\SashaAlexandru\Desktop\CryptoHelper\CHDB con caricatore classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Caricato da file:/C:/Program%20Files/Java/jdk1.8.0/db/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0-b132
+user.dir=C:\Program Files\Java\jdk1.8.0\db
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
+derby.system.home=C:\Users\SashaAlexandru\Desktop\CryptoHelper
+Programma di caricamento classe database avviato - derby.database.classpath=''
+Sun May 18 13:36:53 CEST 2014 Thread[DRDAConnThread_2,5,main] (XID = 1868), (SESSIONID = 0), (DATABASE = CHDB), (DRDAID = {1}), Cleanup action starting
+java.sql.SQLNonTransientConnectionException: Autenticazione della connessione non riuscita. Motivo: Autenticazione non valida..
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.checkUserCredentials(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
+	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.Driver20.connect(Unknown Source)
+	at org.apache.derby.jdbc.EmbeddedDriver.connect(Unknown Source)
+	at org.apache.derby.impl.drda.Database.makeConnection(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.getConnFromDatabaseName(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.verifyUserIdPassword(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.parseSECCHK(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.parseDRDAConnection(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.processCommands(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.run(Unknown Source)
+Caused by: java.sql.SQLException: Autenticazione della connessione non riuscita. Motivo: Autenticazione non valida..
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
+	... 19 more
+============= begin nested exception, level (1) ===========
+java.sql.SQLException: Autenticazione della connessione non riuscita. Motivo: Autenticazione non valida..
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.wrapArgsForTransportAcrossDRDA(Unknown Source)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory40.getSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.newEmbedSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.checkUserCredentials(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedConnection40.<init>(Unknown Source)
+	at org.apache.derby.jdbc.Driver40.getNewEmbedConnection(Unknown Source)
+	at org.apache.derby.jdbc.InternalDriver.connect(Unknown Source)
+	at org.apache.derby.jdbc.Driver20.connect(Unknown Source)
+	at org.apache.derby.jdbc.EmbeddedDriver.connect(Unknown Source)
+	at org.apache.derby.impl.drda.Database.makeConnection(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.getConnFromDatabaseName(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.verifyUserIdPassword(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.parseSECCHK(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.parseDRDAConnection(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.processCommands(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.run(Unknown Source)
+============= end nested exception, level (1) ===========
+Cleanup action completed
+Sun May 18 13:36:53 CEST 2014 Thread[DRDAConnThread_2,5,main] (DATABASE = CHDB), (DRDAID = {1}), Autenticazione della connessione non riuscita. Motivo: Autenticazione non valida..
+----------------------------------------------------------------
+Sun May 18 13:38:54 CEST 2014:
+Arresto dell'istanza a816c00e-0146-0f1e-9c14-fffffc776a94 nella directory del database C:\Users\SashaAlexandru\Desktop\CryptoHelper\CHDB con il caricatore di classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Sun May 18 13:38:54 CEST 2014 Thread[DRDAConnThread_4,5,main] (DATABASE = CHDB), (DRDAID = {29}), Chiusura del database 'CHDB'.
+----------------------------------------------------------------
+Sun May 18 13:39:14 CEST 2014:
+Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.10.1.2 - (1495037): istanza 52f6815c-0146-0f1e-9c14-fffffc776a94
+sulla directory di database C:\Users\SashaAlexandru\Desktop\CryptoHelper\CHDB con caricatore classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Caricato da file:/C:/Program%20Files/Java/jdk1.8.0/db/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0-b132
+user.dir=C:\Program Files\Java\jdk1.8.0\db
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
+derby.system.home=C:\Users\SashaAlexandru\Desktop\CryptoHelper
+Programma di caricamento classe database avviato - derby.database.classpath=''
+----------------------------------------------------------------
+Sun May 18 13:39:25 CEST 2014:
+Arresto dell'istanza 52f6815c-0146-0f1e-9c14-fffffc776a94 nella directory del database C:\Users\SashaAlexandru\Desktop\CryptoHelper\CHDB con il caricatore di classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Sun May 18 13:39:25 CEST 2014 Thread[DRDAConnThread_4,5,main] (DATABASE = CHDB), (DRDAID = {31}), Chiusura del database 'CHDB'.
+----------------------------------------------------------------
+Sun May 18 13:39:28 CEST 2014:
+Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.10.1.2 - (1495037): istanza 33c901f8-0146-0f1e-9c14-fffffc776a94
+sulla directory di database C:\Users\SashaAlexandru\Desktop\CryptoHelper\CHDB con caricatore classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Caricato da file:/C:/Program%20Files/Java/jdk1.8.0/db/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0-b132
+user.dir=C:\Program Files\Java\jdk1.8.0\db
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
+derby.system.home=C:\Users\SashaAlexandru\Desktop\CryptoHelper
+Programma di caricamento classe database avviato - derby.database.classpath=''

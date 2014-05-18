@@ -1,10 +1,10 @@
 //Finestra principale della GUI
 package cryptohelper.GUI;
 
-import cryptohelper.abstractC.View;
+import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
-import cryptohelper.abstractC.MessaggioDestinatario;
-import cryptohelper.abstractC.Visitor;
+import cryptohelper.interfaces.MessaggioDestinatario;
+import cryptohelper.interfaces.Visitor;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Proposta;
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class InboxSDCPanel extends JPanel implements View {
         JLabel targetListLabel = new JLabel("Proposte ricevute:");
         accettaBtn = new JButton("Accetta");
         rifiutaBtn = new JButton("Rifiuta");
-        infoSdcLabel = new JLabel();
+        infoSdcLabel = new JLabel("");
 
         elencoProposteRicevute = new JList(new Vector<Proposta>(proposteArrLst));
         elencoProposteRicevute.setCellRenderer(new DefaultListCellRenderer() {
@@ -83,7 +83,6 @@ public class InboxSDCPanel extends JPanel implements View {
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
         this.add(bottomPanel, BorderLayout.SOUTH);
-
         //REGISTRAZIONE VISTA NEL COTROLLER
         registerController();
     }
@@ -100,9 +99,9 @@ public class InboxSDCPanel extends JPanel implements View {
             rightPanel.removeAll();
             topPanel.removeAll();
             leftPanel.removeAll();
+            leftPanel.repaint();//clear all garbadge
             bottomPanel.removeAll();
-            this.proposteArrLst.remove(toDelete);
-            System.out.println("TEst: "+proposteArrLst.toString());
+            proposteArrLst.remove(toDelete);
             init();
             rightPanel.revalidate();
             topPanel.revalidate();
