@@ -94,6 +94,25 @@ public class InboxSDCPanel extends JPanel implements View {
         gc.addView(this);
     }
 
+    public boolean deleteSelectedIndex() {
+        int toDelete = this.elencoProposteRicevute.getSelectedIndex();
+        if (toDelete >= 0) {
+            rightPanel.removeAll();
+            topPanel.removeAll();
+            leftPanel.removeAll();
+            bottomPanel.removeAll();
+            this.proposteArrLst.remove(toDelete);
+            System.out.println("TEst: "+proposteArrLst.toString());
+            init();
+            rightPanel.revalidate();
+            topPanel.revalidate();
+            leftPanel.revalidate();
+            bottomPanel.revalidate();
+            return true;
+        }
+        else return false;
+    }
+    
     public JList getElencoProposteRicevute() {
         return elencoProposteRicevute;
     }

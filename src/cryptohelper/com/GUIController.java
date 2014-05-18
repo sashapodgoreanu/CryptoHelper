@@ -146,7 +146,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
             //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
@@ -163,7 +163,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
@@ -176,7 +176,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             //ArrayList<MessaggioMittente> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
@@ -189,7 +189,7 @@ public class GUIController {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             MessaggioMittente mess = (MessaggioMittente) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
             System.out.println(mess.toString());
@@ -202,7 +202,7 @@ public class GUIController {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) bozzePanel.getElencoBozze().getSelectedValue();
             //bp.modificaCorpoMessaggio("Destinatario: " + mess.getDestinatario().getNome() + "\n" + mess.getTesto());
@@ -215,7 +215,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioMittente> temp = Messaggio.caricaBozze(utilizzatoreSistema.getId());
@@ -228,7 +228,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             MessaggioMittente mess = (MessaggioMittente) bozzePanel.getElencoBozze().getSelectedValue();
             mess.elimina();
             bozzePanel.deleteSelectedIndex();
@@ -240,7 +240,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             panelloPrincipale.initSDC();
@@ -251,7 +251,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
             sdcPanel.initCreateSDC();
@@ -263,7 +263,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             JRadioButton ev = (JRadioButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("parola chiave")) {
@@ -282,7 +282,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             //un messaggio senza titolo non si puo salvare
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
@@ -291,18 +291,18 @@ public class GUIController {
             //se il tittolo del messaggio e vuouto mostra il messaggio
             String temp = messagePanel.getTitoloMessaggioField().replaceAll("\\s+", "");
             if (temp.equals("")) {
-                panelloPrincipale.setStatusLabelText("Il titolo del messaggio deve contenere almeno un carattere");
+                panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
             } else { //altrimenti salva il messaggio
-                panelloPrincipale.setStatusLabelText("");
+                panelloPrincipale.setStatus("");
                 JList list = messagePanel.getElencoDestinatari();
                 UserInfo destinatario = (UserInfo) list.getSelectedValue();
                 System.out.println("Destinatario selected: " + destinatario.toString());
                 msgMittente = new Messaggio(msgMittente.getId(), messagePanel.getCorpoMessaggio(), messagePanel.getTitoloMessaggioField(), true, utilizzatoreSistema, destinatario);
                 //se msg.salva ritorna false allora errore
                 if (msgMittente.salva()) {
-                    panelloPrincipale.setStatusLabelText("Messaggio Salvato!");
+                    panelloPrincipale.setStatus("Messaggio Salvato!");
                 } else {
-                    panelloPrincipale.setStatusLabelText("Si è verificato un durante il salvataggio del messaggio!");
+                    panelloPrincipale.setStatus("Si è verificato un durante il salvataggio del messaggio!");
                 }
             }
         }
@@ -313,7 +313,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText("");
+            panelloPrincipale.setStatus("");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("Salva cifrario parola chiave")) {
@@ -329,12 +329,12 @@ public class GUIController {
                     mappatura = sistemaCifratura.create(metodo, chiave);
                     sistemaCifratura.setNome(creaSDCPanel.getNomeCifraturaField().getText());
                     if (sistemaCifratura.salva()) {
-                        panelloPrincipale.setStatusLabelText("Salvato con sucesso");
+                        panelloPrincipale.setStatus("Salvato con sucesso");
                     } else {
-                        panelloPrincipale.setStatusLabelText("E stato un errore! non salvato");
+                        panelloPrincipale.setStatus("E stato un errore! non salvato");
                     }
                 } else {
-                    panelloPrincipale.setStatusLabelText("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
+                    panelloPrincipale.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
                 }
             }
         }
@@ -345,7 +345,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText("");
+            panelloPrincipale.setStatus("");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             sistemaCifratura = new SistemaCifratura(utilizzatoreSistema);
@@ -362,7 +362,7 @@ public class GUIController {
                 String a = creaSDCPanel.getCorpoMessaggioProva().getText();
                 creaSDCPanel.getCorpoMessaggioResult().setText(sistemaCifratura.prova(a));
             } else {
-                panelloPrincipale.setStatusLabelText("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
+                panelloPrincipale.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
             }
 
         }
@@ -373,7 +373,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             sdcPanel.initProponiSDCPanel(comC.getDestinatari(), SistemaCifratura.caricaSistemiCifratura(utilizzatoreSistema));
@@ -385,17 +385,16 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             SistemaCifratura sdc = (SistemaCifratura) proponiSDCPanel.getElencoSDC().getSelectedValue();
             UserInfo partner = (UserInfo) proponiSDCPanel.getElencoDestinatari().getSelectedValue();
             if (comC.proponiSistemaCifratura(utilizzatoreSistema, partner, sdc)) {
-                panelloPrincipale.setStatusLabelText("Inviato con successo");
+                panelloPrincipale.setStatus("Inviato con successo");
             } else {
-                panelloPrincipale.setStatusLabelText("Proposta dublicata o errore di sistema");
+                panelloPrincipale.setStatus("Proposta dublicata o errore di sistema");
             }
-
         }
     }
 
@@ -404,7 +403,7 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             sdcPanel.initInboxSDCPanel(Proposta.caricaProposteSistemiCifratura(utilizzatoreSistema));
 
@@ -418,14 +417,18 @@ public class GUIController {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println(" AccettaRifiutaSDCListener ");
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             Proposta proposta = (Proposta) inboxSDCPanel.getElencoProposteRicevute().getSelectedValue();
-            if (ev.getText().equalsIgnoreCase("accetta")) {
+            if (ev.getText().equalsIgnoreCase("accetta") && proposta != null) {
                 proposta.setStato("accettata");
                 proposta.salva();
-            } else if (ev.getText().equalsIgnoreCase("rifiuta")) {
+            } else if (ev.getText().equalsIgnoreCase("rifiuta") && proposta != null) {
                 proposta.setStato("rifiutata");
+                proposta.salva();
+                inboxSDCPanel.deleteSelectedIndex();
+            } else {
+                panelloPrincipale.setStatus("Seleziona una proposta!");
             }
         }
     }
@@ -435,7 +438,7 @@ public class GUIController {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            panelloPrincipale.setStatusLabelText(" ");
+            panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             Proposta proposta = (Proposta) inboxSDCPanel.getElencoProposteRicevute().getSelectedValue();
             //bp.modificaCorpoMessaggio("Destinatario: " + mess.getDestinatario().getNome() + "\n" + mess.getTesto());

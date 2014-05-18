@@ -119,9 +119,9 @@ public class BozzePanel extends JPanel implements View {
             topPanel.revalidate();
             leftPanel.revalidate();
             bottomPanel.revalidate();
-        } //else pp.setStatus  - devi selezionare almeno un lemento per fare delete. 
-        //TO-DO - da aggiornare pp.setStatus se qualcosa è andato storto.    bozzeArrLst.remove(toDelete); restituisce true o false.... 
-        return true;
+            return true;
+        } 
+        return false;
     }
 
     @Override

@@ -91,7 +91,7 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initInbox( ArrayList<MessaggioDestinatario> mittentiArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Inbox");    //cambia titolo al form
-        this.setStatusLabelText("Selezionare un messaggio per aprirlo"); //messaggio per la status label
+        this.setStatus("Selezionare un messaggio per aprirlo"); //messaggio per la status label
         bodyPanel.add(new InboxPanel(mittentiArrLst));      //aggiunge il nuovo pannello
         bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
     }
@@ -100,7 +100,7 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initOutbox(ArrayList<MessaggioMittente> destArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Messaggi inviati");    //cambia titolo al form
-        this.setStatusLabelText("Selezionare un messaggio per visualizzarlo"); //messaggio per la status label
+        this.setStatus("Selezionare un messaggio per visualizzarlo"); //messaggio per la status label
         bodyPanel.add(new OutboxPanel(destArrLst));          //aggiunge il nuovo pannello
         bodyPanel.revalidate();                              //completa l'inizializzazione dell'interfaccia
     }
@@ -109,7 +109,7 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initGestioneBozze(ArrayList<MessaggioMittente> bozzeArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Gestisci Bozze");   //cambia titolo al form
-        this.setStatusLabelText("Selezionare una bozza per visualizzarla"); //messaggio per la status label
+        this.setStatus("Selezionare una bozza per visualizzarla"); //messaggio per la status label
         bodyPanel.add(new BozzePanel(bozzeArrLst));       //aggiunge il nuovo pannello
         bodyPanel.revalidate();                           //completa l'inizializzazione dell'interfaccia
     }
@@ -177,7 +177,7 @@ public class PanelloPrincipale extends JFrame implements View {
         this.logoutBtn = logoutBtn;
     }
 
-    public void setStatusLabelText(String statusLabel) {
+    public void setStatus(String statusLabel) {
         this.statusLabel.setText(statusLabel);
     }
 
