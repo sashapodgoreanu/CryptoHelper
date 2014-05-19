@@ -446,7 +446,7 @@ public class GUIController {
             if (comC.proponiSistemaCifratura(utilizzatoreSistema, partner, sdc)) {
                 panelloPrincipale.setStatus("Inviato con successo");
             } else {
-                panelloPrincipale.setStatus("Proposta duplicata o errore di sistema");
+                panelloPrincipale.setStatus("Proposta duplicata o errore di sistema!");
             }
         }
     }
