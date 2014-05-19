@@ -39,7 +39,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         this.destinatario = destinatario;
         this.sistemaCifratura = sc;
     }
-    
+
     //COSTRUTTORE II
     public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto) {
         this.id = id;
@@ -62,11 +62,6 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         this.mittente = mittente;
         this.destinatario = destinatario;
     }
-    
-    
-    
-    
-    
 
     //TEST 
     public Messaggio(int id, String testo, String titolo, boolean bozza, UserInfo mittente, UserInfo destinatario) {
@@ -263,24 +258,29 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
 
     //Preleva l'elenco dei messaggi destinatario
     public static ArrayList<MessaggioDestinatario> caricaMessaggiDestinatario(int idStudente) {
-        System.out.println("STAMPO ID STUDENTE" + idStudente);
         String query = "SELECT * FROM Messaggi WHERE (ID_DESTINATARIO = " + idStudente + ")";
         QueryResult qr = null;
         ArrayList<MessaggioDestinatario> messaggi = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
-            //           System.out.println(qr.toString());
+            System.out.println(qr.toString());
             while (qr.next()) {
+                UserInfo mit = UserInfo.getUserInfo(qr.getInt("ID_Mittente"));
+                UserInfo dest = UserInfo.getUserInfo(idStudente);
+                mit.toString();
+                dest.toString();
                 MessaggioDestinatario temp = new Messaggio(qr.getInt("ID"), qr.getString("Testo"), qr.getString("TestoCifrato"),
-                        qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")));
+                        qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")),
+                        mit, dest);
                 messaggi.add(temp);
+                System.out.println(" ssdsds");
             }
+            System.out.println(" qqqqqq");
         } catch (Exception ex) {
-            System.out.println("test");
+            System.out.println("eccezione caricaessaggiDestinatario");
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
-        System.out.println("test2");
-        System.out.println("messaggi ricevuti panelo princ: " + messaggi.toString());
+        System.out.println("messaggi ricevuti pannello principale: " + messaggi.toString());
         return messaggi;
     }
 

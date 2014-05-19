@@ -82,10 +82,10 @@ public class GUIController {
             regForm.getSubmitBtn().addActionListener(new RegisterListener());
         } else if (v instanceof InboxPanel) {
             inboxPanel = (InboxPanel) v;
-            inboxPanel.getElencoMessaggiRicevuti().addListSelectionListener(new ViewReceivedMsgListener());
+            inboxPanel.getElencoMessaggiRicevuti().addListSelectionListener(new ViewInboxMsgListener());
         } else if (v instanceof OutboxPanel) {
             outboxPanel = (OutboxPanel) v;
-            outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewReceivedMsgListener());
+            outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewInboxMsgListener());
         } else if (v instanceof PanelloPrincipale) {
             panelloPrincipale = (PanelloPrincipale) v;
             panelloPrincipale.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
@@ -116,7 +116,7 @@ public class GUIController {
             messagePanel.getSalvaBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
             messagePanel.getInviaMessageBtn().addActionListener(new SalvaInviaMessaggioListener());
             messagePanel.getElencoDestinatari().addListSelectionListener(new SelectDestinatarioListener());
-            
+
         } else if (v instanceof ProponiSDCPanel) {
             proponiSDCPanel = (ProponiSDCPanel) v;
             proponiSDCPanel.getProponiSDCBtn().addActionListener(new SendProponiSDCListener());
@@ -170,6 +170,7 @@ public class GUIController {
             panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
+            System.out.println("IL MIO ID" +utilizzatoreSistema.getId() );
             ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
             panelloPrincipale.initInbox(temp);
         }
@@ -188,8 +189,8 @@ public class GUIController {
         }
     }
 
-//classe listener per la Jlist "ElencoMessaggiRicevuti" 
-    private class ViewReceivedMsgListener implements ListSelectionListener {
+    //classe listener per la Jlist "ElencoMessaggiRicevuti" 
+    private class ViewInboxMsgListener implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
@@ -197,7 +198,8 @@ public class GUIController {
             System.out.println("Clicked LIST");
             MessaggioMittente mess = (MessaggioMittente) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
             System.out.println(mess.toString());
-            inboxPanel.modificaCorpoMessaggio("Mittente: " + mess.getMittente().getNome() + "\nTitolo messaggio: " + mess.getTitolo() + "\n\n" + mess.getTesto());
+             inboxPanel.getCorpoMessaggio().setText("AAA");
+            inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)));
         }
     }
 
@@ -321,7 +323,7 @@ public class GUIController {
                     panelloPrincipale.setStatus("");
                     UserInfo destinatario = (UserInfo) messagePanel.getElencoDestinatari().getSelectedValue();
                     SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema, destinatario);
-                    
+
                     String testoCifrato = Cifratore.cifraMonoalfabetica(sdc.getMp(), messagePanel.getCorpoMessaggio());
                     //Messaggio( String titolo, boolean bozza, boolean letto)
                     msgMittente = new Messaggio(msgMittente.getId(),//id
@@ -494,8 +496,7 @@ public class GUIController {
             panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             Proposta proposta = (Proposta) inboxSDCPanel.getElencoProposteRicevute().getSelectedValue();
-            //bp.modificaCorpoMessaggio("Destinatario: " + mess.getDestinatario().getNome() + "\n" + mess.getTesto());
-            inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)) );
+            inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)));
         }
     }
 

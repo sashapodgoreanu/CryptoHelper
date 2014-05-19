@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package cryptohelper.data;
 
 import cryptohelper.interfaces.MessaggioMittente;
@@ -23,7 +22,7 @@ import cryptohelper.interfaces.Visitor;
  *
  * @author Sasha Alexandru Podgoreanu
  */
-public class HtmlVisitor implements Visitor{
+public class HtmlVisitor implements Visitor {
 
     @Override
     public String visit(Proposta proposta) {
@@ -32,18 +31,32 @@ public class HtmlVisitor implements Visitor{
         sb.append("<p>");
         sb.append("Proponente: ").append(proposta.getProponente().getNome());
         sb.append(" ").append(proposta.getProponente().getCognome());
-        sb.append("<p>");
+        sb.append("</p>");
         sb.append("<p>");
         sb.append("Sistema di cifratura: ").append(proposta.getSdc().getMetodo());
         sb.append("<br/>Chiave cifrario: ").append(proposta.getSdc().getChiave());
-        sb.append("<p>");
+        sb.append("</p>");
         sb.append("</html>");
         return sb.toString();
     }
 
     @Override
     public String visit(MessaggioMittente msgMittente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>");
+        sb.append("<p>");
+        sb.append("Mittente: ").append(msgMittente.getMittente().getNome());
+        sb.append(" ").append(msgMittente.getMittente().getCognome());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("Titolo messaggio: ").append(msgMittente.getTitolo());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("Testo Messaggio:<br/>").append(msgMittente.getTesto());
+        sb.append("</p>");
+        sb.append("</html>");
+        return sb.toString();
+
     }
-    
+
 }

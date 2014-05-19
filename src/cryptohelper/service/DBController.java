@@ -6,6 +6,7 @@ import cryptohelper.data.QueryResult;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -54,7 +55,7 @@ public class DBController {
     }
 
     //Apre la connessione al db
-    private void connect() throws SQLException {
+    public void connect() throws SQLException {
         try {
             conn = DriverManager.getConnection(dBurl, dBusr, dBpwd);
             st = conn.createStatement();
@@ -65,7 +66,7 @@ public class DBController {
     }
 
     //Chiude la connessione al db
-    private void disconnect() throws SQLException {
+    public void disconnect() throws SQLException {
         st.close();
         conn.close();
         //System.out.println("Disconnesso!");
@@ -121,6 +122,11 @@ public class DBController {
                 + "FOREIGN KEY(ID_PARTNER) REFERENCES STUDENTI(ID),"
                 + "FOREIGN KEY(ID_SDC) REFERENCES SistemiCifratura(ID)"
                 + ")";
+        String queryAlberoIpotesi= "CREATE TABLE AlberoIpotesi"
+                + "("
+                + "ID INTEGER not null primary key,"
+                + "JAVAOBJECT BLOB"
+                + ")";
         connect();
         //Non bisogna piu comentare le tabele per far funzionare il Test
         try {
@@ -145,6 +151,10 @@ public class DBController {
                 st.execute("DROP TABLE Studenti");
                 System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella Studenti eliminata!");
             }
+            if (isTableExist("AlberoIpotesi")) {
+                st.execute("DROP TABLE AlberoIpotesi");
+                System.out.println("INFO AlberoIpotesi:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella Studenti eliminata!");
+            }
 
             //creazione tabelle
             st.executeUpdate(queryStudenti);
@@ -155,6 +165,8 @@ public class DBController {
             System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SistemiCifratura creata!");
             st.executeUpdate(querySDCPartners);
             System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SDCPartners creata!");
+            st.executeUpdate(queryAlberoIpotesi);
+            System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella AlberoIpotesi creata!");
         } catch (SQLException e) {
             log.fatal(e.getMessage());
         } finally {
@@ -231,5 +243,9 @@ public class DBController {
             System.out.println("INFO:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + " creating table: " + sTablename);
             return false;
         }
+    }
+    
+    public PreparedStatement getPreparedStatement(String query) throws SQLException{
+        return conn.prepareStatement(query);
     }
 }
