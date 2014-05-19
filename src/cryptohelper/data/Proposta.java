@@ -73,7 +73,10 @@ public class Proposta {
         String querryUpdate = "UPDATE SDCPARTNERS"
                 + " SET STATO_PROPOSTA = '" + this.getStato()
                 + "'"
-                + " WHERE ID_CREATORE = " + this.getProponente().getId() + " AND ID_PARTNER = " + this.getPartner().getId() + " AND ID_SDC = " + this.getSdc().getId();
+                + " WHERE ID_CREATORE = "
+                + this.getProponente().getId()
+                + " AND ID_PARTNER = " + this.getPartner().getId()
+                + " AND ID_SDC = " + this.getSdc().getId();
         try {
             if (this.stato.equals("pending")) {
 

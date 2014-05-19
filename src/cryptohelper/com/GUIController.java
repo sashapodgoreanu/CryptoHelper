@@ -326,6 +326,10 @@ public class GUIController {
                     System.out.println("INVIA MESSAGGIO");
                     panelloPrincipale.setStatus("");
                     UserInfo destinatario = (UserInfo) messagePanel.getElencoDestinatari().getSelectedValue();
+                    if (destinatario== null){
+                        panelloPrincipale.setStatus("Devi selezionare un destinatario");
+                        return;
+                    }
                     SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema, destinatario);
 
                     String testoCifrato = Cifratore.cifraMonoalfabetica(sdc.getMp(), messagePanel.getCorpoMessaggio());
