@@ -15,6 +15,7 @@
  */
 package cryptohelper.data;
 
+import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.interfaces.Visitor;
 
@@ -40,19 +41,35 @@ public class HtmlVisitor implements Visitor {
         return sb.toString();
     }
 
-    @Override
-    public String visit(MessaggioMittente msgMittente) {
+    public String visit(MessaggioDestinatario msgDestinatario) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
         sb.append("<p>");
-        sb.append("Mittente: ").append(msgMittente.getMittente().getNome());
-        sb.append(" ").append(msgMittente.getMittente().getCognome());
+        sb.append("<b>Mittente: </b>").append(msgDestinatario.getMittente().getNome());
+        sb.append(" ").append(msgDestinatario.getMittente().getCognome());
         sb.append("</p>");
         sb.append("<p>");
-        sb.append("Titolo messaggio: ").append(msgMittente.getTitolo());
+        sb.append("<b>Titolo messaggio: </b>").append(msgDestinatario.getTitolo());
         sb.append("</p>");
         sb.append("<p>");
-        sb.append("Testo Messaggio:<br/>").append(msgMittente.getTesto());
+        sb.append("<b>Testo Messaggio:</b><br/>").append(msgDestinatario.getTesto());
+        sb.append("</p>");
+        sb.append("</html>");
+        return sb.toString();
+    }
+    
+    public String visit(MessaggioMittente messaggioMittente) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>");
+        sb.append("<p>");
+        sb.append("Mittente: ").append(messaggioMittente.getMittente().getNome());
+        sb.append(" ").append(messaggioMittente.getMittente().getCognome());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("Titolo messaggio: ").append(messaggioMittente.getTitolo());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("Testo Messaggio:<br/>").append(messaggioMittente.getTesto());
         sb.append("</p>");
         sb.append("</html>");
         return sb.toString();

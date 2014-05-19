@@ -18,7 +18,7 @@ public class InboxPanel extends JPanel implements View {
     JLabel targetListLabel;
     JLabel messageTextLabel;
     JList elencoMessaggiRicevuti;
-    JTextArea corpoMessaggio;
+    JTextPane corpoMessaggio;
     JScrollPane scrollPane;
     ArrayList<MessaggioDestinatario> mittentiMessaggiArrLst; //elenco mittenti
 
@@ -45,6 +45,11 @@ public class InboxPanel extends JPanel implements View {
         //INIT DEI CONTROLLI
         targetListLabel = new JLabel("Messaggi ricevuti:");
         messageTextLabel = new JLabel("Testo del messaggio:");
+        corpoMessaggio = new JTextPane();
+        corpoMessaggio.setPreferredSize(new Dimension(540, 250));
+        corpoMessaggio.setContentType("text/html"); //consente formattazione html
+        corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
+        corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         elencoMessaggiRicevuti = new JList(new Vector<MessaggioDestinatario>(mittentiMessaggiArrLst));
         elencoMessaggiRicevuti.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -63,13 +68,8 @@ public class InboxPanel extends JPanel implements View {
             corpoMessaggio.setText(new HtmlVisitor().visit(index0));
         }
         scrollPane = new JScrollPane();
+        scrollPane.setPreferredSize(new Dimension(180,250));
         scrollPane.setViewportView(elencoMessaggiRicevuti);
-        corpoMessaggio = new JTextArea();
-        corpoMessaggio.setSize(new Dimension(540, 250));
-        elencoMessaggiRicevuti.setFixedCellWidth(160);
-        corpoMessaggio.setLineWrap(true);  //manda a capo il testo al bordo del controllo
-        corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
-        corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
@@ -101,7 +101,7 @@ public class InboxPanel extends JPanel implements View {
         return elencoMessaggiRicevuti;
     }
 
-    public JTextArea getCorpoMessaggio() {
+    public JTextPane getCorpoMessaggio() {
         return corpoMessaggio;
     }
 

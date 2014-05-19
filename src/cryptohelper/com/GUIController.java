@@ -172,6 +172,7 @@ public class GUIController {
             System.out.println("Clicked " + ev.getText());
             System.out.println("IL MIO ID" +utilizzatoreSistema.getId() );
             ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
+            System.out.println("MessaggioDestinatario"+temp.toString());
             panelloPrincipale.initInbox(temp);
         }
     }
@@ -196,9 +197,8 @@ public class GUIController {
         public void valueChanged(ListSelectionEvent e) {
             panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
-            MessaggioMittente mess = (MessaggioMittente) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
+            MessaggioDestinatario mess = (MessaggioDestinatario) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
             System.out.println(mess.toString());
-             inboxPanel.getCorpoMessaggio().setText("AAA");
             inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)));
         }
     }

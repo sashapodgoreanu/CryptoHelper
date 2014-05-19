@@ -6,5 +6,6 @@ public interface Visitor {
 
     public String visit(Proposta proposta);
 
-    public String visit(MessaggioMittente msgMittente);
+    public String visit(MessaggioDestinatario msgDestinatario);
+    public String visit(MessaggioMittente messaggioMittente);
 }

@@ -66,7 +66,6 @@ public class BozzePanel extends JPanel implements View {
         corpoBozza.setLineWrap(true);
         corpoBozza.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
-        elencoBozze.setFixedCellWidth(160);
         elencoBozze.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -81,6 +80,7 @@ public class BozzePanel extends JPanel implements View {
         });
         elencoBozze.setSelectedIndex(0);
         scrollPane = new JScrollPane();
+        scrollPane.setPreferredSize(new Dimension(180, 250));
         scrollPane.setViewportView(elencoBozze);
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI
@@ -120,7 +120,7 @@ public class BozzePanel extends JPanel implements View {
             leftPanel.revalidate();
             bottomPanel.revalidate();
             return true;
-        } 
+        }
         return false;
     }
 
