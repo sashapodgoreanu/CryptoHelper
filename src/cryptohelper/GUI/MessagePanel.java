@@ -3,7 +3,6 @@ package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
-import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -22,6 +21,8 @@ public class MessagePanel extends JPanel implements View {
     JLabel msgTitlelLabel;
     JLabel targetListLabel;
     JLabel messageTextLabel;
+    JLabel languageLabel;
+    JLabel chiaveMsg;
     JTextArea corpoMessaggio;
     JTextField titoloMessaggioField;
     JTextField chiaveField;
@@ -29,9 +30,7 @@ public class MessagePanel extends JPanel implements View {
     JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
     ArrayList<UserInfo> destinatariArrLst;
     JComboBox linguaDropdown;
-    JLabel chiaveMsg;
 
-    
     public MessagePanel(ArrayList<UserInfo> destinatariArrLst) {
         this.destinatariArrLst = destinatariArrLst;
         this.init();
@@ -55,13 +54,14 @@ public class MessagePanel extends JPanel implements View {
 
         //INIT DEI CONTROLLI
         String[] lingua = {"inglese", "italiano"};
-        linguaDropdown = new JComboBox(lingua);     
+        linguaDropdown = new JComboBox(lingua);
         newMessageBtn = new JButton("");
-        saveBozzaBtn = new JButton("Salva");
+        saveBozzaBtn = new JButton("Salva come bozza");
         inviaMessageBtn = new JButton("Invia");
         msgTitlelLabel = new JLabel("Titolo del messaggio:");
         targetListLabel = new JLabel("Destinatari disponibili:");
         messageTextLabel = new JLabel("Testo del messaggio:");
+        languageLabel = new JLabel("Lingua del messaggio: ");
         titoloMessaggioField = new JTextField(21);
         chiaveField = new JTextField(21);
         chiaveMsg = new JLabel();
@@ -90,6 +90,7 @@ public class MessagePanel extends JPanel implements View {
         //AGGIUNTA DEI CONTROLLI AI PANNELLI
         topPanel.add(msgTitlelLabel);
         topPanel.add(titoloMessaggioField);
+        topPanel.add(languageLabel);
         topPanel.add(linguaDropdown);
         leftPanel.add(messageTextLabel, BorderLayout.NORTH);
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
@@ -126,20 +127,19 @@ public class MessagePanel extends JPanel implements View {
     public JList getElencoDestinatari() {
         return elencoDestinatari;
     }
-    
-    /*
-    public void initChiave(String metodo){
-        bottomPanel.remove(chiaveField);
-        bottomPanel.remove(chiaveMsg);
-        if(metodo.equals("parola chiave")){
-            chiaveField = new JTextField(26);
-            chiaveMsg.setText("Parola-chiave password");
-            bottomPanel.add(chiaveMsg, 0);
-            bottomPanel.add(chiaveField, 1);
-            bottomPanel.revalidate();
-        }
-    }*/
 
+    /*
+     public void initChiave(String metodo){
+     bottomPanel.remove(chiaveField);
+     bottomPanel.remove(chiaveMsg);
+     if(metodo.equals("parola chiave")){
+     chiaveField = new JTextField(26);
+     chiaveMsg.setText("Parola-chiave password");
+     bottomPanel.add(chiaveMsg, 0);
+     bottomPanel.add(chiaveField, 1);
+     bottomPanel.revalidate();
+     }
+     }*/
     public JButton getNuovoMessaggioBtn() {
         return newMessageBtn;
     }
@@ -192,10 +192,5 @@ public class MessagePanel extends JPanel implements View {
     public JButton getInviaMessageBtn() {
         return inviaMessageBtn;
     }
-    
-    
-    
-    
-    
 
 }

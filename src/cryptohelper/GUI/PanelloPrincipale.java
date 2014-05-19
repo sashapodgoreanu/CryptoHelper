@@ -5,7 +5,6 @@ import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
-import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -29,11 +28,9 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton creaSDCBtn;
     JButton inboxProposteSDCBtn;
     JButton proposteAccetateBtn;
-
-    Studente studente;
-
+            
     public PanelloPrincipale() {
-        this.init();
+         this.init();
     }
 
     private void init() {
@@ -99,10 +96,10 @@ public class PanelloPrincipale extends JFrame implements View {
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Outbox"
     public void initOutbox(ArrayList<MessaggioMittente> destArrLst) {
         this.resetPanels();
-        this.setTitle("CryptoHelper - Messaggi inviati");    //cambia titolo al form
-        this.setStatus("Selezionare un messaggio per visualizzarlo"); //messaggio per la status label
-        bodyPanel.add(new OutboxPanel(destArrLst));          //aggiunge il nuovo pannello
-        bodyPanel.revalidate();                              //completa l'inizializzazione dell'interfaccia
+        this.setTitle("CryptoHelper - Messaggi inviati");  //cambia titolo al form
+        this.setStatus("Selezionare un messaggio per visualizzarlo");           //messaggio per la status label
+        bodyPanel.add(new OutboxPanel(destArrLst));                             //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                                                 //completa l'inizializzazione dell'interfaccia
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "gestisci bozze"  

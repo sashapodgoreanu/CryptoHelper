@@ -136,9 +136,9 @@ public class GUIController {
         public void actionPerformed(ActionEvent e) {
             boolean valid = comC.authenticate(loginForm.getUsername(), loginForm.getPassword());
             if (valid) {
-                loginForm.dispose();
-                PanelloPrincipale pp = new PanelloPrincipale();
+                loginForm.dispose();          
                 utilizzatoreSistema = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
+                PanelloPrincipale pp = new PanelloPrincipale();
             } else {
                 loginForm.getErrorLoginLabel().setText("Errore di autenticazione");
             }
@@ -170,9 +170,9 @@ public class GUIController {
             panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            System.out.println("IL MIO ID" +utilizzatoreSistema.getId() );
+            System.out.println("IL MIO ID" + utilizzatoreSistema.getId());
             ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
-            System.out.println("MessaggioDestinatario"+temp.toString());
+            System.out.println("MessaggioDestinatario" + temp.toString());
             panelloPrincipale.initInbox(temp);
         }
     }
@@ -291,7 +291,7 @@ public class GUIController {
             //un messaggio senza titolo non si puo salvare
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
-            if (ev.getText().equalsIgnoreCase("Salva")) {
+            if (ev.getText().equalsIgnoreCase("Salva come bozza")) {
                 if (messagePanel.getSelectedDestinatario() != null) {
                     System.out.println(messagePanel.getTitoloMessaggioField() + " - Tittolo del messaggio");
                     //se il tittolo del messaggio e vuouto mostra un  messaggio di errore
@@ -480,8 +480,7 @@ public class GUIController {
                 proposta.salva();
                 inboxSDCPanel.getInfoSdcLabel().setText("");
                 inboxSDCPanel.deleteSelectedIndex();
-                //panelloPrincipale.setStatus("Non si puo cancelare");
-
+                //panelloPrincipale.setStatus("Non si puo' cancellare");
             } else {
                 panelloPrincipale.setStatus("Seleziona una proposta!");
             }

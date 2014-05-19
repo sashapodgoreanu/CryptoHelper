@@ -17,6 +17,7 @@ public class InboxPanel extends JPanel implements View {
     JPanel bottomPanel;      //pannello in basso
     JLabel targetListLabel;
     JLabel messageTextLabel;
+    JButton decifraBtn;
     JList elencoMessaggiRicevuti;
     JTextPane corpoMessaggio;
     JScrollPane scrollPane;
@@ -45,6 +46,7 @@ public class InboxPanel extends JPanel implements View {
         //INIT DEI CONTROLLI
         targetListLabel = new JLabel("Messaggi ricevuti:");
         messageTextLabel = new JLabel("Testo del messaggio:");
+        decifraBtn = new JButton("Decifra messaggio");
         corpoMessaggio = new JTextPane();
         corpoMessaggio.setPreferredSize(new Dimension(540, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
@@ -68,13 +70,14 @@ public class InboxPanel extends JPanel implements View {
             corpoMessaggio.setText(new HtmlVisitor().visit(index0));
         }
         scrollPane = new JScrollPane();
-        scrollPane.setPreferredSize(new Dimension(180,250));
+        scrollPane.setPreferredSize(new Dimension(180, 250));
         scrollPane.setViewportView(elencoMessaggiRicevuti);
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
+        bottomPanel.add(decifraBtn);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
