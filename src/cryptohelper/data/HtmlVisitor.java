@@ -16,6 +16,7 @@
 
 package cryptohelper.data;
 
+import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.interfaces.Visitor;
 
 /**
@@ -38,6 +39,11 @@ public class HtmlVisitor implements Visitor{
         sb.append("<p>");
         sb.append("</html>");
         return sb.toString();
+    }
+
+    @Override
+    public String visit(MessaggioMittente msgMittente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

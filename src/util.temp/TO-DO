@@ -51,6 +51,15 @@ da rivedere
 public static ArrayList<MessaggioMittente> caricaBozze(int idStudente)
 questo metodo non funziona perche destinatario e null.. invece nella db ha un valore(id dello studente) - deve essere un oggetto UserInfo
 vale anche per messaggi inviati. 
+
+guarda simile per INBOX 
+elencoProposteRicevute.setSelectedIndex(0);
+        Proposta index0 = (Proposta) elencoProposteRicevute.getSelectedValue();
+        if (index0 != null) {
+            infoSdcLabel.setText(new HtmlVisitor().visit(index0));
+        }
+
+
 **************************** 
 
 

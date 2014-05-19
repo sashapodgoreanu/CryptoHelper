@@ -61,6 +61,7 @@ public class InboxPanel extends JPanel implements View {
         scrollPane.setViewportView(elencoMessaggiRicevuti);
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setSize(new Dimension(540, 250));
+        elencoMessaggiRicevuti.setFixedCellWidth(160);
         corpoMessaggio.setLineWrap(true);  //manda a capo il testo al bordo del controllo
         corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
@@ -91,8 +92,6 @@ public class InboxPanel extends JPanel implements View {
     }
 
     //METODI GETTER
-
-
     public JList getElencoMessaggiRicevuti() {
         return elencoMessaggiRicevuti;
     }
@@ -100,7 +99,6 @@ public class InboxPanel extends JPanel implements View {
     public String getCorpoMessaggio() {
         return corpoMessaggio.getText();
     }
-
 
     //METODI SETTER
     public void setCorpoMessaggio(String msg) {
@@ -114,5 +112,5 @@ public class InboxPanel extends JPanel implements View {
     public void setMittentiMessaggiArrLst(ArrayList<MessaggioDestinatario> bozzeArayLst) {
         this.mittentiMessaggiArrLst = bozzeArayLst;
     }
-    
+
 }

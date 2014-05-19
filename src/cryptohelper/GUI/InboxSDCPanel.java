@@ -3,8 +3,6 @@ package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
-import cryptohelper.interfaces.MessaggioDestinatario;
-import cryptohelper.interfaces.Visitor;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Proposta;
 import java.util.ArrayList;
@@ -58,7 +56,7 @@ public class InboxSDCPanel extends JPanel implements View {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof Proposta) {
                     Proposta temp = (Proposta) value;
-                    ((JLabel) renderer).setText(temp.getSdc().getNome());
+                    ((JLabel) renderer).setText("<html><font color=green>"+temp.getSdc().getNome()+"</font></html>");
                 }
                 return renderer;
             }

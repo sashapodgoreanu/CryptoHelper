@@ -495,7 +495,7 @@ public class GUIController {
             System.out.println("Clicked LIST");
             Proposta proposta = (Proposta) inboxSDCPanel.getElencoProposteRicevute().getSelectedValue();
             //bp.modificaCorpoMessaggio("Destinatario: " + mess.getDestinatario().getNome() + "\n" + mess.getTesto());
-            inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)));
+            inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)) );
         }
     }
 
