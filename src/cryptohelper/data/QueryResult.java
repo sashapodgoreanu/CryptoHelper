@@ -16,6 +16,9 @@ public class QueryResult {
 
     private ArrayList<Map<String, Object>> lista;
     private int iterator;
+    private int size;
+
+   
 
     public QueryResult(ArrayList<Map<String, Object>> lista) {
         this.lista = lista;
@@ -27,6 +30,7 @@ public class QueryResult {
         return "QueryResult{" + "lista=" + lista + "}";
     }
 
+    
     public boolean next(){
         if (iterator == lista.size()) {
             reset();
@@ -75,4 +79,8 @@ public class QueryResult {
     public void setLista(ArrayList<Map<String, Object>> lista) {
         this.lista = lista;
     }
+     public int getSize() {
+        return lista.size();
+    }
+    
 }

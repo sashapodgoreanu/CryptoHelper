@@ -1,6 +1,7 @@
 // classe Proposta
 package cryptohelper.data;
 
+import static cryptohelper.data.SistemaCifratura.getSistemaCifratura;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -61,10 +62,30 @@ public class Proposta {
         //se proponente e il partner hanno gia concordato un sistema di cifratura in precedenza non potranno piu farlo. 
         //SistemaCifratura esisteSdc = SistemaCifratura.load(proponente.getId(), partner.getId());
         //System.out.println(esisteSdc.toString());
-       // if(esisteSdc != null)
-           // return false;
+        // if(esisteSdc != null)
+        // return false;
+        System.out.println(this.toString());
         boolean result = false;
         DBController dbc = DBController.getInstance();
+        String queryExists = "SELECT * "
+                + " FROM SDCPARTNERS"
+                + " WHERE ((ID_CREATORE = " + proponente.getId()
+                + " AND ID_PARTNER = " + partner.getId()
+                + ") OR (ID_CREATORE = " + partner.getId()
+                + ")  AND ID_PARTNER = " + proponente.getId()
+                + ") AND STATO_PROPOSTA = 'accettata'";
+        QueryResult qr;
+        try {
+            qr = DBController.getInstance().executeQuery(queryExists);
+            System.out.println("QR*************"+qr.toString());
+            System.out.println("Size*************"+qr.getSize());
+            if (qr.getSize() > 0) {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Proposta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         String queryInsert = "INSERT INTO SDCPARTNERS(ID_CREATORE, ID_PARTNER,ID_SDC,STATO_PROPOSTA)"
                 + "VALUES("
                 + this.proponente.getId()
@@ -82,6 +103,7 @@ public class Proposta {
                 + this.getProponente().getId()
                 + " AND ID_PARTNER = " + this.getPartner().getId()
                 + " AND ID_SDC = " + this.getSdc().getId();
+
         try {
             if (this.stato.equals("pending")) {
 
@@ -114,22 +136,25 @@ public class Proposta {
                     Proposta temp = new Proposta(SistemaCifratura.getSistemaCifratura(qr.getInt("ID_SDC")), UserInfo.getUserInfo(qr.getInt("ID_CREATORE")), UserInfo.getUserInfo(qr.getInt("ID_PARTNER")));
                     System.out.println("Proposta: " + temp.toString());
                     proposte.add(temp);
+
                 }
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            Logger.getLogger(SistemaCifratura.class
+                    .getName()).log(Level.SEVERE, null, ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            Logger.getLogger(SistemaCifratura.class
+                    .getName()).log(Level.SEVERE, null, ex.getMessage());
         }
         return proposte;
     }
 
     /*
-    public static Proposta getProposta(UserInfo u1, UserInfo u2) {
+     public static Proposta getProposta(UserInfo u1, UserInfo u2) {
         
-    }
-*/
+     }
+     */
     @Override
     public String toString() {
         return "Proposta{" + "sdc=" + sdc.getId() + ", proponente=" + proponente.getId() + ", partner=" + partner.getId() + ", stato=" + stato + '}';
