@@ -3,11 +3,9 @@ package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
+import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
-import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
-import cryptohelper.data.Studente;
-import cryptohelper.data.UserInfo;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -26,8 +24,6 @@ public class BozzePanel extends JPanel implements View {
     JLabel bozzeListLabel;
     JLabel destinatarioLabel;
     JTextField titoloMessaggioField;    //inputBox per il messaggio
-    JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
-    JList elencoMessaggiRicevuti;       //elenca i mittenti di tutti i messaggi ricevuti  
     JList elencoBozze;                  //visualizza lalista delle bozze
     JScrollPane scrollPane;
     JTextPane corpoBozza;
@@ -79,6 +75,10 @@ public class BozzePanel extends JPanel implements View {
             }
         });
         elencoBozze.setSelectedIndex(0);
+        MessaggioMittente index0 = (MessaggioMittente) elencoBozze.getSelectedValue();
+        if (index0 != null) {
+            corpoBozza.setText(new HtmlVisitor().visit(index0));
+        }
         scrollPane = new JScrollPane();
         scrollPane.setPreferredSize(new Dimension(180, 250));
         scrollPane.setViewportView(elencoBozze);
