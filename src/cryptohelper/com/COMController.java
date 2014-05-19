@@ -43,11 +43,18 @@ public class COMController {
 
     //Preleva i destinatari a cui è possibile inviare dei messaggi (destinatari con cui si è concordato un SDC)
     public ArrayList<UserInfo> getDestinatari(UserInfo st) {
-        String query = "SELECT *"
+        String query1 = "SELECT *"
                 + " FROM STUDENTI JOIN SDCPARTNERS "
-                + " ON("+st.getId()+" = SDCPARTNERS.ID_CREATORE "
-                + " AND STUDENTI.ID = SDCPARTNERS.ID_PARTNER "
+                + " ON(" + st.getId() + " = SDCPARTNERS.ID_CREATORE OR " + st.getId() + " = SDCPARTNERS.ID_PARTNER)"
+                + " AND (STUDENTI.ID = SDCPARTNERS.ID_PARTNER OR STUDENTI.ID = SDCPARTNERS.ID_CREATORE)"
                 + " AND SDCPARTNERS.STATO_PROPOSTA = 'accettata')";
+        String query = "SELECT *"
+                + "FROM STUDENTI JOIN SDCPARTNERS "
+                + "    ON ( "
+                + "        (" + st.getId() + " = SDCPARTNERS.ID_CREATORE OR " + st.getId() + " = SDCPARTNERS.ID_PARTNER)AND(STUDENTI.ID = SDCPARTNERS.ID_PARTNER OR STUDENTI.ID = SDCPARTNERS.ID_CREATORE)"
+                + "         "
+                + "        AND SDCPARTNERS.STATO_PROPOSTA = 'accettata')"
+                + "where id <> " + st.getId() ;
         QueryResult qr = null;
         ArrayList<UserInfo> uInfo = new ArrayList<>();
         try {
@@ -61,6 +68,7 @@ public class COMController {
         } catch (Exception ex) {
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
+        System.out.println(uInfo.toString());
         return uInfo;
     }
 
@@ -98,10 +106,7 @@ public class COMController {
 
     public boolean proponiSistemaCifratura(UserInfo utilizzatoreSistema, UserInfo partner, SistemaCifratura sdc) {
         Proposta proposta = new Proposta(sdc, utilizzatoreSistema, partner);
-        if (proposta.salva()) {
-            return true;
-        }
-        return false;
+        return proposta.salva();
     }
 
 }

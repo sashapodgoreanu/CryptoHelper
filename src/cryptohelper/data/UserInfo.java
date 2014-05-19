@@ -13,8 +13,14 @@ public class UserInfo {
     private String nome;
     private String cognome;
 
+    public UserInfo(int id) {
+        this.id = id;
+    }
+
     public UserInfo() {
     }
+
+   
 
     public UserInfo(int id, String nome, String cognome) {
         this.id = id;

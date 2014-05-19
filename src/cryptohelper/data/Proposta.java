@@ -58,6 +58,11 @@ public class Proposta {
     }
 
     public boolean salva() {
+        //se proponente e il partner hanno gia concordato un sistema di cifratura in precedenza non potranno piu farlo. 
+        //SistemaCifratura esisteSdc = SistemaCifratura.load(proponente.getId(), partner.getId());
+        //System.out.println(esisteSdc.toString());
+       // if(esisteSdc != null)
+           // return false;
         boolean result = false;
         DBController dbc = DBController.getInstance();
         String queryInsert = "INSERT INTO SDCPARTNERS(ID_CREATORE, ID_PARTNER,ID_SDC,STATO_PROPOSTA)"
@@ -86,9 +91,7 @@ public class Proposta {
             } else {
 
                 result = dbc.executeUpdate(querryUpdate);
-
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(Proposta.class.getName()).log(Level.SEVERE, null, ex);
         }

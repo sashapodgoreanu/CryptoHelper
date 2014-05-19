@@ -48,14 +48,14 @@ public class SistemaCifratura {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public static SistemaCifratura load(UserInfo u1, UserInfo u2) {
+    public static SistemaCifratura load(int u1, int  u2) {
         String query = "SELECT * "
                 + " FROM SDCPARTNERS"
-                + " WHERE (ID_CREATORE = " + u1.getId()
-                + " AND ID_PARTNER = " + u2.getId()
-                + ") OR (ID_CREATORE = " + u2.getId()
-                + " AND ID_PARTNER = " + u1.getId()
-                + ") AND STATO_PROPOSTA = 'accettato'";
+                + " WHERE (ID_CREATORE = " +u1
+                + " AND ID_PARTNER = " +u2
+                + ") OR (ID_CREATORE = " +u2
+                + "  AND ID_PARTNER = " +u1
+                + ") AND STATO_PROPOSTA = 'accettata'";
         QueryResult qr = null;
         SistemaCifratura temp = null;
         try {

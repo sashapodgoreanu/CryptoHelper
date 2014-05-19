@@ -155,7 +155,7 @@ public class GUIController {
             System.out.println(this.getClass() + " Clicked " + ev.getText());
             //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
             panelloPrincipale.setDestinatariArrLst(comC.getDestinatari(utilizzatoreSistema));
-            System.out.println(comC.getDestinatari().toString());
+            System.out.println("**************************"+comC.getDestinatari(utilizzatoreSistema).toString());
             panelloPrincipale.initNuovoMessaggio();
             //predispone il nuovo messaggio
             msgMittente = new Messaggio();
@@ -330,7 +330,7 @@ public class GUIController {
                         panelloPrincipale.setStatus("Devi selezionare un destinatario");
                         return;
                     }
-                    SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema, destinatario);
+                    SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), destinatario.getId());
 
                     String testoCifrato = Cifratore.cifraMonoalfabetica(sdc.getMp(), messagePanel.getCorpoMessaggio());
                     //Messaggio( String titolo, boolean bozza, boolean letto)
@@ -363,7 +363,7 @@ public class GUIController {
             panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             UserInfo userInfo = (UserInfo) messagePanel.getElencoDestinatari().getSelectedValue();
-            SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema, userInfo);
+            SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), userInfo.getId());
             System.out.println(sdc.toString());
             //messagePanel.initChiave(sdc.getMetodo());
         }
@@ -479,6 +479,7 @@ public class GUIController {
             System.out.println(" AccettaRifiutaSDCListener ");
             panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
+            //proposta selezionata dalla jlist
             Proposta proposta = (Proposta) inboxSDCPanel.getElencoProposteRicevute().getSelectedValue();
             if (ev.getText().equalsIgnoreCase("accetta") && proposta != null) {
                 proposta.setStato("accettata");
