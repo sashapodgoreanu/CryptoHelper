@@ -64,6 +64,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     }
 
     //TEST 
+    /*
     public Messaggio(int id, String testo, String titolo, boolean bozza, UserInfo mittente, UserInfo destinatario) {
         this.id = id;
         this.testo = testo;
@@ -72,6 +73,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         this.mittente = mittente;
         this.destinatario = destinatario;
     }
+    */
 
     public Messaggio() {
     }
@@ -176,7 +178,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
     public boolean salva() {
         boolean result = false;
         DBController dbc = DBController.getInstance();
-        String queryInsert = "INSERT INTO Messaggi(Id_Mittente, Id_Destinatario,Testo,TestoCifrato,Lingua,Titolo,Bozza,Letto)"
+        String queryInsert = "INSERT INTO Messaggi(Id_Mittente,Id_Destinatario,Testo,TestoCifrato,Lingua,Titolo,Bozza,Letto)"
                 + "VALUES("
                 + this.getMittente().getId()
                 + ","

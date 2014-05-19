@@ -156,6 +156,11 @@ public class MessagePanel extends JPanel implements View {
         return corpoMessaggio.getText();
     }
 
+    public String getLingua()
+    {
+        return linguaDropdown.getSelectedItem().toString();
+    }
+    
     public ArrayList<UserInfo> getDestinatari() {
         return destinatariArrLst;
     }

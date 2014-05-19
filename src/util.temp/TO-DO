@@ -20,6 +20,9 @@ CREARE TUTTI I COMPONENTI CHE SARANNO REGITRATI PRESO CONTROLLER NEI METODI init
 -- deve visionare immediatamente il primo messaggio una volta clicato su inbox
 
 
+-cambiare parametro testo cifrato nel salva messaggio di MessagePanel
+
+
 Sasha
 *****************************
 

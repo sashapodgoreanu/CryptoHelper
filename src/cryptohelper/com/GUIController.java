@@ -136,7 +136,7 @@ public class GUIController {
         public void actionPerformed(ActionEvent e) {
             boolean valid = comC.authenticate(loginForm.getUsername(), loginForm.getPassword());
             if (valid) {
-                loginForm.dispose();          
+                loginForm.dispose();
                 utilizzatoreSistema = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
                 PanelloPrincipale pp = new PanelloPrincipale();
             } else {
@@ -303,8 +303,12 @@ public class GUIController {
                         JList list = messagePanel.getElencoDestinatari();
                         UserInfo destinatario = (UserInfo) list.getSelectedValue();
                         System.out.println("Destinatario selected: " + destinatario.toString());
-                        msgMittente = new Messaggio(msgMittente.getId(), messagePanel.getCorpoMessaggio(), messagePanel.getTitoloMessaggioField(), true, utilizzatoreSistema, destinatario);
-                        //se msg.salva ritorna false allora errore
+                        
+                        //TO DO CAMBIARE PARAMETRO TESTO CIFRATO
+                        msgMittente = new Messaggio(msgMittente.getId(), messagePanel.getCorpoMessaggio(),
+                                    messagePanel.getCorpoMessaggio(), messagePanel.getLingua(),
+                                    messagePanel.getTitoloMessaggioField(),true,true, utilizzatoreSistema, destinatario);
+                        //se msg.salva ritorna false allora c'è un errore
                         if (msgMittente.salva()) {
                             panelloPrincipale.setStatus("Messaggio Salvato!");
                         } else {
@@ -444,7 +448,7 @@ public class GUIController {
             SistemaCifratura sdc = (SistemaCifratura) proponiSDCPanel.getElencoSDC().getSelectedValue();
             UserInfo partner = (UserInfo) proponiSDCPanel.getElencoDestinatari().getSelectedValue();
             if (comC.proponiSistemaCifratura(utilizzatoreSistema, partner, sdc)) {
-                panelloPrincipale.setStatus("Inviato con successo");
+                panelloPrincipale.setStatus("Proposa inviata con successo!");
             } else {
                 panelloPrincipale.setStatus("Proposta duplicata o errore di sistema!");
             }
@@ -475,6 +479,7 @@ public class GUIController {
             if (ev.getText().equalsIgnoreCase("accetta") && proposta != null) {
                 proposta.setStato("accettata");
                 proposta.salva();
+                panelloPrincipale.setStatus("La proposta è stata accettata correttamente!");
             } else if (ev.getText().equalsIgnoreCase("rifiuta") && proposta != null) {
                 proposta.setStato("rifiutata");
                 proposta.salva();
