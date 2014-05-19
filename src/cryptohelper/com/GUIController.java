@@ -154,12 +154,10 @@ public class GUIController {
             panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
-            //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
             panelloPrincipale.setDestinatariArrLst(comC.getDestinatari(utilizzatoreSistema));
             System.out.println(comC.getDestinatari().toString());
             panelloPrincipale.initNuovoMessaggio();
-            //predispone il nuovo messaggio
-            msgMittente = new Messaggio();
+            msgMittente = new Messaggio();           //predispone il nuovo messaggio
         }
     }
 
