@@ -3,6 +3,7 @@ package cryptohelper.GUI;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
+import cryptohelper.data.HtmlVisitor;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
@@ -57,6 +58,10 @@ public class InboxPanel extends JPanel implements View {
             }
         });
         elencoMessaggiRicevuti.setSelectedIndex(0);
+        MessaggioDestinatario index0 = (MessaggioDestinatario) elencoMessaggiRicevuti.getSelectedValue();
+        if (index0 != null) {
+            corpoMessaggio.setText(new HtmlVisitor().visit(index0));
+        }
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoMessaggiRicevuti);
         corpoMessaggio = new JTextArea();
@@ -96,8 +101,8 @@ public class InboxPanel extends JPanel implements View {
         return elencoMessaggiRicevuti;
     }
 
-    public String getCorpoMessaggio() {
-        return corpoMessaggio.getText();
+    public JTextArea getCorpoMessaggio() {
+        return corpoMessaggio;
     }
 
     //METODI SETTER
