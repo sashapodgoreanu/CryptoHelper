@@ -21,7 +21,7 @@ public class InboxPanel extends JPanel implements View {
     JList elencoMessaggiRicevuti;
     JTextPane corpoMessaggio;
     JScrollPane scrollPane;
-    ArrayList<MessaggioDestinatario> mittentiMessaggiArrLst; //elenco mittenti
+    ArrayList<MessaggioDestinatario> mittentiMessaggiArrLst; //elenco mittenti dei messaggi di cui l'utente loggato è destinatario
 
     public InboxPanel(ArrayList<MessaggioDestinatario> mittentiMessaggiArrLst) {
         this.mittentiMessaggiArrLst = mittentiMessaggiArrLst;
