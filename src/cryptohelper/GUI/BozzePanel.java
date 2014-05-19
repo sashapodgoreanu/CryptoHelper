@@ -3,11 +3,9 @@ package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
+import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
-import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
-import cryptohelper.data.Studente;
-import cryptohelper.data.UserInfo;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,15 +22,12 @@ public class BozzePanel extends JPanel implements View {
     JButton sendBozzaBtn;
     JLabel msgTitleLabel;
     JLabel bozzeListLabel;
+    JLabel destinatarioLabel;
     JTextField titoloMessaggioField;    //inputBox per il messaggio
-    JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
-    JList elencoMessaggiRicevuti;       //elenca i mittenti di tutti i messaggi ricevuti  
     JList elencoBozze;                  //visualizza lalista delle bozze
     JScrollPane scrollPane;
-    JTextArea corpoBozza;
-    ArrayList<MessaggioMittente> bozzeArrLst;   //array list con elenco delle bozze disponibili
-
-    Studente studente;
+    JTextPane corpoBozza;
+    ArrayList<MessaggioMittente> bozzeArrLst;   //array list con elenco delle bozze disponibili (messaggi in cui l'utente loggato è il mittente)
 
     public BozzePanel(ArrayList<MessaggioMittente> bozzeArrLst) {
         topPanel = new JPanel();
@@ -60,10 +55,11 @@ public class BozzePanel extends JPanel implements View {
         sendBozzaBtn = new JButton("Invia messaggio");
         msgTitleLabel = new JLabel("Titolo della bozza:");
         bozzeListLabel = new JLabel("Bozze disponibili:");
+        destinatarioLabel = new JLabel("");
         titoloMessaggioField = new JTextField(21);
-        corpoBozza = new JTextArea();
-        corpoBozza.setSize(new Dimension(540, 250));
-        corpoBozza.setLineWrap(true);
+        corpoBozza = new JTextPane();
+        corpoBozza.setPreferredSize(new Dimension(540, 250));
+        corpoBozza.setContentType("text/html"); //consente formattazione html
         corpoBozza.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
         elencoBozze.setCellRenderer(new DefaultListCellRenderer() {
@@ -73,12 +69,16 @@ public class BozzePanel extends JPanel implements View {
                 if (renderer instanceof JLabel && value instanceof MessaggioMittente) {
                     MessaggioMittente temp = (Messaggio) value;
                     //System.out.println("renderer " + temp.toString());
-                    ((JLabel) renderer).setText(temp.getTitolo() + " " + temp.getTesto());
+                    ((JLabel) renderer).setText(temp.getTitolo());
                 }
                 return renderer;
             }
         });
         elencoBozze.setSelectedIndex(0);
+        MessaggioMittente index0 = (MessaggioMittente) elencoBozze.getSelectedValue();
+        if (index0 != null) {
+            corpoBozza.setText(new HtmlVisitor().visit(index0));
+        }
         scrollPane = new JScrollPane();
         scrollPane.setPreferredSize(new Dimension(180, 250));
         scrollPane.setViewportView(elencoBozze);
@@ -86,6 +86,7 @@ public class BozzePanel extends JPanel implements View {
         //AGGIUNTA DEI CONTROLLI AI PANNELLI
         topPanel.add(msgTitleLabel);
         topPanel.add(titoloMessaggioField);
+        topPanel.add(destinatarioLabel);
         bottomPanel.add(saveBozzaBtn);
         bottomPanel.add(deleteBozzaBtn);
         leftPanel.add(corpoBozza, BorderLayout.CENTER);
@@ -159,6 +160,10 @@ public class BozzePanel extends JPanel implements View {
         return scrollPane;
     }
 
+    public JTextPane getCorpoBozza() {
+        return corpoBozza;
+    }
+
     public ArrayList<MessaggioMittente> getBozzeArrLst() {
         return bozzeArrLst;
     }
@@ -168,7 +173,7 @@ public class BozzePanel extends JPanel implements View {
         titoloMessaggioField.setText(titolo);
     }
 
-    public void setCorpoBozza(String testo) {
-        corpoBozza.setText(testo);
+    public void setDestinatarioLabel(String dest) {
+        destinatarioLabel.setText(dest);
     }
 }

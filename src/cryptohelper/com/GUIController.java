@@ -22,6 +22,7 @@ import cryptohelper.data.Proposta;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
+import cryptohelper.interfaces.MessaggioDestinatario;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -153,12 +154,10 @@ public class GUIController {
             panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
-            //TO-DO da modificare perche devono apparire solo destinatari con cui il studente ha concluso una proposta Scifratura
             panelloPrincipale.setDestinatariArrLst(comC.getDestinatari(utilizzatoreSistema));
             System.out.println("**************************"+comC.getDestinatari(utilizzatoreSistema).toString());
             panelloPrincipale.initNuovoMessaggio();
-            //predispone il nuovo messaggio
-            msgMittente = new Messaggio();
+            msgMittente = new Messaggio();      //predispone il nuovo messaggio
         }
     }
 
@@ -170,7 +169,6 @@ public class GUIController {
             panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            System.out.println("IL MIO ID" + utilizzatoreSistema.getId());
             ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
             System.out.println("MessaggioDestinatario" + temp.toString());
             panelloPrincipale.initInbox(temp);
@@ -210,9 +208,10 @@ public class GUIController {
         public void valueChanged(ListSelectionEvent e) {
             panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
-            MessaggioDestinatario mess = (MessaggioDestinatario) bozzePanel.getElencoBozze().getSelectedValue();
-            //bp.modificaCorpoMessaggio("Destinatario: " + mess.getDestinatario().getNome() + "\n" + mess.getTesto());
+            MessaggioMittente mess = (MessaggioMittente) bozzePanel.getElencoBozze().getSelectedValue();
+            bozzePanel.getCorpoBozza().setText((new HtmlVisitor().visit(mess)));
             bozzePanel.setTitoloBozza(mess.getTitolo());
+            bozzePanel.setDestinatarioLabel("Destinatario: " + mess.getDestinatario().getNome() + " " + mess.getDestinatario().getCognome());
         }
     }
 
@@ -303,11 +302,11 @@ public class GUIController {
                         JList list = messagePanel.getElencoDestinatari();
                         UserInfo destinatario = (UserInfo) list.getSelectedValue();
                         System.out.println("Destinatario selected: " + destinatario.toString());
-                        
+
                         //TO DO CAMBIARE PARAMETRO TESTO CIFRATO
                         msgMittente = new Messaggio(msgMittente.getId(), messagePanel.getCorpoMessaggio(),
-                                   /*qui*/ messagePanel.getCorpoMessaggio(),/**/ messagePanel.getLingua(),
-                                    messagePanel.getTitoloMessaggioField(),true,true, utilizzatoreSistema, destinatario);
+                                /*qui*/ messagePanel.getCorpoMessaggio(),/**/ messagePanel.getLingua(),
+                                messagePanel.getTitoloMessaggioField(), true, true, utilizzatoreSistema, destinatario);
                         //se msg.salva ritorna false allora c'è un errore
                         if (msgMittente.salva()) {
                             panelloPrincipale.setStatus("Messaggio Salvato!");
@@ -326,7 +325,7 @@ public class GUIController {
                     System.out.println("INVIA MESSAGGIO");
                     panelloPrincipale.setStatus("");
                     UserInfo destinatario = (UserInfo) messagePanel.getElencoDestinatari().getSelectedValue();
-                    if (destinatario== null){
+                    if (destinatario == null) {
                         panelloPrincipale.setStatus("Devi selezionare un destinatario");
                         return;
                     }

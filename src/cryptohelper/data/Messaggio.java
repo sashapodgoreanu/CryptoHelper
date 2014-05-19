@@ -65,16 +65,15 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
 
     //TEST 
     /*
-    public Messaggio(int id, String testo, String titolo, boolean bozza, UserInfo mittente, UserInfo destinatario) {
-        this.id = id;
-        this.testo = testo;
-        this.titolo = titolo;
-        this.bozza = bozza;
-        this.mittente = mittente;
-        this.destinatario = destinatario;
-    }
-    */
-
+     public Messaggio(int id, String testo, String titolo, boolean bozza, UserInfo mittente, UserInfo destinatario) {
+     this.id = id;
+     this.testo = testo;
+     this.titolo = titolo;
+     this.bozza = bozza;
+     this.mittente = mittente;
+     this.destinatario = destinatario;
+     }
+     */
     public Messaggio() {
     }
 
@@ -294,8 +293,11 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         try {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
+                UserInfo mit = UserInfo.getUserInfo(idStudente);
+                UserInfo dest = UserInfo.getUserInfo(qr.getInt("ID_Destinatario"));
                 MessaggioMittente temp = new Messaggio(qr.getInt("ID"), qr.getString("Testo"), qr.getString("TestoCifrato"),
-                        qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")));
+                        qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")),
+                        mit, dest);
                 bozze.add(temp);
             }
         } catch (Exception ex) {

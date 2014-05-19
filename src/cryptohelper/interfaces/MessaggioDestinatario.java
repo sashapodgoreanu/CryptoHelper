@@ -7,6 +7,4 @@ public interface MessaggioDestinatario extends MessaggioAstratto {
 
     public boolean isLetto();
 
-   
-
 }
