@@ -306,7 +306,7 @@ public class GUIController {
                         
                         //TO DO CAMBIARE PARAMETRO TESTO CIFRATO
                         msgMittente = new Messaggio(msgMittente.getId(), messagePanel.getCorpoMessaggio(),
-                                    messagePanel.getCorpoMessaggio(), messagePanel.getLingua(),
+                                   /*qui*/ messagePanel.getCorpoMessaggio(),/**/ messagePanel.getLingua(),
                                     messagePanel.getTitoloMessaggioField(),true,true, utilizzatoreSistema, destinatario);
                         //se msg.salva ritorna false allora c'è un errore
                         if (msgMittente.salva()) {
