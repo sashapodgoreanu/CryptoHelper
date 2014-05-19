@@ -22,7 +22,7 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton gestisciBozzeBtn;
     JButton SDCBtn;
     JButton logoutBtn;
-    ArrayList<UserInfo> destinatariArrLst;                //elenco destinatari
+    ArrayList<UserInfo> destinatariArrLst;    //elenco dei destinatari
     JPanel sdcPanel = new SdcPanel();
     JButton proponiSDCBtn;
     JButton creaSDCBtn;
