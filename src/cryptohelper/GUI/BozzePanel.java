@@ -24,6 +24,7 @@ public class BozzePanel extends JPanel implements View {
     JButton sendBozzaBtn;
     JLabel msgTitleLabel;
     JLabel bozzeListLabel;
+    JLabel destinatarioLabel;
     JTextField titoloMessaggioField;    //inputBox per il messaggio
     JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
     JList elencoMessaggiRicevuti;       //elenca i mittenti di tutti i messaggi ricevuti  
@@ -60,6 +61,7 @@ public class BozzePanel extends JPanel implements View {
         sendBozzaBtn = new JButton("Invia messaggio");
         msgTitleLabel = new JLabel("Titolo della bozza:");
         bozzeListLabel = new JLabel("Bozze disponibili:");
+        destinatarioLabel = new JLabel("");
         titoloMessaggioField = new JTextField(21);
         corpoBozza = new JTextArea();
         corpoBozza.setSize(new Dimension(540, 250));
@@ -73,7 +75,7 @@ public class BozzePanel extends JPanel implements View {
                 if (renderer instanceof JLabel && value instanceof MessaggioMittente) {
                     MessaggioMittente temp = (Messaggio) value;
                     //System.out.println("renderer " + temp.toString());
-                    ((JLabel) renderer).setText(temp.getTitolo() + " " + temp.getTesto());
+                    ((JLabel) renderer).setText(temp.getTitolo());
                 }
                 return renderer;
             }
@@ -86,6 +88,7 @@ public class BozzePanel extends JPanel implements View {
         //AGGIUNTA DEI CONTROLLI AI PANNELLI
         topPanel.add(msgTitleLabel);
         topPanel.add(titoloMessaggioField);
+        topPanel.add(destinatarioLabel);
         bottomPanel.add(saveBozzaBtn);
         bottomPanel.add(deleteBozzaBtn);
         leftPanel.add(corpoBozza, BorderLayout.CENTER);
@@ -158,6 +161,10 @@ public class BozzePanel extends JPanel implements View {
     public JScrollPane getScrollPane() {
         return scrollPane;
     }
+    
+    public JTextArea getCorpoBozza(){
+        return corpoBozza;
+    }
 
     public ArrayList<MessaggioMittente> getBozzeArrLst() {
         return bozzeArrLst;
@@ -170,5 +177,9 @@ public class BozzePanel extends JPanel implements View {
 
     public void setCorpoBozza(String testo) {
         corpoBozza.setText(testo);
+    }
+    
+     public void setDestinatarioLabel(String dest) {
+        destinatarioLabel.setText(dest);
     }
 }
