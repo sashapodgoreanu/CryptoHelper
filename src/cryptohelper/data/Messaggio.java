@@ -260,7 +260,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
 
     //Preleva l'elenco dei messaggi destinatario
     public static ArrayList<MessaggioDestinatario> caricaMessaggiDestinatario(int idStudente) {
-        String query = "SELECT * FROM Messaggi WHERE (ID_DESTINATARIO = " + idStudente + ")";
+        String query = "SELECT * FROM Messaggi WHERE (ID_Destinatario = " + idStudente + ")";
         QueryResult qr = null;
         ArrayList<MessaggioDestinatario> messaggi = new ArrayList<>();
         try {
@@ -288,7 +288,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
 
     //Preleva l'elenco delle bozze  TODO _ Aggiungere destinatraio e mittente
     public static ArrayList<MessaggioMittente> caricaBozze(int idStudente) {
-        String query = "SELECT * FROM Messaggi WHERE mittente = " + idStudente;
+        String query = "SELECT * FROM Messaggi WHERE ID_Mittente = " + idStudente + "AND Bozza = True";
         QueryResult qr = null;
         ArrayList<MessaggioMittente> bozze = new ArrayList<>();
         try {
