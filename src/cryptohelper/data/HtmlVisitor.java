@@ -1,11 +1,9 @@
 //Classe che implementa l'interfaccia Visitor e si occupa della stampa con formattazione dei vari testi
-
 package cryptohelper.data;
 
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.interfaces.Visitor;
-
 
 public class HtmlVisitor implements Visitor {
 
@@ -25,6 +23,7 @@ public class HtmlVisitor implements Visitor {
         return sb.toString();
     }
 
+    @Override
     public String visit(MessaggioDestinatario msgDestinatario) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
@@ -41,19 +40,13 @@ public class HtmlVisitor implements Visitor {
         sb.append("</html>");
         return sb.toString();
     }
-    
+
+    @Override
     public String visit(MessaggioMittente messaggioMittente) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
         sb.append("<p>");
-        sb.append("Mittente: ").append(messaggioMittente.getMittente().getNome());
-        sb.append(" ").append(messaggioMittente.getMittente().getCognome());
-        sb.append("</p>");
-        sb.append("<p>");
-        sb.append("Titolo messaggio: ").append(messaggioMittente.getTitolo());
-        sb.append("</p>");
-        sb.append("<p>");
-        sb.append("Testo Messaggio:<br/>").append(messaggioMittente.getTesto());
+        sb.append(messaggioMittente.getTesto());
         sb.append("</p>");
         sb.append("</html>");
         return sb.toString();

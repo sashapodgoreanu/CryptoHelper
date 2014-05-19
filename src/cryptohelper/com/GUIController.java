@@ -211,10 +211,8 @@ public class GUIController {
         public void valueChanged(ListSelectionEvent e) {
             panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
-            MessaggioDestinatario mess = (MessaggioDestinatario) bozzePanel.getElencoBozze().getSelectedValue();
-
-               bozzePanel.getCorpoBozza().setText((new HtmlVisitor().visit(mess)));
-            //bp.modificaCorpoMessaggio("Destinatario: " + mess.getDestinatario().getNome() + "\n" + mess.getTesto());
+            MessaggioMittente mess = (MessaggioMittente) bozzePanel.getElencoBozze().getSelectedValue();
+            bozzePanel.getCorpoBozza().setText((new HtmlVisitor().visit(mess)));
             bozzePanel.setTitoloBozza(mess.getTitolo());
             bozzePanel.setDestinatarioLabel("Destinatario: " + mess.getDestinatario().getNome() + " " + mess.getDestinatario().getCognome());
         }

@@ -30,10 +30,8 @@ public class BozzePanel extends JPanel implements View {
     JList elencoMessaggiRicevuti;       //elenca i mittenti di tutti i messaggi ricevuti  
     JList elencoBozze;                  //visualizza lalista delle bozze
     JScrollPane scrollPane;
-    JTextArea corpoBozza;
-    ArrayList<MessaggioMittente> bozzeArrLst;   //array list con elenco delle bozze disponibili
-
-    Studente studente;
+    JTextPane corpoBozza;
+    ArrayList<MessaggioMittente> bozzeArrLst;   //array list con elenco delle bozze disponibili (messaggi in cui l'utente loggato è il mittente)
 
     public BozzePanel(ArrayList<MessaggioMittente> bozzeArrLst) {
         topPanel = new JPanel();
@@ -63,9 +61,9 @@ public class BozzePanel extends JPanel implements View {
         bozzeListLabel = new JLabel("Bozze disponibili:");
         destinatarioLabel = new JLabel("");
         titoloMessaggioField = new JTextField(21);
-        corpoBozza = new JTextArea();
-        corpoBozza.setSize(new Dimension(540, 250));
-        corpoBozza.setLineWrap(true);
+        corpoBozza = new JTextPane();
+        corpoBozza.setPreferredSize(new Dimension(540, 250));
+        corpoBozza.setContentType("text/html"); //consente formattazione html
         corpoBozza.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
         elencoBozze.setCellRenderer(new DefaultListCellRenderer() {
@@ -161,8 +159,8 @@ public class BozzePanel extends JPanel implements View {
     public JScrollPane getScrollPane() {
         return scrollPane;
     }
-    
-    public JTextArea getCorpoBozza(){
+
+    public JTextPane getCorpoBozza() {
         return corpoBozza;
     }
 
@@ -175,11 +173,7 @@ public class BozzePanel extends JPanel implements View {
         titoloMessaggioField.setText(titolo);
     }
 
-    public void setCorpoBozza(String testo) {
-        corpoBozza.setText(testo);
-    }
-    
-     public void setDestinatarioLabel(String dest) {
+    public void setDestinatarioLabel(String dest) {
         destinatarioLabel.setText(dest);
     }
 }
