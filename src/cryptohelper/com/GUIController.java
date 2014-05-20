@@ -4,6 +4,7 @@ import cryptohelper.GUI.BozzePanel;
 import cryptohelper.GUI.CreaSDCPanel;
 import cryptohelper.GUI.InboxPanel;
 import cryptohelper.GUI.InboxSDCPanel;
+import cryptohelper.GUI.GestisciSDCPanel;
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.MessagePanel;
 import cryptohelper.GUI.OutboxPanel;
@@ -57,6 +58,8 @@ public class GUIController {
     private Mappatura mappatura;
     private ProponiSDCPanel proponiSDCPanel;
     private InboxSDCPanel inboxSDCPanel;
+    private GestisciSDCPanel gestisciSDCPanel;
+    
 
     private GUIController() {
         comC = new COMController();
@@ -130,6 +133,9 @@ public class GUIController {
             inboxSDCPanel.getElencoProposteRicevute().addListSelectionListener(new ViewProponiSDCListener());
             inboxSDCPanel.getAccettaBtn().addActionListener(new AccettaRifiutaSDCListener());
             inboxSDCPanel.getRifiutaBtn().addActionListener(new AccettaRifiutaSDCListener());
+        } else if (v instanceof GestisciSDCPanel) {
+            gestisciSDCPanel = (GestisciSDCPanel) v;
+            gestisciSDCPanel.getEliminaBtn().addActionListener(new EliminaSDCListener());
         }
     }
 
@@ -564,7 +570,29 @@ public class GUIController {
             }
         }
     }
+    
+    //classe listener per eliminare un sistema di cifratura concordato in precedenza
+    private class EliminaSDCListener implements ActionListener {
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println(" eliminaSDCListener ");
+            panelloPrincipale.setStatus(" ");
+            JButton ev = (JButton) e.getSource();
+            //proposta selezionata dalla jlist
+            Proposta proposta = (Proposta) gestisciSDCPanel.getElencoProposteAccettate().getSelectedValue();
+            if (proposta != null) {
+                System.out.println(proposta.getSdc().getId());
+                proposta.elimina();
+                panelloPrincipale.setStatus("La proposta è stata eliminata correttamente!");
+            } 
+            else {
+                panelloPrincipale.setStatus("Seleziona una proposta!");
+            }
+        }
+    } 
+    
+    
     //classe listener per la Jlist "elencoProposte" 
     private class ViewProponiSDCListener implements ListSelectionListener {
 

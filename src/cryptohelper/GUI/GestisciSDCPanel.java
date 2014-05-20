@@ -16,7 +16,7 @@ public class GestisciSDCPanel extends JPanel implements View {
     JPanel leftPanel;        //pannello a sinistra
     JPanel rightPanel;       //pannello a destra
     JPanel bottomPanel;      //pannello in basso
-    JList elencoProposteRicevute;
+    JList elencoProposteAccettate;
     JButton eliminaBtn;
     JLabel infoSdcLabel;
     JScrollPane scrollPane;
@@ -47,8 +47,8 @@ public class GestisciSDCPanel extends JPanel implements View {
         eliminaBtn = new JButton("Elimina Sistema di cifratura");
         infoSdcLabel = new JLabel("");
 
-        elencoProposteRicevute = new JList(new Vector<Proposta>(proposteArrLst));
-        elencoProposteRicevute.setCellRenderer(new DefaultListCellRenderer() {
+        elencoProposteAccettate = new JList(new Vector<Proposta>(proposteArrLst));
+        elencoProposteAccettate.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -59,13 +59,13 @@ public class GestisciSDCPanel extends JPanel implements View {
                 return renderer;
             }
         });
-        elencoProposteRicevute.setSelectedIndex(0);
-        Proposta index0 = (Proposta) elencoProposteRicevute.getSelectedValue();
+        elencoProposteAccettate.setSelectedIndex(0);
+        Proposta index0 = (Proposta) elencoProposteAccettate.getSelectedValue();
         if (index0 != null) {
             infoSdcLabel.setText(new HtmlVisitor().visit(index0));
         }
         scrollPane = new JScrollPane();
-        scrollPane.setViewportView(elencoProposteRicevute);
+        scrollPane.setViewportView(elencoProposteAccettate);
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
         leftPanel.add(infoSdcLabel, BorderLayout.CENTER);
@@ -90,7 +90,7 @@ public class GestisciSDCPanel extends JPanel implements View {
     }
 
     public boolean deleteSelectedIndex() {
-        int toDelete = this.elencoProposteRicevute.getSelectedIndex();
+        int toDelete = this.elencoProposteAccettate.getSelectedIndex();
         if (toDelete >= 0) {
             rightPanel.removeAll();
             topPanel.removeAll();
@@ -108,12 +108,12 @@ public class GestisciSDCPanel extends JPanel implements View {
         else return false;
     }
     
-    public JList getElencoProposteRicevute() {
-        return elencoProposteRicevute;
+    public JList getElencoProposteAccettate() {
+        return elencoProposteAccettate;
     }
 
-    public void setElencoProposteRicevute(JList elencoProposteRicevute) {
-        this.elencoProposteRicevute = elencoProposteRicevute;
+    public void setElencoProposteAccettate(JList elencoProposteAccettate) {
+        this.elencoProposteAccettate = elencoProposteAccettate;
     }
 
     public JLabel getInfoSdcLabel() {
@@ -130,7 +130,6 @@ public class GestisciSDCPanel extends JPanel implements View {
 
     public void setEliminaBtn(JButton eliminaBtn) {
         this.eliminaBtn = eliminaBtn;
-    }   
-    
+    }    
 
 }

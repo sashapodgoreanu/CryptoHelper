@@ -180,6 +180,21 @@ public class Proposta {
         }
         return proposte;
     }
+    
+    //Elimina una proposta dalla tabella sdcpartners. Restituisce TRUE se l'oparazione va a buon fine
+    public boolean elimina() {
+        DBController dbc = DBController.getInstance();
+        boolean result = false;
+        String query = "DELETE FROM SDCPARTNERS WHERE ID_SDC =" + sdc.getId()+"AND ID_CREATORE = "+ proponente.getId()+"AND ID_PARTNER ="+ partner.getId()+"";
+        try {
+
+            result = dbc.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(Proposta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }    
+    
 
     /*
      public static Proposta getProposta(UserInfo u1, UserInfo u2) {
