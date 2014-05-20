@@ -22,7 +22,7 @@ public class OutboxPanel extends JPanel implements View {
     JLabel targetListLabel;
     JLabel messageTextLabel;
     JList elencoMessaggiInviati;
-    JTextArea corpoMessaggio;
+    JTextPane corpoMessaggio;
     JScrollPane scrollPane;
     ArrayList<MessaggioMittente> destinatariMessaggiArrLst; //elenco mittenti
 
@@ -65,9 +65,9 @@ public class OutboxPanel extends JPanel implements View {
         scrollPane = new JScrollPane();
         scrollPane.setPreferredSize(new Dimension(180, 250));
         scrollPane.setViewportView(elencoMessaggiInviati);
-        corpoMessaggio = new JTextArea();
-        corpoMessaggio.setSize(new Dimension(540, 250));
-        corpoMessaggio.setLineWrap(true);  //manda a capo il testo al bordo del controllo
+        corpoMessaggio = new JTextPane();
+        corpoMessaggio.setPreferredSize(new Dimension(540, 250));
+        corpoMessaggio.setContentType("text/html"); //consente formattazione html
         corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
 
@@ -101,8 +101,8 @@ public class OutboxPanel extends JPanel implements View {
         return elencoMessaggiInviati;
     }
 
-    public String getCorpoMessaggio() {
-        return corpoMessaggio.getText();
+    public JTextPane getCorpoMessaggio() {
+        return corpoMessaggio;
     }
 
     //METODI SETTER

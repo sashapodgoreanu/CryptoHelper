@@ -86,7 +86,7 @@ public class GUIController {
             inboxPanel.getElencoMessaggiRicevuti().addListSelectionListener(new ViewInboxMsgListener());
         } else if (v instanceof OutboxPanel) {
             outboxPanel = (OutboxPanel) v;
-            outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewInboxMsgListener());
+            outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewOutboxMsgListener());
         } else if (v instanceof PanelloPrincipale) {
             panelloPrincipale = (PanelloPrincipale) v;
             panelloPrincipale.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
@@ -117,7 +117,6 @@ public class GUIController {
             messagePanel.getSalvaBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
             messagePanel.getInviaMessageBtn().addActionListener(new SalvaInviaMessaggioListener());
             messagePanel.getElencoDestinatari().addListSelectionListener(new SelectDestinatarioListener());
-
         } else if (v instanceof ProponiSDCPanel) {
             proponiSDCPanel = (ProponiSDCPanel) v;
             proponiSDCPanel.getProponiSDCBtn().addActionListener(new SendProponiSDCListener());
@@ -126,7 +125,6 @@ public class GUIController {
             inboxSDCPanel.getElencoProposteRicevute().addListSelectionListener(new ViewProponiSDCListener());
             inboxSDCPanel.getAccettaBtn().addActionListener(new AccettaRifiutaSDCListener());
             inboxSDCPanel.getRifiutaBtn().addActionListener(new AccettaRifiutaSDCListener());
-
         }
     }
 
@@ -201,6 +199,20 @@ public class GUIController {
         }
     }
 
+    
+    //classe listener per la Jlist della outbox 
+    private class ViewOutboxMsgListener implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            panelloPrincipale.setStatus(" ");
+            System.out.println("Clicked LIST");
+            MessaggioMittente proposta = (MessaggioMittente) outboxPanel.getElencoMessaggiInviati().getSelectedValue();
+            outboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(proposta)));
+        }
+    }
+    
+    
     //classe listener per la Jlist "ElencoBozze" 
     private class ViewBozzeMsgListener implements ListSelectionListener {
 
@@ -508,8 +520,8 @@ public class GUIController {
             inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)));
         }
     }
-
-//classe listener per il button "salva messaggio" della finestra principale
+    
+    //classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {
 
         @Override
