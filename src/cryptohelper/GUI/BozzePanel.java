@@ -58,7 +58,7 @@ public class BozzePanel extends JPanel implements View {
         linguaDropdown.setBackground(Color.WHITE);
         saveBozzaBtn = new JButton("Salva"); //non modificare 
         deleteBozzaBtn = new JButton("Elimina");//non modificare 
-        sendBozzaBtn = new JButton("Invia messaggio");
+        sendBozzaBtn = new JButton("Invia bozza");
         msgTitleLabel = new JLabel("Titolo della bozza:");
         bozzeListLabel = new JLabel("Bozze disponibili:");
         languageLabel = new JLabel("Lingua: ");
@@ -106,6 +106,7 @@ public class BozzePanel extends JPanel implements View {
         topPanel.add(linguaDropdown);
         bottomPanel.add(saveBozzaBtn);
         bottomPanel.add(deleteBozzaBtn);
+        bottomPanel.add(sendBozzaBtn);
         leftPanel.add(corpoBozza, BorderLayout.CENTER);
         rightPanel.add(bozzeListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);

@@ -59,7 +59,7 @@ public class InboxPanel extends JPanel implements View {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof MessaggioDestinatario) {
                     MessaggioDestinatario temp = (MessaggioDestinatario) value;
-                    ((JLabel) renderer).setText(temp.getTitolo() + " " + temp.getId());
+                    ((JLabel) renderer).setText(temp.getTitolo() + " ");
                 }
                 return renderer;
             }

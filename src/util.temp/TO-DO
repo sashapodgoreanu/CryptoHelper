@@ -5,11 +5,14 @@ OK - DBController public Messaggio getMessaggio(int id) throws SQLException da m
 OK - creare interfaccia per inbox
 OK - modificare i metodi getBozze e getDestinatari in modo che siano visualizzati solo le bozze e i destinatari con cui si
      è concordato il sistema di cifratura
+OK - apri bozza, elimina bozza, invia bozza
+
+
 
 - aggiungere bottone select languagge con una lista drop-down con elementi prescelti tra inglese e italiano
 sasha - creaSistemaDicifratura
 
-giulio - apri bozza elimina etc [IN CORSO]
+
 luigi - inbox
 
 CREARE TUTTI I COMPONENTI CHE SARANNO REGITRATI PRESO CONTROLLER NEI METODI init() di ogni GUI 

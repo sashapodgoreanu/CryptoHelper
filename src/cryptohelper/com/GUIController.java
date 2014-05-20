@@ -76,7 +76,7 @@ public class GUIController {
             loginForm.setUsernameField("sasha");
             loginForm.setPasswordField("1234");
             /**
-             * 
+             *
              */
             loginForm.getSubmit().addActionListener(new LoginFormListener());
             loginForm.getRegistration().addActionListener(new RegistrationFormListener());
@@ -102,6 +102,7 @@ public class GUIController {
             bozzePanel = (BozzePanel) v;
             bozzePanel.getSaveBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
             bozzePanel.getDeleteBozzaBtn().addActionListener(new ElimnaBozzaListener());
+            bozzePanel.getSendBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
             bozzePanel.getElencoBozze().addListSelectionListener(new ViewBozzeMsgListener());
         } else if (v instanceof SdcPanel) {
             sdcPanel = (SdcPanel) v;
@@ -331,7 +332,7 @@ public class GUIController {
                 } else {
                     panelloPrincipale.setStatus("Devi selezionare un destinatario");
                 }
-            } else if (ev.getText().equalsIgnoreCase("invia")) {
+            } else if (ev.getText().equalsIgnoreCase("Invia")) {
                 String temp = messagePanel.getTitoloMessaggioField().replaceAll("\\s+", "");
                 if (temp.equals("")) {
                     panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
@@ -371,22 +372,41 @@ public class GUIController {
                     panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
                 } else { //altrimenti salva il messaggio
                     panelloPrincipale.setStatus("");
+                    Messaggio m = ((Messaggio) bozzePanel.getElencoBozze().getSelectedValue());
                     //TO DO CAMBIARE PARAMETRO TESTO CIFRATO  
-                   
-                   Messaggio m = ((Messaggio) bozzePanel.getElencoBozze().getSelectedValue());
-                   System.out.println(m.toString());
-                   System.out.println(bozzePanel.getCorpoBozza().getText());
-                   System.out.println(bozzePanel.getCorpoBozza().getText());
-                   System.out.println(bozzePanel.getLingua());
-                   System.out.println(m.getDestinatario());
-                   
-                   msgMittente = new Messaggio(m.getId(),bozzePanel.getCorpoBozza().getText(),/*qui*/ bozzePanel.getCorpoBozza().getText(),/**/ bozzePanel.getLingua(),
+                    msgMittente = new Messaggio(m.getId(), bozzePanel.getCorpoBozza().getText(),/*qui*/ bozzePanel.getCorpoBozza().getText(),/**/ bozzePanel.getLingua(),
                             bozzePanel.getTitoloBozza(), true, true, utilizzatoreSistema, m.getDestinatario());
                     //se msg.salva ritorna false allora c'è un errore
                     if (msgMittente.salva()) {
                         panelloPrincipale.setStatus("Messaggio Salvato!");
                     } else {
                         panelloPrincipale.setStatus("Si è verificato un errore durante il salvataggio del messaggio!");
+                    }
+                }
+            } else if (ev.getText().equalsIgnoreCase("Invia bozza")) {
+                String temp = bozzePanel.getTitoloBozza().replaceAll("\\s+", "");
+                if (temp.equals("")) {
+                    panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
+                } else { //altrimenti invia il messaggio
+                    System.out.println("INVIA MESSAGGIO");
+                    panelloPrincipale.setStatus("");
+                    Messaggio m = ((Messaggio) bozzePanel.getElencoBozze().getSelectedValue());
+                    SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), m.getDestinatario().getId());
+                    String testoCifrato = Cifratore.cifraMonoalfabetica(sdc.getMp(), bozzePanel.getCorpoBozza().getText());  
+                    msgMittente = new Messaggio(m.getId(),//id
+                            bozzePanel.getCorpoBozza().getText(),//testo in chiaro
+                            testoCifrato,//testo cifrato
+                            bozzePanel.getLingua(), //lingua
+                            bozzePanel.getTitoloBozza(),// titolo messaggio
+                            false,// isBozza
+                            false,//isLetto
+                            utilizzatoreSistema,//mittente
+                            m.getDestinatario());//destinatario
+                    //se msg.salva ritorna false allora errore
+                    if (msgMittente.salva()) {
+                        panelloPrincipale.setStatus("Messaggio Inviato!");
+                    } else {
+                        panelloPrincipale.setStatus("Si è verificato un errore durante il invio del messaggio!");
                     }
                 }
             }
