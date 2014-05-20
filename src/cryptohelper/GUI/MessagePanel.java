@@ -55,6 +55,7 @@ public class MessagePanel extends JPanel implements View {
         //INIT DEI CONTROLLI
         String[] lingua = {"inglese", "italiano"};
         linguaDropdown = new JComboBox(lingua);
+        linguaDropdown.setBackground(Color.WHITE);
         newMessageBtn = new JButton("");
         saveBozzaBtn = new JButton("Salva come bozza");
         inviaMessageBtn = new JButton("Invia");
