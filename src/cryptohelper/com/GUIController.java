@@ -222,9 +222,10 @@ public class GUIController {
             panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             MessaggioMittente mess = (MessaggioMittente) bozzePanel.getElencoBozze().getSelectedValue();
-            bozzePanel.getCorpoBozza().setText((new HtmlVisitor().visit(mess)));
+            bozzePanel.getCorpoBozza().setText(mess.getTesto());
             bozzePanel.setTitoloBozza(mess.getTitolo());
             bozzePanel.setDestinatario(mess.getDestinatario().getNome() + " " + mess.getDestinatario().getCognome());
+            bozzePanel.getLinguaDropdown().setSelectedItem(mess.getLingua());
         }
     }
 
@@ -370,10 +371,17 @@ public class GUIController {
                     panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
                 } else { //altrimenti salva il messaggio
                     panelloPrincipale.setStatus("");
-                    //TO DO CAMBIARE PARAMETRO TESTO CIFRATO
-                    msgMittente = new Messaggio(msgMittente.getId(), bozzePanel.getCorpoBozza().getText(),
-                            /*qui*/ bozzePanel.getCorpoBozza().getText(),/**/ bozzePanel.getLingua(),
-                            bozzePanel.getTitoloBozza(), true, true, utilizzatoreSistema, msgMittente.getDestinatario());
+                    //TO DO CAMBIARE PARAMETRO TESTO CIFRATO  
+                   
+                   Messaggio m = ((Messaggio) bozzePanel.getElencoBozze().getSelectedValue());
+                   System.out.println(m.toString());
+                   System.out.println(bozzePanel.getCorpoBozza().getText());
+                   System.out.println(bozzePanel.getCorpoBozza().getText());
+                   System.out.println(bozzePanel.getLingua());
+                   System.out.println(m.getDestinatario());
+                   
+                   msgMittente = new Messaggio(m.getId(),bozzePanel.getCorpoBozza().getText(),/*qui*/ bozzePanel.getCorpoBozza().getText(),/**/ bozzePanel.getLingua(),
+                            bozzePanel.getTitoloBozza(), true, true, utilizzatoreSistema, m.getDestinatario());
                     //se msg.salva ritorna false allora c'è un errore
                     if (msgMittente.salva()) {
                         panelloPrincipale.setStatus("Messaggio Salvato!");

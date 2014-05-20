@@ -88,9 +88,10 @@ public class BozzePanel extends JPanel implements View {
         elencoBozze.setSelectedIndex(0);
         MessaggioMittente index0 = (MessaggioMittente) elencoBozze.getSelectedValue();
         if (index0 != null) {
-            corpoBozza.setText(new HtmlVisitor().visit(index0));
+            setCorpoBozza(index0.getTitolo());
             setTitoloBozza(index0.getTitolo());
             setDestinatario(index0.getDestinatario().getNome() + " " + index0.getDestinatario().getCognome());
+            linguaDropdown.setSelectedItem(index0.getLingua());
         }
         scrollPane = new JScrollPane();
         scrollPane.setPreferredSize(new Dimension(180, 250));
@@ -188,6 +189,10 @@ public class BozzePanel extends JPanel implements View {
         return linguaDropdown.getSelectedItem().toString();
     }
 
+    public JComboBox getLinguaDropdown() {
+        return linguaDropdown;
+    }
+    
     public ArrayList<MessaggioMittente> getBozzeArrLst() {
         return bozzeArrLst;
     }
@@ -199,5 +204,9 @@ public class BozzePanel extends JPanel implements View {
 
     public void setDestinatario(String dest) {
         destinatarioField.setText(dest);
+    }
+    
+    public void setCorpoBozza(String testo) {
+        corpoBozza.setText(testo);
     }
 }
