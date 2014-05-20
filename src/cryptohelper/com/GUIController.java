@@ -224,7 +224,7 @@ public class GUIController {
             MessaggioMittente mess = (MessaggioMittente) bozzePanel.getElencoBozze().getSelectedValue();
             bozzePanel.getCorpoBozza().setText((new HtmlVisitor().visit(mess)));
             bozzePanel.setTitoloBozza(mess.getTitolo());
-            bozzePanel.setDestinatarioLabel(mess.getDestinatario().getNome() + " " + mess.getDestinatario().getCognome());
+            bozzePanel.setDestinatario(mess.getDestinatario().getNome() + " " + mess.getDestinatario().getCognome());
         }
     }
 
@@ -370,7 +370,6 @@ public class GUIController {
                     panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
                 } else { //altrimenti salva il messaggio
                     panelloPrincipale.setStatus("");
-
                     //TO DO CAMBIARE PARAMETRO TESTO CIFRATO
                     msgMittente = new Messaggio(msgMittente.getId(), bozzePanel.getCorpoBozza().getText(),
                             /*qui*/ bozzePanel.getCorpoBozza().getText(),/**/ bozzePanel.getLingua(),

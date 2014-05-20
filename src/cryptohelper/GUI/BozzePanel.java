@@ -22,9 +22,9 @@ public class BozzePanel extends JPanel implements View {
     JButton sendBozzaBtn;
     JLabel msgTitleLabel;
     JLabel bozzeListLabel;
-    JLabel destinatarioLabel;
-    JLabel destinatarioPromptLabel;
     JLabel languageLabel;
+    JLabel destinatarioPromptLabel;  
+    JTextField destinatarioField;
     JTextField titoloBozzaField;    //inputBox per il messaggio
     JList elencoBozze;                  //visualizza lalista delle bozze
     JScrollPane scrollPane;
@@ -63,9 +63,10 @@ public class BozzePanel extends JPanel implements View {
         bozzeListLabel = new JLabel("Bozze disponibili:");
         languageLabel = new JLabel("Lingua: ");
         destinatarioPromptLabel = new JLabel("Destinatario: ");
-        destinatarioLabel = new JLabel("");
-        destinatarioLabel.setBackground(Color.WHITE);
-        destinatarioLabel.setOpaque(true);
+        destinatarioField = new JTextField("");
+        destinatarioField.setEditable(false);
+        destinatarioField.setBackground(Color.WHITE);
+        destinatarioField.setOpaque(true);
         titoloBozzaField = new JTextField(21);
         corpoBozza = new JTextPane();
         corpoBozza.setPreferredSize(new Dimension(540, 250));
@@ -89,7 +90,7 @@ public class BozzePanel extends JPanel implements View {
         if (index0 != null) {
             corpoBozza.setText(new HtmlVisitor().visit(index0));
             setTitoloBozza(index0.getTitolo());
-            setDestinatarioLabel(index0.getDestinatario().getNome() + " " + index0.getDestinatario().getCognome());
+            setDestinatario(index0.getDestinatario().getNome() + " " + index0.getDestinatario().getCognome());
         }
         scrollPane = new JScrollPane();
         scrollPane.setPreferredSize(new Dimension(180, 250));
@@ -99,7 +100,7 @@ public class BozzePanel extends JPanel implements View {
         topPanel.add(msgTitleLabel);
         topPanel.add(titoloBozzaField);
         topPanel.add(destinatarioPromptLabel);
-        topPanel.add(destinatarioLabel);
+        topPanel.add(destinatarioField);
         topPanel.add(languageLabel);
         topPanel.add(linguaDropdown);
         bottomPanel.add(saveBozzaBtn);
@@ -180,7 +181,7 @@ public class BozzePanel extends JPanel implements View {
     }
 
     public String getDestinatario() {
-        return destinatarioLabel.getText();
+        return destinatarioField.getText();
     }
 
     public String getLingua() {
@@ -196,7 +197,7 @@ public class BozzePanel extends JPanel implements View {
         titoloBozzaField.setText(titolo);
     }
 
-    public void setDestinatarioLabel(String dest) {
-        destinatarioLabel.setText(dest);
+    public void setDestinatario(String dest) {
+        destinatarioField.setText(dest);
     }
 }
