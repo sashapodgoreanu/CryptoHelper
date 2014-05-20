@@ -233,6 +233,7 @@ public class DBController {
         System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Success");
         return new QueryResult(resultList);
     }
+    
 
     public int executeUpdateAndReturnKey(String querry) throws SQLException {
         connect();
