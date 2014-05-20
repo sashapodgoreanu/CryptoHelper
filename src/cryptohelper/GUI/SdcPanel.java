@@ -16,44 +16,42 @@ public class SdcPanel extends JPanel implements View {
     private JButton proponiSDCBtn;
     private JButton gestisciSDCBtn;
     private JButton inboxProposteSDCBtn;
-    private JButton proposteAccetateBtn;
     private JButton creaSDCBtn;
     private JPanel topPanel;
     private JPanel centerSDCPanel;
     private CreaSDCPanel creasdc;
     private ProponiSDCPanel psdcp;
     private InboxSDCPanel isdcp;
+    private GestisciSDCPanel gsdcp;
 
     public SdcPanel() {
         init();
         registerController();
     }
-    
+
     public void init() {
         System.out.println("initCreateSDC");
         //creazione dei componenti
         proponiSDCBtn = new JButton("<html>Proponi<br/>Sistema di Cifratura</html>");
         inboxProposteSDCBtn = new JButton("Inbox");
-        proposteAccetateBtn = new JButton("Proposte accettate");
         creaSDCBtn = new JButton("<html>Crea<br/>Sistema di Cifratura</html>");
-        gestisciSDCBtn = new JButton("<html>Gestisci<br/>Sistemi di Cifratura</html>");
+        gestisciSDCBtn = new JButton("<html>Sistemi di Cifratura<br/>accettati</html>");
         topPanel = new JPanel();
         centerSDCPanel = new JPanel(new BorderLayout());
         this.setLayout(new BorderLayout());
-        
+
         //aggiungi i bottoni
         topPanel.add(creaSDCBtn);
-        topPanel.add(gestisciSDCBtn);
         topPanel.add(proponiSDCBtn);
         topPanel.add(inboxProposteSDCBtn);
-        topPanel.add(proposteAccetateBtn);
+        topPanel.add(gestisciSDCBtn);
 
         //aggiungi 2 panelli
         this.add(topPanel, BorderLayout.NORTH);
         this.add(centerSDCPanel, BorderLayout.CENTER);
     }
 
-    public void initCreateSDC(){
+    public void initCreateSDC() {
         System.out.println("initCreateSDC");
         //pulisci
         this.resetpanels();
@@ -62,24 +60,35 @@ public class SdcPanel extends JPanel implements View {
         centerSDCPanel.add(creasdc);
         this.revalidate();
     }
-    
-    public void initProponiSDCPanel(ArrayList<UserInfo> destinatariArrLst, ArrayList<SistemaCifratura> sdc){
+
+    public void initProponiSDCPanel(ArrayList<UserInfo> destinatariArrLst, ArrayList<SistemaCifratura> sdc) {
         System.out.println("proponi sistema di cifratura");
         //pulisci
         this.resetpanels();
         //crea nuovo panello 
-        psdcp = new ProponiSDCPanel(destinatariArrLst,sdc);
+        psdcp = new ProponiSDCPanel(destinatariArrLst, sdc);
         centerSDCPanel.add(psdcp);
         this.revalidate();
     }
-    
-    public void initInboxSDCPanel(ArrayList<Proposta> proposteArrLst){
-        System.out.println("proponi sistema di cifratura");
+
+    public void initInboxSDCPanel(ArrayList<Proposta> proposteArrLst) {
+        //   System.out.println("proponi sistema di cifratura");
         //pulisci
         this.resetpanels();
         //crea nuovo panello 
         isdcp = new InboxSDCPanel(proposteArrLst);
         centerSDCPanel.add(isdcp);
+        this.revalidate();
+    }
+
+    public void initGestisciSDCPanel(ArrayList<Proposta> proposteArrLst) {
+        //     System.out.println("proponi sistema di cifratura");
+        //pulisci
+        System.out.println("ÄAAAAAAAAAAA");
+        this.resetpanels();
+        //crea nuovo panello 
+        gsdcp = new GestisciSDCPanel(proposteArrLst);
+        centerSDCPanel.add(gsdcp);
         this.revalidate();
     }
 
@@ -117,14 +126,6 @@ public class SdcPanel extends JPanel implements View {
         this.inboxProposteSDCBtn = inboxProposteSDCBtn;
     }
 
-    public JButton getProposteAccetateBtn() {
-        return proposteAccetateBtn;
-    }
-
-    public void setProposteAccetateBtn(JButton proposteAccetateBtn) {
-        this.proposteAccetateBtn = proposteAccetateBtn;
-    }
-
     public JButton getCreaSDCBtn() {
         return creaSDCBtn;
     }
@@ -148,4 +149,13 @@ public class SdcPanel extends JPanel implements View {
     public void setCenterSDCPanel(JPanel centerSDCPanel) {
         this.centerSDCPanel = centerSDCPanel;
     }
+
+    public JButton getGestisciSDCBtn() {
+        return gestisciSDCBtn;
+    }
+
+    public void setGestisciSDCBtn(JButton gestisciSDCBtn) {
+        this.gestisciSDCBtn = gestisciSDCBtn;
+    }
+
 }

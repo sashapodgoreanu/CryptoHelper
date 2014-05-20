@@ -103,6 +103,7 @@ public class GUIController {
         } else if (v instanceof SdcPanel) {
             sdcPanel = (SdcPanel) v;
             sdcPanel.getCreaSDCBtn().addActionListener(new CreateSDCListener());
+            sdcPanel.getGestisciSDCBtn().addActionListener(new GestisciSDCListener());
             sdcPanel.getProponiSDCBtn().addActionListener(new ProponiSDCListener());
             sdcPanel.getInboxProposteSDCBtn().addActionListener(new InboxSDCListener());
         } else if (v instanceof CreaSDCPanel) {
@@ -262,6 +263,15 @@ public class GUIController {
             sdcPanel.initCreateSDC();
         }
     }
+    
+    private class GestisciSDCListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            panelloPrincipale.setStatus(" ");
+            JButton ev = (JButton) e.getSource();
+            sdcPanel.initGestisciSDCPanel(Proposta.caricaProposteSistemiCifratura(utilizzatoreSistema));
+        }
+    }     
 
 //classe listener per JRadioButtons per selezionare il metodo di cifratura
     private class MetodoDicifraturaListener implements ActionListener {
@@ -465,7 +475,7 @@ public class GUIController {
         public void actionPerformed(ActionEvent e) {
             panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
-            sdcPanel.initInboxSDCPanel(Proposta.caricaProposteSistemiCifratura(utilizzatoreSistema));
+            sdcPanel.initInboxSDCPanel(Proposta.caricaProposteSistemiCifraturaPedding(utilizzatoreSistema));
 
         }
     }

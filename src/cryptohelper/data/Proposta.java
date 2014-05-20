@@ -77,8 +77,8 @@ public class Proposta {
         QueryResult qr;
         try {
             qr = DBController.getInstance().executeQuery(queryExists);
-            System.out.println("QR*************"+qr.toString());
-            System.out.println("Size*************"+qr.getSize());
+            System.out.println("QR*************" + qr.toString());
+            System.out.println("Size*************" + qr.getSize());
             if (qr.getSize() > 0) {
                 return false;
             }
@@ -125,7 +125,7 @@ public class Proposta {
      * @param stud Studente logato al sistema
      * @return lista con proposte che hanno come stato pending
      */
-    public static ArrayList<Proposta> caricaProposteSistemiCifratura(UserInfo stud) {
+    public static ArrayList<Proposta> caricaProposteSistemiCifraturaPedding(UserInfo stud) {
         String query = "SELECT * FROM SDCPARTNERS WHERE ID_PARTNER =" + stud.getId();
         QueryResult qr = null;
         ArrayList<Proposta> proposte = new ArrayList<>();
@@ -139,6 +139,37 @@ public class Proposta {
 
                 }
 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SistemaCifratura.class
+                    .getName()).log(Level.SEVERE, null, ex.getMessage());
+        } catch (Exception ex) {
+            Logger.getLogger(SistemaCifratura.class
+                    .getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        return proposte;
+    }
+
+    /**
+     *
+     * @param stud Studente logato al sistema
+     * @return lista con proposte accettate di cifratura accettate
+     */
+    public static ArrayList<Proposta> caricaProposteSistemiCifratura(UserInfo stud) {
+        String query = "SELECT *"
+                + "FROM SDCPARTNERS "
+                + "WHERE ID_PARTNER = " + stud.getId() + " OR ID_CREATORE = " + stud.getId();
+        QueryResult qr = null;
+        ArrayList<Proposta> proposte = new ArrayList<>();
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            System.out.println(qr.toString());
+            while (qr.next()) {
+                if (qr.getString("stato_proposta").equals("accettata")) {
+                Proposta temp = new Proposta(SistemaCifratura.getSistemaCifratura(qr.getInt("ID_SDC")), UserInfo.getUserInfo(qr.getInt("ID_CREATORE")), UserInfo.getUserInfo(qr.getInt("ID_PARTNER")));
+                System.out.println("Proposta: " + temp.toString());
+                proposte.add(temp);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(SistemaCifratura.class

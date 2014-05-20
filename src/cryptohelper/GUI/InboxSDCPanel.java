@@ -44,7 +44,7 @@ public class InboxSDCPanel extends JPanel implements View {
         bottomPanel.setLayout(new FlowLayout());
 
         //INIT DEI CONTROLLI
-        JLabel targetListLabel = new JLabel("Proposte ricevute:");
+        JLabel targetListLabel = new JLabel("Tutte le proposte:");
         accettaBtn = new JButton("Accetta");
         rifiutaBtn = new JButton("Rifiuta");
         infoSdcLabel = new JLabel("");
