@@ -3,14 +3,12 @@ package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
+import cryptohelper.data.HtmlVisitor;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
-import cryptohelper.data.Studente;
-import cryptohelper.data.UserInfo;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 
 public class OutboxPanel extends JPanel implements View {
@@ -24,7 +22,8 @@ public class OutboxPanel extends JPanel implements View {
     JList elencoMessaggiInviati;
     JTextPane corpoMessaggio;
     JScrollPane scrollPane;
-    ArrayList<MessaggioMittente> destinatariMessaggiArrLst; //elenco mittenti
+    JButton eliminaMessaggioBtn;
+    ArrayList<MessaggioMittente> destinatariMessaggiArrLst; //elenco destintari dei messaggi
 
     public OutboxPanel(ArrayList<MessaggioMittente> destinatariMessaggiArrLst) {
         this.destinatariMessaggiArrLst = destinatariMessaggiArrLst;
@@ -49,6 +48,7 @@ public class OutboxPanel extends JPanel implements View {
         //INIT DEI CONTROLLI
         targetListLabel = new JLabel("Messaggi inviati:");
         messageTextLabel = new JLabel("Testo del messaggio:");
+        eliminaMessaggioBtn = new JButton("Elimina messaggio");
         elencoMessaggiInviati = new JList(new Vector<MessaggioMittente>(destinatariMessaggiArrLst));
         elencoMessaggiInviati.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -70,11 +70,16 @@ public class OutboxPanel extends JPanel implements View {
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
         corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+        MessaggioMittente index0 = (MessaggioMittente) elencoMessaggiInviati.getSelectedValue();
+        if (index0 != null) {
+            corpoMessaggio.setText(new HtmlVisitor().visit(index0));
+        }
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
+        bottomPanel.add(eliminaMessaggioBtn);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
