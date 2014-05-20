@@ -308,14 +308,17 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
 
     //Preleva l'elenco dei messaggi inviati     TODO _ CORREGGERE
     public static ArrayList<MessaggioMittente> caricaMessaggiInviati(int idStudente) {
-        String query = "SELECT * FROM Messaggi WHERE mittente = " + idStudente;
+        String query = "SELECT * FROM Messaggi WHERE ID_Mittente = " + idStudente + "AND Bozza = False";
         QueryResult qr = null;
         ArrayList<MessaggioMittente> inviati = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
+                UserInfo mit = UserInfo.getUserInfo(idStudente);
+                UserInfo dest = UserInfo.getUserInfo(qr.getInt("ID_Destinatario"));
                 MessaggioMittente temp = new Messaggio(qr.getInt("ID"), qr.getString("Testo"), qr.getString("TestoCifrato"),
-                        qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")));
+                        qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")),
+                        mit, dest);
                 inviati.add(temp);
             }
         } catch (Exception ex) {

@@ -55,6 +55,7 @@ public class MessagePanel extends JPanel implements View {
         //INIT DEI CONTROLLI
         String[] lingua = {"inglese", "italiano"};
         linguaDropdown = new JComboBox(lingua);
+        linguaDropdown.setBackground(Color.WHITE);
         newMessageBtn = new JButton("");
         saveBozzaBtn = new JButton("Salva come bozza");
         inviaMessageBtn = new JButton("Invia");
@@ -73,13 +74,13 @@ public class MessagePanel extends JPanel implements View {
                 if (renderer instanceof JLabel && value instanceof UserInfo) {
                     UserInfo temp = (UserInfo) value;
                     //System.out.println("renderer " + temp.toString());
-                    ((JLabel) renderer).setText(temp.getId() + " " + temp.getNome() + " " + temp.getCognome());
+                    ((JLabel) renderer).setText(temp.getNome() + " " + temp.getCognome());
                 }
                 return renderer;
             }
         });
-        //elencoDestinatari.setSelectedIndex(0);
         elencoDestinatari.setFixedCellWidth(160);
+        inviaMessageBtn.setEnabled(true);
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoDestinatari);
         corpoMessaggio = new JTextArea();
@@ -156,11 +157,10 @@ public class MessagePanel extends JPanel implements View {
         return corpoMessaggio.getText();
     }
 
-    public String getLingua()
-    {
+    public String getLingua() {
         return linguaDropdown.getSelectedItem().toString();
     }
-    
+
     public ArrayList<UserInfo> getDestinatari() {
         return destinatariArrLst;
     }

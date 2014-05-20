@@ -80,6 +80,7 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initNuovoMessaggio() {
         this.resetPanels();
         this.setTitle("CryptoHelper - Nuovo Messaggio");    //cambia titolo al form
+         this.setStatus("Compilare i campi richiesti per creare un nuovo messaggio"); //messaggio per la status label
         bodyPanel.add(new MessagePanel(destinatariArrLst)); //aggiunge il nuovo pannello
         bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
     }
