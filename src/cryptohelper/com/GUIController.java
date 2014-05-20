@@ -367,7 +367,7 @@ public class GUIController {
             }
             if (ev.getText().equalsIgnoreCase("Salva")) {
                 //se il tittolo del messaggio e vuouto mostra un  messaggio di errore
-                if (bozzePanel.getTitoloBozza() == "") {
+                if (bozzePanel.getTitoloBozza().equals("")) {
                     panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
                 } else { //altrimenti salva il messaggio
                     panelloPrincipale.setStatus("");
@@ -389,8 +389,6 @@ public class GUIController {
                         panelloPrincipale.setStatus("Si è verificato un errore durante il salvataggio del messaggio!");
                     }
                 }
-            } else {
-                panelloPrincipale.setStatus("Devi selezionare un destinatario");
             }
         }
     }

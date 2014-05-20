@@ -74,7 +74,7 @@ public class MessagePanel extends JPanel implements View {
                 if (renderer instanceof JLabel && value instanceof UserInfo) {
                     UserInfo temp = (UserInfo) value;
                     //System.out.println("renderer " + temp.toString());
-                    ((JLabel) renderer).setText(temp.getId() + " " + temp.getNome() + " " + temp.getCognome());
+                    ((JLabel) renderer).setText(temp.getNome() + " " + temp.getCognome());
                 }
                 return renderer;
             }
