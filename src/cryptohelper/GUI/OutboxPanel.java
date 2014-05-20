@@ -22,6 +22,7 @@ public class OutboxPanel extends JPanel implements View {
     JList elencoMessaggiInviati;
     JTextPane corpoMessaggio;
     JScrollPane scrollPane;
+    JButton eliminaMessaggioBtn;
     ArrayList<MessaggioMittente> destinatariMessaggiArrLst; //elenco destintari dei messaggi
 
     public OutboxPanel(ArrayList<MessaggioMittente> destinatariMessaggiArrLst) {
@@ -47,6 +48,7 @@ public class OutboxPanel extends JPanel implements View {
         //INIT DEI CONTROLLI
         targetListLabel = new JLabel("Messaggi inviati:");
         messageTextLabel = new JLabel("Testo del messaggio:");
+        eliminaMessaggioBtn = new JButton("Elimina messaggio");
         elencoMessaggiInviati = new JList(new Vector<MessaggioMittente>(destinatariMessaggiArrLst));
         elencoMessaggiInviati.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -77,6 +79,7 @@ public class OutboxPanel extends JPanel implements View {
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
+        bottomPanel.add(eliminaMessaggioBtn);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
