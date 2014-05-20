@@ -63,6 +63,7 @@ public class OutboxPanel extends JPanel implements View {
         });
         elencoMessaggiInviati.setSelectedIndex(0);
         scrollPane = new JScrollPane();
+        scrollPane.setPreferredSize(new Dimension(180, 250));
         scrollPane.setViewportView(elencoMessaggiInviati);
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setSize(new Dimension(540, 250));
@@ -96,8 +97,6 @@ public class OutboxPanel extends JPanel implements View {
     }
 
     //METODI GETTER
-
-
     public JList getElencoMessaggiInviati() {
         return elencoMessaggiInviati;
     }
@@ -105,7 +104,6 @@ public class OutboxPanel extends JPanel implements View {
     public String getCorpoMessaggio() {
         return corpoMessaggio.getText();
     }
-
 
     //METODI SETTER
     public void setCorpoMessaggio(String msg) {
@@ -119,7 +117,5 @@ public class OutboxPanel extends JPanel implements View {
     public void setMittentiMessaggiArrLst(ArrayList<MessaggioMittente> bozzeArayLst) {
         this.destinatariMessaggiArrLst = bozzeArayLst;
     }
-    
-    
 
 }

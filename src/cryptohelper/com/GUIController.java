@@ -183,8 +183,8 @@ public class GUIController {
             panelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            //ArrayList<MessaggioMittente> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
-            //pp.initOutbox(temp);
+            ArrayList<MessaggioMittente> temp = Messaggio.caricaMessaggiInviati(utilizzatoreSistema.getId());
+            panelloPrincipale.initOutbox(temp);
         }
     }
 
