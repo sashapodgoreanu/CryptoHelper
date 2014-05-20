@@ -78,6 +78,8 @@ public class BozzePanel extends JPanel implements View {
         MessaggioMittente index0 = (MessaggioMittente) elencoBozze.getSelectedValue();
         if (index0 != null) {
             corpoBozza.setText(new HtmlVisitor().visit(index0));
+            setTitoloBozza(index0.getTitolo());
+            setDestinatarioLabel("Destinatario: " + index0.getDestinatario().getNome() + " " + index0.getDestinatario().getCognome());
         }
         scrollPane = new JScrollPane();
         scrollPane.setPreferredSize(new Dimension(180, 250));
