@@ -23,10 +23,13 @@ public class BozzePanel extends JPanel implements View {
     JLabel msgTitleLabel;
     JLabel bozzeListLabel;
     JLabel destinatarioLabel;
-    JTextField titoloMessaggioField;    //inputBox per il messaggio
+    JLabel destinatarioPromptLabel;
+    JLabel languageLabel;
+    JTextField titoloBozzaField;    //inputBox per il messaggio
     JList elencoBozze;                  //visualizza lalista delle bozze
     JScrollPane scrollPane;
     JTextPane corpoBozza;
+    JComboBox linguaDropdown;
     ArrayList<MessaggioMittente> bozzeArrLst;   //array list con elenco delle bozze disponibili (messaggi in cui l'utente loggato è il mittente)
 
     public BozzePanel(ArrayList<MessaggioMittente> bozzeArrLst) {
@@ -50,13 +53,20 @@ public class BozzePanel extends JPanel implements View {
         bottomPanel.setLayout(new FlowLayout());
 
         //INIT DEI CONTROLLI
+        String[] lingua = {"inglese", "italiano"};
+        linguaDropdown = new JComboBox(lingua);
+        linguaDropdown.setBackground(Color.WHITE);
         saveBozzaBtn = new JButton("Salva"); //non modificare 
         deleteBozzaBtn = new JButton("Elimina");//non modificare 
         sendBozzaBtn = new JButton("Invia messaggio");
         msgTitleLabel = new JLabel("Titolo della bozza:");
         bozzeListLabel = new JLabel("Bozze disponibili:");
+        languageLabel = new JLabel("Lingua: ");
+        destinatarioPromptLabel = new JLabel("Destinatario: ");
         destinatarioLabel = new JLabel("");
-        titoloMessaggioField = new JTextField(21);
+        destinatarioLabel.setBackground(Color.WHITE);
+        destinatarioLabel.setOpaque(true);
+        titoloBozzaField = new JTextField(21);
         corpoBozza = new JTextPane();
         corpoBozza.setPreferredSize(new Dimension(540, 250));
         corpoBozza.setContentType("text/html"); //consente formattazione html
@@ -79,7 +89,7 @@ public class BozzePanel extends JPanel implements View {
         if (index0 != null) {
             corpoBozza.setText(new HtmlVisitor().visit(index0));
             setTitoloBozza(index0.getTitolo());
-            setDestinatarioLabel("Destinatario: " + index0.getDestinatario().getNome() + " " + index0.getDestinatario().getCognome());
+            setDestinatarioLabel(index0.getDestinatario().getNome() + " " + index0.getDestinatario().getCognome());
         }
         scrollPane = new JScrollPane();
         scrollPane.setPreferredSize(new Dimension(180, 250));
@@ -87,8 +97,11 @@ public class BozzePanel extends JPanel implements View {
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI
         topPanel.add(msgTitleLabel);
-        topPanel.add(titoloMessaggioField);
+        topPanel.add(titoloBozzaField);
+        topPanel.add(destinatarioPromptLabel);
         topPanel.add(destinatarioLabel);
+        topPanel.add(languageLabel);
+        topPanel.add(linguaDropdown);
         bottomPanel.add(saveBozzaBtn);
         bottomPanel.add(deleteBozzaBtn);
         leftPanel.add(corpoBozza, BorderLayout.CENTER);
@@ -143,7 +156,7 @@ public class BozzePanel extends JPanel implements View {
     }
 
     public String getTitoloBozza() {
-        return titoloMessaggioField.getText();
+        return titoloBozzaField.getText();
     }
 
     public JButton getDeleteBozzaBtn() {
@@ -166,13 +179,21 @@ public class BozzePanel extends JPanel implements View {
         return corpoBozza;
     }
 
+    public String getDestinatario() {
+        return destinatarioLabel.getText();
+    }
+
+    public String getLingua() {
+        return linguaDropdown.getSelectedItem().toString();
+    }
+
     public ArrayList<MessaggioMittente> getBozzeArrLst() {
         return bozzeArrLst;
     }
 
     //METODI SETTER
     public void setTitoloBozza(String titolo) {
-        titoloMessaggioField.setText(titolo);
+        titoloBozzaField.setText(titolo);
     }
 
     public void setDestinatarioLabel(String dest) {

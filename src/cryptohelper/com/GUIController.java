@@ -75,6 +75,9 @@ public class GUIController {
             //solo per il test
             loginForm.setUsernameField("sasha");
             loginForm.setPasswordField("1234");
+            /**
+             * 
+             */
             loginForm.getSubmit().addActionListener(new LoginFormListener());
             loginForm.getRegistration().addActionListener(new RegistrationFormListener());
         } else if (v instanceof RegistrationForm) {
@@ -97,7 +100,7 @@ public class GUIController {
             panelloPrincipale.getSDCBtn().addActionListener(new GestisciSDC());
         } else if (v instanceof BozzePanel) {
             bozzePanel = (BozzePanel) v;
-            //TO-DO bozzePanel.getSaveBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
+            bozzePanel.getSaveBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
             bozzePanel.getDeleteBozzaBtn().addActionListener(new ElimnaBozzaListener());
             bozzePanel.getElencoBozze().addListSelectionListener(new ViewBozzeMsgListener());
         } else if (v instanceof SdcPanel) {
@@ -199,7 +202,6 @@ public class GUIController {
         }
     }
 
-    
     //classe listener per la Jlist della outbox 
     private class ViewOutboxMsgListener implements ListSelectionListener {
 
@@ -211,8 +213,7 @@ public class GUIController {
             outboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(proposta)));
         }
     }
-    
-    
+
     //classe listener per la Jlist "ElencoBozze" 
     private class ViewBozzeMsgListener implements ListSelectionListener {
 
@@ -223,7 +224,7 @@ public class GUIController {
             MessaggioMittente mess = (MessaggioMittente) bozzePanel.getElencoBozze().getSelectedValue();
             bozzePanel.getCorpoBozza().setText((new HtmlVisitor().visit(mess)));
             bozzePanel.setTitoloBozza(mess.getTitolo());
-            bozzePanel.setDestinatarioLabel("Destinatario: " + mess.getDestinatario().getNome() + " " + mess.getDestinatario().getCognome());
+            bozzePanel.setDestinatarioLabel(mess.getDestinatario().getNome() + " " + mess.getDestinatario().getCognome());
         }
     }
 
@@ -362,7 +363,27 @@ public class GUIController {
                         panelloPrincipale.setStatus("Si è verificato un errore durante il invio del messaggio!");
                     }
                 }
+            }
+            if (ev.getText().equalsIgnoreCase("Salva")) {
+                //se il tittolo del messaggio e vuouto mostra un  messaggio di errore
+                if (bozzePanel.getTitoloBozza() == "") {
+                    panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
+                } else { //altrimenti salva il messaggio
+                    panelloPrincipale.setStatus("");
 
+                    //TO DO CAMBIARE PARAMETRO TESTO CIFRATO
+                    msgMittente = new Messaggio(msgMittente.getId(), bozzePanel.getCorpoBozza().getText(),
+                            /*qui*/ bozzePanel.getCorpoBozza().getText(),/**/ bozzePanel.getLingua(),
+                            bozzePanel.getTitoloBozza(), true, true, utilizzatoreSistema, msgMittente.getDestinatario());
+                    //se msg.salva ritorna false allora c'è un errore
+                    if (msgMittente.salva()) {
+                        panelloPrincipale.setStatus("Messaggio Salvato!");
+                    } else {
+                        panelloPrincipale.setStatus("Si è verificato un errore durante il salvataggio del messaggio!");
+                    }
+                }
+            } else {
+                panelloPrincipale.setStatus("Devi selezionare un destinatario");
             }
         }
     }
@@ -520,7 +541,7 @@ public class GUIController {
             inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)));
         }
     }
-    
+
     //classe listener per il button "salva messaggio" della finestra principale
     private class LogoutListener implements ActionListener {
 
