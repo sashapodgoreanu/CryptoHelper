@@ -155,7 +155,7 @@ public class GUIController {
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
             panelloPrincipale.setDestinatariArrLst(comC.getDestinatari(utilizzatoreSistema));
-            System.out.println("**************************"+comC.getDestinatari(utilizzatoreSistema).toString());
+            System.out.println("**************************" + comC.getDestinatari(utilizzatoreSistema).toString());
             panelloPrincipale.initNuovoMessaggio();
             msgMittente = new Messaggio();      //predispone il nuovo messaggio
         }
@@ -338,13 +338,14 @@ public class GUIController {
                             testoCifrato,//testo cifrato
                             (String) messagePanel.getLinguaDropdown().getSelectedItem(), //lingua
                             messagePanel.getTitoloMessaggioField(),// titolo messaggio
-                            false,// isBooza
-                            false,//isLeto
+                            false,// isBozza
+                            false,//isLetto
                             utilizzatoreSistema,//mittente
                             destinatario);//destinatario
                     //se msg.salva ritorna false allora errore
                     if (msgMittente.salva()) {
                         panelloPrincipale.setStatus("Messaggio Inviato!");
+                        messagePanel.getSalvaBozzaBtn().setEnabled(false);
                     } else {
                         panelloPrincipale.setStatus("Si è verificato un errore durante il invio del messaggio!");
                     }

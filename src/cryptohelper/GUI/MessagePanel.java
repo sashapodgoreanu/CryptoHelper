@@ -78,8 +78,8 @@ public class MessagePanel extends JPanel implements View {
                 return renderer;
             }
         });
-        //elencoDestinatari.setSelectedIndex(0);
         elencoDestinatari.setFixedCellWidth(160);
+        inviaMessageBtn.setEnabled(true);
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoDestinatari);
         corpoMessaggio = new JTextArea();
@@ -156,11 +156,10 @@ public class MessagePanel extends JPanel implements View {
         return corpoMessaggio.getText();
     }
 
-    public String getLingua()
-    {
+    public String getLingua() {
         return linguaDropdown.getSelectedItem().toString();
     }
-    
+
     public ArrayList<UserInfo> getDestinatari() {
         return destinatariArrLst;
     }
