@@ -42,15 +42,21 @@ public class HtmlVisitor implements Visitor {
     }
 
     @Override
-    public String visit(MessaggioMittente messaggioMittente) {
+    public String visit(MessaggioMittente msgMittente) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
         sb.append("<p>");
-        sb.append(messaggioMittente.getTesto());
+        sb.append("<b>Destinatario: </b>").append(msgMittente.getDestinatario().getNome());
+        sb.append(" ").append(msgMittente.getDestinatario().getCognome());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Titolo messaggio: </b>").append(msgMittente.getTitolo());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Testo Messaggio:</b><br/>").append(msgMittente.getTesto());
         sb.append("</p>");
         sb.append("</html>");
         return sb.toString();
-
-    }
+     }
 
 }

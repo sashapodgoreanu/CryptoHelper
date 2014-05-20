@@ -18,6 +18,7 @@ public class InboxPanel extends JPanel implements View {
     JLabel targetListLabel;
     JLabel messageTextLabel;
     JButton decifraBtn;
+    JButton eliminaMessaggioBtn;
     JList elencoMessaggiRicevuti;
     JTextPane corpoMessaggio;
     JScrollPane scrollPane;
@@ -47,6 +48,7 @@ public class InboxPanel extends JPanel implements View {
         targetListLabel = new JLabel("Messaggi ricevuti:");
         messageTextLabel = new JLabel("Testo del messaggio:");
         decifraBtn = new JButton("Decifra messaggio");
+        eliminaMessaggioBtn = new JButton("Elimina messaggio");
         corpoMessaggio = new JTextPane();
         corpoMessaggio.setPreferredSize(new Dimension(540, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
@@ -67,7 +69,7 @@ public class InboxPanel extends JPanel implements View {
         elencoMessaggiRicevuti.setSelectedIndex(0);
         MessaggioDestinatario index0 = (MessaggioDestinatario) elencoMessaggiRicevuti.getSelectedValue();
         if (index0 != null) {
-            corpoMessaggio.setText(new HtmlVisitor().visit(index0));
+           corpoMessaggio.setText(new HtmlVisitor().visit(index0));
         }
         scrollPane = new JScrollPane();
         scrollPane.setPreferredSize(new Dimension(180, 250));
@@ -78,6 +80,7 @@ public class InboxPanel extends JPanel implements View {
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
         bottomPanel.add(decifraBtn);
+        bottomPanel.add(eliminaMessaggioBtn);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);

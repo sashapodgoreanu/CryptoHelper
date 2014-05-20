@@ -211,8 +211,8 @@ public class GUIController {
         public void valueChanged(ListSelectionEvent e) {
             panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
-            MessaggioMittente proposta = (MessaggioMittente) outboxPanel.getElencoMessaggiInviati().getSelectedValue();
-            outboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(proposta)));
+            MessaggioMittente outboxMsg = (MessaggioMittente) outboxPanel.getElencoMessaggiInviati().getSelectedValue();
+            outboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(outboxMsg)));
         }
     }
 
