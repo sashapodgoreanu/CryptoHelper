@@ -6,20 +6,14 @@ OK - creare interfaccia per inbox
 OK - modificare i metodi getBozze e getDestinatari in modo che siano visualizzati solo le bozze e i destinatari con cui si
      è concordato il sistema di cifratura
 OK - apri bozza, elimina bozza, invia bozza
-
-
-
-- aggiungere bottone select languagge con una lista drop-down con elementi prescelti tra inglese e italiano
-sasha - creaSistemaDicifratura
-
-
-luigi - inbox
+OK - aggiungere bottone select languagge con una lista drop-down con elementi prescelti tra inglese e italiano
+OK - setSelectedindex(0) di elencoMessaggiRicevuti in InboxPanel
 
 CREARE TUTTI I COMPONENTI CHE SARANNO REGITRATI PRESO CONTROLLER NEI METODI init() di ogni GUI 
 
---aggoingere validate a sistemcifratura in modello di progetto
+--aggiungere validate a sistemcifratura in modello di progetto
 - quando si elimina una bozza, sistema di cifratura, messaggio si utilizza observer observable in modo da aggiornare la JList (il elemento deve scomparire) 
--- setSelectedindex(0) di elencoMessaggiRicevuti in InboxPanel
+
 -- deve visionare immediatamente il primo messaggio una volta clicato su inbox
 
 
@@ -29,6 +23,7 @@ CREARE TUTTI I COMPONENTI CHE SARANNO REGITRATI PRESO CONTROLLER NEI METODI init
 Sasha
 *****************************
 
+creaSistemaDicifratura
 ok - save di proposta
 ok - inviaProposta di COMController
 ok - Da aggiungere status se un sistema cifratura inviato correttamente 
@@ -48,17 +43,16 @@ OK --------------------------------------------------------------
 GIULIO
 *******************************
 //TO-DO
-guarda dentro BozzePanel 
  bozzePanel.getSaveBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());   da rifare --- puo darsi che devi creari una nuova classe listener
-deleteSelectedIndex();
+OK - deleteSelectedIndex();
 da rivedere 
 //Preleva l'elenco delle bozze 
-public static ArrayList<MessaggioMittente> caricaBozze(int idStudente)
-questo metodo non funziona perche destinatario e null.. invece nella db ha un valore(id dello studente) - deve essere un oggetto UserInfo
-vale anche per messaggi inviati. 
+OK - public static ArrayList<MessaggioMittente> caricaBozze(int idStudente)
+OK - questo metodo non funziona perche destinatario e null.. invece nella db ha un valore(id dello studente) - deve essere un oggetto UserInfo
+     vale anche per messaggi inviati. 
 
-guarda simile per INBOX 
-elencoProposteRicevute.setSelectedIndex(0);
+OK- guarda simile per INBOX 
+    elencoProposteRicevute.setSelectedIndex(0);
         Proposta index0 = (Proposta) elencoProposteRicevute.getSelectedValue();
         if (index0 != null) {
             infoSdcLabel.setText(new HtmlVisitor().visit(index0));
