@@ -1,9 +1,9 @@
+//////////////////////////////////////
 //Finestra principale della GUI
 package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
-import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioMittente;
 import javax.swing.*;
