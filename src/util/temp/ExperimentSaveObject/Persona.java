@@ -16,21 +16,49 @@
 
 package util.temp.ExperimentSaveObject;
 
-import java.io.Serializable;
-
 /**
  *
  * @author st116629
  */
 //DEVE IMPLEMENTARE Serializable
-public class Persona implements Serializable {
+public class Persona{
     String nome;
     String cognome;
+    Persona figlio;
+    Phonenumber number;
 
-    public Persona(String nome, String cognome) {
+    public Persona(String nome, String cognome, Persona a) {
         this.nome = nome;
         this.cognome = cognome;
+        this.figlio = a;
+        number = new Phonenumber(1);
     }
+    /*
+       @Override
+    public String toString() {
+        if(figlio == null)
+            return "Persona{" + "nome=" + nome + ", cognome=" + cognome + ", figlio=" + figlio + ", number=" + number.toString() + '}';
+        else return "Persona{" + "nome=" + nome + ", cognome=" + cognome + ", figlio=" + figlio.toString() + ", number=" + number.toString() + '}';
+    }
+    */
+
+ 
+    
+    
+}
+
+class Phonenumber{
+    int a;
+
+    public Phonenumber(int a) {
+        this.a = a;
+    }
+/*
+    @Override
+    public String toString() {
+        return "Phonenumber{" + "a=" + a + '}';
+    }
+    */
     
     
 }

@@ -63,6 +63,18 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         this.destinatario = destinatario;
     }
 
+    public Messaggio(int id, String testo, String lingua, String titolo, boolean bozza, boolean letto, UserInfo mittente, UserInfo destinatario, SistemaCifratura sdc) {
+        this.id = id;
+        this.testo = testo;
+        this.lingua = lingua;
+        this.titolo = titolo;
+        this.bozza = bozza;
+        this.letto = letto;
+        this.mittente = mittente;
+        this.destinatario = destinatario;
+        this.sistemaCifratura = sdc;
+    }
+
     //TEST 
     /*
      public Messaggio(int id, String testo, String titolo, boolean bozza, UserInfo mittente, UserInfo destinatario) {
@@ -329,6 +341,14 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
 
     @Override
     public void cifra() {
+        System.out.println(this.getClass()+": cifra(): SistemaCifratura: "+sistemaCifratura);
+        if(sistemaCifratura != null)
+            testoCifrato = Cifratore.cifraMonoalfabetica(sistemaCifratura.getMp(),testo);
+        else testoCifrato ="";
+    }
+
+    @Override
+    public void decifra() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

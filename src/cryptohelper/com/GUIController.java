@@ -12,13 +12,12 @@ import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.ProponiSDCPanel;
 import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
-import cryptohelper.data.Cifratore;
 import cryptohelper.interfaces.View;
 import cryptohelper.data.Mappatura;
 import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioMittente;
-import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.data.HtmlVisitor;
+import cryptohelper.data.HtmlVisitorV2;
 import cryptohelper.data.Proposta;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
@@ -59,7 +58,6 @@ public class GUIController {
     private ProponiSDCPanel proponiSDCPanel;
     private InboxSDCPanel inboxSDCPanel;
     private GestisciSDCPanel gestisciSDCPanel;
-    
 
     private GUIController() {
         comC = new COMController();
@@ -78,9 +76,6 @@ public class GUIController {
             //solo per il test
             loginForm.setUsernameField("sasha");
             loginForm.setPasswordField("1234");
-            /**
-             *
-             */
             loginForm.getSubmit().addActionListener(new LoginFormListener());
             loginForm.getRegistration().addActionListener(new RegistrationFormListener());
         } else if (v instanceof RegistrationForm) {
@@ -206,7 +201,7 @@ public class GUIController {
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
             System.out.println(mess.toString());
-            inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)));
+            inboxPanel.getCorpoMessaggio().setText((new HtmlVisitorV2().visit(mess)));
         }
     }
 
@@ -284,7 +279,7 @@ public class GUIController {
             sdcPanel.initCreateSDC();
         }
     }
-    
+
     private class GestisciSDCListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -292,7 +287,7 @@ public class GUIController {
             JButton ev = (JButton) e.getSource();
             sdcPanel.initGestisciSDCPanel(Proposta.caricaProposteSistemiCifratura(utilizzatoreSistema));
         }
-    }     
+    }
 
 //classe listener per JRadioButtons per selezionare il metodo di cifratura
     private class MetodoDicifraturaListener implements ActionListener {
@@ -332,12 +327,21 @@ public class GUIController {
                         panelloPrincipale.setStatus("");
                         JList list = messagePanel.getElencoDestinatari();
                         UserInfo destinatario = (UserInfo) list.getSelectedValue();
-                        System.out.println("Destinatario selected: " + destinatario.toString());
+                        System.out.println(this.getClass()+" SalvaInviaMessaggioListener:  Destinatario selected: " + destinatario.toString());
 
-                        //TO DO CAMBIARE PARAMETRO TESTO CIFRATO
-                        msgMittente = new Messaggio(msgMittente.getId(), messagePanel.getCorpoMessaggio(),
-                                /*qui*/ messagePanel.getCorpoMessaggio(),/**/ messagePanel.getLingua(),
-                                messagePanel.getTitoloMessaggioField(), true, true, utilizzatoreSistema, destinatario);
+                        SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), destinatario.getId());
+                        //Messaggio( String titolo, boolean bozza, boolean letto)
+                        msgMittente = new Messaggio(msgMittente.getId(),//id
+                                messagePanel.getCorpoMessaggio(),//testo in chiaro
+                                (String) messagePanel.getLinguaDropdown().getSelectedItem(), //lingua
+                                messagePanel.getTitoloMessaggioField(),// titolo messaggio
+                                false,// isBozza
+                                false,//isLetto
+                                utilizzatoreSistema,//mittente
+                                destinatario,//destinatario
+                                sdc//Sistema cifratura
+                        );
+                        msgMittente.cifra();
                         //se msg.salva ritorna false allora c'è un errore
                         if (msgMittente.salva()) {
                             panelloPrincipale.setStatus("Messaggio Salvato!");
@@ -361,18 +365,19 @@ public class GUIController {
                         return;
                     }
                     SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), destinatario.getId());
-
-                    String testoCifrato = Cifratore.cifraMonoalfabetica(sdc.getMp(), messagePanel.getCorpoMessaggio());
+                    System.out.println(this.getClass()+" SalvaInviaMessaggioListener:  SistemaCifratura: " + sdc);
                     //Messaggio( String titolo, boolean bozza, boolean letto)
                     msgMittente = new Messaggio(msgMittente.getId(),//id
                             messagePanel.getCorpoMessaggio(),//testo in chiaro
-                            testoCifrato,//testo cifrato
                             (String) messagePanel.getLinguaDropdown().getSelectedItem(), //lingua
                             messagePanel.getTitoloMessaggioField(),// titolo messaggio
                             false,// isBozza
                             false,//isLetto
                             utilizzatoreSistema,//mittente
-                            destinatario);//destinatario
+                            destinatario,//destinatario
+                            sdc//Sistema cifratura
+                    );
+                    msgMittente.cifra();
                     //se msg.salva ritorna false allora errore
                     if (msgMittente.salva()) {
                         panelloPrincipale.setStatus("Messaggio Inviato!");
@@ -389,9 +394,20 @@ public class GUIController {
                 } else { //altrimenti salva il messaggio
                     panelloPrincipale.setStatus("");
                     Messaggio m = ((Messaggio) bozzePanel.getElencoBozze().getSelectedValue());
-                    //TO DO CAMBIARE PARAMETRO TESTO CIFRATO  
-                    msgMittente = new Messaggio(m.getId(), bozzePanel.getCorpoBozza().getText(),/*qui*/ bozzePanel.getCorpoBozza().getText(),/**/ bozzePanel.getLingua(),
-                            bozzePanel.getTitoloBozza(), true, true, utilizzatoreSistema, m.getDestinatario());
+
+                    SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), m.getDestinatario().getId());
+                    //Messaggio( String titolo, boolean bozza, boolean letto)
+                    msgMittente = new Messaggio(msgMittente.getId(),//id
+                            messagePanel.getCorpoMessaggio(),//testo in chiaro
+                            (String) messagePanel.getLinguaDropdown().getSelectedItem(), //lingua
+                            messagePanel.getTitoloMessaggioField(),// titolo messaggio
+                            false,// isBozza
+                            false,//isLetto
+                            utilizzatoreSistema,//mittente
+                            m.getDestinatario(),//destinatario
+                            sdc//Sistema cifratura
+                    );
+                    msgMittente.cifra();
                     //se msg.salva ritorna false allora c'è un errore
                     if (msgMittente.salva()) {
                         panelloPrincipale.setStatus("Messaggio Salvato!");
@@ -408,16 +424,18 @@ public class GUIController {
                     panelloPrincipale.setStatus("");
                     Messaggio m = ((Messaggio) bozzePanel.getElencoBozze().getSelectedValue());
                     SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), m.getDestinatario().getId());
-                    String testoCifrato = Cifratore.cifraMonoalfabetica(sdc.getMp(), bozzePanel.getCorpoBozza().getText());  
-                    msgMittente = new Messaggio(m.getId(),//id
-                            bozzePanel.getCorpoBozza().getText(),//testo in chiaro
-                            testoCifrato,//testo cifrato
-                            bozzePanel.getLingua(), //lingua
-                            bozzePanel.getTitoloBozza(),// titolo messaggio
+                    //Messaggio( String titolo, boolean bozza, boolean letto)
+                    msgMittente = new Messaggio(msgMittente.getId(),//id
+                            messagePanel.getCorpoMessaggio(),//testo in chiaro
+                            (String) messagePanel.getLinguaDropdown().getSelectedItem(), //lingua
+                            messagePanel.getTitoloMessaggioField(),// titolo messaggio
                             false,// isBozza
                             false,//isLetto
                             utilizzatoreSistema,//mittente
-                            m.getDestinatario());//destinatario
+                            m.getDestinatario(),//destinatario
+                            sdc//Sistema cifratura
+                    );
+                    msgMittente.cifra();
                     //se msg.salva ritorna false allora errore
                     if (msgMittente.salva()) {
                         panelloPrincipale.setStatus("Messaggio Inviato!");
@@ -570,7 +588,7 @@ public class GUIController {
             }
         }
     }
-    
+
     //classe listener per eliminare un sistema di cifratura concordato in precedenza
     private class EliminaSDCListener implements ActionListener {
 
@@ -585,14 +603,12 @@ public class GUIController {
                 System.out.println(proposta.getSdc().getId());
                 proposta.elimina();
                 panelloPrincipale.setStatus("La proposta è stata eliminata correttamente!");
-            } 
-            else {
+            } else {
                 panelloPrincipale.setStatus("Seleziona una proposta!");
             }
         }
-    } 
-    
-    
+    }
+
     //classe listener per la Jlist "elencoProposte" 
     private class ViewProponiSDCListener implements ListSelectionListener {
 
@@ -639,7 +655,6 @@ public class GUIController {
 
 //classe listener per il button "OK" della finestra registrazione utente
     private class RegisterListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             Studente s = new Studente(regForm.getNameField(), regForm.getSurnameField(),

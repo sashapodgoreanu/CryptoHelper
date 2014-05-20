@@ -16,6 +16,9 @@
 
 package util.temp.ExperimentSaveObject;
 
+import cryptohelper.service.DBController;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,14 +33,9 @@ public class TestSavePersona {
      */
     public static void main(String[] args) {
         
-        Persona p = new Persona("giulio","Pgh");
-        SaveObject so=new SaveObject();
-        so.setJavaObject(p);
-        try {
-            so.saveObject();
-        } catch (Exception ex) {
-            Logger.getLogger(TestSavePersona.class.getName()).log(Level.SEVERE, null, ex);
-        }
+ 
+        
+        
     }
     
 }

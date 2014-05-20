@@ -3,6 +3,11 @@
 package cryptohelper.service;
 
 import cryptohelper.data.QueryResult;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -16,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import util.temp.ExperimentSaveObject.Persona;
 
 public class DBController {
 
@@ -35,7 +41,7 @@ public class DBController {
         try {
             registerDB();
         } catch (SQLException ex) {
-            log.fatal(ex.getMessage());
+            log.fatal(this.getClass() + ":" + ex.getMessage());
         }
     }
 
@@ -50,23 +56,23 @@ public class DBController {
         try {
             DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
         } catch (SQLException ex) {
-            log.fatal(ex.getMessage());
+            log.fatal(this.getClass() + ":" + ex.getMessage());
         }
     }
 
     //Apre la connessione al db
-    public void connect() throws SQLException {
+    private void connect() throws SQLException {
         try {
             conn = DriverManager.getConnection(dBurl, dBusr, dBpwd);
             st = conn.createStatement();
         } catch (SQLException e) {
-            log.fatal(e.getMessage());
+            log.fatal(this.getClass() + ":" + e.getMessage());
         }
         //System.out.println("Connesso a:" + dBurl);
     }
 
     //Chiude la connessione al db
-    public void disconnect() throws SQLException {
+    private void disconnect() throws SQLException {
         st.close();
         conn.close();
         //System.out.println("Disconnesso!");
@@ -122,9 +128,10 @@ public class DBController {
                 + "FOREIGN KEY(ID_PARTNER) REFERENCES STUDENTI(ID),"
                 + "FOREIGN KEY(ID_SDC) REFERENCES SistemiCifratura(ID)"
                 + ")";
-        String queryAlberoIpotesi= "CREATE TABLE AlberoIpotesi"
+        String queryAlberoIpotesi = "CREATE TABLE AlberoIpotesi"
                 + "("
-                + "ID INTEGER not null primary key,"
+                + "ID INTEGER not null primary key "
+                + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                 + "JAVAOBJECT BLOB"
                 + ")";
         connect();
@@ -168,11 +175,23 @@ public class DBController {
             st.executeUpdate(queryAlberoIpotesi);
             System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella AlberoIpotesi creata!");
         } catch (SQLException e) {
-            log.fatal(e.getMessage());
+            log.fatal(this.getClass() + ":" + e.getMessage());
         } finally {
             disconnect();
         }
 
+    }
+
+    private boolean isTableExist(String sTablename) throws SQLException {
+        DatabaseMetaData dbmd = conn.getMetaData();
+        rs = dbmd.getTables(null, null, sTablename.toUpperCase(), null);
+        if (rs.next()) {
+            System.out.println("INFO:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + " Table " + rs.getString("TABLE_NAME") + "already exists !!");
+            return true;
+        } else {
+            System.out.println("INFO:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + " creating table: " + sTablename);
+            return false;
+        }
     }
 
     //Per inserimenti
@@ -183,7 +202,7 @@ public class DBController {
             result = st.executeUpdate(query);
             System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "Query eseguita correttamente! " + query);
         } catch (SQLException e) {
-            log.fatal(e.getMessage());
+            log.fatal(this.getClass() + ":" + e.getMessage());
         } finally {
             disconnect();
         }
@@ -207,7 +226,7 @@ public class DBController {
                 resultList.add(riga);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            log.fatal(this.getClass() + ":" + e.getMessage());
         } finally {
             disconnect();
         }
@@ -226,26 +245,61 @@ public class DBController {
                 result = rs.getInt(1);
             }
         } catch (SQLException e) {
-            log.fatal(e.getMessage());
+            log.fatal(this.getClass() + ":" + e.getMessage());
         } finally {
             disconnect();
         }
         return result;
     }
 
-    private boolean isTableExist(String sTablename) throws SQLException {
-        DatabaseMetaData dbmd = conn.getMetaData();
-        rs = dbmd.getTables(null, null, sTablename.toUpperCase(), null);
-        if (rs.next()) {
-            System.out.println("INFO:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + " Table " + rs.getString("TABLE_NAME") + "already exists !!");
-            return true;
-        } else {
-            System.out.println("INFO:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + " creating table: " + sTablename);
-            return false;
+    /*
+    public boolean saveObject(Object javaObject, String query) throws SQLException, IOException {
+        connect();
+        int result = 0;
+        try {
+            PreparedStatement ps = null;
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(javaObject);
+            oos.flush();
+            oos.close();
+            bos.close();
+            byte[] data = bos.toByteArray();
+            ps = this.getPreparedStatement(query);
+            ps.setObject(1, data);
+            result = ps.executeUpdate();
+        } catch (SQLException | IOException e) {
+            log.fatal(this.getClass() + ": " + e.getMessage());
+        } finally {
+            disconnect();
         }
+        return (result == 1);
     }
-    
-    public PreparedStatement getPreparedStatement(String query) throws SQLException{
+
+    public Persona getObject(String query) throws SQLException, IOException, ClassNotFoundException {
+        connect();
+        Persona rmObj = null;
+        PreparedStatement ps = null;
+        ps = this.getPreparedStatement(query);
+        rs = ps.executeQuery();
+        try {
+            while (rs.next()) {
+                ByteArrayInputStream bais;
+                ObjectInputStream ins;
+                bais = new ByteArrayInputStream(rs.getBytes("javaObject"));
+                ins = new ObjectInputStream(bais);
+                rmObj = (Persona) ins.readObject();
+                ins.close();
+            }
+        } catch (SQLException | IOException | ClassNotFoundException sQLException) {
+            log.fatal(this.getClass() + ":" + sQLException.getMessage());
+        } finally {
+            disconnect();
+        }
+        return rmObj;
+    }
+
+    private PreparedStatement getPreparedStatement(String query) throws SQLException {
         return conn.prepareStatement(query);
-    }
+    }*/
 }

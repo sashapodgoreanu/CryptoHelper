@@ -1,0 +1,22 @@
+<?xml version="1.0" ?><cryptohelper.data.Messaggio>
+    <log class="org.apache.commons.logging.impl.Jdk14Logger">
+        <name>cryptohelper.data.Messaggio</name>
+    </log>
+    <id>0</id>
+    <testo>testo3</testo>
+    <testoCifrato>testoCifrato</testoCifrato>
+    <lingua>lingua</lingua>
+    <titolo>titolo</titolo>
+    <bozza>true</bozza>
+    <letto>true</letto>
+    <mittente>
+        <id>2</id>
+        <nome>Giulio</nome>
+        <cognome>Pighini</cognome>
+    </mittente>
+    <destinatario>
+        <id>1</id>
+        <nome>Alexandru</nome>
+        <cognome>Podgoreanu</cognome>
+    </destinatario>
+</cryptohelper.data.Messaggio>

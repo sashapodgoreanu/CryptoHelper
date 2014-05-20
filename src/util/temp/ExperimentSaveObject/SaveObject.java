@@ -23,13 +23,9 @@ package util.temp.ExperimentSaveObject;
 
 
 import cryptohelper.service.DBController;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 
 public class SaveObject {
@@ -46,40 +42,7 @@ public class SaveObject {
     }
 
 
-    public  void saveObject() throws Exception
-    {
-        try{
-            DBController dbc = DBController.getInstance();
-            dbc.connect();
-        //Connection conn=/// get connection string;
-        PreparedStatement ps =null ;
-        String sql=null;
-
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(bos);
-
-        oos.writeObject(javaObject);
-        oos.flush();
-        oos.close();
-        bos.close();
-
-        byte[] data = bos.toByteArray();
-
-
-        sql="insert into ALBEROIPOTESI (ID,JAVAOBJECT) values(?,?)";
-        ps=dbc.getPreparedStatement(sql);
-        ps.setInt(1, 50);
-        ps.setObject(2, data);
-        ps.executeUpdate();
-        dbc.disconnect();
-
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
+    
 /*
 
     public Object getObject() throws Exception
