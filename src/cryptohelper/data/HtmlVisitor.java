@@ -41,7 +41,7 @@ public class HtmlVisitor implements Visitor {
         sb.append("<b>Letto: </b>").append(msgDestinatario.isLetto());
         sb.append("</p>");
         sb.append("<p>");
-        sb.append("<b>Testo:</b><br/>").append(msgDestinatario.getTesto());
+        sb.append("<b>Testo cifrato:</b><br/>").append(msgDestinatario.getTestoCifrato());
         sb.append("</p>");
         sb.append("</html>");
         return sb.toString();
