@@ -1,3 +1,5 @@
+//pannello messaggi in arrivo
+
 package cryptohelper.GUI;
 
 import cryptohelper.interfaces.MessaggioDestinatario;

@@ -17,7 +17,6 @@ import cryptohelper.data.Mappatura;
 import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.data.HtmlVisitor;
-import cryptohelper.data.HtmlVisitorV2;
 import cryptohelper.data.Proposta;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
@@ -93,9 +92,10 @@ public class GUIController {
             panelloPrincipale.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
             panelloPrincipale.getInboxBtn().addActionListener(new GestisciInbox());
             panelloPrincipale.getOutboxBtn().addActionListener(new GestisciOutbox());
-            panelloPrincipale.getLogoutBtn().addActionListener(new LogoutListener());
             panelloPrincipale.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
             panelloPrincipale.getSDCBtn().addActionListener(new GestisciSDC());
+            panelloPrincipale.getLogoutBtn().addActionListener(new LogoutListener());
+            panelloPrincipale.getIntercettaBtn().addActionListener(new IntercettaBtnListener());
         } else if (v instanceof BozzePanel) {
             bozzePanel = (BozzePanel) v;
             bozzePanel.getSaveBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
@@ -221,10 +221,22 @@ public class GUIController {
         public void actionPerformed(ActionEvent e) {
             panelloPrincipale.dispose();
             LoginForm f = new LoginForm();
-            System.out.println(this.getClass() + " Messaggio: Logout");
+            System.out.println(this.getClass() + "Logout eseguito");
         }
     }
 
+       //classe listener per il button "intercetta un messaggio" della finestra principale
+    private class IntercettaBtnListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            ArrayList<Messaggio> temp = Messaggio.caricaMessaggi();
+            panelloPrincipale.initAreaLavoro(temp);
+        }
+    }
+    
     //classe listener per la Jlist "ElencoMessaggiRicevuti" 
     private class ViewInboxMsgListener implements ListSelectionListener {
 

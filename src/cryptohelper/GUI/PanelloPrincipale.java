@@ -1,8 +1,10 @@
 //Finestra principale della GUI
 package cryptohelper.GUI;
 
+import cryptohelper.GUI.areaLavoro.AreaLavoro;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
+import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.data.UserInfo;
@@ -115,6 +117,7 @@ public class PanelloPrincipale extends JFrame implements View {
         bodyPanel.revalidate();                           //completa l'inizializzazione dell'interfaccia
     }
 
+    //Inizializza l'interfaccia e i componenti quando viene premuto il button "gestisci sistemi di cifratura"  
     public void initSDC() {
         System.out.println("inside initSDC");
         this.resetPanels();
@@ -123,7 +126,13 @@ public class PanelloPrincipale extends JFrame implements View {
         bodyPanel.add(sdcPanel);
         bodyPanel.revalidate();
     }
-
+    
+    //Inizializza l'area di lavoro per la spia e chiude la finestra principale
+       public void initAreaLavoro(ArrayList<Messaggio> msgArrLst) {
+        AreaLavoro al = new AreaLavoro(msgArrLst);
+        this.dispose();
+    }
+       
     //pulisce i panelli dell'area principale dell'interfaccia
     private void resetPanels() {
         bodyPanel.removeAll();
@@ -160,6 +169,10 @@ public class PanelloPrincipale extends JFrame implements View {
 
     public String getStatusLabelText() {
         return statusLabel.getText();
+    }
+
+    public JButton getIntercettaBtn() {
+        return intercettaBtn;
     }
 
     public JButton getLogoutBtn() {

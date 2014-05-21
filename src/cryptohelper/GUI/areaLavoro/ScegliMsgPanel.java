@@ -1,42 +1,42 @@
-//Pannello messaggi inviati
-package cryptohelper.GUI;
+//Pannello che consente la scelta del messaggio da intercettare
+package cryptohelper.GUI.areaLavoro;
 
 import cryptohelper.interfaces.View;
-import cryptohelper.com.GUIController;
+import cryptohelper.com.GUIControllerAL;
 import cryptohelper.data.HtmlVisitor;
-import cryptohelper.interfaces.MessaggioDestinatario;
-import cryptohelper.interfaces.MessaggioMittente;
+import cryptohelper.data.Messaggio;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.EmptyBorder;
 
-public class OutboxPanel extends JPanel implements View {
+public class ScegliMsgPanel extends JPanel implements View {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
     JPanel rightPanel;       //pannello a destra
     JPanel bottomPanel;      //pannello in basso
     JLabel targetListLabel;
-    JList elencoMessaggiInviati;
+    JLabel messageTextLabel;
+    JList elencoMessaggi;
     JTextPane corpoMessaggio;
     JScrollPane scrollPane;
-    JButton eliminaMessaggioBtn;
-    ArrayList<MessaggioMittente> messaggiMittenteArrLst; //elenco destintari dei messaggi
+    JButton okBtn;
+    ArrayList<Messaggio> elencoMessaggiArrLst; //elenco destintari dei messaggi
 
-    public OutboxPanel(ArrayList<MessaggioMittente> messaggiMittenteArrLst) {
+    public ScegliMsgPanel(ArrayList<Messaggio> elencoMessaggiArrLst) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
-        this.messaggiMittenteArrLst = messaggiMittenteArrLst;
+        this.elencoMessaggiArrLst = elencoMessaggiArrLst;
         this.init();
     }
 
     //inizializza il pannello
     private void init() {
-        System.out.println("Inizzializzazione Pannello Outbox...");   //comunicazione di controllo per i log
+        System.out.println("Inizzializzazione scleta messaggio...");   //comunicazione di controllo per i log
 
         //INIT DEI LAYOUT
         this.setLayout(new BorderLayout());
@@ -47,30 +47,31 @@ public class OutboxPanel extends JPanel implements View {
         topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
-        targetListLabel = new JLabel("Messaggi inviati:");
-        eliminaMessaggioBtn = new JButton("Elimina messaggio");
-        elencoMessaggiInviati = new JList(new Vector<MessaggioMittente>(messaggiMittenteArrLst));
-        elencoMessaggiInviati.setCellRenderer(new DefaultListCellRenderer() {
+        targetListLabel = new JLabel("Messaggi disponibili:");
+        messageTextLabel = new JLabel("Contenuto del messaggio:");
+        okBtn = new JButton("Avanti");
+        elencoMessaggi = new JList(new Vector<Messaggio>(elencoMessaggiArrLst));
+        elencoMessaggi.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (renderer instanceof JLabel && value instanceof MessaggioDestinatario) {
-                    MessaggioDestinatario temp = (MessaggioDestinatario) value;
+                if (renderer instanceof JLabel && value instanceof Messaggio) {
+                    Messaggio temp = (Messaggio) value;
                     ((JLabel) renderer).setText(temp.getTitolo());
                 }
                 return renderer;
             }
         });
-        elencoMessaggiInviati.setSelectedIndex(0);
-        elencoMessaggiInviati.setPreferredSize(new Dimension(165, 250));
+        elencoMessaggi.setSelectedIndex(0);
+        elencoMessaggi.setPreferredSize(new Dimension(165, 250));
         scrollPane = new JScrollPane();
-        scrollPane.setViewportView(elencoMessaggiInviati);
+        scrollPane.setViewportView(elencoMessaggi);
         corpoMessaggio = new JTextPane();
         corpoMessaggio.setPreferredSize(new Dimension(600, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
         corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
-        MessaggioMittente index0 = (MessaggioMittente) elencoMessaggiInviati.getSelectedValue();
+        Messaggio index0 = (Messaggio) elencoMessaggi.getSelectedValue();
         if (index0 != null) {
             corpoMessaggio.setText(new HtmlVisitor().visit(index0));
         }
@@ -79,7 +80,7 @@ public class OutboxPanel extends JPanel implements View {
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
-        bottomPanel.add(eliminaMessaggioBtn);
+        bottomPanel.add(okBtn);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
@@ -91,55 +92,28 @@ public class OutboxPanel extends JPanel implements View {
         registerController();
     }
 
-    //elimina l'elemento selezionato nella lista dei messaggi inviati e aggiorna la vista
-    public boolean deleteSelectedIndex() {
-        int toDelete = elencoMessaggiInviati.getSelectedIndex();
-        if (toDelete >= 0) {
-            rightPanel.removeAll();
-            topPanel.removeAll();
-            leftPanel.removeAll();
-            bottomPanel.removeAll();
-            messaggiMittenteArrLst.remove(toDelete);
-            init();
-            rightPanel.revalidate();
-            topPanel.revalidate();
-            leftPanel.revalidate();
-            bottomPanel.revalidate();
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public void registerController() {
-        GUIController gc = GUIController.getInstance();
+        GUIControllerAL gc = GUIControllerAL.getInstance();
         gc.addView(this);
     }
 
     //METODI GETTER
-    public JList getElencoMessaggiInviati() {
-        return elencoMessaggiInviati;
+    public JList getElencoMessaggi() {
+        return elencoMessaggi;
     }
 
     public JTextPane getCorpoMessaggio() {
         return corpoMessaggio;
     }
 
-    public JButton getEliminaMessaggioBtn() {
-        return eliminaMessaggioBtn;
+    public JButton getokBtn() {
+        return okBtn;
     }
 
     //METODI SETTER
     public void setCorpoMessaggio(String testo) {
         corpoMessaggio.setText(testo);
-    }
-
-    public ArrayList<MessaggioMittente> getMessaggiMittenteArrLst() {
-        return messaggiMittenteArrLst;
-    }
-
-    public void setMessaggiMittenteArrLst(ArrayList<MessaggioMittente> bozzeArayLst) {
-        messaggiMittenteArrLst = bozzeArayLst;
     }
 
 }
