@@ -1,6 +1,8 @@
 //Finestra principale della GUI
 package cryptohelper.GUI;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
 import cryptohelper.interfaces.MessaggioDestinatario;

@@ -52,6 +52,8 @@ public class XmlExperiment {
         System.out.println("a"+newJoe[0].toString());
         
         
+        
+        
          
 
         

@@ -1,5 +1,7 @@
 package cryptohelper.com;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 import cryptohelper.GUI.BozzePanel;
 import cryptohelper.GUI.CreaSDCPanel;
 import cryptohelper.GUI.InboxPanel;
@@ -164,6 +166,7 @@ public class GUIController {
             System.out.println("**************************" + comC.getDestinatari(utilizzatoreSistema).toString());
             panelloPrincipale.initNuovoMessaggio();
             msgMittente = new Messaggio();      //predispone il nuovo messaggio
+            
         }
     }
 
