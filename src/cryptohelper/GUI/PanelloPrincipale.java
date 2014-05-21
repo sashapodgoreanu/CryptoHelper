@@ -1,10 +1,8 @@
 //Finestra principale della GUI
 package cryptohelper.GUI;
 
-import cryptohelper.GUI.areaLavoro.AreaLavoro;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
-import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.data.UserInfo;
@@ -126,13 +124,7 @@ public class PanelloPrincipale extends JFrame implements View {
         bodyPanel.add(sdcPanel);
         bodyPanel.revalidate();
     }
-    
-    //Inizializza l'area di lavoro per la spia e chiude la finestra principale
-       public void initAreaLavoro(ArrayList<Messaggio> msgArrLst) {
-        AreaLavoro al = new AreaLavoro(msgArrLst);
-        this.dispose();
-    }
-       
+
     //pulisce i panelli dell'area principale dell'interfaccia
     private void resetPanels() {
         bodyPanel.removeAll();
@@ -188,19 +180,7 @@ public class PanelloPrincipale extends JFrame implements View {
         this.destinatariArrLst = destinatari;
     }
 
-    public void setLogoutBtn(JButton logoutBtn) {
-        this.logoutBtn = logoutBtn;
-    }
-
     public void setStatus(String statusLabel) {
         this.statusLabel.setText(statusLabel);
-    }
-
-    public void setInboxBtn(JButton inboxBtn) {
-        this.inboxBtn = inboxBtn;
-    }
-
-    public void setNuovoMessaggioBtn(JButton nuovoMessaggioBtn) {
-        this.nuovoMessaggioBtn = nuovoMessaggioBtn;
     }
 }

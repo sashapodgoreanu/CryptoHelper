@@ -18,11 +18,11 @@ public class AreaLavoro extends JFrame implements View {
     JPanel sceglimsg;
     JButton nuovaSessioneBtn;
     JButton salvaSessioneBtn;
+    JButton caricaSessioneBtn;
     JButton logoutBtn;
     ArrayList<Messaggio> msgArrLst;
 
-    public AreaLavoro(ArrayList<Messaggio> msgArrLst) {
-        this.msgArrLst = msgArrLst;
+    public AreaLavoro() {
         this.init();
     }
 
@@ -31,22 +31,22 @@ public class AreaLavoro extends JFrame implements View {
 
         //INIT DI TOOLBAR PANEL
         logoutBtn = new JButton("Logout");
+        nuovaSessioneBtn = new JButton("Nuova sessione di lavoro");
+        caricaSessioneBtn = new JButton("Carica  sessione di lavoro");
         salvaSessioneBtn = new JButton("Salva sessione di lavoro");
         salvaSessioneBtn.setEnabled(false);
-        nuovaSessioneBtn = new JButton("Nuova sessione di lavoro");
         toolbarPanel.setBackground(Color.LIGHT_GRAY);
         toolbarPanel.add(nuovaSessioneBtn);
+        toolbarPanel.add(caricaSessioneBtn);
         toolbarPanel.add(salvaSessioneBtn);
         toolbarPanel.add(logoutBtn);
 
         //INIT DI BODY PANEL
         bodyPanel.setLayout(new BorderLayout());
         bodyPanel.setBorder(new EmptyBorder(10, 50, 10, 50));   //padding per separare i controlli dal bordo della finestra
-        sceglimsg = new ScegliMsgPanel(msgArrLst);
-        bodyPanel.add(sceglimsg);
 
         //INIT DI STATUS LABEL
-        statusLabel = new JLabel("Selezionare il messaggio da intercettare e premere 'Avanti'");
+        statusLabel = new JLabel("Selezionare un'opzione per continuare");
         statusLabel.setOpaque(true);
         statusLabel.setBackground(Color.LIGHT_GRAY);
         statusLabel.setForeground(Color.RED);
@@ -72,6 +72,15 @@ public class AreaLavoro extends JFrame implements View {
         statusLabel.setText(" ");
     }
 
+    //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
+    public void initNuovaSessione(ArrayList<Messaggio> msgArrLst) {
+        this.resetPanels();
+        this.setTitle("CryptoHelper - Nuova sessione di lavoro");    //cambia titolo al form
+        this.setStatus("Selezionare il messaggio da intercettare e premere 'Avanti'"); //messaggio per la status label
+        bodyPanel.add(new ScegliMsgPanel(msgArrLst));       //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
+    }
+
     @Override
     public void registerController() {
         GUIControllerAL gcAL = GUIControllerAL.getInstance();
@@ -87,11 +96,11 @@ public class AreaLavoro extends JFrame implements View {
         return logoutBtn;
     }
 
-    //METODI SETTER
-    public void setLogoutBtn(JButton logoutBtn) {
-        this.logoutBtn = logoutBtn;
+    public JButton getNuovaSessioneBtn() {
+        return nuovaSessioneBtn;
     }
 
+    //METODI SETTER
     public void setStatus(String statusLabel) {
         this.statusLabel.setText(statusLabel);
     }

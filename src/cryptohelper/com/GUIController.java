@@ -12,6 +12,7 @@ import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.ProponiSDCPanel;
 import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
+import cryptohelper.GUI.areaLavoro.AreaLavoro;
 import cryptohelper.interfaces.View;
 import cryptohelper.data.Mappatura;
 import cryptohelper.data.Messaggio;
@@ -233,8 +234,9 @@ public class GUIController {
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            ArrayList<Messaggio> temp = Messaggio.caricaMessaggi();
-            panelloPrincipale.initAreaLavoro(temp);
+            ArrayList<Messaggio> msgArrLst = Messaggio.caricaMessaggi();
+            AreaLavoro al = new AreaLavoro();
+            panelloPrincipale.dispose();
         }
     }
     

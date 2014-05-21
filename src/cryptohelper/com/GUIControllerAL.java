@@ -10,6 +10,8 @@ import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -35,6 +37,7 @@ public class GUIControllerAL {
     public void addView(View v) {
         if (v instanceof AreaLavoro) {
             areaLavoro = (AreaLavoro) v;
+            areaLavoro.getNuovaSessioneBtn().addActionListener(new NuovaSessioneListener());
             areaLavoro.getLogoutBtn().addActionListener(new LogoutListener());
         } else if (v instanceof ScegliMsgPanel) {
             scegliMsgPanel = (ScegliMsgPanel) v;
@@ -52,8 +55,21 @@ public class GUIControllerAL {
             System.out.println(this.getClass() + "Logout eseguito");
         }
     }
-    
+
     //classe listener per la Jlist della outbox 
+    private class NuovaSessioneListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            areaLavoro.setStatus(" ");
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            ArrayList<Messaggio> temp = Messaggio.caricaMessaggi();
+            areaLavoro.initNuovaSessione(temp);
+        }
+    }
+
+    //classe listener per la scelta dei messaggi nella nuova sessione 
     private class ViewMsgChoiceListener implements ListSelectionListener {
 
         @Override
