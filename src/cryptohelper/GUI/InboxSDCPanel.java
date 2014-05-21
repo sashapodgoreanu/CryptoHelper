@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.EmptyBorder;
 
 public class InboxSDCPanel extends JPanel implements View {
 
@@ -42,6 +43,9 @@ public class InboxSDCPanel extends JPanel implements View {
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
+        bottomPanel.setBorder(new EmptyBorder(20, 0, 0, 0));   //padding per separare i controlli
+        leftPanel.setBorder(new EmptyBorder(0, 100, 0, 0));   //padding per separare i controlli
+        rightPanel.setBorder(new EmptyBorder(0, 0, 0, 100));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
         JLabel targetListLabel = new JLabel("Tutte le proposte:");
@@ -56,12 +60,13 @@ public class InboxSDCPanel extends JPanel implements View {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof Proposta) {
                     Proposta temp = (Proposta) value;
-                    ((JLabel) renderer).setText("<html><font color=green>"+temp.getSdc().getNome()+"</font></html>");
+                    ((JLabel) renderer).setText("<html><font color=green>" + temp.getSdc().getNome() + "</font></html>");
                 }
                 return renderer;
             }
         });
         elencoProposteRicevute.setSelectedIndex(0);
+        elencoProposteRicevute.setPreferredSize(new Dimension(180, 250));
         Proposta index0 = (Proposta) elencoProposteRicevute.getSelectedValue();
         if (index0 != null) {
             infoSdcLabel.setText(new HtmlVisitor().visit(index0));
@@ -106,10 +111,11 @@ public class InboxSDCPanel extends JPanel implements View {
             leftPanel.revalidate();
             bottomPanel.revalidate();
             return true;
+        } else {
+            return false;
         }
-        else return false;
     }
-    
+
     public JList getElencoProposteRicevute() {
         return elencoProposteRicevute;
     }
@@ -133,7 +139,5 @@ public class InboxSDCPanel extends JPanel implements View {
     public JButton getRifiutaBtn() {
         return rifiutaBtn;
     }
-    
-    
 
 }

@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.border.EmptyBorder;
 
 public class BozzePanel extends JPanel implements View {
 
@@ -23,10 +24,11 @@ public class BozzePanel extends JPanel implements View {
     JLabel msgTitleLabel;
     JLabel bozzeListLabel;
     JLabel languageLabel;
-    JLabel destinatarioPromptLabel;  
+    JLabel destinatarioPromptLabel;
+    JLabel messageTextLabel;
     JTextField destinatarioField;
     JTextField titoloBozzaField;    //inputBox per il messaggio
-    JList elencoBozze;                  //visualizza lalista delle bozze
+    JList elencoBozze;              //visualizza lalista delle bozze
     JScrollPane scrollPane;
     JTextPane corpoBozza;
     JComboBox linguaDropdown;
@@ -45,12 +47,13 @@ public class BozzePanel extends JPanel implements View {
     private void init() {
         System.out.println("Inizzializzazione Bozze...");   //comunicazione di controllo per i log
 
-        //INIT DEI PANNELLI E DEI LAYOUT
+        //INIT DEI LAYOUT
         this.setLayout(new BorderLayout());
         topPanel.setLayout(new FlowLayout());
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
+        topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
         String[] lingua = {"inglese", "italiano"};
@@ -62,6 +65,7 @@ public class BozzePanel extends JPanel implements View {
         msgTitleLabel = new JLabel("Titolo della bozza:");
         bozzeListLabel = new JLabel("Bozze disponibili:");
         languageLabel = new JLabel("Lingua: ");
+        messageTextLabel = new JLabel("Testo della bozza:");
         destinatarioPromptLabel = new JLabel("Destinatario: ");
         destinatarioField = new JTextField("");
         destinatarioField.setEditable(false);
@@ -69,7 +73,7 @@ public class BozzePanel extends JPanel implements View {
         destinatarioField.setOpaque(true);
         titoloBozzaField = new JTextField(21);
         corpoBozza = new JTextPane();
-        corpoBozza.setPreferredSize(new Dimension(540, 250));
+        corpoBozza.setPreferredSize(new Dimension(600, 250));
         corpoBozza.setContentType("text/html"); //consente formattazione html
         corpoBozza.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
@@ -94,7 +98,7 @@ public class BozzePanel extends JPanel implements View {
             linguaDropdown.setSelectedItem(index0.getLingua());
         }
         scrollPane = new JScrollPane();
-        scrollPane.setPreferredSize(new Dimension(180, 250));
+        scrollPane.setPreferredSize(new Dimension(165, 250));
         scrollPane.setViewportView(elencoBozze);
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI
@@ -107,6 +111,7 @@ public class BozzePanel extends JPanel implements View {
         bottomPanel.add(saveBozzaBtn);
         bottomPanel.add(deleteBozzaBtn);
         bottomPanel.add(sendBozzaBtn);
+        leftPanel.add(messageTextLabel, BorderLayout.NORTH);
         leftPanel.add(corpoBozza, BorderLayout.CENTER);
         rightPanel.add(bozzeListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
@@ -120,11 +125,7 @@ public class BozzePanel extends JPanel implements View {
         registerController();
     }
 
-    public void setSelectedIndex() {
-
-    }
-
-    //TO-DO
+    //elimina l'elemento selezionato nella lista delle bozze e aggiorna la vista
     public boolean deleteSelectedIndex() {
         int toDelete = elencoBozze.getSelectedIndex();
         if (toDelete >= 0) {
@@ -193,7 +194,7 @@ public class BozzePanel extends JPanel implements View {
     public JComboBox getLinguaDropdown() {
         return linguaDropdown;
     }
-    
+
     public ArrayList<MessaggioMittente> getBozzeArrLst() {
         return bozzeArrLst;
     }
@@ -206,7 +207,7 @@ public class BozzePanel extends JPanel implements View {
     public void setDestinatario(String dest) {
         destinatarioField.setText(dest);
     }
-    
+
     public void setCorpoBozza(String testo) {
         corpoBozza.setText(testo);
     }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.EmptyBorder;
 
 public class GestisciSDCPanel extends JPanel implements View {
 
@@ -41,12 +42,14 @@ public class GestisciSDCPanel extends JPanel implements View {
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
+        bottomPanel.setBorder(new EmptyBorder(20, 0, 0, 0));   //padding per separare i controlli
+        leftPanel.setBorder(new EmptyBorder(0, 100, 0, 0));   //padding per separare i controlli
+        rightPanel.setBorder(new EmptyBorder(0, 0, 0, 100));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
-        JLabel targetListLabel = new JLabel("Tutte le proposte:");
+        JLabel targetListLabel = new JLabel("Proposte accettate:");
         eliminaBtn = new JButton("Elimina Sistema di cifratura");
         infoSdcLabel = new JLabel("");
-
         elencoProposteAccettate = new JList(new Vector<Proposta>(proposteArrLst));
         elencoProposteAccettate.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -54,12 +57,13 @@ public class GestisciSDCPanel extends JPanel implements View {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof Proposta) {
                     Proposta temp = (Proposta) value;
-                    ((JLabel) renderer).setText("<html><font color=green>"+temp.getSdc().getNome()+"</font></html>");
+                    ((JLabel) renderer).setText("<html><font color=green>" + temp.getSdc().getNome() + "</font></html>");
                 }
                 return renderer;
             }
         });
         elencoProposteAccettate.setSelectedIndex(0);
+        elencoProposteAccettate.setPreferredSize(new Dimension(180, 250));
         Proposta index0 = (Proposta) elencoProposteAccettate.getSelectedValue();
         if (index0 != null) {
             infoSdcLabel.setText(new HtmlVisitor().visit(index0));
@@ -72,7 +76,6 @@ public class GestisciSDCPanel extends JPanel implements View {
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
         bottomPanel.add(eliminaBtn);
-        
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
@@ -104,10 +107,11 @@ public class GestisciSDCPanel extends JPanel implements View {
             leftPanel.revalidate();
             bottomPanel.revalidate();
             return true;
+        } else {
+            return false;
         }
-        else return false;
     }
-    
+
     public JList getElencoProposteAccettate() {
         return elencoProposteAccettate;
     }
@@ -130,6 +134,6 @@ public class GestisciSDCPanel extends JPanel implements View {
 
     public void setEliminaBtn(JButton eliminaBtn) {
         this.eliminaBtn = eliminaBtn;
-    }    
+    }
 
 }

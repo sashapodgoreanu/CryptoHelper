@@ -318,7 +318,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         return bozze;
     }
 
-    //Preleva l'elenco dei messaggi inviati     TODO _ CORREGGERE
+    //Preleva l'elenco dei messaggi inviati dallo studente indicato
     public static ArrayList<MessaggioMittente> caricaMessaggiInviati(int idStudente) {
         String query = "SELECT * FROM Messaggi WHERE ID_Mittente = " + idStudente + "AND Bozza = False";
         QueryResult qr = null;
@@ -339,6 +339,28 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         return inviati;
     }
 
+    //Preleva tutti i messaggi dal db escludendo le bozze
+    public static ArrayList<Messaggio> caricaMessaggi() {
+        String query = "SELECT * FROM Messaggi WHERE Bozza = False";
+        QueryResult qr = null;
+        ArrayList<Messaggio> msgs = new ArrayList<>();
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while (qr.next()) {
+                UserInfo mit = UserInfo.getUserInfo(qr.getInt("ID_Mittente"));
+                UserInfo dest = UserInfo.getUserInfo(qr.getInt("ID_Destinatario"));
+                Messaggio temp = new Messaggio(qr.getInt("ID"), qr.getString("Testo"), qr.getString("TestoCifrato"),
+                        qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")),
+                        mit, dest);
+                msgs.add(temp);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        return msgs;
+    }
+    
+    
     @Override
     public void cifra() {
         System.out.println(this.getClass()+": cifra(): SistemaCifratura: "+sistemaCifratura);

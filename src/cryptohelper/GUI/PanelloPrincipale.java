@@ -1,8 +1,10 @@
 //Finestra principale della GUI
 package cryptohelper.GUI;
 
+import cryptohelper.GUI.areaLavoro.AreaLavoro;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIController;
+import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.data.UserInfo;
@@ -22,15 +24,16 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton gestisciBozzeBtn;
     JButton SDCBtn;
     JButton logoutBtn;
+    JButton intercettaBtn;
     ArrayList<UserInfo> destinatariArrLst;    //elenco dei destinatari
     JPanel sdcPanel = new SdcPanel();
     JButton proponiSDCBtn;
     JButton creaSDCBtn;
     JButton inboxProposteSDCBtn;
     JButton proposteAccetateBtn;
-            
+
     public PanelloPrincipale() {
-         this.init();
+        this.init();
     }
 
     private void init() {
@@ -42,6 +45,7 @@ public class PanelloPrincipale extends JFrame implements View {
         gestisciBozzeBtn = new JButton("Gestisci bozze");
         outboxBtn = new JButton("Messaggi inviati");
         SDCBtn = new JButton("Sistemi di Cifratura");
+        intercettaBtn = new JButton("Intercetta un messaggio");
         logoutBtn = new JButton("Logout");
         toolbarPanel.setBackground(Color.LIGHT_GRAY);
         toolbarPanel.add(nuovoMessaggioBtn);
@@ -49,11 +53,12 @@ public class PanelloPrincipale extends JFrame implements View {
         toolbarPanel.add(gestisciBozzeBtn);
         toolbarPanel.add(outboxBtn);
         toolbarPanel.add(SDCBtn);
+        toolbarPanel.add(intercettaBtn);
         toolbarPanel.add(logoutBtn);
 
         //INIT DI BODY PANEL
         bodyPanel.setLayout(new BorderLayout());
-        bodyPanel.setBorder(new EmptyBorder(10, 10, 10, 10));   //padding per separare i controlli dal bordo della finestra
+        bodyPanel.setBorder(new EmptyBorder(10, 50, 10, 50));   //padding per separare i controlli dal bordo della finestra
 
         //INIT DI STATUS LABEL
         statusLabel = new JLabel("Selezionare un'opzione per iniziare");
@@ -64,7 +69,7 @@ public class PanelloPrincipale extends JFrame implements View {
 
         //INIT DEL FRAME
         this.setTitle("CryptoHelper - Menu Principale");
-        this.setSize(750, 500);
+        this.setSize(900, 550);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
         this.add(toolbarPanel, BorderLayout.NORTH);
@@ -80,13 +85,13 @@ public class PanelloPrincipale extends JFrame implements View {
     public void initNuovoMessaggio() {
         this.resetPanels();
         this.setTitle("CryptoHelper - Nuovo Messaggio");    //cambia titolo al form
-         this.setStatus("Compilare i campi richiesti per creare un nuovo messaggio"); //messaggio per la status label
+        this.setStatus("Compilare i campi richiesti per creare un nuovo messaggio"); //messaggio per la status label
         bodyPanel.add(new MessagePanel(destinatariArrLst)); //aggiunge il nuovo pannello
         bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
     }
 
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Inbox"
-    public void initInbox( ArrayList<MessaggioDestinatario> mittentiArrLst) {
+    public void initInbox(ArrayList<MessaggioDestinatario> mittentiArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Inbox");    //cambia titolo al form
         this.setStatus("Selezionare un messaggio per aprirlo"); //messaggio per la status label
@@ -112,6 +117,7 @@ public class PanelloPrincipale extends JFrame implements View {
         bodyPanel.revalidate();                           //completa l'inizializzazione dell'interfaccia
     }
 
+    //Inizializza l'interfaccia e i componenti quando viene premuto il button "gestisci sistemi di cifratura"  
     public void initSDC() {
         System.out.println("inside initSDC");
         this.resetPanels();
@@ -120,7 +126,13 @@ public class PanelloPrincipale extends JFrame implements View {
         bodyPanel.add(sdcPanel);
         bodyPanel.revalidate();
     }
-
+    
+    //Inizializza l'area di lavoro per la spia e chiude la finestra principale
+       public void initAreaLavoro(ArrayList<Messaggio> msgArrLst) {
+        AreaLavoro al = new AreaLavoro(msgArrLst);
+        this.dispose();
+    }
+       
     //pulisce i panelli dell'area principale dell'interfaccia
     private void resetPanels() {
         bodyPanel.removeAll();
@@ -159,6 +171,10 @@ public class PanelloPrincipale extends JFrame implements View {
         return statusLabel.getText();
     }
 
+    public JButton getIntercettaBtn() {
+        return intercettaBtn;
+    }
+
     public JButton getLogoutBtn() {
         return logoutBtn;
     }
@@ -166,6 +182,7 @@ public class PanelloPrincipale extends JFrame implements View {
     public ArrayList<UserInfo> getDestinatari() {
         return destinatariArrLst;
     }
+
     //METODI SETTER
     public void setDestinatariArrLst(ArrayList<UserInfo> destinatari) {
         this.destinatariArrLst = destinatari;

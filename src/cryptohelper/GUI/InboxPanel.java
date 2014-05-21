@@ -1,3 +1,5 @@
+//pannello messaggi in arrivo
+
 package cryptohelper.GUI;
 
 import cryptohelper.interfaces.MessaggioDestinatario;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.EmptyBorder;
 
 public class InboxPanel extends JPanel implements View {
 
@@ -25,6 +28,10 @@ public class InboxPanel extends JPanel implements View {
     ArrayList<MessaggioDestinatario> mittentiMessaggiArrLst; //elenco mittenti dei messaggi di cui l'utente loggato è destinatario
 
     public InboxPanel(ArrayList<MessaggioDestinatario> mittentiMessaggiArrLst) {
+        topPanel = new JPanel();
+        leftPanel = new JPanel();
+        rightPanel = new JPanel();
+        bottomPanel = new JPanel();
         this.mittentiMessaggiArrLst = mittentiMessaggiArrLst;
         this.init();
     }
@@ -33,24 +40,21 @@ public class InboxPanel extends JPanel implements View {
     private void init() {
         System.out.println("Inizzializzazione Pannello Inbox...");   //comunicazione di controllo per i log
 
-        //INIT DEI PANNELLI E DEI LAYOUT
+        //INIT DEI LAYOUT
         this.setLayout(new BorderLayout());
-        topPanel = new JPanel();
-        leftPanel = new JPanel();
-        rightPanel = new JPanel();
-        bottomPanel = new JPanel();
         topPanel.setLayout(new FlowLayout());
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
+        topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
         targetListLabel = new JLabel("Messaggi ricevuti:");
-        messageTextLabel = new JLabel("Testo del messaggio:");
+        messageTextLabel = new JLabel("Contenuto del messaggio:");
         decifraBtn = new JButton("Decifra messaggio");
         eliminaMessaggioBtn = new JButton("Elimina messaggio");
         corpoMessaggio = new JTextPane();
-        corpoMessaggio.setPreferredSize(new Dimension(540, 250));
+        corpoMessaggio.setPreferredSize(new Dimension(600, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
         corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
@@ -69,13 +73,14 @@ public class InboxPanel extends JPanel implements View {
         elencoMessaggiRicevuti.setSelectedIndex(0);
         MessaggioDestinatario index0 = (MessaggioDestinatario) elencoMessaggiRicevuti.getSelectedValue();
         if (index0 != null) {
-           corpoMessaggio.setText(new HtmlVisitor().visit(index0));
+            corpoMessaggio.setText(new HtmlVisitor().visit(index0));
         }
+        elencoMessaggiRicevuti.setPreferredSize(new Dimension(165, 250));
         scrollPane = new JScrollPane();
-        scrollPane.setPreferredSize(new Dimension(180, 250));
         scrollPane.setViewportView(elencoMessaggiRicevuti);
 
-        //AGGIUNTA DEI CONTROLLI AI PANNELLI        
+        //AGGIUNTA DEI CONTROLLI AI PANNELLI      
+        leftPanel.add(messageTextLabel, BorderLayout.NORTH);
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
@@ -92,14 +97,29 @@ public class InboxPanel extends JPanel implements View {
         registerController();
     }
 
-    public void modificaCorpoMessaggio(String testo) {
-        corpoMessaggio.setText(testo);
-    }
-
     @Override
     public void registerController() {
         GUIController gc = GUIController.getInstance();
         gc.addView(this);
+    }
+
+    //elimina l'elemento selezionato nella lista delle bozze e aggiorna la vista
+    public boolean deleteSelectedIndex() {
+        int toDelete = elencoMessaggiRicevuti.getSelectedIndex();
+        if (toDelete >= 0) {
+            rightPanel.removeAll();
+            topPanel.removeAll();
+            leftPanel.removeAll();
+            bottomPanel.removeAll();
+            mittentiMessaggiArrLst.remove(toDelete);
+            init();
+            rightPanel.revalidate();
+            topPanel.revalidate();
+            leftPanel.revalidate();
+            bottomPanel.revalidate();
+            return true;
+        }
+        return false;
     }
 
     //METODI GETTER
@@ -111,9 +131,13 @@ public class InboxPanel extends JPanel implements View {
         return corpoMessaggio;
     }
 
-    //METODI SETTER
-    public void setCorpoMessaggio(String msg) {
-        this.corpoMessaggio.setText(msg);
+    public JButton getEliminaMessaggioBtn() {
+        return eliminaMessaggioBtn;
+    }
+
+    //METODI SETTER 
+    public void setCorpoMessaggio(String testo) {
+        corpoMessaggio.setText(testo);
     }
 
     public ArrayList<MessaggioDestinatario> getMittentiMessaggiArrLst() {

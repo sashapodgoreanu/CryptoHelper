@@ -35,6 +35,12 @@ public class HtmlVisitor implements Visitor {
         sb.append("<b>Titolo messaggio: </b>").append(msgDestinatario.getTitolo());
         sb.append("</p>");
         sb.append("<p>");
+        sb.append("<b>Lingua messaggio: </b>").append(msgDestinatario.getLingua());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Letto: </b>").append(msgDestinatario.isLetto());
+        sb.append("</p>");
+        sb.append("<p>");
         sb.append("<b>Testo Messaggio:</b><br/>").append(msgDestinatario.getTesto());
         sb.append("</p>");
         sb.append("</html>");
@@ -53,10 +59,37 @@ public class HtmlVisitor implements Visitor {
         sb.append("<b>Titolo messaggio: </b>").append(msgMittente.getTitolo());
         sb.append("</p>");
         sb.append("<p>");
+        sb.append("<b>Lingua messaggio: </b>").append(msgMittente.getLingua());
+        sb.append("</p>");
+        sb.append("<p>");
         sb.append("<b>Testo Messaggio:</b><br/>").append(msgMittente.getTesto());
         sb.append("</p>");
         sb.append("</html>");
         return sb.toString();
-     }
+    }
+
+    public String visit(Messaggio msg) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>");
+        sb.append("<p>");
+        sb.append("<b>Mitente: </b>").append(msg.getMittente().getNome());
+        sb.append(" ").append(msg.getMittente().getCognome());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Destinatario: </b>").append(msg.getDestinatario().getNome());
+        sb.append(" ").append(msg.getDestinatario().getCognome());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Titolo messaggio: </b>").append(msg.getTitolo());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Lingua messaggio: </b>").append(msg.getLingua());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Testo Cifrato:</b><br/>").append(msg.getTestoCifrato());
+        sb.append("</p>");
+        sb.append("</html>");
+        return sb.toString();
+    }
 
 }

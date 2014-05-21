@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
+import javax.swing.border.EmptyBorder;
 
 public class MessagePanel extends JPanel implements View {
 
@@ -51,6 +52,7 @@ public class MessagePanel extends JPanel implements View {
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
+        topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
         String[] lingua = {"inglese", "italiano"};
@@ -79,12 +81,12 @@ public class MessagePanel extends JPanel implements View {
                 return renderer;
             }
         });
-        elencoDestinatari.setFixedCellWidth(160);
+        elencoDestinatari.setPreferredSize(new Dimension(150, 250));
         inviaMessageBtn.setEnabled(true);
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoDestinatari);
         corpoMessaggio = new JTextArea();
-        corpoMessaggio.setSize(new Dimension(540, 250));
+        corpoMessaggio.setSize(new Dimension(600, 250));
         corpoMessaggio.setLineWrap(true);
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
 
