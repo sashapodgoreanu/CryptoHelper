@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.border.EmptyBorder;
 
 public class BozzePanel extends JPanel implements View {
 
@@ -51,6 +52,7 @@ public class BozzePanel extends JPanel implements View {
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
+        topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
         String[] lingua = {"inglese", "italiano"};
@@ -69,7 +71,7 @@ public class BozzePanel extends JPanel implements View {
         destinatarioField.setOpaque(true);
         titoloBozzaField = new JTextField(21);
         corpoBozza = new JTextPane();
-        corpoBozza.setPreferredSize(new Dimension(540, 250));
+        corpoBozza.setPreferredSize(new Dimension(600, 250));
         corpoBozza.setContentType("text/html"); //consente formattazione html
         corpoBozza.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
@@ -94,7 +96,7 @@ public class BozzePanel extends JPanel implements View {
             linguaDropdown.setSelectedItem(index0.getLingua());
         }
         scrollPane = new JScrollPane();
-        scrollPane.setPreferredSize(new Dimension(180, 250));
+        scrollPane.setPreferredSize(new Dimension(165, 250));
         scrollPane.setViewportView(elencoBozze);
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.EmptyBorder;
 
 public class OutboxPanel extends JPanel implements View {
 
@@ -44,6 +45,7 @@ public class OutboxPanel extends JPanel implements View {
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
+        topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
         targetListLabel = new JLabel("Messaggi inviati:");
@@ -62,11 +64,11 @@ public class OutboxPanel extends JPanel implements View {
             }
         });
         elencoMessaggiInviati.setSelectedIndex(0);
+        elencoMessaggiInviati.setPreferredSize(new Dimension(165, 250));
         scrollPane = new JScrollPane();
-        scrollPane.setPreferredSize(new Dimension(180, 250));
         scrollPane.setViewportView(elencoMessaggiInviati);
         corpoMessaggio = new JTextPane();
-        corpoMessaggio.setPreferredSize(new Dimension(540, 250));
+        corpoMessaggio.setPreferredSize(new Dimension(600, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
         corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
@@ -91,7 +93,7 @@ public class OutboxPanel extends JPanel implements View {
         registerController();
     }
 
-   //elimina l'elemento selezionato nella lista dei messaggi inviati e aggiorna la vista
+    //elimina l'elemento selezionato nella lista dei messaggi inviati e aggiorna la vista
     public boolean deleteSelectedIndex() {
         int toDelete = elencoMessaggiInviati.getSelectedIndex();
         if (toDelete >= 0) {
