@@ -16,6 +16,7 @@ public class AreaLavoro extends JFrame implements View {
     JPanel bodyPanel = new JPanel();    //pannello contenitore dell'area di lavoro
     JLabel statusLabel;                 //status bar per messaggi in basso
     JPanel sceglimsg;
+    JButton nuovaSessioneBtn;
     JButton salvaSessioneBtn;
     JButton logoutBtn;
     ArrayList<Messaggio> msgArrLst;
@@ -32,7 +33,9 @@ public class AreaLavoro extends JFrame implements View {
         logoutBtn = new JButton("Logout");
         salvaSessioneBtn = new JButton("Salva sessione di lavoro");
         salvaSessioneBtn.setEnabled(false);
+        nuovaSessioneBtn = new JButton("Nuova sessione di lavoro");
         toolbarPanel.setBackground(Color.LIGHT_GRAY);
+        toolbarPanel.add(nuovaSessioneBtn);
         toolbarPanel.add(salvaSessioneBtn);
         toolbarPanel.add(logoutBtn);
 

@@ -58,7 +58,6 @@ public class GUIControllerAL {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            areaLavoro.setStatus(" ");
             System.out.println("Clicked LIST");
             Messaggio chosenMsg = (Messaggio) scegliMsgPanel.getElencoMessaggi().getSelectedValue();
             scegliMsgPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(chosenMsg)));
