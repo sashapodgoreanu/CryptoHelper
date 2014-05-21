@@ -10,6 +10,7 @@ import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.UserInfo;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -57,8 +58,8 @@ public class ProponiSDCPanel extends JPanel implements View {
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
         bottomPanel.setBorder(new EmptyBorder(20, 0, 0, 0));   //padding per separare i controlli
-        leftPanel.setBorder(new EmptyBorder(0, 200, 0, 0));   //padding per separare i controlli
-        rightPanel.setBorder(new EmptyBorder(0, 0, 0, 200));   //padding per separare i controlli
+        leftPanel.setBorder(new EmptyBorder(0, 150, 0, 0));   //padding per separare i controlli
+        rightPanel.setBorder(new EmptyBorder(0, 0, 0, 150));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI   
         proponiSDCBtn = new JButton("Invia Proposta");
@@ -76,9 +77,9 @@ public class ProponiSDCPanel extends JPanel implements View {
             }
         });
         elencoDestinatari.setSelectedIndex(0);
+        elencoDestinatari.setPreferredSize(new Dimension(165, 250));
         scrollPaneDest = new JScrollPane();
         scrollPaneDest.setViewportView(elencoDestinatari);
-
         elencoSDC = new JList(new Vector<SistemaCifratura>(sdcArrLst));
         elencoSDC.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -93,6 +94,7 @@ public class ProponiSDCPanel extends JPanel implements View {
             }
         });
         elencoSDC.setSelectedIndex(0);
+        elencoSDC.setPreferredSize(new Dimension(120, 250));
         scrollPaneSdc = new JScrollPane();
         scrollPaneSdc.setViewportView(elencoSDC);
 
