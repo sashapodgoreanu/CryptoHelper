@@ -38,7 +38,7 @@ public class OutboxPanel extends JPanel implements View {
     private void init() {
         System.out.println("Inizzializzazione Pannello Outbox...");   //comunicazione di controllo per i log
 
-        //INIT DEI PANNELLI E DEI LAYOUT
+        //INIT DEI LAYOUT
         this.setLayout(new BorderLayout());
         topPanel.setLayout(new FlowLayout());
         leftPanel.setLayout(new BorderLayout());

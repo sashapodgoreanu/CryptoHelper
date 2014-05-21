@@ -83,11 +83,11 @@ public class GUIController {
         } else if (v instanceof InboxPanel) {
             inboxPanel = (InboxPanel) v;
             inboxPanel.getElencoMessaggiRicevuti().addListSelectionListener(new ViewInboxMsgListener());
+            inboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaInboxMsgListener());
         } else if (v instanceof OutboxPanel) {
             outboxPanel = (OutboxPanel) v;
             outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewOutboxMsgListener());
             outboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaOutboxMsgListener());
-
         } else if (v instanceof PanelloPrincipale) {
             panelloPrincipale = (PanelloPrincipale) v;
             panelloPrincipale.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
@@ -238,6 +238,18 @@ public class GUIController {
         }
     }
 
+     //classe listener per il button "elimina" del pannello outbox 
+    private class EliminaInboxMsgListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MessaggioMittente mess = (MessaggioMittente) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
+            mess.elimina();
+            inboxPanel.deleteSelectedIndex();
+            panelloPrincipale.setStatus("Messaggio eliminato correttamente!");
+        }
+    }
+    
     //classe listener per la Jlist della outbox 
     private class ViewOutboxMsgListener implements ListSelectionListener {
 
@@ -255,7 +267,6 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
             MessaggioMittente mess = (MessaggioMittente) outboxPanel.getElencoMessaggiInviati().getSelectedValue();
             mess.elimina();
             outboxPanel.deleteSelectedIndex();
