@@ -238,7 +238,7 @@ public class GUIController {
         }
     }
 
-     //classe listener per il button "elimina" del pannello outbox 
+    //classe listener per il button "elimina" del pannello outbox 
     private class EliminaInboxMsgListener implements ActionListener {
 
         @Override
@@ -249,7 +249,7 @@ public class GUIController {
             panelloPrincipale.setStatus("Messaggio eliminato correttamente!");
         }
     }
-    
+
     //classe listener per la Jlist della outbox 
     private class ViewOutboxMsgListener implements ListSelectionListener {
 
@@ -683,12 +683,18 @@ public class GUIController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Studente s = new Studente(regForm.getNameField(), regForm.getSurnameField(),
-                    regForm.getNicknameField(), regForm.getPasswordField());
-            s.salva();
-            regForm.dispose();
-            LoginForm f = new LoginForm();
-            System.out.println(this.getClass() + "Registration: OK");
+            if (regForm.getNameField().equals("") || regForm.getSurnameField().equals("")
+                    || regForm.getNicknameField().equals("") || regForm.getPasswordField().equals("")) {
+                System.out.println(this.getClass() + "Registration: error");
+                regForm.setErrorLabel("Errore: tutti i campi devono essere compilati!");
+            } else {
+                Studente s = new Studente(regForm.getNameField(), regForm.getSurnameField(),
+                        regForm.getNicknameField(), regForm.getPasswordField());
+                s.salva();
+                regForm.dispose();
+                LoginForm f = new LoginForm();
+                System.out.println(this.getClass() + "Registration: OK");
+            }
         }
     }
 
