@@ -25,6 +25,7 @@ public class BozzePanel extends JPanel implements View {
     JLabel bozzeListLabel;
     JLabel languageLabel;
     JLabel destinatarioPromptLabel;
+    JLabel messageTextLabel;
     JTextField destinatarioField;
     JTextField titoloBozzaField;    //inputBox per il messaggio
     JList elencoBozze;              //visualizza lalista delle bozze
@@ -64,6 +65,7 @@ public class BozzePanel extends JPanel implements View {
         msgTitleLabel = new JLabel("Titolo della bozza:");
         bozzeListLabel = new JLabel("Bozze disponibili:");
         languageLabel = new JLabel("Lingua: ");
+        messageTextLabel = new JLabel("Testo della bozza:");
         destinatarioPromptLabel = new JLabel("Destinatario: ");
         destinatarioField = new JTextField("");
         destinatarioField.setEditable(false);
@@ -109,6 +111,7 @@ public class BozzePanel extends JPanel implements View {
         bottomPanel.add(saveBozzaBtn);
         bottomPanel.add(deleteBozzaBtn);
         bottomPanel.add(sendBozzaBtn);
+        leftPanel.add(messageTextLabel, BorderLayout.NORTH);
         leftPanel.add(corpoBozza, BorderLayout.CENTER);
         rightPanel.add(bozzeListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);

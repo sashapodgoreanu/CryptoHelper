@@ -99,7 +99,7 @@ public class ProponiSDCPanel extends JPanel implements View {
         //AGGIUNTA DEI CONTROLLI AI PANNELLI
         leftPanel.add(new JLabel("Sistemi di cifratura disponibili:"), BorderLayout.NORTH);
         leftPanel.add(scrollPaneSdc, BorderLayout.CENTER);
-        rightPanel.add(new JLabel("Destinatario:"), BorderLayout.NORTH);
+        rightPanel.add(new JLabel("Destinatari:"), BorderLayout.NORTH);
         rightPanel.add(scrollPaneDest, BorderLayout.CENTER);
         bottomPanel.add(proponiSDCBtn);
 

@@ -77,6 +77,7 @@ public class ScegliMsgPanel extends JPanel implements View {
         }
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
+        leftPanel.add(messageTextLabel, BorderLayout.NORTH);
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);

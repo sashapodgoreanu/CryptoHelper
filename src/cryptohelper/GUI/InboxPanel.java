@@ -50,7 +50,7 @@ public class InboxPanel extends JPanel implements View {
 
         //INIT DEI CONTROLLI
         targetListLabel = new JLabel("Messaggi ricevuti:");
-        messageTextLabel = new JLabel("Testo del messaggio:");
+        messageTextLabel = new JLabel("Contenuto del messaggio:");
         decifraBtn = new JButton("Decifra messaggio");
         eliminaMessaggioBtn = new JButton("Elimina messaggio");
         corpoMessaggio = new JTextPane();
@@ -79,7 +79,8 @@ public class InboxPanel extends JPanel implements View {
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoMessaggiRicevuti);
 
-        //AGGIUNTA DEI CONTROLLI AI PANNELLI        
+        //AGGIUNTA DEI CONTROLLI AI PANNELLI      
+        leftPanel.add(messageTextLabel, BorderLayout.NORTH);
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
