@@ -59,7 +59,6 @@ OK- guarda simile per INBOX
 
 luigi
 ********************************
- private class GestisciOutbox implements ActionListener  ---  non corretta
  decifra messaggio nella inbox
 ********************************************************
 

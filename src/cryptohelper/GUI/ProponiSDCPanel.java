@@ -1,4 +1,3 @@
-
 /**
  *
  * @author Sasha Alexandru Podgoreanu
@@ -20,15 +19,16 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 
-public class ProponiSDCPanel  extends JPanel implements View {
+public class ProponiSDCPanel extends JPanel implements View {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
     JPanel rightPanel;       //pannello a destra
     JPanel bottomPanel;      //pannello in basso
     JButton proponiSDCBtn;
-    
+
     JScrollPane scrollPaneDest;
     JScrollPane scrollPaneSdc;
     JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
@@ -36,7 +36,6 @@ public class ProponiSDCPanel  extends JPanel implements View {
     ArrayList<UserInfo> destinatariArrLst;
     ArrayList<SistemaCifratura> sdcArrLst;
 
-    
     public ProponiSDCPanel(ArrayList<UserInfo> destinatariArrLst, ArrayList<SistemaCifratura> sdc) {
         this.destinatariArrLst = destinatariArrLst;
         sdcArrLst = sdc;
@@ -57,10 +56,12 @@ public class ProponiSDCPanel  extends JPanel implements View {
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
+        bottomPanel.setBorder(new EmptyBorder(20, 0, 0, 0));   //padding per separare i controlli
+        leftPanel.setBorder(new EmptyBorder(0, 200, 0, 0));   //padding per separare i controlli
+        rightPanel.setBorder(new EmptyBorder(0, 0, 0, 200));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI   
         proponiSDCBtn = new JButton("Invia Proposta");
-        
         elencoDestinatari = new JList(new Vector<UserInfo>(destinatariArrLst));
         elencoDestinatari.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -77,7 +78,7 @@ public class ProponiSDCPanel  extends JPanel implements View {
         elencoDestinatari.setSelectedIndex(0);
         scrollPaneDest = new JScrollPane();
         scrollPaneDest.setViewportView(elencoDestinatari);
-        
+
         elencoSDC = new JList(new Vector<SistemaCifratura>(sdcArrLst));
         elencoSDC.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -94,18 +95,12 @@ public class ProponiSDCPanel  extends JPanel implements View {
         elencoSDC.setSelectedIndex(0);
         scrollPaneSdc = new JScrollPane();
         scrollPaneSdc.setViewportView(elencoSDC);
-       
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI
-
-        leftPanel.add(new JLabel("<html>Sistemi <br/> di cifratura <br/> disponibili</html>"), BorderLayout.WEST);
+        leftPanel.add(new JLabel("Sistemi di cifratura disponibili:"), BorderLayout.NORTH);
         leftPanel.add(scrollPaneSdc, BorderLayout.CENTER);
-        
-        rightPanel.add(new JLabel("Destinatario:"), BorderLayout.WEST);
+        rightPanel.add(new JLabel("Destinatario:"), BorderLayout.NORTH);
         rightPanel.add(scrollPaneDest, BorderLayout.CENTER);
-        
-        
-        
         bottomPanel.add(proponiSDCBtn);
 
         //AGGIUNTA DEI PANNELLI
@@ -147,8 +142,5 @@ public class ProponiSDCPanel  extends JPanel implements View {
     public void setElencoSDC(JList elencoSDC) {
         this.elencoSDC = elencoSDC;
     }
-    
-    
-    
-    
+
 }
