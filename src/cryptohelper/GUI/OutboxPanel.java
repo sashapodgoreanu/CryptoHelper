@@ -91,7 +91,7 @@ public class OutboxPanel extends JPanel implements View {
         registerController();
     }
 
-     //elimina l'elemento selezionato nella lista delle bozze e reinizializza la finestra per aggiornare la vista
+   //elimina l'elemento selezionato nella lista dei messaggi inviati e aggiorna la vista
     public boolean deleteSelectedIndex() {
         int toDelete = elencoMessaggiInviati.getSelectedIndex();
         if (toDelete >= 0) {
