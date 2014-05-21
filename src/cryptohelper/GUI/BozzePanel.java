@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 public class BozzePanel extends JPanel implements View {
@@ -75,7 +76,8 @@ public class BozzePanel extends JPanel implements View {
         corpoBozza = new JTextPane();
         corpoBozza.setPreferredSize(new Dimension(600, 250));
         corpoBozza.setContentType("text/html"); //consente formattazione html
-        corpoBozza.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+        Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
+        corpoBozza.setBorder(BorderFactory.createCompoundBorder(b,BorderFactory.createEmptyBorder(10, 10, 10, 10))); //assegna un margine al controllo
         elencoBozze = new JList(new Vector<MessaggioMittente>(bozzeArrLst));
         elencoBozze.setCellRenderer(new DefaultListCellRenderer() {
             @Override

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 public class OutboxPanel extends JPanel implements View {
@@ -64,14 +65,15 @@ public class OutboxPanel extends JPanel implements View {
             }
         });
         elencoMessaggiInviati.setSelectedIndex(0);
-        elencoMessaggiInviati.setPreferredSize(new Dimension(165, 250));
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoMessaggiInviati);
+        scrollPane.setPreferredSize(new Dimension(165, 250));
         corpoMessaggio = new JTextPane();
         corpoMessaggio.setPreferredSize(new Dimension(600, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
         corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
-        corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+ Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
+        corpoMessaggio.setBorder(BorderFactory.createCompoundBorder(b,BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
         MessaggioMittente index0 = (MessaggioMittente) elencoMessaggiInviati.getSelectedValue();
         if (index0 != null) {
             corpoMessaggio.setText(new HtmlVisitor().visit(index0));

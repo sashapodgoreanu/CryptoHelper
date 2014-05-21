@@ -66,6 +66,7 @@ public class GUIController {
         return instance;
     }
 
+    //registra i pannelli e i loro actionListener
     public void addView(View v) {
         if (v instanceof LoginForm) {
             loginForm = (LoginForm) v;

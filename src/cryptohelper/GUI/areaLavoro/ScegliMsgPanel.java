@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 public class ScegliMsgPanel extends JPanel implements View {
@@ -70,7 +71,8 @@ public class ScegliMsgPanel extends JPanel implements View {
         corpoMessaggio.setPreferredSize(new Dimension(600, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
         corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
-        corpoMessaggio.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
+        Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
+        corpoMessaggio.setBorder(BorderFactory.createCompoundBorder(b,BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
         Messaggio index0 = (Messaggio) elencoMessaggi.getSelectedValue();
         if (index0 != null) {
             corpoMessaggio.setText(new HtmlVisitor().visit(index0));
