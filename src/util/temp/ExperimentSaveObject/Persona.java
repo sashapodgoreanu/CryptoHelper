@@ -33,14 +33,13 @@ public class Persona{
         this.figlio = a;
         number = new Phonenumber(1);
     }
-    /*
        @Override
     public String toString() {
         if(figlio == null)
             return "Persona{" + "nome=" + nome + ", cognome=" + cognome + ", figlio=" + figlio + ", number=" + number.toString() + '}';
         else return "Persona{" + "nome=" + nome + ", cognome=" + cognome + ", figlio=" + figlio.toString() + ", number=" + number.toString() + '}';
     }
-    */
+    
 
  
     

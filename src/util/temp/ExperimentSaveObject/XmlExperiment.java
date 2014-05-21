@@ -37,13 +37,19 @@ public class XmlExperiment {
         Persona joe3 = new Persona("Joe3", "Walnes",joe2);
         Persona joe4 = new Persona("Joe4", "Walnes",joe3);
         Persona joe5 = new Persona("Joe5", "Walnes",joe4);
-        System.out.println(joe5.toString());
+        Persona[] a = new Persona[5];
+        a[0] = joe1;
+        a[1] = joe2;
+        a[4] = joe3;
+        a[2] = joe4;
+        a[3] = joe5;
+        System.out.println("1"+joe1.toString());
         
-        String xml = xstream.toXML(joe5);
+        String xml = xstream.toXML(a);
         System.out.println(xml);
         
-        Persona newJoe = (Persona)xstream.fromXML(xml);
-        System.out.println(newJoe.toString());
+        Persona[] newJoe = (Persona[])xstream.fromXML(xml);
+        System.out.println("a"+newJoe[0].toString());
         
         
          

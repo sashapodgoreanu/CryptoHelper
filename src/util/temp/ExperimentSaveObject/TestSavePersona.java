@@ -13,14 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package util.temp.ExperimentSaveObject;
-
-import cryptohelper.service.DBController;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -32,10 +25,18 @@ public class TestSavePersona {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
+        System.out.println((int)'a');
+        System.out.println((int)'b');
+        System.out.println((int)'c');
+        System.out.println((int)'d');
+        System.out.println((int)'f');
+        System.out.println((int)'g');
+        System.out.println((int)'h');
+        System.out.println((int)'i');
+        System.out.println((int)'j');
         
- 
-        
-        
+        System.out.println((int) 'ì');
     }
-    
+
 }
