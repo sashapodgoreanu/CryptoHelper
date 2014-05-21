@@ -120,7 +120,7 @@ public class BozzePanel extends JPanel implements View {
         registerController();
     }
 
-    //elimina l'elemento selezionato nella lista delle bozze e reinizializza la finestra per aggiornare la vista
+    //elimina l'elemento selezionato nella lista delle bozze e aggiorna la vista
     public boolean deleteSelectedIndex() {
         int toDelete = elencoBozze.getSelectedIndex();
         if (toDelete >= 0) {
