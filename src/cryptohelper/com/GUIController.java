@@ -73,6 +73,7 @@ public class GUIController {
             //solo per il test
             loginForm.setUsernameField("sasha");
             loginForm.setPasswordField("1234");
+            /**/
             loginForm.getSubmit().addActionListener(new LoginFormListener());
             loginForm.getRegistration().addActionListener(new RegistrationFormListener());
         } else if (v instanceof RegistrationForm) {
@@ -191,6 +192,39 @@ public class GUIController {
         }
     }
 
+    //classe listener per il button "bozze" della finestra principale 
+    private class GestisciBozzeListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            panelloPrincipale.setStatus(" ");
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            ArrayList<MessaggioMittente> temp = Messaggio.caricaBozze(utilizzatoreSistema.getId());
+            panelloPrincipale.initGestioneBozze(temp);
+        }
+    }
+
+    private class GestisciSDCListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            panelloPrincipale.setStatus(" ");
+            JButton ev = (JButton) e.getSource();
+            sdcPanel.initGestisciSDCPanel(Proposta.caricaProposteSistemiCifratura(utilizzatoreSistema));
+        }
+    }
+
+    //classe listener per il button "salva messaggio" della finestra principale
+    private class LogoutListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            panelloPrincipale.dispose();
+            LoginForm f = new LoginForm();
+            System.out.println(this.getClass() + " Messaggio: Logout");
+        }
+    }
+
     //classe listener per la Jlist "ElencoMessaggiRicevuti" 
     private class ViewInboxMsgListener implements ListSelectionListener {
 
@@ -228,7 +262,7 @@ public class GUIController {
             panelloPrincipale.setStatus("Messaggio eliminato correttamente!");
         }
     }
-        
+
     //classe listener per la Jlist "ElencoBozze" 
     private class ViewBozzeMsgListener implements ListSelectionListener {
 
@@ -245,19 +279,6 @@ public class GUIController {
     }
 
 //classe listener per il button "bozze" della finestra principale 
-    private class GestisciBozzeListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
-            JButton ev = (JButton) e.getSource();
-            System.out.println("Clicked " + ev.getText());
-            ArrayList<MessaggioMittente> temp = Messaggio.caricaBozze(utilizzatoreSistema.getId());
-            panelloPrincipale.initGestioneBozze(temp);
-        }
-    }
-//classe listener per il button "bozze" della finestra principale 
-
     private class ElimnaBozzaListener implements ActionListener {
 
         @Override
@@ -293,15 +314,6 @@ public class GUIController {
         }
     }
 
-    private class GestisciSDCListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
-            JButton ev = (JButton) e.getSource();
-            sdcPanel.initGestisciSDCPanel(Proposta.caricaProposteSistemiCifratura(utilizzatoreSistema));
-        }
-    }
-
 //classe listener per JRadioButtons per selezionare il metodo di cifratura
     private class MetodoDicifraturaListener implements ActionListener {
 
@@ -320,7 +332,7 @@ public class GUIController {
         }
     }
 
-//classe listener per il button "salva messaggio" della finestra principale
+    //classe listener per il button "salva messaggio" della finestra principale
     private class SalvaInviaMessaggioListener implements ActionListener {
 
         @Override
@@ -631,17 +643,6 @@ public class GUIController {
             System.out.println("Clicked LIST");
             Proposta proposta = (Proposta) inboxSDCPanel.getElencoProposteRicevute().getSelectedValue();
             inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)));
-        }
-    }
-
-    //classe listener per il button "salva messaggio" della finestra principale
-    private class LogoutListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.dispose();
-            LoginForm f = new LoginForm();
-            System.out.println(this.getClass() + " Messaggio: Logout");
         }
     }
 
