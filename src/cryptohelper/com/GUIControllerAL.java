@@ -5,9 +5,13 @@ package cryptohelper.com;
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.areaLavoro.AreaLavoro;
 import cryptohelper.GUI.areaLavoro.ScegliMsgPanel;
+import cryptohelper.data.HtmlVisitor;
+import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class GUIControllerAL {
 
@@ -27,12 +31,14 @@ public class GUIControllerAL {
         return instance;
     }
 
+    //registra i pannelli e i loro actionListener
     public void addView(View v) {
         if (v instanceof AreaLavoro) {
             areaLavoro = (AreaLavoro) v;
             areaLavoro.getLogoutBtn().addActionListener(new LogoutListener());
         } else if (v instanceof ScegliMsgPanel) {
             scegliMsgPanel = (ScegliMsgPanel) v;
+            scegliMsgPanel.getElencoMessaggi().addListSelectionListener(new ViewMsgChoiceListener());
         }
     }
 
@@ -44,6 +50,18 @@ public class GUIControllerAL {
             areaLavoro.dispose();
             LoginForm f = new LoginForm();
             System.out.println(this.getClass() + "Logout eseguito");
+        }
+    }
+    
+    //classe listener per la Jlist della outbox 
+    private class ViewMsgChoiceListener implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            areaLavoro.setStatus(" ");
+            System.out.println("Clicked LIST");
+            Messaggio chosenMsg = (Messaggio) scegliMsgPanel.getElencoMessaggi().getSelectedValue();
+            scegliMsgPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(chosenMsg)));
         }
     }
 }

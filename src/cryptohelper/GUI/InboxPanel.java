@@ -75,7 +75,7 @@ public class InboxPanel extends JPanel implements View {
         if (index0 != null) {
             corpoMessaggio.setText(new HtmlVisitor().visit(index0));
         }
-        elencoMessaggiRicevuti.setPreferredSize(new Dimension(165, 250));
+        scrollPane.setPreferredSize(new Dimension(165, 250));
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoMessaggiRicevuti);
 

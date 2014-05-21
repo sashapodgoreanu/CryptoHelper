@@ -64,9 +64,9 @@ public class OutboxPanel extends JPanel implements View {
             }
         });
         elencoMessaggiInviati.setSelectedIndex(0);
-        elencoMessaggiInviati.setPreferredSize(new Dimension(165, 250));
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoMessaggiInviati);
+        scrollPane.setPreferredSize(new Dimension(165, 250));
         corpoMessaggio = new JTextPane();
         corpoMessaggio.setPreferredSize(new Dimension(600, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html

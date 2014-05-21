@@ -80,11 +80,11 @@ public class MessagePanel extends JPanel implements View {
                 }
                 return renderer;
             }
-        });
-        elencoDestinatari.setPreferredSize(new Dimension(150, 250));
+        });  
         inviaMessageBtn.setEnabled(true);
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoDestinatari);
+        scrollPane.setPreferredSize(new Dimension(165, 250));
         corpoMessaggio = new JTextArea();
         corpoMessaggio.setSize(new Dimension(600, 250));
         corpoMessaggio.setLineWrap(true);
