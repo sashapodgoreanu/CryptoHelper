@@ -16,8 +16,10 @@
 package util.temp.ExperimentSaveObject;
 
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class testFileReader {
@@ -31,6 +33,8 @@ public class testFileReader {
 
         //FileWriter fout = new FileWriter("test.txt");
         FileReader fin = new FileReader("bgItaliano.txt");
+        Map<Character, ArrayList<Integer>> a = new HashMap<>();
+
 
         int[][] tabella = new int[26][26];
         Scanner src = new Scanner(fin);
@@ -39,7 +43,7 @@ public class testFileReader {
             for (int j = 0; j < 26; j++) {
                 if (src.hasNextInt()) {
                     tabella[i][j] = src.nextInt();
-                } else {
+                } else {//se non è un intero consumalo
                     src.next();
                 }
             }
