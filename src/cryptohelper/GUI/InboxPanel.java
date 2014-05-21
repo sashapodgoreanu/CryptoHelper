@@ -1,5 +1,4 @@
 //pannello messaggi in arrivo
-
 package cryptohelper.GUI;
 
 import cryptohelper.interfaces.MessaggioDestinatario;
@@ -75,8 +74,8 @@ public class InboxPanel extends JPanel implements View {
         if (index0 != null) {
             corpoMessaggio.setText(new HtmlVisitor().visit(index0));
         }
-        scrollPane.setPreferredSize(new Dimension(165, 250));
         scrollPane = new JScrollPane();
+        scrollPane.setPreferredSize(new Dimension(165, 250));
         scrollPane.setViewportView(elencoMessaggiRicevuti);
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI      
