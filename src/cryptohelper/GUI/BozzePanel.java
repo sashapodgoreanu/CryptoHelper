@@ -23,10 +23,10 @@ public class BozzePanel extends JPanel implements View {
     JLabel msgTitleLabel;
     JLabel bozzeListLabel;
     JLabel languageLabel;
-    JLabel destinatarioPromptLabel;  
+    JLabel destinatarioPromptLabel;
     JTextField destinatarioField;
     JTextField titoloBozzaField;    //inputBox per il messaggio
-    JList elencoBozze;                  //visualizza lalista delle bozze
+    JList elencoBozze;              //visualizza lalista delle bozze
     JScrollPane scrollPane;
     JTextPane corpoBozza;
     JComboBox linguaDropdown;
@@ -120,11 +120,7 @@ public class BozzePanel extends JPanel implements View {
         registerController();
     }
 
-    public void setSelectedIndex() {
-
-    }
-
-    //TO-DO
+    //elimina l'elemento selezionato nella lista delle bozze e reinizializza la finestra per aggiornare la vista
     public boolean deleteSelectedIndex() {
         int toDelete = elencoBozze.getSelectedIndex();
         if (toDelete >= 0) {
@@ -193,7 +189,7 @@ public class BozzePanel extends JPanel implements View {
     public JComboBox getLinguaDropdown() {
         return linguaDropdown;
     }
-    
+
     public ArrayList<MessaggioMittente> getBozzeArrLst() {
         return bozzeArrLst;
     }
@@ -206,7 +202,7 @@ public class BozzePanel extends JPanel implements View {
     public void setDestinatario(String dest) {
         destinatarioField.setText(dest);
     }
-    
+
     public void setCorpoBozza(String testo) {
         corpoBozza.setText(testo);
     }

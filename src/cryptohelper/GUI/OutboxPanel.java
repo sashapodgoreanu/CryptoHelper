@@ -23,10 +23,14 @@ public class OutboxPanel extends JPanel implements View {
     JTextPane corpoMessaggio;
     JScrollPane scrollPane;
     JButton eliminaMessaggioBtn;
-    ArrayList<MessaggioMittente> destinatariMessaggiArrLst; //elenco destintari dei messaggi
+    ArrayList<MessaggioMittente> messaggiMittenteArrLst; //elenco destintari dei messaggi
 
-    public OutboxPanel(ArrayList<MessaggioMittente> destinatariMessaggiArrLst) {
-        this.destinatariMessaggiArrLst = destinatariMessaggiArrLst;
+    public OutboxPanel(ArrayList<MessaggioMittente> messaggiMittenteArrLst) {
+        topPanel = new JPanel();
+        leftPanel = new JPanel();
+        rightPanel = new JPanel();
+        bottomPanel = new JPanel();
+        this.messaggiMittenteArrLst = messaggiMittenteArrLst;
         this.init();
     }
 
@@ -36,10 +40,6 @@ public class OutboxPanel extends JPanel implements View {
 
         //INIT DEI PANNELLI E DEI LAYOUT
         this.setLayout(new BorderLayout());
-        topPanel = new JPanel();
-        leftPanel = new JPanel();
-        rightPanel = new JPanel();
-        bottomPanel = new JPanel();
         topPanel.setLayout(new FlowLayout());
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
@@ -49,7 +49,7 @@ public class OutboxPanel extends JPanel implements View {
         targetListLabel = new JLabel("Messaggi inviati:");
         messageTextLabel = new JLabel("Testo del messaggio:");
         eliminaMessaggioBtn = new JButton("Elimina messaggio");
-        elencoMessaggiInviati = new JList(new Vector<MessaggioMittente>(destinatariMessaggiArrLst));
+        elencoMessaggiInviati = new JList(new Vector<MessaggioMittente>(messaggiMittenteArrLst));
         elencoMessaggiInviati.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -91,8 +91,23 @@ public class OutboxPanel extends JPanel implements View {
         registerController();
     }
 
-    public void modificaCorpoMessaggio(String testo) {
-        corpoMessaggio.setText(testo);
+     //elimina l'elemento selezionato nella lista delle bozze e reinizializza la finestra per aggiornare la vista
+    public boolean deleteSelectedIndex() {
+        int toDelete = elencoMessaggiInviati.getSelectedIndex();
+        if (toDelete >= 0) {
+            rightPanel.removeAll();
+            topPanel.removeAll();
+            leftPanel.removeAll();
+            bottomPanel.removeAll();
+            messaggiMittenteArrLst.remove(toDelete);
+            init();
+            rightPanel.revalidate();
+            topPanel.revalidate();
+            leftPanel.revalidate();
+            bottomPanel.revalidate();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -110,17 +125,21 @@ public class OutboxPanel extends JPanel implements View {
         return corpoMessaggio;
     }
 
+    public JButton getEliminaMessaggioBtn() {
+        return eliminaMessaggioBtn;
+    }
+
     //METODI SETTER
-    public void setCorpoMessaggio(String msg) {
-        this.corpoMessaggio.setText(msg);
+    public void setCorpoMessaggio(String testo) {
+        corpoMessaggio.setText(testo);
     }
 
-    public ArrayList<MessaggioMittente> getMittentiMessaggiArrLst() {
-        return destinatariMessaggiArrLst;
+    public ArrayList<MessaggioMittente> getMessaggiMittenteArrLst() {
+        return messaggiMittenteArrLst;
     }
 
-    public void setMittentiMessaggiArrLst(ArrayList<MessaggioMittente> bozzeArayLst) {
-        this.destinatariMessaggiArrLst = bozzeArayLst;
+    public void setMessaggiMittenteArrLst(ArrayList<MessaggioMittente> bozzeArayLst) {
+        messaggiMittenteArrLst = bozzeArayLst;
     }
 
 }

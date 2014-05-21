@@ -31,12 +31,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 /**
- * Il controllore Deve conoscere: i modelli e le viste - JFrame's
- *
- * La vista Deve conoscere: i controllori e qualche modello
- *
- * Modello non deve conoscere nessuno dei due.
- *
+ * Il controllore Deve conoscere: i modelli e le viste - JFrame's La vista Deve
+ * conoscere: i controllori e qualche modello Modello non deve conoscere nessuno
+ * dei due.
  */
 public class GUIController {
 
@@ -88,6 +85,8 @@ public class GUIController {
         } else if (v instanceof OutboxPanel) {
             outboxPanel = (OutboxPanel) v;
             outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewOutboxMsgListener());
+            outboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaOutboxMsgListener());
+
         } else if (v instanceof PanelloPrincipale) {
             panelloPrincipale = (PanelloPrincipale) v;
             panelloPrincipale.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
@@ -217,6 +216,19 @@ public class GUIController {
         }
     }
 
+    //classe listener per il button "elimina" del pannello outbox 
+    private class EliminaOutboxMsgListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            panelloPrincipale.setStatus(" ");
+            MessaggioMittente mess = (MessaggioMittente) outboxPanel.getElencoMessaggiInviati().getSelectedValue();
+            mess.elimina();
+            outboxPanel.deleteSelectedIndex();
+            panelloPrincipale.setStatus("Messaggio eliminato correttamente!");
+        }
+    }
+        
     //classe listener per la Jlist "ElencoBozze" 
     private class ViewBozzeMsgListener implements ListSelectionListener {
 
@@ -254,6 +266,7 @@ public class GUIController {
             MessaggioMittente mess = (MessaggioMittente) bozzePanel.getElencoBozze().getSelectedValue();
             mess.elimina();
             bozzePanel.deleteSelectedIndex();
+            panelloPrincipale.setStatus("Bozza eliminata correttamente!");
         }
     }
 
@@ -327,7 +340,7 @@ public class GUIController {
                         panelloPrincipale.setStatus("");
                         JList list = messagePanel.getElencoDestinatari();
                         UserInfo destinatario = (UserInfo) list.getSelectedValue();
-                        System.out.println(this.getClass()+" SalvaInviaMessaggioListener:  Destinatario selected: " + destinatario.toString());
+                        System.out.println(this.getClass() + " SalvaInviaMessaggioListener:  Destinatario selected: " + destinatario.toString());
 
                         SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), destinatario.getId());
                         //Messaggio( String titolo, boolean bozza, boolean letto)
@@ -365,7 +378,7 @@ public class GUIController {
                         return;
                     }
                     SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), destinatario.getId());
-                    System.out.println(this.getClass()+" SalvaInviaMessaggioListener:  SistemaCifratura: " + sdc);
+                    System.out.println(this.getClass() + " SalvaInviaMessaggioListener:  SistemaCifratura: " + sdc);
                     //Messaggio( String titolo, boolean bozza, boolean letto)
                     msgMittente = new Messaggio(msgMittente.getId(),//id
                             messagePanel.getCorpoMessaggio(),//testo in chiaro
@@ -655,6 +668,7 @@ public class GUIController {
 
 //classe listener per il button "OK" della finestra registrazione utente
     private class RegisterListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             Studente s = new Studente(regForm.getNameField(), regForm.getSurnameField(),
