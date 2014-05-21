@@ -3,7 +3,7 @@ package cryptohelper.GUI.areaLavoro;
 
 import cryptohelper.GUI.InboxPanel;
 import cryptohelper.interfaces.View;
-import cryptohelper.com.GUIController;
+import cryptohelper.com.GUIControllerAL;
 import cryptohelper.data.Messaggio;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -71,8 +71,8 @@ public class AreaLavoro extends JFrame implements View {
 
     @Override
     public void registerController() {
-        GUIController gc = GUIController.getInstance();
-        gc.addView(this);
+        GUIControllerAL gcAL = GUIControllerAL.getInstance();
+        gcAL.addView(this);
     }
 
     //METODI GETTER

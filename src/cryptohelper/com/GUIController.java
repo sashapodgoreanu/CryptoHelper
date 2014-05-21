@@ -214,7 +214,7 @@ public class GUIController {
         }
     }
 
-    //classe listener per il button "salva messaggio" della finestra principale
+    //classe listener per il button "logout" della finestra principale
     private class LogoutListener implements ActionListener {
 
         @Override
