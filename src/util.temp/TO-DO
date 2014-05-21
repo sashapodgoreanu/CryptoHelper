@@ -10,12 +10,11 @@ OK - setSelectedindex(0) di elencoMessaggiRicevuti in InboxPanel
 OK - deve visionare immediatamente il primo messaggio una volta clicato su inbox
 
 
-
-
 CREARE TUTTI I COMPONENTI CHE SARANNO REGITRATI PRESO CONTROLLER NEI METODI init() di ogni GUI 
 --aggiungere validate a sistemcifratura in modello di progetto
 - quando si elimina una bozza, sistema di cifratura, messaggio si utilizza observer observable in modo da aggiornare la JList (il elemento deve scomparire) 
 -cambiare parametro testo cifrato nel salva messaggio di MessagePanel
+
 
 
 Sasha
@@ -47,7 +46,6 @@ OK - Preleva l'elenco delle bozze
 OK - public static ArrayList<MessaggioMittente> caricaBozze(int idStudente)
 OK - questo metodo non funziona perche destinatario e null.. invece nella db ha un valore(id dello studente) - deve essere un oggetto UserInfo
      vale anche per messaggi inviati. 
-
 OK- guarda simile per INBOX 
     elencoProposteRicevute.setSelectedIndex(0);
         Proposta index0 = (Proposta) elencoProposteRicevute.getSelectedValue();
@@ -62,7 +60,7 @@ OK- guarda simile per INBOX
 luigi
 ********************************
  private class GestisciOutbox implements ActionListener  ---  non corretta
-
+ decifra messaggio nella inbox
 ********************************************************
 
 uml 
