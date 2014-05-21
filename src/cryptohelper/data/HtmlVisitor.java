@@ -35,6 +35,12 @@ public class HtmlVisitor implements Visitor {
         sb.append("<b>Titolo messaggio: </b>").append(msgDestinatario.getTitolo());
         sb.append("</p>");
         sb.append("<p>");
+        sb.append("<b>Lingua messaggio: </b>").append(msgDestinatario.getLingua());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Letto: </b>").append(msgDestinatario.isLetto());
+        sb.append("</p>");
+        sb.append("<p>");
         sb.append("<b>Testo Messaggio:</b><br/>").append(msgDestinatario.getTesto());
         sb.append("</p>");
         sb.append("</html>");
@@ -53,10 +59,13 @@ public class HtmlVisitor implements Visitor {
         sb.append("<b>Titolo messaggio: </b>").append(msgMittente.getTitolo());
         sb.append("</p>");
         sb.append("<p>");
+        sb.append("<b>Lingua messaggio: </b>").append(msgMittente.getLingua());
+        sb.append("</p>");
+        sb.append("<p>");
         sb.append("<b>Testo Messaggio:</b><br/>").append(msgMittente.getTesto());
         sb.append("</p>");
         sb.append("</html>");
         return sb.toString();
-     }
+    }
 
 }

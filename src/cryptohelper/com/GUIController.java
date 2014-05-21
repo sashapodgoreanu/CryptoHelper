@@ -234,7 +234,7 @@ public class GUIController {
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
             System.out.println(mess.toString());
-            inboxPanel.getCorpoMessaggio().setText((new HtmlVisitorV2().visit(mess)));
+            inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)));
         }
     }
 
