@@ -146,9 +146,8 @@ public SessioneLavoro (int id, int studente, int albero, int messaggio, int solu
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
                 UserInfo user = UserInfo.getUserInfo(idStudente);
-                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Testo"), qr.getString("TestoCifrato"),
-                        qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")),
-                        user);
+                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
+                        qr.getInt("id_messaggio_intercettato"), qr.getInt("ultima_modifica"));
                 sessioni.add(temp);
             }
         } catch (Exception ex) {
