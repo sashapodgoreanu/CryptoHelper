@@ -32,10 +32,6 @@ public class SessioneLavoro {
         ultimaModifica = new Date(); //inizializza ultimaModifica con la data attuale.       
     }
 
-    public void setMessaggioIntercettato(Messaggio messaggioIntercettato) {
-        this.messaggioIntercettato = messaggioIntercettato;
-    }
-
     //Salva una sessione nella tabella SESSIONELAVORO del db. Restituisce TRUE se l'oparazione va a buon fine
     public boolean salva() {
         boolean result = false;
@@ -147,6 +143,10 @@ public class SessioneLavoro {
 
     public void setUltimaModifica(Date ultimaModifica) {
         this.ultimaModifica = ultimaModifica;
+    }
+
+    public void setMessaggioIntercettato(Messaggio messaggioIntercettato) {
+        this.messaggioIntercettato = messaggioIntercettato;
     }
 
 }
