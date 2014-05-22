@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 
-public class AreaLavoro extends JFrame implements View {
+public class IntercettaMessaggioPanel extends JFrame implements View {
 
     JPanel toolbarPanel = new JPanel(); //pannello con pulsanti "nuovo messaggio", "inbox", "logout"...
     JPanel bodyPanel = new JPanel();    //pannello contenitore dell'area di lavoro
@@ -21,7 +21,7 @@ public class AreaLavoro extends JFrame implements View {
     JButton logoutBtn;
     ArrayList<Messaggio> msgArrLst;
 
-    public AreaLavoro() {
+    public IntercettaMessaggioPanel() {
         this.init();
     }
 
@@ -71,12 +71,21 @@ public class AreaLavoro extends JFrame implements View {
         statusLabel.setText(" ");
     }
 
-    //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
+    //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuova sessione"
     public void initNuovaSessione(ArrayList<Messaggio> msgArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Nuova sessione di lavoro");    //cambia titolo al form
         this.setStatus("Selezionare il messaggio da intercettare e premere 'Avanti'"); //messaggio per la status label
         bodyPanel.add(new ScegliMsgPanel(msgArrLst));       //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
+    }
+
+    //Inizializza l'interfaccia e i componenti quando viene premuto il button "carica sessione"
+    public void initCaricaSessione(ArrayList<Messaggio> msgArrLst) {
+        this.resetPanels();
+        this.setTitle("CryptoHelper - Carica una sessione di lavoro");    //cambia titolo al form
+        this.setStatus("Selezionare la sessione da caricare e premere 'Avanti'"); //messaggio per la status label
+        bodyPanel.add(new CaricaSessionePanel());           //aggiunge il nuovo pannello
         bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
     }
 
@@ -99,10 +108,10 @@ public class AreaLavoro extends JFrame implements View {
         return nuovaSessioneBtn;
     }
 
-     public JButton getCaricaSessioneBtn() {
+    public JButton getCaricaSessioneBtn() {
         return caricaSessioneBtn;
     }
-     
+
     //METODI SETTER
     public void setStatus(String statusLabel) {
         this.statusLabel.setText(statusLabel);

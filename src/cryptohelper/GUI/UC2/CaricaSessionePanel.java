@@ -66,7 +66,7 @@ public class CaricaSessionePanel extends JPanel implements View {
                 return renderer;
             }
         });
-                */
+ */
         elencoSessioni.setSelectedIndex(0);
         elencoSessioni.setPreferredSize(new Dimension(165, 250));
         scrollPane = new JScrollPane();

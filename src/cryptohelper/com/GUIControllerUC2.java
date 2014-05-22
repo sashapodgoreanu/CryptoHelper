@@ -3,7 +3,7 @@
 package cryptohelper.com;
 
 import cryptohelper.GUI.LoginForm;
-import cryptohelper.GUI.UC2.AreaLavoro;
+import cryptohelper.GUI.UC2.IntercettaMessaggioPanel;
 import cryptohelper.GUI.UC2.ScegliMsgPanel;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
@@ -19,7 +19,7 @@ public class GUIControllerUC2 {
 
     private static GUIControllerUC2 instance;
     private COMController comC;
-    private AreaLavoro areaLavoro;
+    private IntercettaMessaggioPanel areaLavoro;
     private ScegliMsgPanel scegliMsgPanel;
 
     private GUIControllerUC2() {
@@ -35,8 +35,8 @@ public class GUIControllerUC2 {
 
     //registra i pannelli e i loro actionListener
     public void addView(View v) {
-        if (v instanceof AreaLavoro) {
-            areaLavoro = (AreaLavoro) v;
+        if (v instanceof IntercettaMessaggioPanel) {
+            areaLavoro = (IntercettaMessaggioPanel) v;
             areaLavoro.getNuovaSessioneBtn().addActionListener(new NuovaSessioneListener());
             areaLavoro.getLogoutBtn().addActionListener(new LogoutListener());
         } else if (v instanceof ScegliMsgPanel) {
