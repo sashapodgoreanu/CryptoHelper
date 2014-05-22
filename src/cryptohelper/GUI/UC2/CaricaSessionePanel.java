@@ -62,7 +62,7 @@ public class CaricaSessionePanel extends JPanel implements View {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof SessioneLavoro) {
                     SessioneLavoro temp = (SessioneLavoro) value;
-                    ((JLabel) renderer).setText(temp.getNome());
+                    ((JLabel) renderer).setText(temp.getNomeSessione());
                 }
                 return renderer;
             }
