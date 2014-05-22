@@ -31,7 +31,7 @@ public class AreaLavoro extends JFrame implements View {
         //INIT DI TOOLBAR PANEL
         logoutBtn = new JButton("Logout");
         nuovaSessioneBtn = new JButton("Nuova sessione di lavoro");
-        caricaSessioneBtn = new JButton("Carica  sessione di lavoro");
+        caricaSessioneBtn = new JButton("Carica sessione di lavoro");
         salvaSessioneBtn = new JButton("Salva sessione di lavoro");
         salvaSessioneBtn.setEnabled(false);
         toolbarPanel.setBackground(Color.LIGHT_GRAY);
@@ -99,6 +99,10 @@ public class AreaLavoro extends JFrame implements View {
         return nuovaSessioneBtn;
     }
 
+     public JButton getCaricaSessioneBtn() {
+        return caricaSessioneBtn;
+    }
+     
     //METODI SETTER
     public void setStatus(String statusLabel) {
         this.statusLabel.setText(statusLabel);
