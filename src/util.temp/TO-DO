@@ -53,17 +53,6 @@ OK- guarda simile per INBOX
             infoSdcLabel.setText(new HtmlVisitor().visit(index0));
         }
 
-
-
-**************************** 
-
-luigi
-********************************
- decifra messaggio nella inbox
-nella inbox delle proposte di cifratura e nelle proposte accettate fare in modo che il testo venga visualizzato al 
-clic di ogni lemento della lista a destra
-********************************************************
-
 uml 
 MappaSostituzioni
 
@@ -73,9 +62,11 @@ public int getposizione(char carattere)
 **********************************
 
 
-/********************** UC2 ***************************/
 
+
+/********************** UC2 ***************************/
 -Creare classe albero
 -Creare classe soluzione
--Creare interfaccia per le azioni della spia
+-Creare classe sessione
+-Creare interfaccia per le azioni della spia [in corso]
 
