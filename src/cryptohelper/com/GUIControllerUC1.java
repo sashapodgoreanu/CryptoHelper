@@ -57,7 +57,7 @@ public class GUIControllerUC1 {
     private GestisciSDCPanel gestisciSDCPanel;
 
     private GUIControllerUC1() {
-        comC = new COMController();
+       comC = COMController.getInstance();
     }
 
     public static GUIControllerUC1 getInstance() {
@@ -712,5 +712,12 @@ public class GUIControllerUC1 {
             }
         }
     }
+
+    public COMController getComC() {
+        return comC;
+    }
+    
+    
+
 
 }

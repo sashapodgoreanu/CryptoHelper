@@ -7,6 +7,8 @@ import cryptohelper.GUI.UC2.IntercettaMessaggioPanel;
 import cryptohelper.GUI.UC2.ScegliMsgPanel;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
+import cryptohelper.data.SessioneLavoro;
+import cryptohelper.data.UserInfo;
 import cryptohelper.interfaces.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,12 +20,13 @@ import javax.swing.event.ListSelectionListener;
 public class GUIControllerUC2 {
 
     private static GUIControllerUC2 instance;
+    private GUIControllerUC1 gcUC1;
     private COMController comC;
     private IntercettaMessaggioPanel intercettaMessaggioPanel;
     private ScegliMsgPanel scegliMsgPanel;
 
     private GUIControllerUC2() {
-        comC = new COMController();
+        comC = COMController.getInstance();
     }
 
     public static GUIControllerUC2 getInstance() {
@@ -78,7 +81,8 @@ public class GUIControllerUC2 {
             intercettaMessaggioPanel.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-           // ArrayList<Messaggio> temp = Messaggio.caricaMessaggi(); caricare qui array sessioni
+            ArrayList<SessioneLavoro> temp = SessioneLavoro.caricaSessioni(comC.getStudente().getId());
+            System.out.println(comC.getStudente().getId()+"");
             intercettaMessaggioPanel.initCaricaSessione();
         }
     }

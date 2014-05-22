@@ -29,12 +29,12 @@ public class CaricaSessionePanel extends JPanel implements View {
     ArrayList<SessioneLavoro> elencoSessioniArrLst; //elenco destintari dei messaggi
 
     //TO DO creare classe sessione e passare array come parametro qui
-    public CaricaSessionePanel(/*ArrayList<Sessione> elencoSessioni*/) {
+    public CaricaSessionePanel(ArrayList<SessioneLavoro> elencoSessioni) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
-        // this.elencoSessioniArrLst = elencoSessioni;
+        this.elencoSessioniArrLst = elencoSessioni;
         this.init();
     }
 
