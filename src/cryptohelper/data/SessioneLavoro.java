@@ -1,25 +1,7 @@
-/*
- * Copyright 2014 st106342.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package cryptohelper.data;
 
 import cryptohelper.com.COMController;
-import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.service.DBController;
-import static java.lang.StrictMath.log;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,55 +13,28 @@ import java.util.logging.Logger;
  * @author st106342
  */
 public class SessioneLavoro {
-    
+
     int idSessione;
+    String nomeSessione;
     UserInfo utente;
     Date ultimaModifica;
-     // alberoipotesi
+    // alberoipotesi
     Messaggio messaggioIntercettato;
     // soluzione
-        
-     //COSTRUTTORE I
-    public SessioneLavoro (int id, UserInfo studente, AlberoIpotesi albero, Messaggio messaggio /* soluzione*/) {
-    
+
+    //COSTRUTTORE I
+    public SessioneLavoro(int id, String nome, UserInfo studente, AlberoIpotesi albero, Messaggio messaggio /* soluzione*/) {
+
         idSessione = id;
-        utente=studente;
+        nomeSessione = nome;
+        utente = studente;
         messaggioIntercettato = messaggio;
-        
         ultimaModifica = new Date(); //inizializza ultimaModifica con la data attuale.       
-    }    
-    
-    public int getIdSessione() {
-        return idSessione;
-    }
-
-    public void setIdSessione(int idSessione) {
-        this.idSessione = idSessione;
-    }
-
-    public UserInfo getUtente() {
-        return utente;
-    }
-
-    public void setUtente(UserInfo utente) {
-        this.utente = utente;
-    }
-
-    public Date getUltimaModifica() {
-        return ultimaModifica;
-    }
-
-    public void setUltimaModifica(Date ultimaModifica) {
-        this.ultimaModifica = ultimaModifica;
-    }
-
-    public Messaggio getMessaggioIntercettato() {
-        return messaggioIntercettato;
     }
 
     public void setMessaggioIntercettato(Messaggio messaggioIntercettato) {
         this.messaggioIntercettato = messaggioIntercettato;
-    }  
+    }
 
     //Salva una sessione nella tabella SESSIONELAVORO del db. Restituisce TRUE se l'oparazione va a buon fine
     public boolean salva() {
@@ -96,9 +51,9 @@ public class SessioneLavoro {
         String querryUpdate = "UPDATE MESSAGGI"
                 + " Id_Utente = '" + this.getUtente().getId()
                 + "',"
-                + " Id_Messaggio_Intercettato = '"+ this.getMessaggioIntercettato().getId()
+                + " Id_Messaggio_Intercettato = '" + this.getMessaggioIntercettato().getId()
                 + "',"
-                + " Ultima_Modifica = "+ this.getUltimaModifica()
+                + " Ultima_Modifica = " + this.getUltimaModifica()
                 + "',"
                 + " WHERE ID = " + this.getIdSessione();
         try {
@@ -129,13 +84,13 @@ public class SessioneLavoro {
         }
         return result;
     }
-public SessioneLavoro (int id, int studente, int albero, int messaggio, int soluzione) {
-    
+
+    public SessioneLavoro(int id, int studente, int albero, int messaggio, int soluzione) {
+
         idSessione = id;
         utente.setId(studente);
         ultimaModifica = new Date(); //inizializza ultimaModifica con la data attuale.       
-    }    
-
+    }
 
     //Preleva l'elenco dei messaggi inviati dallo studente indicato
     public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
@@ -155,7 +110,43 @@ public SessioneLavoro (int id, int studente, int albero, int messaggio, int solu
         }
         return sessioni;
     }
-    
-    
-    
+
+    //METODI GETTER
+    public UserInfo getUtente() {
+        return utente;
+    }
+
+    public int getIdSessione() {
+        return idSessione;
+    }
+
+    public String getNomeSessione() {
+        return nomeSessione;
+    }
+
+    public Date getUltimaModifica() {
+        return ultimaModifica;
+    }
+
+    public Messaggio getMessaggioIntercettato() {
+        return messaggioIntercettato;
+    }
+
+    //METODI SETTER
+    public void setUtente(UserInfo utente) {
+        this.utente = utente;
+    }
+
+    public void setIdSessione(int idSessione) {
+        this.idSessione = idSessione;
+    }
+
+    public void setNomeSessione(String nome) {
+        this.nomeSessione = nome;
+    }
+
+    public void setUltimaModifica(Date ultimaModifica) {
+        this.ultimaModifica = ultimaModifica;
+    }
+
 }

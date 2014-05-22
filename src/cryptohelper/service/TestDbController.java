@@ -2,14 +2,15 @@ package cryptohelper.service;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
+import cryptohelper.data.AlberoIpotesi;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.QueryResult;
+import cryptohelper.data.SessioneLavoro;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import util.temp.ExperimentSaveObject.Persona;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -71,6 +72,13 @@ public class TestDbController {
             System.out.println(xml);
             Messaggio newJoe = (Messaggio) xstream.fromXML(xml);
             System.out.println(newJoe.toString());
+            AlberoIpotesi alberoSessione = new AlberoIpotesi();
+            SessioneLavoro s1 = new SessioneLavoro (0, destinatario, alberoSessione, newJoe);
+            s1.salva();
+            
+            
+            
+            
             /************************* TEST SAVE TO XML *****************************************/
             /*
              UserInfo mittente = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());

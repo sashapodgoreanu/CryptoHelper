@@ -64,15 +64,15 @@ public class ScegliMsgPanel extends JPanel implements View {
             }
         });
         elencoMessaggi.setSelectedIndex(0);
-        elencoMessaggi.setPreferredSize(new Dimension(165, 250));
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoMessaggi);
+        scrollPane.setPreferredSize(new Dimension(165, 250));
         corpoMessaggio = new JTextPane();
         corpoMessaggio.setPreferredSize(new Dimension(600, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
         corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
-        corpoMessaggio.setBorder(BorderFactory.createCompoundBorder(b,BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
+        corpoMessaggio.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
         Messaggio index0 = (Messaggio) elencoMessaggi.getSelectedValue();
         if (index0 != null) {
             corpoMessaggio.setText(new HtmlVisitor().visit(index0));
