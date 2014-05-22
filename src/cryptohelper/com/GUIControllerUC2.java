@@ -3,7 +3,7 @@
 package cryptohelper.com;
 
 import cryptohelper.GUI.LoginForm;
-import cryptohelper.GUI.UC2.AreaLavoro;
+import cryptohelper.GUI.UC2.IntercettaMessaggioPanel;
 import cryptohelper.GUI.UC2.ScegliMsgPanel;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
@@ -19,7 +19,7 @@ public class GUIControllerUC2 {
 
     private static GUIControllerUC2 instance;
     private COMController comC;
-    private AreaLavoro areaLavoro;
+    private IntercettaMessaggioPanel intercettaMessaggioPanel;
     private ScegliMsgPanel scegliMsgPanel;
 
     private GUIControllerUC2() {
@@ -35,10 +35,11 @@ public class GUIControllerUC2 {
 
     //registra i pannelli e i loro actionListener
     public void addView(View v) {
-        if (v instanceof AreaLavoro) {
-            areaLavoro = (AreaLavoro) v;
-            areaLavoro.getNuovaSessioneBtn().addActionListener(new NuovaSessioneListener());
-            areaLavoro.getLogoutBtn().addActionListener(new LogoutListener());
+        if (v instanceof IntercettaMessaggioPanel) {
+            intercettaMessaggioPanel = (IntercettaMessaggioPanel) v;
+            intercettaMessaggioPanel.getNuovaSessioneBtn().addActionListener(new NuovaSessioneListener());
+            intercettaMessaggioPanel.getCaricaSessioneBtn().addActionListener(new CaricaSessioneListener());
+            intercettaMessaggioPanel.getLogoutBtn().addActionListener(new LogoutListener());
         } else if (v instanceof ScegliMsgPanel) {
             scegliMsgPanel = (ScegliMsgPanel) v;
             scegliMsgPanel.getElencoMessaggi().addListSelectionListener(new ViewMsgChoiceListener());
@@ -50,22 +51,35 @@ public class GUIControllerUC2 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            areaLavoro.dispose();
+            intercettaMessaggioPanel.dispose();
             LoginForm f = new LoginForm();
             System.out.println(this.getClass() + "Logout eseguito");
         }
     }
 
-    //classe listener per la Jlist della outbox 
+    //classe listener per il button Nuova Sessione 
     private class NuovaSessioneListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            areaLavoro.setStatus(" ");
+            intercettaMessaggioPanel.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<Messaggio> temp = Messaggio.caricaMessaggi();
-            areaLavoro.initNuovaSessione(temp);
+            intercettaMessaggioPanel.initNuovaSessione(temp);
+        }
+    }
+
+    //classe listener per il button Carica Sessione 
+    private class CaricaSessioneListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            intercettaMessaggioPanel.setStatus(" ");
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+           // ArrayList<Messaggio> temp = Messaggio.caricaMessaggi(); caricare qui array sessioni
+            intercettaMessaggioPanel.initCaricaSessione();
         }
     }
 

@@ -1,7 +1,5 @@
 package cryptohelper.com;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
 import cryptohelper.GUI.BozzePanel;
 import cryptohelper.GUI.CreaSDCPanel;
 import cryptohelper.GUI.InboxPanel;
@@ -14,7 +12,7 @@ import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.ProponiSDCPanel;
 import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
-import cryptohelper.GUI.UC2.AreaLavoro;
+import cryptohelper.GUI.UC2.IntercettaMessaggioPanel;
 import cryptohelper.interfaces.View;
 import cryptohelper.data.Mappatura;
 import cryptohelper.data.Messaggio;
@@ -238,7 +236,7 @@ public class GUIControllerUC1 {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<Messaggio> msgArrLst = Messaggio.caricaMessaggi();
-            AreaLavoro al = new AreaLavoro();
+            IntercettaMessaggioPanel al = new IntercettaMessaggioPanel();
             panelloPrincipale.dispose();
         }
     }
@@ -381,15 +379,14 @@ public class GUIControllerUC1 {
                         panelloPrincipale.setStatus("");
                         JList list = messagePanel.getElencoDestinatari();
                         UserInfo destinatario = (UserInfo) list.getSelectedValue();
-                        System.out.println(this.getClass() + " SalvaInviaMessaggioListener:  Destinatario selected: " + destinatario.toString());
-
+                        System.out.println(this.getClass() + "SalvaInviaMessaggioListener:  Destinatario selected: " + destinatario.toString());
                         SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), destinatario.getId());
                         //Messaggio( String titolo, boolean bozza, boolean letto)
                         msgMittente = new Messaggio(msgMittente.getId(),//id
                                 messagePanel.getCorpoMessaggio(),//testo in chiaro
                                 (String) messagePanel.getLinguaDropdown().getSelectedItem(), //lingua
                                 messagePanel.getTitoloMessaggioField(),// titolo messaggio
-                                false,// isBozza
+                                true,// isBozza
                                 false,//isLetto
                                 utilizzatoreSistema,//mittente
                                 destinatario,//destinatario

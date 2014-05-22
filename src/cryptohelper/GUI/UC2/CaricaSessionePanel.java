@@ -23,6 +23,7 @@ public class CaricaSessionePanel extends JPanel implements View {
     JList elencoSessioni;
     JTextPane infoSessione;
     JScrollPane scrollPane;
+    JButton eliminaSessioneBtn;
     JButton okBtn;
     ArrayList<Messaggio> elencoSessioniArrLst; //elenco destintari dei messaggi
 
@@ -52,6 +53,7 @@ public class CaricaSessionePanel extends JPanel implements View {
         //INIT DEI CONTROLLI
         targetListLabel = new JLabel("Sessioni disponibili:");
         messageTextLabel = new JLabel("Informazioni sessione:");
+        eliminaSessioneBtn = new JButton("Elimina sessione");
         okBtn = new JButton("Avanti");
         /*
         elencoSessioni = new JList(new Vector<Sessione>(elencoSessioniArrLst));
@@ -66,9 +68,9 @@ public class CaricaSessionePanel extends JPanel implements View {
                 return renderer;
             }
         });
-                */
-        elencoSessioni.setSelectedIndex(0);
-        elencoSessioni.setPreferredSize(new Dimension(165, 250));
+ */
+//        elencoSessioni.setSelectedIndex(0);
+//        elencoSessioni.setPreferredSize(new Dimension(165, 250));
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoSessioni);
         infoSessione = new JTextPane();
@@ -77,16 +79,17 @@ public class CaricaSessionePanel extends JPanel implements View {
         infoSessione.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
         infoSessione.setBorder(BorderFactory.createCompoundBorder(b,BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
-        Messaggio index0 = (Messaggio) elencoSessioni.getSelectedValue();
-        if (index0 != null) {
-            infoSessione.setText(new HtmlVisitor().visit(index0));
-        }
+//        Messaggio index0 = (Messaggio) elencoSessioni.getSelectedValue();
+    //    if (index0 != null) {
+    //        infoSessione.setText(new HtmlVisitor().visit(index0));
+    //    }
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
         leftPanel.add(messageTextLabel, BorderLayout.NORTH);
         leftPanel.add(infoSessione, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
+        bottomPanel.add(eliminaSessioneBtn);
         bottomPanel.add(okBtn);
 
         //AGGIUNTA DEI PANNELLI
