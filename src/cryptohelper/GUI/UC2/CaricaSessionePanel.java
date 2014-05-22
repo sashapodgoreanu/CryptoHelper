@@ -5,6 +5,7 @@ import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
+import cryptohelper.data.SessioneLavoro;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
@@ -25,7 +26,7 @@ public class CaricaSessionePanel extends JPanel implements View {
     JScrollPane scrollPane;
     JButton eliminaSessioneBtn;
     JButton okBtn;
-    ArrayList<Messaggio> elencoSessioniArrLst; //elenco destintari dei messaggi
+    ArrayList<SessioneLavoro> elencoSessioniArrLst; //elenco destintari dei messaggi
 
     //TO DO creare classe sessione e passare array come parametro qui
     public CaricaSessionePanel(/*ArrayList<Sessione> elencoSessioni*/) {
@@ -61,7 +62,7 @@ public class CaricaSessionePanel extends JPanel implements View {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof SessioneLavoro) {
                     SessioneLavoro temp = (SessioneLavoro) value;
-                    ((JLabel) renderer).setText(temp.getTitolo());
+                    ((JLabel) renderer).setText(temp.getNome());
                 }
                 return renderer;
             }

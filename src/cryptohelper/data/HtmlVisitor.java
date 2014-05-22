@@ -7,6 +7,7 @@ import cryptohelper.interfaces.Visitor;
 
 public class HtmlVisitor implements Visitor {
 
+    //Stampa dati oggetto Proposta
     @Override
     public String visit(Proposta proposta) {
         StringBuilder sb = new StringBuilder();
@@ -23,6 +24,7 @@ public class HtmlVisitor implements Visitor {
         return sb.toString();
     }
 
+    //Stampa dati oggetto MessaggioDestinatario
     @Override
     public String visit(MessaggioDestinatario msgDestinatario) {
         StringBuilder sb = new StringBuilder();
@@ -47,6 +49,7 @@ public class HtmlVisitor implements Visitor {
         return sb.toString();
     }
 
+    //Stampa dati oggetto MessaggioMittente
     @Override
     public String visit(MessaggioMittente msgMittente) {
         StringBuilder sb = new StringBuilder();
@@ -68,6 +71,7 @@ public class HtmlVisitor implements Visitor {
         return sb.toString();
     }
 
+    //Stampa dati oggetto Messaggio
     public String visit(Messaggio msg) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
@@ -91,5 +95,24 @@ public class HtmlVisitor implements Visitor {
         sb.append("</html>");
         return sb.toString();
     }
-
+    
+      //Stampa dati oggetto SessioneLavoro
+      public String visit(SessioneLavoro sl) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>");
+        sb.append("<p>");
+        sb.append("<b>Nome Sessione: </b>").append(sl.getNomeSessione());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Autore: </b>").append(sl.getUtente().getNome());
+        sb.append(" ").append(sl.getUtente().getCognome());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Data ultima modifica: </b>").append(sl.getUltimaModifica());
+        sb.append(" ").append(sl.getUtente().getCognome());
+        sb.append("</p>");
+        sb.append("</html>");
+        return sb.toString();
+    }
+      
 }
