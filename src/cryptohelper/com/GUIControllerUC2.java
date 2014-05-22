@@ -3,8 +3,8 @@
 package cryptohelper.com;
 
 import cryptohelper.GUI.LoginForm;
-import cryptohelper.GUI.areaLavoro.AreaLavoro;
-import cryptohelper.GUI.areaLavoro.ScegliMsgPanel;
+import cryptohelper.GUI.UC2.AreaLavoro;
+import cryptohelper.GUI.UC2.ScegliMsgPanel;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.View;
@@ -15,20 +15,20 @@ import javax.swing.JButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class GUIControllerAL {
+public class GUIControllerUC2 {
 
-    private static GUIControllerAL instance;
+    private static GUIControllerUC2 instance;
     private COMController comC;
     private AreaLavoro areaLavoro;
     private ScegliMsgPanel scegliMsgPanel;
 
-    private GUIControllerAL() {
+    private GUIControllerUC2() {
         comC = new COMController();
     }
 
-    public static GUIControllerAL getInstance() {
+    public static GUIControllerUC2 getInstance() {
         if (instance == null) {
-            instance = new GUIControllerAL();
+            instance = new GUIControllerUC2();
         }
         return instance;
     }

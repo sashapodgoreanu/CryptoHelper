@@ -1,16 +1,11 @@
-Wed May 21 19:11:22 CEST 2014 : Server di rete Apache Derby: 10.10.1.2 - (1495037) avviato e pronto ad accettare connessioni sulla porta 1527
+Thu May 22 14:18:13 CEST 2014 : Apache Derby Server di rete: 10.8.2.2 - (1181258) avviato e pronto ad accettare connessioni sulla porta 1527
 ----------------------------------------------------------------
-Wed May 21 19:11:23 CEST 2014:
-Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.10.1.2 - (1495037): istanza a816c00e-0146-1fc4-148d-fffffc776a94
-sulla directory di database C:\Users\SashaAlexandru\Desktop\CryptoHelper\CHDB con caricatore classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
-Caricato da file:/C:/Program%20Files/Java/jdk1.8.0/db/lib/derby.jar
+Thu May 22 14:18:13 CEST 2014:
+Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): istanza a816c00e-0146-23de-0b98-ffffdf157467
+su directory database Z:\Sviluppo applicazioni software\CryptoHelper\CHDB  con caricatore classi sun.misc.Launcher$AppClassLoader@826b12d 
+
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0-b132
-user.dir=C:\Program Files\Java\jdk1.8.0\db
-os.name=Windows 8.1
-os.arch=amd64
-os.version=6.3
-derby.system.home=C:\Users\SashaAlexandru\Desktop\CryptoHelper
+java.runtime.version=1.7.0_25-b17
+user.dir=C:\Program Files\Java\jdk1.7.0_25\db
+derby.system.home=Z:\Sviluppo applicazioni software\CryptoHelper
 Programma di caricamento classe database avviato - derby.database.classpath=''
-----------------------------------------------------------------
-Thu May 22 00:30:50 CEST 2014: arresto in corso del motore di Derby

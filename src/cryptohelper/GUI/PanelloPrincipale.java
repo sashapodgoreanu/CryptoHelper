@@ -4,7 +4,7 @@ package cryptohelper.GUI;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import cryptohelper.interfaces.View;
-import cryptohelper.com.GUIController;
+import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.data.UserInfo;
@@ -136,7 +136,7 @@ public class PanelloPrincipale extends JFrame implements View {
 
     @Override
     public void registerController() {
-        GUIController gc = GUIController.getInstance();
+        GUIControllerUC1 gc = GUIControllerUC1.getInstance();
         gc.addView(this);
     }
 

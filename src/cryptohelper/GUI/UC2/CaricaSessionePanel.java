@@ -1,8 +1,8 @@
 //Pannello che consente il caricamento di una sessione salvata in precedenza
-package cryptohelper.GUI.areaLavoro;
+package cryptohelper.GUI.UC2;
 
 import cryptohelper.interfaces.View;
-import cryptohelper.com.GUIControllerAL;
+import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import java.util.ArrayList;
@@ -101,7 +101,7 @@ public class CaricaSessionePanel extends JPanel implements View {
 
     @Override
     public void registerController() {
-        GUIControllerAL gc = GUIControllerAL.getInstance();
+        GUIControllerUC2 gc = GUIControllerUC2.getInstance();
         gc.addView(this);
     }
 

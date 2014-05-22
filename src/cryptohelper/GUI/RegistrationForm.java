@@ -2,14 +2,14 @@
 package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;
-import cryptohelper.com.GUIController;
+import cryptohelper.com.GUIControllerUC1;
 import java.awt.*;
 import java.util.logging.Logger;
 import javax.swing.*;
 
 public class RegistrationForm extends JFrame implements View {
 
-    GUIController gc;
+    GUIControllerUC1 gc;
     JButton submitBtn;
     JButton cancelBtn;
     JLabel nameLabel;
@@ -64,7 +64,7 @@ public class RegistrationForm extends JFrame implements View {
 
     @Override
     public void registerController() {
-        gc = GUIController.getInstance();
+        gc = GUIControllerUC1.getInstance();
         gc.addView(this);
     }
 

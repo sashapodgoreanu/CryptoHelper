@@ -14,7 +14,7 @@ import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.ProponiSDCPanel;
 import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
-import cryptohelper.GUI.areaLavoro.AreaLavoro;
+import cryptohelper.GUI.UC2.AreaLavoro;
 import cryptohelper.interfaces.View;
 import cryptohelper.data.Mappatura;
 import cryptohelper.data.Messaggio;
@@ -37,7 +37,7 @@ import javax.swing.event.ListSelectionListener;
  * conoscere: i controllori e qualche modello Modello non deve conoscere nessuno
  * dei due.
  */
-public class GUIController {
+public class GUIControllerUC1 {
 
     private COMController comC;
     private LoginForm loginForm;
@@ -49,7 +49,7 @@ public class GUIController {
     private InboxPanel inboxPanel;
     private OutboxPanel outboxPanel;
     private CreaSDCPanel creaSDCPanel;
-    private static GUIController instance;
+    private static GUIControllerUC1 instance;
     private Messaggio msgMittente;
     private UserInfo utilizzatoreSistema;
     private SistemaCifratura sistemaCifratura;
@@ -58,13 +58,13 @@ public class GUIController {
     private InboxSDCPanel inboxSDCPanel;
     private GestisciSDCPanel gestisciSDCPanel;
 
-    private GUIController() {
+    private GUIControllerUC1() {
         comC = new COMController();
     }
 
-    public static GUIController getInstance() {
+    public static GUIControllerUC1 getInstance() {
         if (instance == null) {
-            instance = new GUIController();
+            instance = new GUIControllerUC1();
         }
         return instance;
     }

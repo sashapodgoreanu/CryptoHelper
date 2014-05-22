@@ -1,8 +1,8 @@
 //Finestra principale della GUI
-package cryptohelper.GUI.areaLavoro;
+package cryptohelper.GUI.UC2;
 
 import cryptohelper.interfaces.View;
-import cryptohelper.com.GUIControllerAL;
+import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.Messaggio;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -82,7 +82,7 @@ public class AreaLavoro extends JFrame implements View {
 
     @Override
     public void registerController() {
-        GUIControllerAL gcAL = GUIControllerAL.getInstance();
+        GUIControllerUC2 gcAL = GUIControllerUC2.getInstance();
         gcAL.addView(this);
     }
 

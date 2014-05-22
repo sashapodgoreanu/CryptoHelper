@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class COMController {
 
     private Studente studente;
-    private GUIController gc;
+    private GUIControllerUC1 gc;
 
     public COMController() {
         studente = new Studente();
