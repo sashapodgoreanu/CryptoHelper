@@ -1,7 +1,7 @@
-Wed May 21 19:11:22 CEST 2014 : Server di rete Apache Derby: 10.10.1.2 - (1495037) avviato e pronto ad accettare connessioni sulla porta 1527
+Thu May 22 14:13:53 CEST 2014 : Server di rete Apache Derby: 10.10.1.2 - (1495037) avviato e pronto ad accettare connessioni sulla porta 1527
 ----------------------------------------------------------------
-Wed May 21 19:11:23 CEST 2014:
-Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.10.1.2 - (1495037): istanza a816c00e-0146-1fc4-148d-fffffc776a94
+Thu May 22 14:13:54 CEST 2014:
+Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.10.1.2 - (1495037): istanza a816c00e-0146-23da-15a3-fffffc776a94
 sulla directory di database C:\Users\SashaAlexandru\Desktop\CryptoHelper\CHDB con caricatore classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
 Caricato da file:/C:/Program%20Files/Java/jdk1.8.0/db/lib/derby.jar
 java.vendor=Oracle Corporation
@@ -13,4 +13,4 @@ os.version=6.3
 derby.system.home=C:\Users\SashaAlexandru\Desktop\CryptoHelper
 Programma di caricamento classe database avviato - derby.database.classpath=''
 ----------------------------------------------------------------
-Thu May 22 00:30:50 CEST 2014: arresto in corso del motore di Derby
+Thu May 22 14:17:02 CEST 2014: arresto in corso del motore di Derby
