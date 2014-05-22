@@ -14,10 +14,17 @@ import java.util.logging.Logger;
 public class COMController {
 
     private Studente studente;
-    private GUIControllerUC1 gc;
+    private static COMController instance;
 
-    public COMController() {
+    private COMController() {
         studente = new Studente();
+    }
+
+    public static COMController getInstance() {
+        if (instance == null) {
+            instance = new COMController();
+        }
+        return instance;
     }
 
     /**
@@ -32,14 +39,6 @@ public class COMController {
         studente.setPassword(pwd);
         return studente.authenticate();
     }
-    /*
-     select mondial.city.name, mondial.city.latitude
-     from mondial.city
-     where mondial.city.latitude < 10
-     intersect 
-     select mondial.city.name, mondial.city.latitude
-     from mondial.city
-     where mondial.city.latitude > -10;*/
 
     //Preleva i destinatari a cui è possibile inviare dei messaggi (destinatari con cui si è concordato un SDC)
     public ArrayList<UserInfo> getDestinatari(UserInfo st) {
@@ -54,7 +53,7 @@ public class COMController {
                 + "        (" + st.getId() + " = SDCPARTNERS.ID_CREATORE OR " + st.getId() + " = SDCPARTNERS.ID_PARTNER)AND(STUDENTI.ID = SDCPARTNERS.ID_PARTNER OR STUDENTI.ID = SDCPARTNERS.ID_CREATORE)"
                 + "         "
                 + "        AND SDCPARTNERS.STATO_PROPOSTA = 'accettata')"
-                + "where id <> " + st.getId() ;
+                + "where id <> " + st.getId();
         QueryResult qr = null;
         ArrayList<UserInfo> uInfo = new ArrayList<>();
         try {

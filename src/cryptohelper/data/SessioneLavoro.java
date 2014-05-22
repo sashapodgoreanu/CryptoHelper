@@ -32,8 +32,12 @@ public class SessioneLavoro {
         ultimaModifica = new Date(); //inizializza ultimaModifica con la data attuale.       
     }
 
-    public void setMessaggioIntercettato(Messaggio messaggioIntercettato) {
-        this.messaggioIntercettato = messaggioIntercettato;
+    //COSTRUTTORE II
+    public SessioneLavoro(int id, int studente, int albero, int messaggio, int soluzione) {
+
+        idSessione = id;
+        utente.setId(studente);
+        ultimaModifica = new Date(); //inizializza ultimaModifica con la data attuale.       
     }
 
     //Salva una sessione nella tabella SESSIONELAVORO del db. Restituisce TRUE se l'oparazione va a buon fine
@@ -83,13 +87,6 @@ public class SessioneLavoro {
             System.out.println(ex.getMessage());
         }
         return result;
-    }
-
-    public SessioneLavoro(int id, int studente, int albero, int messaggio, int soluzione) {
-
-        idSessione = id;
-        utente.setId(studente);
-        ultimaModifica = new Date(); //inizializza ultimaModifica con la data attuale.       
     }
 
     //Preleva l'elenco dei messaggi inviati dallo studente indicato
@@ -147,6 +144,10 @@ public class SessioneLavoro {
 
     public void setUltimaModifica(Date ultimaModifica) {
         this.ultimaModifica = ultimaModifica;
+    }
+
+    public void setMessaggioIntercettato(Messaggio messaggioIntercettato) {
+        this.messaggioIntercettato = messaggioIntercettato;
     }
 
 }
