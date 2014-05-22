@@ -83,7 +83,7 @@ public class GUIControllerUC2 {
             System.out.println("Clicked " + ev.getText());
             ArrayList<SessioneLavoro> temp = SessioneLavoro.caricaSessioni(comC.getStudente().getId());
             System.out.println(comC.getStudente().getId()+"");
-            intercettaMessaggioPanel.initCaricaSessione();
+            intercettaMessaggioPanel.initCaricaSessione(temp);
         }
     }
 

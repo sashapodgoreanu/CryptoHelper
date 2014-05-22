@@ -89,12 +89,11 @@ public class COMController {
         return uInfo;
     }
 
-    /*
-     public boolean salvaMessaggioBozza(String titolo, String dest, String corpoMsg){
-     UserInfo ui = new UserInfo()
-     messaggio.setDestinatario();
-     return false;
-     }*/
+    public boolean proponiSistemaCifratura(UserInfo utilizzatoreSistema, UserInfo partner, SistemaCifratura sdc) {
+        Proposta proposta = new Proposta(sdc, utilizzatoreSistema, partner);
+        return proposta.salva();
+    }
+
     public Studente getStudente() {
         return studente;
     }
@@ -102,10 +101,4 @@ public class COMController {
     public void setStudente(Studente studente) {
         this.studente = studente;
     }
-
-    public boolean proponiSistemaCifratura(UserInfo utilizzatoreSistema, UserInfo partner, SistemaCifratura sdc) {
-        Proposta proposta = new Proposta(sdc, utilizzatoreSistema, partner);
-        return proposta.salva();
-    }
-
 }
