@@ -1,4 +1,4 @@
-//Pannello che consente la scelta del messaggio da intercettare
+//Pannello che consente il caricamento di una sessione salvata in precedenza
 package cryptohelper.GUI.areaLavoro;
 
 import cryptohelper.interfaces.View;
@@ -12,7 +12,7 @@ import java.awt.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-public class ScegliMsgPanel extends JPanel implements View {
+public class CaricaSessionePanel extends JPanel implements View {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
@@ -20,18 +20,20 @@ public class ScegliMsgPanel extends JPanel implements View {
     JPanel bottomPanel;      //pannello in basso
     JLabel targetListLabel;
     JLabel messageTextLabel;
-    JList elencoMessaggi;
-    JTextPane corpoMessaggio;
+    JList elencoSessioni;
+    JTextPane infoSessione;
     JScrollPane scrollPane;
     JButton okBtn;
-    ArrayList<Messaggio> elencoMessaggiArrLst; //elenco destintari dei messaggi
+    ArrayList<Messaggio> elencoSessioniArrLst; //elenco destintari dei messaggi
 
-    public ScegliMsgPanel(ArrayList<Messaggio> elencoMessaggiArrLst) {
+    
+    //TO DO creare classe sessione e passare array come parametro qui
+    public CaricaSessionePanel(/*ArrayList<Sessione> elencoSessioni*/) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
-        this.elencoMessaggiArrLst = elencoMessaggiArrLst;
+       // this.elencoSessioniArrLst = elencoSessioni;
         this.init();
     }
 
@@ -48,39 +50,41 @@ public class ScegliMsgPanel extends JPanel implements View {
         topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
-        targetListLabel = new JLabel("Messaggi disponibili:");
-        messageTextLabel = new JLabel("Contenuto del messaggio:");
+        targetListLabel = new JLabel("Sessioni disponibili:");
+        messageTextLabel = new JLabel("Informazioni sessione:");
         okBtn = new JButton("Avanti");
-        elencoMessaggi = new JList(new Vector<Messaggio>(elencoMessaggiArrLst));
-        elencoMessaggi.setCellRenderer(new DefaultListCellRenderer() {
+        /*
+        elencoSessioni = new JList(new Vector<Sessione>(elencoSessioniArrLst));
+        elencoSessioni.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (renderer instanceof JLabel && value instanceof Messaggio) {
-                    Messaggio temp = (Messaggio) value;
+                if (renderer instanceof JLabel && value instanceof Sessione) {
+                    Sessione temp = (Sessione) value;
                     ((JLabel) renderer).setText(temp.getTitolo());
                 }
                 return renderer;
             }
         });
-        elencoMessaggi.setSelectedIndex(0);
-        elencoMessaggi.setPreferredSize(new Dimension(165, 250));
+                */
+        elencoSessioni.setSelectedIndex(0);
+        elencoSessioni.setPreferredSize(new Dimension(165, 250));
         scrollPane = new JScrollPane();
-        scrollPane.setViewportView(elencoMessaggi);
-        corpoMessaggio = new JTextPane();
-        corpoMessaggio.setPreferredSize(new Dimension(600, 250));
-        corpoMessaggio.setContentType("text/html"); //consente formattazione html
-        corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
+        scrollPane.setViewportView(elencoSessioni);
+        infoSessione = new JTextPane();
+        infoSessione.setPreferredSize(new Dimension(600, 250));
+        infoSessione.setContentType("text/html"); //consente formattazione html
+        infoSessione.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
-        corpoMessaggio.setBorder(BorderFactory.createCompoundBorder(b,BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
-        Messaggio index0 = (Messaggio) elencoMessaggi.getSelectedValue();
+        infoSessione.setBorder(BorderFactory.createCompoundBorder(b,BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
+        Messaggio index0 = (Messaggio) elencoSessioni.getSelectedValue();
         if (index0 != null) {
-            corpoMessaggio.setText(new HtmlVisitor().visit(index0));
+            infoSessione.setText(new HtmlVisitor().visit(index0));
         }
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
         leftPanel.add(messageTextLabel, BorderLayout.NORTH);
-        leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
+        leftPanel.add(infoSessione, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
         bottomPanel.add(okBtn);
@@ -102,16 +106,16 @@ public class ScegliMsgPanel extends JPanel implements View {
     }
 
     //METODI GETTER
-    public JList getElencoMessaggi() {
-        return elencoMessaggi;
+    public JList getElencoSessioni() {
+        return elencoSessioni;
     }
 
-    public JTextPane getCorpoMessaggio() {
-        return corpoMessaggio;
+   public JTextPane getInfoSessione() {
+        return infoSessione;
     }
-
+        
     public JButton getokBtn() {
         return okBtn;
     }
-
+    
 }

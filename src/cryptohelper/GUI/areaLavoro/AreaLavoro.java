@@ -1,7 +1,6 @@
 //Finestra principale della GUI
 package cryptohelper.GUI.areaLavoro;
 
-import cryptohelper.GUI.InboxPanel;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerAL;
 import cryptohelper.data.Messaggio;
