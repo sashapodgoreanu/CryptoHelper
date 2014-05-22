@@ -286,9 +286,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
                         qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")),
                         mit, dest);
                 messaggi.add(temp);
-                System.out.println(" ssdsds");
             }
-            System.out.println(" qqqqqq");
         } catch (Exception ex) {
             System.out.println("eccezione caricaessaggiDestinatario");
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());

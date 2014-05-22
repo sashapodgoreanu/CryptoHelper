@@ -3,7 +3,7 @@
 package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;
-import cryptohelper.com.GUIController;
+import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioMittente;
 import javax.swing.*;
@@ -148,7 +148,7 @@ public class BozzePanel extends JPanel implements View {
 
     @Override
     public void registerController() {
-        GUIController gc = GUIController.getInstance();
+        GUIControllerUC1 gc = GUIControllerUC1.getInstance();
         gc.addView(this);
     }
 

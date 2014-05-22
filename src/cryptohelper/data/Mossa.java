@@ -28,16 +28,18 @@ public class Mossa {
         throw new UnsupportedOperationException();
     }
 
+    //METODI GETTER
     public char getCharacter() {
         return character;
     }
 
-    public void setCharacter(char character) {
-        this.character = character;
-    }
-
     public char getInverseChar() {
         return inverseChar;
+    }
+
+    //METODI SETTER
+    public void setCharacter(char character) {
+        this.character = character;
     }
 
     public void setInverseChar(char inverseChar) {
