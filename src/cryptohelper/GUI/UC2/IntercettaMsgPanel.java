@@ -4,13 +4,12 @@ package cryptohelper.GUI.UC2;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.Messaggio;
-import cryptohelper.data.SessioneLavoro;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 
-public class IntercettaMessaggioPanel extends JFrame implements View {
+public class IntercettaMsgPanel extends JFrame implements View {
 
     JPanel toolbarPanel = new JPanel(); //pannello con pulsanti "nuovo messaggio", "inbox", "logout"...
     JPanel bodyPanel = new JPanel();    //pannello contenitore dell'area di lavoro
@@ -22,7 +21,7 @@ public class IntercettaMessaggioPanel extends JFrame implements View {
     JButton logoutBtn;
     ArrayList<Messaggio> msgArrLst;
 
-    public IntercettaMessaggioPanel() {
+    public IntercettaMsgPanel() {
         this.init();
     }
 
@@ -32,7 +31,7 @@ public class IntercettaMessaggioPanel extends JFrame implements View {
         //INIT DI TOOLBAR PANEL
         logoutBtn = new JButton("Logout");
         nuovaSessioneBtn = new JButton("Nuova sessione di lavoro");
-        caricaSessioneBtn = new JButton("Carica sessione di lavoro");
+        caricaSessioneBtn = new JButton("Carica  sessione di lavoro");
         salvaSessioneBtn = new JButton("Salva sessione di lavoro");
         salvaSessioneBtn.setEnabled(false);
         toolbarPanel.setBackground(Color.LIGHT_GRAY);
@@ -72,23 +71,13 @@ public class IntercettaMessaggioPanel extends JFrame implements View {
         statusLabel.setText(" ");
     }
 
-    //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuova sessione"
+    //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
     public void initNuovaSessione(ArrayList<Messaggio> msgArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Nuova sessione di lavoro");    //cambia titolo al form
         this.setStatus("Selezionare il messaggio da intercettare e premere 'Avanti'"); //messaggio per la status label
         bodyPanel.add(new ScegliMsgPanel(msgArrLst));       //aggiunge il nuovo pannello
         bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
-    }
-
-    //Inizializza l'interfaccia e i componenti quando viene premuto il button "carica sessione"
-    //TO-DO inserire array sessioni come parametro
-    public void initCaricaSessione(ArrayList<SessioneLavoro> sessioniArrLst) {
-        this.resetPanels();
-        this.setTitle("CryptoHelper - Carica una sessione di lavoro");    //cambia titolo al form
-        this.setStatus("Selezionare la sessione da caricare e premere 'Avanti'"); //messaggio per la status label
-        bodyPanel.add(new CaricaSessionePanel(sessioniArrLst));           //aggiunge il nuovo pannello
-        bodyPanel.revalidate();                                           //completa l'inizializzazione dell'interfaccia
     }
 
     @Override
@@ -108,10 +97,6 @@ public class IntercettaMessaggioPanel extends JFrame implements View {
 
     public JButton getNuovaSessioneBtn() {
         return nuovaSessioneBtn;
-    }
-
-    public JButton getCaricaSessioneBtn() {
-        return caricaSessioneBtn;
     }
 
     //METODI SETTER

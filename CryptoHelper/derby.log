@@ -1,7 +1,7 @@
-Thu May 22 12:03:14 CEST 2014 : Apache Derby Server di rete: 10.8.3.0 - (1405108) avviato e pronto ad accettare connessioni sulla porta 1527
+Thu May 22 22:29:01 CEST 2014 : Apache Derby Server di rete: 10.8.3.0 - (1405108) avviato e pronto ad accettare connessioni sulla porta 1527
 ----------------------------------------------------------------
-Thu May 22 12:03:15 CEST 2014:
-Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): istanza a816c00e-0146-2362-769a-00002a0c9ee5
+Thu May 22 22:29:02 CEST 2014:
+Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): istanza a816c00e-0146-259f-6456-00002a0c9ee5
 su directory database D:\Università\A. A. 2013-2014\Sviluppo delle applicazioni software\Progetto\CryptoHelper\CryptoHelper\CHDB  con caricatore classi sun.misc.Launcher$AppClassLoader@631d75b9 
 
 java.vendor=Oracle Corporation
