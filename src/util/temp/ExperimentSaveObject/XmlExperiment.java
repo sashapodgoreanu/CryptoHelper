@@ -49,12 +49,7 @@ public class XmlExperiment {
         System.out.println(xml);
         
         Persona[] newJoe = (Persona[])xstream.fromXML(xml);
-        System.out.println("a"+newJoe[0].toString());
-        
-        
-        
-        
-         
+        System.out.println("a"+newJoe[0].toString());    
 
         
     }

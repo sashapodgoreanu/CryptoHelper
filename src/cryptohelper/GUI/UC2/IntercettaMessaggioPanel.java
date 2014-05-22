@@ -81,7 +81,8 @@ public class IntercettaMessaggioPanel extends JFrame implements View {
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "carica sessione"
-    public void initCaricaSessione(ArrayList<Messaggio> msgArrLst) {
+    //TO-DO inserire array sessioni come parametro
+    public void initCaricaSessione() {
         this.resetPanels();
         this.setTitle("CryptoHelper - Carica una sessione di lavoro");    //cambia titolo al form
         this.setStatus("Selezionare la sessione da caricare e premere 'Avanti'"); //messaggio per la status label
