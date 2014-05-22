@@ -20,7 +20,6 @@ import javax.swing.event.ListSelectionListener;
 public class GUIControllerUC2 {
 
     private static GUIControllerUC2 instance;
-    private GUIControllerUC1 gcUC1;
     private COMController comC;
     private IntercettaMessaggioPanel intercettaMessaggioPanel;
     private ScegliMsgPanel scegliMsgPanel;
@@ -82,7 +81,7 @@ public class GUIControllerUC2 {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<SessioneLavoro> temp = SessioneLavoro.caricaSessioni(comC.getStudente().getId());
-            System.out.println(comC.getStudente().getId()+"");
+            System.out.println(comC.getStudente().getId() + "");
             intercettaMessaggioPanel.initCaricaSessione(temp);
         }
     }
