@@ -48,6 +48,8 @@ public class CreaSDCPanel extends JPanel implements View {
 
     private JTable table; // tabela per mappatura per cifrario parolachiave
     private JScrollPane scrollPane; //scrollpane per table
+    
+    private  String metodo;//Metodo
 
     public CreaSDCPanel() {
 
@@ -67,7 +69,7 @@ public class CreaSDCPanel extends JPanel implements View {
         cesareRBtn = new JRadioButton("Cesare");
         pseudocasualeRBtn = new JRadioButton("Pseudocasuale");
         scrollPane = new JScrollPane();
-        salvaSdcBtn = new JButton();
+        salvaSdcBtn = new JButton("Salva cifrario");
         provasdcBtn = new JButton("Prova la cifratura");
         
 
@@ -96,15 +98,13 @@ public class CreaSDCPanel extends JPanel implements View {
     //inizializa il panello per creare cifrario parola chiave
     public void initParolaChiave() {
         remake();
+        metodo = "parola chiave";
        
         //mappatura
         String[] columnNames = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         Object[][] data = {
             {"Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M"}
         };
-        //cambia il nome del butttone.
-        salvaSdcBtn.setText("Salva cifrario parola chiave");
-        
         nomeCifraturaField = new JTextField(20);
         table = new JTable(data, columnNames);
         table.setCellSelectionEnabled(true);
@@ -125,11 +125,11 @@ public class CreaSDCPanel extends JPanel implements View {
         corpoMessaggioResult.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
 
         
-        leftPanel.add(new JLabel("Mapatura"),BorderLayout.NORTH);
+        leftPanel.add(new JLabel("Mapatura:"),BorderLayout.NORTH);
         rightPanel.add(scrollPane,BorderLayout.NORTH);
-        leftPanel.add(new JLabel("Prova"),BorderLayout.CENTER);
+        leftPanel.add(new JLabel("Prova:"),BorderLayout.CENTER);
         rightPanel.add(corpoMessaggioProva,BorderLayout.CENTER);
-        leftPanel.add(new JLabel("Resultato"),BorderLayout.SOUTH);
+        leftPanel.add(new JLabel("Resultato:"),BorderLayout.SOUTH);
         rightPanel.add(corpoMessaggioResult,BorderLayout.SOUTH);
         leftPanel.revalidate();
         rightPanel.revalidate();
@@ -145,13 +145,12 @@ public class CreaSDCPanel extends JPanel implements View {
     
     public void initCesare(){
         remake();
-        
+        metodo = "cifrario cesare";
         //50 - la dimensione del textfield - qui si inserisce la chiave
         chiave = new JTextField(50);
-        
         //text area per provare sdc
         corpoMessaggioProva = new JTextArea();
-        corpoMessaggioProva.setSize(new Dimension(60, 60));
+        corpoMessaggioProva.setPreferredSize(new Dimension(60, 60));
         corpoMessaggioProva.setLineWrap(true);
         corpoMessaggioProva.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         
@@ -170,8 +169,7 @@ public class CreaSDCPanel extends JPanel implements View {
         rightPanel.add(corpoMessaggioResult,BorderLayout.SOUTH);
         leftPanel.revalidate();
         rightPanel.revalidate();
-
-        //nome per salvare la cifratura
+        
         nomeCifraturaField = new JTextField(20);
         bottomPanel.add(provasdcBtn);
         bottomPanel.add(new JLabel("Nome cifratura"));
@@ -262,7 +260,18 @@ public class CreaSDCPanel extends JPanel implements View {
     public void setNomeCifraturaField(JTextField nomeCifraturaField) {
         this.nomeCifraturaField = nomeCifraturaField;
     }
+
+    public String getMetodo() {
+        return metodo;
+    }
+
+    public JTextField getChiave() {
+        return chiave;
+    }
     
+    
+    
+      
     
     
     

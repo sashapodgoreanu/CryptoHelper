@@ -58,9 +58,9 @@ public class MappaturaTest {
     @Test
     public void testMap() {
         System.out.println("map");
-        assertEquals('a', instance.map('a'));
-        assertEquals('b', instance.map('b'));
-        assertEquals('z', instance.map('z'));
+        assertEquals('a', instance.mapOf('a'));
+        assertEquals('b', instance.mapOf('b'));
+        assertEquals('z', instance.mapOf('z'));
     }
 
     /**
@@ -69,9 +69,9 @@ public class MappaturaTest {
     @Test
     public void testInverseMap() {
         System.out.println("inverseMap");
-        assertEquals('a', instance.inverseMap('a'));
-        assertEquals('b', instance.inverseMap('b'));
-        assertEquals('z', instance.inverseMap('z'));
+        assertEquals('a', instance.inverseMapOf('a'));
+        assertEquals('b', instance.inverseMapOf('b'));
+        assertEquals('z', instance.inverseMapOf('z'));
     }
 
     /**
@@ -80,8 +80,8 @@ public class MappaturaTest {
     @Test
     public void testGetChar() {
         System.out.println("getChar");
-        assertEquals('a', Mappatura.getChar(0));
-        assertEquals('z', Mappatura.getChar(25));
+        assertEquals('a', instance.getChar(0));
+        assertEquals('z', instance.getChar(25));
 
         
     }
@@ -92,8 +92,8 @@ public class MappaturaTest {
     @Test
     public void testGetposizione() {
         System.out.println("getposizione");
-        assertEquals(0, Mappatura.getposizione('a'));
-        assertEquals(25, Mappatura.getposizione('z'));
+        assertEquals(0, instance.getposizione('a'));
+        assertEquals(25, instance.getposizione('z'));
     }
     
 }

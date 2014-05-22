@@ -48,13 +48,13 @@ public class SistemaCifratura {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public static SistemaCifratura load(int u1, int  u2) {
+    public static SistemaCifratura load(int u1, int u2) {
         String query = "SELECT * "
                 + " FROM SDCPARTNERS"
-                + " WHERE (ID_CREATORE = " +u1
-                + " AND ID_PARTNER = " +u2
-                + ") OR (ID_CREATORE = " +u2
-                + "  AND ID_PARTNER = " +u1
+                + " WHERE (ID_CREATORE = " + u1
+                + " AND ID_PARTNER = " + u2
+                + ") OR (ID_CREATORE = " + u2
+                + "  AND ID_PARTNER = " + u1
                 + ") AND STATO_PROPOSTA = 'accettata'";
         QueryResult qr = null;
         SistemaCifratura temp = null;
@@ -74,7 +74,7 @@ public class SistemaCifratura {
     public String prova(String testo) {
         return Cifratore.cifraMonoalfabetica(map, testo);
     }
-    
+
     public Mappatura create(String metodo, String chiave) {
         this.metodo = metodo;
         this.chiave = chiave;
@@ -143,9 +143,9 @@ public class SistemaCifratura {
         if (metodo == null || chiave == null) {
             return false;
         }
-        chiave = chiave.toLowerCase();
-        System.out.println(chiave.length());
         if (metodo.equals("parola chiave")) {
+            chiave = chiave.toLowerCase();
+            System.out.println(chiave.length());
             if (!chiave.matches("[a-zA-Z]*")) {
                 return false;
             }
@@ -162,8 +162,19 @@ public class SistemaCifratura {
                 alfabeto[i] = chiave.charAt(i);
             }
             return true;
+        } else if (metodo.equals("cifrario cesare")) {
+            return isNumeric(chiave);
         }
         return false;
+    }
+
+    private boolean isNumeric(String str) {
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static ArrayList<SistemaCifratura> caricaSistemiCifratura(UserInfo stud) {
@@ -175,7 +186,7 @@ public class SistemaCifratura {
             while (qr.next()) {
                 if (qr.getInt("creatore") == stud.getId()) {
                     SistemaCifratura temp = new SistemaCifratura(qr.getInt("id"), qr.getString("nome"), qr.getString("chiave"), qr.getString("metodo"), stud);
-                    System.out.println("caricaSistemiCifratura: "+temp.toString());
+                    System.out.println("caricaSistemiCifratura: " + temp.toString());
                     sdcs.add(temp);
                 }
             }
@@ -186,16 +197,16 @@ public class SistemaCifratura {
         }
         return sdcs;
     }
-    
-    public static SistemaCifratura getSistemaCifratura(int id){
-        String query = "SELECT * FROM SISTEMICIFRATURA WHERE ID ="+id;
+
+    public static SistemaCifratura getSistemaCifratura(int id) {
+        String query = "SELECT * FROM SISTEMICIFRATURA WHERE ID =" + id;
         QueryResult qr = null;
         SistemaCifratura temp = null;
         try {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
-                    temp = new SistemaCifratura(qr.getInt("id"), qr.getString("nome"), qr.getString("chiave"), qr.getString("metodo"));
-                    System.out.println("SistemaCifratura: "+temp.toString());               
+                temp = new SistemaCifratura(qr.getInt("id"), qr.getString("nome"), qr.getString("chiave"), qr.getString("metodo"));
+                System.out.println("SistemaCifratura: " + temp.toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
@@ -204,8 +215,6 @@ public class SistemaCifratura {
         }
         return temp;
     }
-    
-    
 
     public int getId() {
         return id;

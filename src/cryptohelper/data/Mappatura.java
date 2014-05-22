@@ -24,7 +24,7 @@ public class Mappatura {
      * @param c carattere di quale si vuole la mappatura
      * @return carattere mappato di c
      */
-    public char map(char c) {
+    public char mapOf(char c) {
         for (int i = 0; i < 26; i++) {
             if (mappa[i] == c) {
                 return mappaInversa[i];
@@ -33,7 +33,7 @@ public class Mappatura {
         return 1;
     }
 
-    public char inverseMap(char c) {
+    public char inverseMapOf(char c) {
         for (int i = 0; i < 26; i++) {
             if (mappaInversa[i] == c) {
                 return mappa[i];
@@ -42,11 +42,11 @@ public class Mappatura {
         return 0;
     }
   
-    public static char getChar(int posizione){
+    public char getChar(int posizione){
         return mappa[posizione];
     }
     
-    public static int getposizione(char carattere){
+    public int getposizione(char carattere){
         for (int i = 0; i < mappa.length; i++) {
             if (mappa[i] == carattere)
                 return i;
@@ -57,4 +57,14 @@ public class Mappatura {
     public void setMappaInversa(char[] mappaInversa) {
         this.mappaInversa = mappaInversa;
     }
+
+    public static char[] getMappa() {
+        return mappa;
+    }
+
+    public char[] getMappaInversa() {
+        return mappaInversa;
+    }
+    
+    
 }

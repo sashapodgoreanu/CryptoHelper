@@ -28,6 +28,7 @@ import static org.junit.Assert.*;
  * @author st116629
  */
 public class CalcolatoreCesareTest {
+    Mappatura result;
     
     public CalcolatoreCesareTest() {
     }
@@ -42,6 +43,7 @@ public class CalcolatoreCesareTest {
     
     @Before
     public void setUp() {
+        result = new Mappatura();
     }
     
     @After
@@ -54,13 +56,26 @@ public class CalcolatoreCesareTest {
     @org.junit.Test
     public void testCalcola() {
         System.out.println("calcola");
-        String chiave = "";
         CalcolatoreCesare instance = new CalcolatoreCesare();
-        Mappatura expResult = null;
-        Mappatura result = instance.calcola(chiave);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+        //'z','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y'};
+        //'y', 'z','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x'};
+        
+        result = instance.calcola("0");
+        assertEquals('a' - result.mapOf('a'),0);
+        assertEquals('b'-  result.mapOf('b'),0);
+        assertEquals('x'-  result.mapOf('x'),0);  
+        assertEquals('x' - result.mapOf('x'),0);  
+        result = instance.calcola("1");
+        assertEquals('z' - result.mapOf('a'),0);
+        assertEquals('a'- result.mapOf('b'), 0);
+        assertEquals('y'- result.mapOf('z'),0);
+        result = instance.calcola("2");
+        assertEquals('y'- result.mapOf('a'),0);
+        assertEquals('z'-result.mapOf('b'),0);
+        assertEquals('x' - result.mapOf('z'),0);
+        
+       
     }
     
 }

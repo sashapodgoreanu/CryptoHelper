@@ -11,7 +11,7 @@ public class Cifratore {
         testo = testo.toLowerCase();
         for (int i = 0; i < testo.length(); i++) {
             if (testo.charAt(i) >= 'a' && testo.charAt(i) <= 'z') {
-                result = result + mappa.map(testo.charAt(i));
+                result = result + mappa.mapOf(testo.charAt(i));
             } else {
                 result = result + testo.charAt(i);
             }
@@ -25,7 +25,7 @@ public class Cifratore {
         testo = testo.toLowerCase();
         for (int i = 0; i < testo.length(); i++) {
             if (testo.charAt(i) >= 'a' && testo.charAt(i) <= 'z') {
-                result = result + mappa.inverseMap(testo.charAt(i));
+                result = result + mappa.inverseMapOf(testo.charAt(i));
             } else {
                 result = result + testo.charAt(i);
             }

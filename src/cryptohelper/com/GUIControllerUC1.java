@@ -57,7 +57,7 @@ public class GUIControllerUC1 {
     private GestisciSDCPanel gestisciSDCPanel;
 
     private GUIControllerUC1() {
-       comC = COMController.getInstance();
+        comC = COMController.getInstance();
     }
 
     public static GUIControllerUC1 getInstance() {
@@ -164,7 +164,7 @@ public class GUIControllerUC1 {
             System.out.println("**************************" + comC.getDestinatari(utilizzatoreSistema).toString());
             panelloPrincipale.initNuovoMessaggio();
             msgMittente = new Messaggio();      //predispone il nuovo messaggio
-            
+
         }
     }
 
@@ -228,7 +228,7 @@ public class GUIControllerUC1 {
         }
     }
 
-       //classe listener per il button "intercetta un messaggio" della finestra principale
+    //classe listener per il button "intercetta un messaggio" della finestra principale
     private class IntercettaBtnListener implements ActionListener {
 
         @Override
@@ -240,7 +240,7 @@ public class GUIControllerUC1 {
             panelloPrincipale.dispose();
         }
     }
-    
+
     //classe listener per la Jlist "ElencoMessaggiRicevuti" 
     private class ViewInboxMsgListener implements ListSelectionListener {
 
@@ -520,8 +520,8 @@ public class GUIControllerUC1 {
             panelloPrincipale.setStatus("");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
-            if (ev.getText().equalsIgnoreCase("Salva cifrario parola chiave")) {
-                String metodo = "parola chiave";
+            String metodo = creaSDCPanel.getMetodo();
+            if (metodo.equals("parola chiave")) {
                 if (creaSDCPanel.getTable().isEditing()) {
                     creaSDCPanel.getTable().getCellEditor().stopCellEditing();
                 }
@@ -540,6 +540,19 @@ public class GUIControllerUC1 {
                 } else {
                     panelloPrincipale.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
                 }
+            } else if (metodo.equals("cifrario cesare")) {
+                String chiave = creaSDCPanel.getChiave().getText();
+                if (sistemaCifratura.valid(metodo, chiave)) {
+                    mappatura = sistemaCifratura.create(metodo, chiave);//crea la mappatura data una chiave e un metodo
+                    sistemaCifratura.setNome(creaSDCPanel.getNomeCifraturaField().getText());//nome della cifratura per salvare in db
+                    if (sistemaCifratura.salva()) {
+                        panelloPrincipale.setStatus("Salvato con sucesso");
+                    } else {
+                        panelloPrincipale.setStatus("E stato un errore! non salvato");
+                    }
+                } else {
+                    panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere un numero");
+                }
             }
         }
     }
@@ -553,20 +566,31 @@ public class GUIControllerUC1 {
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             sistemaCifratura = new SistemaCifratura(utilizzatoreSistema);
-            String metodo = "parola chiave";
-            if (creaSDCPanel.getTable().isEditing()) {
-                creaSDCPanel.getTable().getCellEditor().stopCellEditing();
-            }
-            String chiave = "";
-            for (int i = 0; i < 26; i++) {
-                chiave = chiave + "" + creaSDCPanel.getData(0, i);
-            }
-            if (sistemaCifratura.valid(metodo, chiave)) {
-                mappatura = sistemaCifratura.create(metodo, chiave);
-                String a = creaSDCPanel.getCorpoMessaggioProva().getText();
-                creaSDCPanel.getCorpoMessaggioResult().setText(sistemaCifratura.prova(a));
-            } else {
-                panelloPrincipale.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
+            String metodo = creaSDCPanel.getMetodo();
+            if (metodo.equals("parola chiave")) {
+                if (creaSDCPanel.getTable().isEditing()) {
+                    creaSDCPanel.getTable().getCellEditor().stopCellEditing();
+                }
+                String chiave = "";
+                for (int i = 0; i < 26; i++) {
+                    chiave = chiave + "" + creaSDCPanel.getData(0, i);
+                }
+                if (sistemaCifratura.valid(metodo, chiave)) {
+                    mappatura = sistemaCifratura.create(metodo, chiave);
+                    String a = creaSDCPanel.getCorpoMessaggioProva().getText();
+                    creaSDCPanel.getCorpoMessaggioResult().setText(sistemaCifratura.prova(a));
+                } else {
+                    panelloPrincipale.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
+                }
+            } else if (metodo.equals("cifrario cesare")) {
+                String chiave = creaSDCPanel.getChiave().getText();
+                if (sistemaCifratura.valid(metodo, chiave)) {
+                    mappatura = sistemaCifratura.create(metodo, chiave);
+                    String a = creaSDCPanel.getCorpoMessaggioProva().getText();
+                    creaSDCPanel.getCorpoMessaggioResult().setText(sistemaCifratura.prova(a));
+                } else {
+                    panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere un numero");
+                }
             }
 
         }
@@ -716,8 +740,5 @@ public class GUIControllerUC1 {
     public COMController getComC() {
         return comC;
     }
-    
-    
-
 
 }

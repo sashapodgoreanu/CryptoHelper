@@ -26,7 +26,7 @@ public abstract class CalcolatoreMappatura {
     public static CalcolatoreMappatura create(String metodo) {
         if (metodo.equals("parola chiave")) {
             return new CalcolatoreParolachiave();
-        } else if (metodo.equals("cesare")) {
+        } else if (metodo.equals("cifrario cesare")) {
             return new CalcolatoreCesare();
         } else {
             return new CalcolatorePseudocasuale();
