@@ -12,3 +12,5 @@ os.arch=amd64
 os.version=6.3
 derby.system.home=C:\Users\SashaAlexandru\Desktop\CryptoHelper
 Programma di caricamento classe database avviato - derby.database.classpath=''
+----------------------------------------------------------------
+Thu May 22 00:30:50 CEST 2014: arresto in corso del motore di Derby
