@@ -58,7 +58,7 @@ public class CifratoreTest {
      */
     @Test
     public void testCifraMonoalfabetica() {
-        System.out.println("cifraMonoalfabetica");
+        System.out.println("Test of cifraMonoalfabetica method, of class Cifratore.");
         assertTrue("true".equals(Cifratore.cifraMonoalfabetica(mappa, "true")));
         assertFalse("aa".equals(Cifratore.cifraMonoalfabetica(mappa, "aaa")));
         assertFalse("zzz".equals(Cifratore.cifraMonoalfabetica(mappa, "aaa")));
@@ -72,7 +72,7 @@ public class CifratoreTest {
     
     @Test
     public void testDecifraMonoalfabetica() {
-        System.out.println("decifraMonoalfabetica");
+        System.out.println("Test of decifraMonoalfabetica method, of class Cifratore.");
         assertEquals("aaa", Cifratore.decifraMonoalfabetica(mappa, "aaa"));
         assertFalse("aa".equals(Cifratore.decifraMonoalfabetica(mappa, "aaa")));
         assertFalse("zzz".equals(Cifratore.decifraMonoalfabetica(mappa, "aaa")));

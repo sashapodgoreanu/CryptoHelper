@@ -20,7 +20,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
@@ -55,12 +54,8 @@ public class CalcolatoreCesareTest {
      */
     @org.junit.Test
     public void testCalcola() {
-        System.out.println("calcola");
+        System.out.println("Test of calcola method, of class CalcolatoreCesare.");
         CalcolatoreCesare instance = new CalcolatoreCesare();
-        //'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-        //'z','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y'};
-        //'y', 'z','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x'};
-        
         result = instance.calcola("0");
         assertEquals('a' - result.mapOf('a'),0);
         assertEquals('b'-  result.mapOf('b'),0);
