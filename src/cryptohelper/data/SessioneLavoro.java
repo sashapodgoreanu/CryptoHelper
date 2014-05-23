@@ -43,6 +43,7 @@ public class SessioneLavoro {
     public boolean salva() {
         XStream xstream = new XStream(new StaxDriver());
         String alberoXML = xstream.toXML(this.alberoIpotesi);
+        String messaggioIntercettatoXML = xstream.toXML(this.messaggioIntercettato);
 
         boolean result = false;
         DBController dbc = DBController.getInstance();
@@ -53,9 +54,9 @@ public class SessioneLavoro {
                 + this.getNomeSessione()
                 + "','"
                 + alberoXML
-                + "',"
-                + this.getMessaggioIntercettato().getId()
-                + ",'"
+                + "','"
+                + messaggioIntercettatoXML
+                + "','"
                 + this.getUltimaModifica()
                 + "')";
         String querryUpdate = "UPDATE MESSAGGI"

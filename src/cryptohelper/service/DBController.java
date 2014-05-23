@@ -128,10 +128,9 @@ public class DBController {
                 + "ID_UTENTE INTEGER,"
                 + "NOME_SESSIONE VARCHAR (32),"
                 + "ALBERO_IPOTESI LONG VARCHAR,"
-                + "MESSAGGIO_INTERCETTATO INTEGER,"
+                + "MESSAGGIO_INTERCETTATO LONG VARCHAR,"
                 + "Ultima_modifica VARCHAR(32),"
-                + "FOREIGN KEY(id_utente) REFERENCES Studenti(ID),"
-                + "FOREIGN KEY(messaggio_intercettato) REFERENCES Messaggi(ID)"
+                + "FOREIGN KEY(id_utente) REFERENCES Studenti(ID)"
                 + ")";
         connect();
         //Non bisogna piu comentare le tabele per far funzionare il Test

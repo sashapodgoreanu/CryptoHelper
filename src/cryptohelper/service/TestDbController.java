@@ -1,7 +1,5 @@
 package cryptohelper.service;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
 import cryptohelper.data.AlberoIpotesi;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.QueryResult;
@@ -69,8 +67,6 @@ public class TestDbController {
             
             System.out.println(m1.toString());
             AlberoIpotesi alberoSessione = new AlberoIpotesi();
-            
-            m1.salva();
             
             SessioneLavoro s1 = new SessioneLavoro(0, "Sessione", destinatario, alberoSessione, m1);
             System.out.println("AAAAAA");
