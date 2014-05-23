@@ -43,7 +43,7 @@ public class SessioneLavoro {
     public boolean salva() {
         XStream xstream = new XStream(new StaxDriver());
         String alberoXML = xstream.toXML(this.alberoIpotesi);
-        
+
         boolean result = false;
         DBController dbc = DBController.getInstance();
         String queryInsert = "INSERT INTO SessioneLavoro(Id_Utente, Nome_Sessione, ALBERO_IPOTESI, Messaggio_Intercettato, Ultima_Modifica)"
@@ -94,26 +94,6 @@ public class SessioneLavoro {
         }
         return result;
     }
-    /*
-     //Preleva l'elenco dei messaggi inviati dallo studente indicato
-     public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
-     String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
-     QueryResult qr = null;
-     ArrayList<SessioneLavoro> sessioni = new ArrayList<>();
-     try {
-     qr = DBController.getInstance().executeQuery(query);
-     while (qr.next()) {
-     UserInfo user = UserInfo.getUserInfo(idStudente);
-     SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
-     qr.getInt("id_messaggio_intercettato"), qr.getInt("ultima_modifica"));
-     sessioni.add(temp);
-     }
-     } catch (Exception ex) {
-     Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
-     }
-     return sessioni;
-     }
-     */
 
     //Elimina un messaggio dalla tabella messaggi. Restituisce TRUE se l'oparazione va a buon fine
     public boolean elimina() {
@@ -151,6 +131,25 @@ public class SessioneLavoro {
     @Override
     public String toString() {
         return "Sessione{" + "id=" + idSessione + ", utente=" + utente + ", Titolo=" + nomeSessione + ", modifica=" + ultimaModifica + '}';
+    }
+
+    //Preleva l'elenco dei messaggi inviati dallo studente indicato
+    public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
+        String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
+        QueryResult qr = null;
+        ArrayList<SessioneLavoro> sessioni = new ArrayList<>();
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while (qr.next()) {
+                UserInfo user = UserInfo.getUserInfo(idStudente);
+          //      SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
+                //                 qr.getInt("id_messaggio_intercettato"), qr.getString("ultima_modifica"));
+                //       sessioni.add(temp);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        return sessioni;
     }
 
     //METODI GETTER
