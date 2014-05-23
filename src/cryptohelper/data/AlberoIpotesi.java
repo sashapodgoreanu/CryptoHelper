@@ -7,12 +7,10 @@ public class AlberoIpotesi {
 
     private Ipotesi root;
 
-    public AlberoIpotesi()
-    {
+    public AlberoIpotesi() {
         root = null;
     }
-    
-   
+
     //Cerca la mossa. Restituisce TRUE in caso di riscontro, FALSE altrimenti
     public boolean cerca(Mossa mossa) {
 
@@ -96,6 +94,5 @@ public class AlberoIpotesi {
         public void setValid(boolean valid) {
             this.valid = valid;
         }
-
     }
 }
