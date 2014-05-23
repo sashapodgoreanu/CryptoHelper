@@ -7,6 +7,7 @@ package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
+import cryptohelper.interfaces.Cifrario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,6 +31,7 @@ import javax.swing.border.EmptyBorder;
  */
 public class CreaSDCPanel extends JPanel implements View {
 
+    private JRadioButton monoalfabeticoBtn;
     private JRadioButton parolaChiaveRBtn;
     private JRadioButton cesareRBtn;
     private JRadioButton pseudocasualeRBtn;
@@ -59,12 +61,13 @@ public class CreaSDCPanel extends JPanel implements View {
     }
 
     public void init() {
-        System.out.println("inside of initCreateSDC");
+        System.out.println("inside of init");
         topPanel = new JPanel(new GridLayout(1, 4));
         leftPanel = new JPanel(new BorderLayout());
         rightPanel = new JPanel(new BorderLayout());
         bottomPanel = new JPanel(new FlowLayout());
    
+        monoalfabeticoBtn = new JRadioButton("Monoalfabetico");
         parolaChiaveRBtn = new JRadioButton("Parola chiave");
         cesareRBtn = new JRadioButton("Cesare");
         pseudocasualeRBtn = new JRadioButton("Pseudocasuale");
@@ -75,6 +78,7 @@ public class CreaSDCPanel extends JPanel implements View {
 
         //ragrupa i bottoni   - when i select a radiobutton will deselect the precedent selected. 
         ButtonGroup group = new ButtonGroup();
+        group.add(monoalfabeticoBtn);
         group.add(parolaChiaveRBtn);
         group.add(cesareRBtn);
         group.add(pseudocasualeRBtn);
@@ -82,6 +86,7 @@ public class CreaSDCPanel extends JPanel implements View {
         //JPanel radioPanel = new JPanel(new GridLayout(1, 4));
         JLabel selectSDClabel = new JLabel("Metodo di cifratura:");
         topPanel.add(selectSDClabel);
+        topPanel.add(monoalfabeticoBtn);
         topPanel.add(parolaChiaveRBtn);
         topPanel.add(cesareRBtn);
         topPanel.add(pseudocasualeRBtn);
@@ -96,9 +101,9 @@ public class CreaSDCPanel extends JPanel implements View {
     }
 
     //inizializa il panello per creare cifrario parola chiave
-    public void initParolaChiave() {
+    public void initMonoalfabetico() {
         remake();
-        metodo = "parola chiave";
+        metodo = Cifrario.MONOALFABETICO;
        
         //mappatura
         String[] columnNames = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -143,9 +148,8 @@ public class CreaSDCPanel extends JPanel implements View {
 
     }
     
-    public void initCesare(){
+    public void initCifrario(){
         remake();
-        metodo = "cifrario cesare";
         //50 - la dimensione del textfield - qui si inserisce la chiave
         chiave = new JTextField(50);
         //text area per provare sdc
@@ -175,6 +179,20 @@ public class CreaSDCPanel extends JPanel implements View {
         bottomPanel.add(new JLabel("Nome cifratura"));
         bottomPanel.add(nomeCifraturaField);
         bottomPanel.add(salvaSdcBtn);
+    }
+    public void initCesare(){
+        initCifrario();
+        metodo = Cifrario.CESARE;
+    }
+    
+    public void initParolaChiave() {
+        initCesare();
+        metodo = Cifrario.PAROLA_CHIAVE;
+    }
+    
+    public void initPseudoCasuale() {
+        initCesare();
+        metodo = Cifrario.PSEUDOCASUALE;
     }
 
     private void remake() {
@@ -268,6 +286,14 @@ public class CreaSDCPanel extends JPanel implements View {
     public JTextField getChiave() {
         return chiave;
     }
+
+    public JRadioButton getMappaturaBtn() {
+        return monoalfabeticoBtn;
+    }
+
+    
+    
+    
     
     
     

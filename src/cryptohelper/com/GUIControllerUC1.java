@@ -2,9 +2,9 @@ package cryptohelper.com;
 
 import cryptohelper.GUI.BozzePanel;
 import cryptohelper.GUI.CreaSDCPanel;
+import cryptohelper.GUI.GestisciSDCPanel;
 import cryptohelper.GUI.InboxPanel;
 import cryptohelper.GUI.InboxSDCPanel;
-import cryptohelper.GUI.GestisciSDCPanel;
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.MessagePanel;
 import cryptohelper.GUI.OutboxPanel;
@@ -13,21 +13,24 @@ import cryptohelper.GUI.ProponiSDCPanel;
 import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
 import cryptohelper.GUI.UC2.IntercettaMessaggioPanel;
-import cryptohelper.interfaces.View;
+import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Mappatura;
 import cryptohelper.data.Messaggio;
-import cryptohelper.interfaces.MessaggioMittente;
-import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Proposta;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
+import cryptohelper.interfaces.Cifrario;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
-import java.util.ArrayList;
+import cryptohelper.interfaces.MessaggioMittente;
+import cryptohelper.interfaces.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JRadioButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -113,6 +116,7 @@ public class GUIControllerUC1 {
             sdcPanel.getInboxProposteSDCBtn().addActionListener(new InboxSDCListener());
         } else if (v instanceof CreaSDCPanel) {
             creaSDCPanel = (CreaSDCPanel) v;
+            creaSDCPanel.getMappaturaBtn().addActionListener(new MetodoDicifraturaListener());
             creaSDCPanel.getCesareRBtn().addActionListener(new MetodoDicifraturaListener());
             creaSDCPanel.getParolaChiaveRBtn().addActionListener(new MetodoDicifraturaListener());
             creaSDCPanel.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
@@ -353,6 +357,10 @@ public class GUIControllerUC1 {
                 creaSDCPanel.initParolaChiave();
             } else if (ev.getText().equalsIgnoreCase("cesare")) {
                 creaSDCPanel.initCesare();
+            } else if (ev.getText().equalsIgnoreCase("monoalfabetico")){
+                creaSDCPanel.initMonoalfabetico();
+            } else if (ev.getText().equalsIgnoreCase("pseudocasuale")){
+                creaSDCPanel.initPseudoCasuale();
             }
             //crea sistema di cifratura
             sistemaCifratura = new SistemaCifratura(utilizzatoreSistema);
@@ -521,7 +529,7 @@ public class GUIControllerUC1 {
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             String metodo = creaSDCPanel.getMetodo();
-            if (metodo.equals("parola chiave")) {
+            if (metodo.equals(Cifrario.MONOALFABETICO)) {
                 if (creaSDCPanel.getTable().isEditing()) {
                     creaSDCPanel.getTable().getCellEditor().stopCellEditing();
                 }
@@ -529,7 +537,7 @@ public class GUIControllerUC1 {
                 for (int i = 0; i < 26; i++) {
                     chiave = chiave + "" + creaSDCPanel.getData(0, i);
                 }
-                if (sistemaCifratura.valid(metodo, chiave)) {
+                if (sistemaCifratura.valid(metodo, chiave) && creaSDCPanel.getNomeCifraturaField().getText() == null) {
                     mappatura = sistemaCifratura.create(metodo, chiave);
                     sistemaCifratura.setNome(creaSDCPanel.getNomeCifraturaField().getText());
                     if (sistemaCifratura.salva()) {
@@ -540,7 +548,7 @@ public class GUIControllerUC1 {
                 } else {
                     panelloPrincipale.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
                 }
-            } else if (metodo.equals("cifrario cesare")) {
+            } else if ((metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE) || metodo.equals(Cifrario.PAROLA_CHIAVE)) && creaSDCPanel.getNomeCifraturaField().getText() == null) {
                 String chiave = creaSDCPanel.getChiave().getText();
                 if (sistemaCifratura.valid(metodo, chiave)) {
                     mappatura = sistemaCifratura.create(metodo, chiave);//crea la mappatura data una chiave e un metodo
@@ -551,9 +559,13 @@ public class GUIControllerUC1 {
                         panelloPrincipale.setStatus("E stato un errore! non salvato");
                     }
                 } else {
-                    panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere un numero");
+                    if (metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE)) {
+                        panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere un numero");
+                    } else {
+                        panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere una parola");
+                    }
                 }
-            }
+            } 
         }
     }
 
@@ -567,7 +579,7 @@ public class GUIControllerUC1 {
             System.out.println(this.getClass() + " selected " + ev.getText());
             sistemaCifratura = new SistemaCifratura(utilizzatoreSistema);
             String metodo = creaSDCPanel.getMetodo();
-            if (metodo.equals("parola chiave")) {
+            if (metodo.equals(Cifrario.MONOALFABETICO)) {
                 if (creaSDCPanel.getTable().isEditing()) {
                     creaSDCPanel.getTable().getCellEditor().stopCellEditing();
                 }
@@ -582,17 +594,20 @@ public class GUIControllerUC1 {
                 } else {
                     panelloPrincipale.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
                 }
-            } else if (metodo.equals("cifrario cesare")) {
+            } else if (metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE) || metodo.equals(Cifrario.PAROLA_CHIAVE)) {
                 String chiave = creaSDCPanel.getChiave().getText();
                 if (sistemaCifratura.valid(metodo, chiave)) {
                     mappatura = sistemaCifratura.create(metodo, chiave);
                     String a = creaSDCPanel.getCorpoMessaggioProva().getText();
                     creaSDCPanel.getCorpoMessaggioResult().setText(sistemaCifratura.prova(a));
                 } else {
-                    panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere un numero");
+                    if (metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE)) {
+                        panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere un numero");
+                    } else {
+                        panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere una parola");
+                    }
                 }
             }
-
         }
     }
 

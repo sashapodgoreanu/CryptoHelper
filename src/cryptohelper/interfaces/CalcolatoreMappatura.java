@@ -6,7 +6,8 @@
 package cryptohelper.interfaces;
 
 import cryptohelper.data.CalcolatoreCesare;
-import cryptohelper.data.CalcolatoreParolachiave;
+import cryptohelper.data.CalcolatoreMonoalfabetico;
+import cryptohelper.data.CalcolatoreParolaChiave;
 import cryptohelper.data.CalcolatorePseudocasuale;
 import cryptohelper.data.Mappatura;
 
@@ -29,12 +30,15 @@ public abstract class CalcolatoreMappatura {
      * @return Classe che corrisponde al metodo
      */
     public static CalcolatoreMappatura create(String metodo) {
-        if (metodo.equals("parola chiave")) {
-            return new CalcolatoreParolachiave();
-        } else if (metodo.equals("cifrario cesare")) {
+        if (metodo.equals(Cifrario.MONOALFABETICO)) {
+            return new CalcolatoreMonoalfabetico();
+        } else if (metodo.equals(Cifrario.CESARE)) {
             return new CalcolatoreCesare();
-        } else {
+        } else if (metodo.equals(Cifrario.PAROLA_CHIAVE)) {
+            return new CalcolatoreParolaChiave();
+        } else if (metodo.equals(Cifrario.PSEUDOCASUALE)) {
             return new CalcolatorePseudocasuale();
         }
+        return null;
     }
 }

@@ -58,13 +58,24 @@ public class Mappatura {
         this.mappaInversa = mappaInversa;
     }
 
-    public static char[] getMappa() {
+    public char[] getMappa() {
         return mappa;
     }
 
     public char[] getMappaInversa() {
         return mappaInversa;
     }
+
+    @Override
+    public String toString() {
+        String a = "Mappatura{";
+        for (int i = 0; i < 26; i++) {
+            a = a +","+ mappaInversa[i];
+        }
+        return a + '}';
+    }
+    
+    
     
     
 }

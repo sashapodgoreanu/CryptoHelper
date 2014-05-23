@@ -143,7 +143,7 @@ public class SistemaCifratura {
         if (metodo == null || chiave == null) {
             return false;
         }
-        if (metodo.equals("parola chiave")) {
+        if (metodo.equals("monoalfabetico")) {
             chiave = chiave.toLowerCase();
             System.out.println(chiave.length());
             if (!chiave.matches("[a-zA-Z]*")) {
@@ -162,9 +162,11 @@ public class SistemaCifratura {
                 alfabeto[i] = chiave.charAt(i);
             }
             return true;
-        } else if (metodo.equals("cifrario cesare")) {
+        } else if (metodo.equals("cesare") || metodo.equals("pseudocasuale")) {
             return isNumeric(chiave);
-        }
+        } else if (metodo.equals("parola chiave")) {
+            return chiave.matches("[a-zA-Z]*") && chiave.length() > 0;
+            }
         return false;
     }
 
@@ -266,7 +268,7 @@ public class SistemaCifratura {
 
     @Override
     public String toString() {
-        return "SistemaCifratura{" + "id=" + id + ", chiave=" + chiave + ", metodo=" + metodo + ", creatore=" + creatore + ", map=" + map + ", cm=" + cm + '}';
+        return "SistemaCifratura{" + "id=" + id + ", chiave=" + chiave + ", metodo=" + metodo + ", creatore=" + creatore + ", map=" + map.toString() + ", cm=" + cm + '}';
     }
 
 }
