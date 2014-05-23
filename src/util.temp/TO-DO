@@ -4,7 +4,7 @@ TO-DO (aggiornato 23/05/14)
 - creaSistemaDicifratura
 - cifra/decifra messaggio nella inbox
 - implementare i rimanenti cifrari.
-- invia nuovo messaggio => da ricontrollare il parametro con testo cifrato (vedi commenti nel codice del metodo e della classe messaggio)]
+- invia nuovo messaggio => da ricontrollare il parametro con testo cifrato (vedi commenti nel codice del metodo e della classe messaggio)
 - cambiare parametro testo cifrato nel salva messaggio di MessagePanel
 
 
