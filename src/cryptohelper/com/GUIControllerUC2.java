@@ -9,6 +9,7 @@ import cryptohelper.GUI.UC2.ScegliMsgPanel;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.SessioneLavoro;
+import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -73,7 +74,7 @@ public class GUIControllerUC2 {
             intercettaMessaggioPanel.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            ArrayList<Messaggio> temp = Messaggio.caricaMessaggi();
+            ArrayList<MessaggioIntercettato> temp = Messaggio.caricaMessaggi();
             intercettaMessaggioPanel.initNuovaSessione(temp);
         }
     }
@@ -98,7 +99,7 @@ public class GUIControllerUC2 {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             System.out.println("Clicked LIST");
-            Messaggio chosenMsg = (Messaggio) scegliMsgPanel.getElencoMessaggi().getSelectedValue();
+            MessaggioIntercettato chosenMsg = (MessaggioIntercettato) scegliMsgPanel.getElencoMessaggi().getSelectedValue();
             scegliMsgPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(chosenMsg)));
         }
     }

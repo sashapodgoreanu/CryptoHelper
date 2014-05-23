@@ -5,6 +5,7 @@ import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
+import cryptohelper.interfaces.MessaggioIntercettato;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
@@ -24,9 +25,9 @@ public class ScegliMsgPanel extends JPanel implements View {
     JTextPane corpoMessaggio;
     JScrollPane scrollPane;
     JButton okBtn;
-    ArrayList<Messaggio> elencoMessaggiArrLst; //elenco destintari dei messaggi
+    ArrayList<MessaggioIntercettato> elencoMessaggiArrLst; //elenco destintari dei messaggi
 
-    public ScegliMsgPanel(ArrayList<Messaggio> elencoMessaggiArrLst) {
+    public ScegliMsgPanel(ArrayList<MessaggioIntercettato> elencoMessaggiArrLst) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
         rightPanel = new JPanel();
@@ -51,7 +52,7 @@ public class ScegliMsgPanel extends JPanel implements View {
         targetListLabel = new JLabel("Messaggi disponibili:");
         messageTextLabel = new JLabel("Contenuto del messaggio:");
         okBtn = new JButton("Avanti");
-        elencoMessaggi = new JList(new Vector<Messaggio>(elencoMessaggiArrLst));
+        elencoMessaggi = new JList(new Vector<MessaggioIntercettato>(elencoMessaggiArrLst));
         elencoMessaggi.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -73,7 +74,7 @@ public class ScegliMsgPanel extends JPanel implements View {
         corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
         corpoMessaggio.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
-        Messaggio index0 = (Messaggio) elencoMessaggi.getSelectedValue();
+        MessaggioIntercettato index0 = (MessaggioIntercettato) elencoMessaggi.getSelectedValue();
         if (index0 != null) {
             corpoMessaggio.setText(new HtmlVisitor().visit(index0));
         }

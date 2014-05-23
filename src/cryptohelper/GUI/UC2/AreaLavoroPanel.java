@@ -5,6 +5,7 @@ import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
+import cryptohelper.interfaces.MessaggioIntercettato;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
@@ -23,14 +24,14 @@ public class AreaLavoroPanel extends JPanel implements View {
     JTextPane corpoMessaggio;
     JScrollPane scrollPane;
     JButton okBtn;
-    Messaggio messaggioIntercettato; //messaggio intercettato su cui lavorare
+    MessaggioIntercettato messaggioIntercettato; //messaggio intercettato su cui lavorare
 
-    public AreaLavoroPanel(Messaggio messaggio) {
+    public AreaLavoroPanel(MessaggioIntercettato messaggio) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
-        this.elencoMessaggiArrLst = elencoMessaggiArrLst;
+        this.messaggioIntercettato = messaggio;
         this.init();
     }
 
@@ -50,19 +51,19 @@ public class AreaLavoroPanel extends JPanel implements View {
         targetListLabel = new JLabel("Messaggi disponibili:");
         messageTextLabel = new JLabel("Contenuto del messaggio:");
         okBtn = new JButton("Avanti");
-        elencoMessaggi = new JList(new Vector<Messaggio>(elencoMessaggiArrLst));
+      /* elencoMessaggi = new JList(new Vector<MessaggioIntercettato>(elencoMessaggiArrLst));
         elencoMessaggi.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (renderer instanceof JLabel && value instanceof Messaggio) {
-                    Messaggio temp = (Messaggio) value;
+                    MessaggioIntercettato temp = (Messaggio) value;
                     ((JLabel) renderer).setText(temp.getTitolo());
                 }
                 return renderer;
             }
-        });
-        elencoMessaggi.setSelectedIndex(0);
+       });
+      elencoMessaggi.setSelectedIndex(0);
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoMessaggi);
         scrollPane.setPreferredSize(new Dimension(165, 250));
@@ -74,9 +75,9 @@ public class AreaLavoroPanel extends JPanel implements View {
         corpoMessaggio.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
         Messaggio index0 = (Messaggio) elencoMessaggi.getSelectedValue();
         if (index0 != null) {
-            corpoMessaggio.setText(new HtmlVisitor().visit(index0));
+      //      corpoMessaggio.setText(new HtmlVisitor().visit(index0));
         }
-
+*/
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
         leftPanel.add(messageTextLabel, BorderLayout.NORTH);
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);

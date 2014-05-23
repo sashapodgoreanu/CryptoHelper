@@ -23,6 +23,7 @@ import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import cryptohelper.interfaces.MessaggioDestinatario;
+import cryptohelper.interfaces.MessaggioIntercettato;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -235,7 +236,7 @@ public class GUIControllerUC1 {
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            ArrayList<Messaggio> msgArrLst = Messaggio.caricaMessaggi();
+            ArrayList<MessaggioIntercettato> msgArrLst = Messaggio.caricaMessaggi();
             IntercettaMessaggioPanel al = new IntercettaMessaggioPanel();
             panelloPrincipale.dispose();
         }

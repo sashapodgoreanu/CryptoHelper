@@ -4,6 +4,7 @@ package cryptohelper.GUI.UC2;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.Messaggio;
+import cryptohelper.interfaces.MessaggioIntercettato;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -72,7 +73,7 @@ public class IntercettaMsgPanel extends JFrame implements View {
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
-    public void initNuovaSessione(ArrayList<Messaggio> msgArrLst) {
+    public void initNuovaSessione(ArrayList<MessaggioIntercettato> msgArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Nuova sessione di lavoro");    //cambia titolo al form
         this.setStatus("Selezionare il messaggio da intercettare e premere 'Avanti'"); //messaggio per la status label
