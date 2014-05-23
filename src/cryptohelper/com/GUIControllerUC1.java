@@ -310,7 +310,6 @@ public class GUIControllerUC1 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
             MessaggioMittente mess = (MessaggioMittente) bozzePanel.getElencoBozze().getSelectedValue();
             mess.elimina();
             bozzePanel.deleteSelectedIndex();

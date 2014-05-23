@@ -101,6 +101,25 @@ public class CaricaSessionePanel extends JPanel implements View {
         registerController();
     }
 
+    //elimina l'elemento selezionato nella lista delle sessioni disponibili e aggiorna la vista
+    public boolean deleteSelectedIndex() {
+        int toDelete = elencoSessioni.getSelectedIndex();
+        if (toDelete >= 0) {
+            rightPanel.removeAll();
+            topPanel.removeAll();
+            leftPanel.removeAll();
+            bottomPanel.removeAll();
+            elencoSessioniArrLst.remove(toDelete);
+            init();
+            rightPanel.revalidate();
+            topPanel.revalidate();
+            leftPanel.revalidate();
+            bottomPanel.revalidate();
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void registerController() {
         GUIControllerUC2 gc = GUIControllerUC2.getInstance();
@@ -119,5 +138,9 @@ public class CaricaSessionePanel extends JPanel implements View {
     public JButton getokBtn() {
         return okBtn;
     }
-
+    
+     public JButton getEliminaSessioneBtn() {
+        return eliminaSessioneBtn;
+    }
+     
 }
