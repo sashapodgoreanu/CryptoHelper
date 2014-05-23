@@ -1,12 +1,10 @@
 package cryptohelper.data;
 
-import cryptohelper.com.COMController;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,8 +15,8 @@ public class SessioneLavoro {
     int idSessione;
     String nomeSessione;
     UserInfo utente;
-    Date ultimaModifica;
-    // alberoipotesi
+    String ultimaModifica;
+    AlberoIpotesi alberoIpotesi;
     Messaggio messaggioIntercettato;
     // soluzione
 
@@ -29,35 +27,34 @@ public class SessioneLavoro {
         nomeSessione = nome;
         utente = studente;
         messaggioIntercettato = messaggio;
-        ultimaModifica = new Date(); //inizializza ultimaModifica con la data attuale.       
-    }
-
-    //COSTRUTTORE II
-    public SessioneLavoro(int id, int studente, int albero, int messaggio, int soluzione) {
-
-        idSessione = id;
-        utente.setId(studente);
-        ultimaModifica = new Date(); //inizializza ultimaModifica con la data attuale.       
+        alberoIpotesi = albero;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        ultimaModifica =(dateFormat.format(date));  
     }
 
     //Salva una sessione nella tabella SESSIONELAVORO del db. Restituisce TRUE se l'oparazione va a buon fine
     public boolean salva() {
         boolean result = false;
         DBController dbc = DBController.getInstance();
-        String queryInsert = "INSERT INTO Sessionelavoro(Id_Utente, Id_Messaggio_Intercettato, Ultima_Modifica)"
+        String queryInsert = "INSERT INTO Sessionelavoro(Id_Utente, Nome_Sessione, Messaggio_Intercettato, Ultima_Modifica)"
                 + "VALUES("
                 + this.getUtente().getId()
                 + ","
+                + this.getNomeSessione()
+                + ",'"
+                //              + this.getAlberoIpotesi().ge
+                //              + ",'"
                 + this.getMessaggioIntercettato().getId()
                 + ",'"
-                + this.getUltimaModifica()
+                + this.getUltimaModifica().toString()
                 + "')";
         String querryUpdate = "UPDATE MESSAGGI"
                 + " Id_Utente = '" + this.getUtente().getId()
                 + "',"
                 + " Id_Messaggio_Intercettato = '" + this.getMessaggioIntercettato().getId()
                 + "',"
-                + " Ultima_Modifica = " + this.getUltimaModifica()
+                + " Ultima_Modifica = '" + this.getUltimaModifica()
                 + "',"
                 + " WHERE ID = " + this.getIdSessione();
         try {
@@ -88,26 +85,32 @@ public class SessioneLavoro {
         }
         return result;
     }
+    /*
+     //Preleva l'elenco dei messaggi inviati dallo studente indicato
+     public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
+     String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
+     QueryResult qr = null;
+     ArrayList<SessioneLavoro> sessioni = new ArrayList<>();
+     try {
+     qr = DBController.getInstance().executeQuery(query);
+     while (qr.next()) {
+     UserInfo user = UserInfo.getUserInfo(idStudente);
+     SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
+     qr.getInt("id_messaggio_intercettato"), qr.getInt("ultima_modifica"));
+     sessioni.add(temp);
+     }
+     } catch (Exception ex) {
+     Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+     }
+     return sessioni;
+     }
+     */
 
-    //Preleva l'elenco dei messaggi inviati dallo studente indicato
-    public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
-        String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
-        QueryResult qr = null;
-        ArrayList<SessioneLavoro> sessioni = new ArrayList<>();
-        try {
-            qr = DBController.getInstance().executeQuery(query);
-            while (qr.next()) {
-                UserInfo user = UserInfo.getUserInfo(idStudente);
-                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
-                        qr.getInt("id_messaggio_intercettato"), qr.getInt("ultima_modifica"));
-                sessioni.add(temp);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
-        }
-        return sessioni;
+    @Override
+    public String toString() {
+        return "Sessione{" + "id=" + idSessione + ", utente=" + utente + ", Titolo=" + nomeSessione + ", modifica=" + ultimaModifica +'}';
     }
-
+    
     //METODI GETTER
     public UserInfo getUtente() {
         return utente;
@@ -121,12 +124,20 @@ public class SessioneLavoro {
         return nomeSessione;
     }
 
-    public Date getUltimaModifica() {
+    public String getUltimaModifica() {
         return ultimaModifica;
     }
 
     public Messaggio getMessaggioIntercettato() {
         return messaggioIntercettato;
+    }
+
+    public void setAlberoIpotesi(AlberoIpotesi alberoIpotesi) {
+        this.alberoIpotesi = alberoIpotesi;
+    }
+
+    public AlberoIpotesi getAlberoIpotesi() {
+        return alberoIpotesi;
     }
 
     //METODI SETTER
@@ -142,7 +153,7 @@ public class SessioneLavoro {
         this.nomeSessione = nome;
     }
 
-    public void setUltimaModifica(Date ultimaModifica) {
+    public void setUltimaModifica(String ultimaModifica) {
         this.ultimaModifica = ultimaModifica;
     }
 

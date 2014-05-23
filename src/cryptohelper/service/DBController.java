@@ -131,11 +131,13 @@ public class DBController {
                 + "("
                 + "ID INTEGER not null primary key "
                 + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-                + "id_utente INTEGER,"
-                + "albero VARCHAR(128000),"
-                + "messaggio_intercettato VARCHAR(128000),"
-                + "Ultima_modifica DATE,"
+                + "ID_UTENTE INTEGER,"
+                + "TITOLO_SESSIONE VARCHAR (32),"
+                + "ALBERO_IPOTESI BLOB,"
+                + "MESSAGGIO_INTERCETTATO INTEGER,"
+                + "Ultima_modifica VARCHAR(32),"
                 + "FOREIGN KEY(id_utente) REFERENCES Studenti(ID),"
+                + "FOREIGN KEY(messaggio_intercettato) REFERENCES Messaggi(ID)"
                 + ")";
         connect();
         //Non bisogna piu comentare le tabele per far funzionare il Test
