@@ -89,6 +89,19 @@ public class SessioneLavoro {
         return result;
     }
 
+    //Elimina un messaggio dalla tabella messaggi. Restituisce TRUE se l'oparazione va a buon fine
+    public boolean elimina() {
+        DBController dbc = DBController.getInstance();
+        boolean result = false;
+        String query = "DELETE FROM SessioneLavoro WHERE ID=" + this.getIdSessione();
+        try {
+            result = dbc.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
     //Preleva l'elenco dei messaggi inviati dallo studente indicato
     public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
         String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
