@@ -90,7 +90,6 @@ public class SessioneLavoro {
         return result;
     }
 
-   
     //Elimina un messaggio dalla tabella messaggi. Restituisce TRUE se l'oparazione va a buon fine
     public boolean elimina() {
         DBController dbc = DBController.getInstance();
@@ -114,8 +113,8 @@ public class SessioneLavoro {
             while (qr.next()) {
                 UserInfo user = UserInfo.getUserInfo(idStudente);
           //      SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
-       //                 qr.getInt("id_messaggio_intercettato"), qr.getString("ultima_modifica"));
-         //       sessioni.add(temp);
+                //                 qr.getInt("id_messaggio_intercettato"), qr.getString("ultima_modifica"));
+                //       sessioni.add(temp);
             }
         } catch (Exception ex) {
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
