@@ -73,8 +73,10 @@ public class TestDbController {
             Messaggio newJoe = (Messaggio) xstream.fromXML(xml);
             System.out.println(newJoe.toString());
             AlberoIpotesi alberoSessione = new AlberoIpotesi();
-            //SessioneLavoro s1 = new SessioneLavoro (0, destinatario, alberoSessione, newJoe);
-            //s1.salva();
+            SessioneLavoro s1 = new SessioneLavoro(0, "Sessione", destinatario, alberoSessione, newJoe);
+            System.out.println("AAAAAA");
+            System.out.println(s1.toString());
+            s1.salva();
             
             
             
