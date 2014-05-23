@@ -9,12 +9,12 @@ TO-DO (aggiornato 23/05/14)
 
 
 ********************** UC2 **************************
-- Creare classe albero
-- Creare classe soluzione
-- Creare classe sessione
 - Creare interfaccia per le azioni della spia [in corso]
-- Creare MappaSostituzioni
-- Implementare nella mappatura:
-        public char getChar(int posizione)
-        public int getposizione(char carattere)
-- Classi del pattern proxy
+- Creare classe AnalisiFrequenza
+- Creare classe MappaSostituzioni
+- Creare classe MappaPosCarattere
+- Creare classe MappaPosizioni
+- Creare classi del pattern proxy
+- Implementare classe Mossa
+- Implementare classe albero
+- Implementare classe soluzione
