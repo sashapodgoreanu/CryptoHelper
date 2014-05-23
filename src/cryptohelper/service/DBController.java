@@ -121,26 +121,25 @@ public class DBController {
                 + "FOREIGN KEY(ID_PARTNER) REFERENCES STUDENTI(ID),"
                 + "FOREIGN KEY(ID_SDC) REFERENCES SistemiCifratura(ID)"
                 + ")";
-        String queryAlberoIpotesi = "CREATE TABLE AlberoIpotesi"
-                + "("
-                + "ID INTEGER not null primary key "
-                + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-                + "JAVAOBJECT BLOB"
-                + ")";
         String querySessioneLavoro = "CREATE TABLE SessioneLavoro"
                 + "("
                 + "ID INTEGER not null primary key "
                 + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-                + "id_utente INTEGER,"
-                + "albero VARCHAR(128000),"
-                + "messaggio_intercettato VARCHAR(128000),"
-                + "Ultima_modifica DATE,"
-                + "FOREIGN KEY(id_utente) REFERENCES Studenti(ID),"
+                + "ID_UTENTE INTEGER,"
+                + "NOME_SESSIONE VARCHAR (32),"
+                + "ALBERO_IPOTESI LONG VARCHAR,"
+                + "MESSAGGIO_INTERCETTATO LONG VARCHAR,"
+                + "Ultima_modifica VARCHAR(32),"
+                + "FOREIGN KEY(id_utente) REFERENCES Studenti(ID)"
                 + ")";
         connect();
         //Non bisogna piu comentare le tabele per far funzionare il Test
         try {
             //drop di tutte le tabelle esistenti
+            if (isTableExist("SessioneLavoro")) {
+                st.execute("DROP TABLE SessioneLavoro");
+                System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SessioneLavoro eliminata!");
+            }    
             if (isTableExist("SDCPartners")) {
                 st.execute("DROP TABLE SDCPartners");
                 System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SDCPartners eliminata!");
@@ -161,14 +160,7 @@ public class DBController {
                 st.execute("DROP TABLE Studenti");
                 System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella Studenti eliminata!");
             }
-            if (isTableExist("AlberoIpotesi")) {
-                st.execute("DROP TABLE AlberoIpotesi");
-                System.out.println("INFO AlberoIpotesi:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella Studenti eliminata!");
-            }
-            if (isTableExist("SessioneLavoro")) {
-                st.execute("DROP TABLE SessioneLavoro");
-                System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SessioneLavoro eliminata!");
-            }          
+                  
 
             //creazione tabelle
             st.executeUpdate(queryStudenti);
@@ -179,8 +171,8 @@ public class DBController {
             System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SistemiCifratura creata!");
             st.executeUpdate(querySDCPartners);
             System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SDCPartners creata!");
-            st.executeUpdate(queryAlberoIpotesi);
-            System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella AlberoIpotesi creata!");
+            //st.executeUpdate(queryAlberoIpotesi);
+            //System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella AlberoIpotesi creata!");
             st.executeUpdate(querySessioneLavoro);
             System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SessioneLavoro creata!");
         } catch (SQLException e) {

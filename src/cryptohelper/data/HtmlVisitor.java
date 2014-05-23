@@ -2,6 +2,7 @@
 package cryptohelper.data;
 
 import cryptohelper.interfaces.MessaggioDestinatario;
+import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.interfaces.Visitor;
 
@@ -71,26 +72,27 @@ public class HtmlVisitor implements Visitor {
         return sb.toString();
     }
 
-    //Stampa dati oggetto Messaggio
-    public String visit(Messaggio msg) {
+    //Stampa dati oggetto Messaggio Intercettato
+
+    public String visit(MessaggioIntercettato msgIntercettato) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
         sb.append("<p>");
-        sb.append("<b>Titolo: </b>").append(msg.getTitolo());
+        sb.append("<b>Titolo: </b>").append(msgIntercettato.getTitolo());
         sb.append("</p>");
         sb.append("<p>");
-        sb.append("<b>Mitente: </b>").append(msg.getMittente().getNome());
-        sb.append(" ").append(msg.getMittente().getCognome());
+        sb.append("<b>Mitente: </b>").append(msgIntercettato.getMittente().getNome());
+        sb.append(" ").append(msgIntercettato.getMittente().getCognome());
         sb.append("</p>");
         sb.append("<p>");
-        sb.append("<b>Destinatario: </b>").append(msg.getDestinatario().getNome());
-        sb.append(" ").append(msg.getDestinatario().getCognome());
+        sb.append("<b>Destinatario: </b>").append(msgIntercettato.getDestinatario().getNome());
+        sb.append(" ").append(msgIntercettato.getDestinatario().getCognome());
         sb.append("</p>");
         sb.append("<p>");
-        sb.append("<b>Lingua: </b>").append(msg.getLingua());
+        sb.append("<b>Lingua: </b>").append(msgIntercettato.getLingua());
         sb.append("</p>");
         sb.append("<p>");
-        sb.append("<b>Testo cifrato:</b><br/>").append(msg.getTestoCifrato());
+        sb.append("<b>Testo cifrato:</b><br/>").append(msgIntercettato.getTestoCifrato());
         sb.append("</p>");
         sb.append("</html>");
         return sb.toString();

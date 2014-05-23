@@ -48,9 +48,8 @@ public class testFileReader {
                 }
             }
         }
-
+        
         fin.close();
-
         for (int i = 0; i < 26; i++) {
             System.out.println();
             for (int j = 0; j < 26; j++) {

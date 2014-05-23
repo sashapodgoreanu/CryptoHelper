@@ -3,12 +3,13 @@
 package cryptohelper.com;
 
 import cryptohelper.GUI.LoginForm;
+import cryptohelper.GUI.UC2.CaricaSessionePanel;
 import cryptohelper.GUI.UC2.IntercettaMessaggioPanel;
 import cryptohelper.GUI.UC2.ScegliMsgPanel;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.SessioneLavoro;
-import cryptohelper.data.UserInfo;
+import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,7 @@ public class GUIControllerUC2 {
     private COMController comC;
     private IntercettaMessaggioPanel intercettaMessaggioPanel;
     private ScegliMsgPanel scegliMsgPanel;
+    private CaricaSessionePanel caricaSessionePanel;
 
     private GUIControllerUC2() {
         comC = COMController.getInstance();
@@ -39,13 +41,18 @@ public class GUIControllerUC2 {
     public void addView(View v) {
         if (v instanceof IntercettaMessaggioPanel) {
             intercettaMessaggioPanel = (IntercettaMessaggioPanel) v;
-            intercettaMessaggioPanel.getNuovaSessioneBtn().addActionListener(new NuovaSessioneListener());
-            intercettaMessaggioPanel.getCaricaSessioneBtn().addActionListener(new CaricaSessioneListener());
+            intercettaMessaggioPanel.getNuovaSessioneBtn().addActionListener(new NewSessioneListener());
+            intercettaMessaggioPanel.getCaricaSessioneBtn().addActionListener(new LoadSessionListener());
             intercettaMessaggioPanel.getLogoutBtn().addActionListener(new LogoutListener());
         } else if (v instanceof ScegliMsgPanel) {
             scegliMsgPanel = (ScegliMsgPanel) v;
             scegliMsgPanel.getElencoMessaggi().addListSelectionListener(new ViewMsgChoiceListener());
+        } else if (v instanceof CaricaSessionePanel) {
+            caricaSessionePanel = (CaricaSessionePanel) v;
+            caricaSessionePanel.getElencoSessioni().addListSelectionListener(new ViewSessionChoiceListener());
+            caricaSessionePanel.getEliminaSessioneBtn().addActionListener(new DeleteSessionListener());
         }
+
     }
 
     //classe listener per il button "logout" della finestra principale
@@ -60,20 +67,20 @@ public class GUIControllerUC2 {
     }
 
     //classe listener per il button Nuova Sessione 
-    private class NuovaSessioneListener implements ActionListener {
+    private class NewSessioneListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             intercettaMessaggioPanel.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            ArrayList<Messaggio> temp = Messaggio.caricaMessaggi();
+            ArrayList<MessaggioIntercettato> temp = Messaggio.caricaMessaggi();
             intercettaMessaggioPanel.initNuovaSessione(temp);
         }
     }
 
     //classe listener per il button Carica Sessione 
-    private class CaricaSessioneListener implements ActionListener {
+    private class LoadSessionListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -92,8 +99,32 @@ public class GUIControllerUC2 {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             System.out.println("Clicked LIST");
-            Messaggio chosenMsg = (Messaggio) scegliMsgPanel.getElencoMessaggi().getSelectedValue();
+            MessaggioIntercettato chosenMsg = (MessaggioIntercettato) scegliMsgPanel.getElencoMessaggi().getSelectedValue();
             scegliMsgPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(chosenMsg)));
         }
     }
+
+    //classe listener per la scelta della sessione da caricare 
+    private class ViewSessionChoiceListener implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            System.out.println("Clicked LIST");
+            SessioneLavoro chosenMsg = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
+            caricaSessionePanel.getInfoSessione().setText((new HtmlVisitor().visit(chosenMsg)));
+        }
+    }
+
+    //classe listener per il button "elimina sessione" del pannello "carica sessione" 
+    private class DeleteSessionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            SessioneLavoro session = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
+            session.elimina();
+            caricaSessionePanel.deleteSelectedIndex();
+            intercettaMessaggioPanel.setStatus("Bozza eliminata correttamente!");
+        }
+    }
+
 }

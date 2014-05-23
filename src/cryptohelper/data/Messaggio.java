@@ -4,6 +4,7 @@ package cryptohelper.data;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.com.COMController;
+import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
+public class Messaggio implements MessaggioDestinatario, MessaggioMittente, MessaggioIntercettato {
 
     private Log log = LogFactory.getLog(Messaggio.class);   //per debug
     private int id;
@@ -337,17 +338,17 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         return inviati;
     }
 
-    //Preleva tutti i messaggi dal db escludendo le bozze
-    public static ArrayList<Messaggio> caricaMessaggi() {
+    //Preleva tutti i messaggi intercettabili dal db escludendo le bozze
+    public static ArrayList<MessaggioIntercettato> caricaMessaggi() {
         String query = "SELECT * FROM Messaggi WHERE Bozza = False";
         QueryResult qr = null;
-        ArrayList<Messaggio> msgs = new ArrayList<>();
+        ArrayList<MessaggioIntercettato> msgs = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
                 UserInfo mit = UserInfo.getUserInfo(qr.getInt("ID_Mittente"));
                 UserInfo dest = UserInfo.getUserInfo(qr.getInt("ID_Destinatario"));
-                Messaggio temp = new Messaggio(qr.getInt("ID"), qr.getString("Testo"), qr.getString("TestoCifrato"),
+                MessaggioIntercettato temp = new Messaggio(qr.getInt("ID"), qr.getString("Testo"), qr.getString("TestoCifrato"),
                         qr.getString("Lingua"), qr.getString("Titolo"), Boolean.parseBoolean(qr.getString("Bozza")), Boolean.parseBoolean(qr.getString("Letto")),
                         mit, dest);
                 msgs.add(temp);
@@ -357,14 +358,15 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente {
         }
         return msgs;
     }
-    
-    
+
     @Override
     public void cifra() {
-        System.out.println(this.getClass()+": cifra(): SistemaCifratura: "+sistemaCifratura);
-        if(sistemaCifratura != null)
-            testoCifrato = Cifratore.cifraMonoalfabetica(sistemaCifratura.getMp(),testo);
-        else testoCifrato ="";
+        System.out.println(this.getClass() + ": cifra(): SistemaCifratura: " + sistemaCifratura);
+        if (sistemaCifratura != null) {
+            testoCifrato = Cifratore.cifraMonoalfabetica(sistemaCifratura.getMp(), testo);
+        } else {
+            testoCifrato = "";
+        }
     }
 
     @Override

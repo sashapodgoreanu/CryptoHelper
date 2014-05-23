@@ -1,8 +1,6 @@
 //interfaccia MessaggioMittente
 package cryptohelper.interfaces;
 
-import cryptohelper.data.UserInfo;
-
 public interface MessaggioMittente extends MessaggioAstratto {
 
     public boolean isBozza();
