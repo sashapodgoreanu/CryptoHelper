@@ -18,11 +18,16 @@ public abstract class CalcolatoreMappatura {
 
     /**
      *
-     * @param chiave
-     * @return
+     * @param chiave utilizata per generare mappatura
+     * @return Mappatura completa
      */
     public abstract Mappatura calcola(String chiave);
 
+    /**
+     * 
+     * @param metodo puo essere parola chiave, cifrario cesare oppure cifrario preudocasuale
+     * @return Classe che corrisponde al metodo
+     */
     public static CalcolatoreMappatura create(String metodo) {
         if (metodo.equals("parola chiave")) {
             return new CalcolatoreParolachiave();
