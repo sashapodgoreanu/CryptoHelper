@@ -106,9 +106,36 @@ public class SessioneLavoro {
      }
      */
 
-    @Override
-    public String toString() {
-        return "Sessione{" + "id=" + idSessione + ", utente=" + utente + ", Titolo=" + nomeSessione + ", modifica=" + ultimaModifica +'}';
+    //Elimina un messaggio dalla tabella messaggi. Restituisce TRUE se l'oparazione va a buon fine
+    public boolean elimina() {
+        DBController dbc = DBController.getInstance();
+        boolean result = false;
+        String query = "DELETE FROM SessioneLavoro WHERE ID=" + this.getIdSessione();
+        try {
+            result = dbc.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    //Preleva l'elenco dei messaggi inviati dallo studente indicato
+    public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
+        String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
+        QueryResult qr = null;
+        ArrayList<SessioneLavoro> sessioni = new ArrayList<>();
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while (qr.next()) {
+                UserInfo user = UserInfo.getUserInfo(idStudente);
+                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
+                        qr.getInt("id_messaggio_intercettato"), qr.getInt("ultima_modifica"));
+                sessioni.add(temp);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        }
+        return sessioni;
     }
     
     //METODI GETTER

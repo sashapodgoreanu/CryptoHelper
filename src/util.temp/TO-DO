@@ -1,72 +1,20 @@
-OK - modificare ComController metodo arrayList<UserInfo> getDestinatari
-OK - rivedere interfaccia grafica
-OK - aggiungere bottone logut e implementazione
-OK - DBController public Messaggio getMessaggio(int id) throws SQLException da modificare/eliminare --- DBController non deve conoscere Messaggio
-OK - creare interfaccia per inbox
-OK - modificare i metodi getBozze e getDestinatari in modo che siano visualizzati solo le bozze e i destinatari con cui si è concordato il sistema di cifratura
-OK - apri bozza, elimina bozza, invia bozza
-OK - aggiungere bottone select languagge con una lista drop-down con elementi prescelti tra inglese e italiano
-OK - setSelectedindex(0) di elencoMessaggiRicevuti in InboxPanel
-OK - deve visionare immediatamente il primo messaggio una volta clicato su inbox
+TO-DO (aggiornato 23/05/14)
+
+********************** UC1 **************************
+- creaSistemaDicifratura
+- cifra/decifra messaggio nella inbox
+- implementare i rimanenti cifrari.
+- invia nuovo messaggio => da ricontrollare il parametro con testo cifrato (vedi commenti nel codice del metodo e della classe messaggio)]
+- cambiare parametro testo cifrato nel salva messaggio di MessagePanel
 
 
-CREARE TUTTI I COMPONENTI CHE SARANNO REGITRATI PRESO CONTROLLER NEI METODI init() di ogni GUI 
---aggiungere validate a sistemcifratura in modello di progetto
-- quando si elimina una bozza, sistema di cifratura, messaggio si utilizza observer observable in modo da aggiornare la JList (il elemento deve scomparire) 
--cambiare parametro testo cifrato nel salva messaggio di MessagePanel
-
-
-
-Sasha
-*****************************
-creaSistemaDicifratura
-ok - save di proposta
-ok - inviaProposta di COMController
-ok - Da aggiungere status se un sistema cifratura inviato correttamente 
-Da IMPLEMENTARE i rimanenti cifrari.
-da implementare inbox proposte. 
-
-RIMASTO A SelectDestinatarioListener() 
-invia  nuovo messaggio [ok ma ancora da controllare il parametro con testo cifrato (vedi commenti nel messaggio)]
-collegare la lingua del messaggio
-
-
-OK ----------TestDB----------------------------------------------
-aggiungere nel TestDb qualche sistema di cifratura da inviare
-Creare qualche sitema di cifratura e salvare 
-OK --------------------------------------------------------------
-
-****************************
-GIULIO
-*******************************
-//TO-DO
- bozzePanel.getSaveBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());   da rifare --- puo darsi che devi creari una nuova classe listener
-OK - deleteSelectedIndex();
-OK - Preleva l'elenco delle bozze 
-OK - public static ArrayList<MessaggioMittente> caricaBozze(int idStudente)
-OK - questo metodo non funziona perche destinatario e null.. invece nella db ha un valore(id dello studente) - deve essere un oggetto UserInfo
-     vale anche per messaggi inviati. 
-OK- guarda simile per INBOX 
-    elencoProposteRicevute.setSelectedIndex(0);
-        Proposta index0 = (Proposta) elencoProposteRicevute.getSelectedValue();
-        if (index0 != null) {
-            infoSdcLabel.setText(new HtmlVisitor().visit(index0));
-        }
-
-uml 
-MappaSostituzioni
-
-nella Mappatura********************
-public char getChar(int posizione)
-public int getposizione(char carattere)
-**********************************
-
-
-
-
-/********************** UC2 ***************************/
--Creare classe albero
--Creare classe soluzione
--Creare classe sessione
--Creare interfaccia per le azioni della spia [in corso]
-
+********************** UC2 **************************
+- Creare classe albero
+- Creare classe soluzione
+- Creare classe sessione
+- Creare interfaccia per le azioni della spia [in corso]
+- Creare MappaSostituzioni
+- Implementare nella mappatura:
+        public char getChar(int posizione)
+        public int getposizione(char carattere)
+- Classi del pattern proxy
