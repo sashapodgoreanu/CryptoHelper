@@ -12,10 +12,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author st106342
- */
 public class SessioneLavoro {
 
     int idSessione;
@@ -59,37 +55,41 @@ public class SessioneLavoro {
                 + "','"
                 + this.getUltimaModifica()
                 + "')";
-        String querryUpdate = "UPDATE MESSAGGI"
+        String querryUpdate = "UPDATE SessioneLavoro"
                 + " Id_Utente = '" + this.getUtente().getId()
-                + "',"
+                + "','"
                 + " Id_Messaggio_Intercettato = '" + this.getMessaggioIntercettato().getId()
-                + "',"
+                + "','"
                 + " Ultima_Modifica = '" + this.getUltimaModifica()
                 + "',"
                 + " WHERE ID = " + this.getIdSessione();
         try {
-            //un nuovo messaggo
-            if (this.getIdSessione() == 0) {
+            //una nuova sessione
+   //         if (this.getIdSessione() == 0) {
                 int newID = dbc.executeUpdateAndReturnKey(queryInsert);
+                System.out.println("id_sessione: "+newID);
                 //se newID = -1 allora è stato un errore nel inserimento nel db;
                 if (newID != -1) {
                     this.idSessione = newID;
+                    System.out.println("AGGIUNGO SESSIONE");
                     System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Aggiunto con successo " + this.toString());
                     System.out.println(true);
                     return true;
 
                 }
-                if (newID == -1 && this.idSessione != 0) {
+    /*            if (newID == -1 && this.idSessione != 0) {
                     System.out.println(false);
+                    System.out.println("ERRORE NEL INSERIMENTO");
                     //errore nel inserimento
                     return false;
                 }
                 //aggiornamento di un messaggio
             } else {
                 result = dbc.executeUpdate(querryUpdate);
+                System.out.println("AGGIORNO");
                 System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "Aggiornato: " + this.toString());
             }
-
+*/
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -108,33 +108,13 @@ public class SessioneLavoro {
         }
         return result;
     }
-    /*
-     //Preleva l'elenco delle sessioni inviati dallo studente indicato
-     public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
-     String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
-     QueryResult qr = null;
-     ArrayList<SessioneLavoro> sessioni = new ArrayList<>();
-     try {
-     qr = DBController.getInstance().executeQuery(query);
-     while (qr.next()) {
-     UserInfo user = UserInfo.getUserInfo(idStudente);
-     SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
-     qr.getInt("id_messaggio_intercettato"), qr.getInt("ultima_modifica"));
-     sessioni.add(temp);
-     }
-     } catch (Exception ex) {
-     Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
-     }
-     return sessioni;
-     }
-     */
 
     @Override
     public String toString() {
         return "Sessione{" + "id=" + idSessione + ", utente=" + utente + ", Titolo=" + nomeSessione + ", modifica=" + ultimaModifica + '}';
     }
-
-    //Preleva l'elenco dei messaggi inviati dallo studente indicato
+    
+     //Preleva l'elenco delle sessioni inviati dallo studente indicato
     public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
         String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
         QueryResult qr = null;
@@ -143,7 +123,12 @@ public class SessioneLavoro {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
                 UserInfo user = UserInfo.getUserInfo(idStudente);
-          //      SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
+
+           
+                // ATTENZIONE!!!!!  DA RIVEDERE I CAMPI CHE HO MESSO A NULL
+                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("nome_Sessione"), null, null, null);
+                sessioni.add(temp);
+                //      SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
                 //                 qr.getInt("id_messaggio_intercettato"), qr.getString("ultima_modifica"));
                 //       sessioni.add(temp);
             }
@@ -152,6 +137,7 @@ public class SessioneLavoro {
         }
         return sessioni;
     }
+   
 
     //METODI GETTER
     public UserInfo getUtente() {

@@ -13,7 +13,7 @@ import java.awt.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-public class ScegliMsgPanel extends JPanel implements View {
+public class NuovaSessionePanel extends JPanel implements View {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
@@ -27,7 +27,7 @@ public class ScegliMsgPanel extends JPanel implements View {
     JButton okBtn;
     ArrayList<MessaggioIntercettato> elencoMessaggiArrLst; //elenco destintari dei messaggi
 
-    public ScegliMsgPanel(ArrayList<MessaggioIntercettato> elencoMessaggiArrLst) {
+    public NuovaSessionePanel(ArrayList<MessaggioIntercettato> elencoMessaggiArrLst) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
         rightPanel = new JPanel();
@@ -67,7 +67,7 @@ public class ScegliMsgPanel extends JPanel implements View {
         elencoMessaggi.setSelectedIndex(0);
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoMessaggi);
-        scrollPane.setPreferredSize(new Dimension(165, 250));
+        scrollPane.setPreferredSize(new Dimension(200, 250));
         corpoMessaggio = new JTextPane();
         corpoMessaggio.setPreferredSize(new Dimension(600, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
@@ -111,7 +111,7 @@ public class ScegliMsgPanel extends JPanel implements View {
         return corpoMessaggio;
     }
 
-    public JButton getokBtn() {
+    public JButton getOkBtn() {
         return okBtn;
     }
 

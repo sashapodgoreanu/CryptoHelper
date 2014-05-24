@@ -4,6 +4,7 @@ package cryptohelper.GUI.UC2;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.Messaggio;
+import cryptohelper.data.SessioneLavoro;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -32,7 +33,7 @@ public class IntercettaMsgPanel extends JFrame implements View {
         //INIT DI TOOLBAR PANEL
         logoutBtn = new JButton("Logout");
         nuovaSessioneBtn = new JButton("Nuova sessione di lavoro");
-        caricaSessioneBtn = new JButton("Carica  sessione di lavoro");
+        caricaSessioneBtn = new JButton("Carica sessione di lavoro");
         salvaSessioneBtn = new JButton("Salva sessione di lavoro");
         salvaSessioneBtn.setEnabled(false);
         toolbarPanel.setBackground(Color.LIGHT_GRAY);
@@ -43,7 +44,7 @@ public class IntercettaMsgPanel extends JFrame implements View {
 
         //INIT DI BODY PANEL
         bodyPanel.setLayout(new BorderLayout());
-        bodyPanel.setBorder(new EmptyBorder(10, 50, 10, 50));   //padding per separare i controlli dal bordo della finestra
+        bodyPanel.setBorder(new EmptyBorder(10, 20, 10, 20));   //padding per separare i controlli dal bordo della finestra
 
         //INIT DI STATUS LABEL
         statusLabel = new JLabel("Selezionare un'opzione per continuare");
@@ -72,16 +73,35 @@ public class IntercettaMsgPanel extends JFrame implements View {
         statusLabel.setText(" ");
     }
 
-    //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuovo messaggio"
+    //Inizializza l'interfaccia e i componenti quando viene premuto il button "nuova sessione"
     public void initNuovaSessione(ArrayList<MessaggioIntercettato> msgArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Nuova sessione di lavoro");    //cambia titolo al form
         this.setStatus("Selezionare il messaggio da intercettare e premere 'Avanti'"); //messaggio per la status label
-        bodyPanel.add(new ScegliMsgPanel(msgArrLst));       //aggiunge il nuovo pannello
-        bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
+        bodyPanel.add(new NuovaSessionePanel(msgArrLst));           //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                                     //completa l'inizializzazione dell'interfaccia
     }
 
-    @Override
+    //Inizializza l'interfaccia e i componenti quando viene premuto il button "carica sessione"
+    public void initCaricaSessione(ArrayList<SessioneLavoro> sessioniArrLst) {
+        this.resetPanels();
+        this.setTitle("CryptoHelper - Carica sessione di lavoro");   //cambia titolo al form
+        this.setStatus("Selezionare la sessione da aprire e premere 'Avanti'"); //messaggio per la status label
+        bodyPanel.add(new CaricaSessionePanel(sessioniArrLst));      //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                                      //completa l'inizializzazione dell'interfaccia
+    }
+    
+    //Inizializza l'interfaccia e i componenti quando viene premuto il button "carica sessione"
+    public void initAreaLavoro() {
+        this.resetPanels();
+        this.setTitle("CryptoHelper - Carica sessione di lavoro");   //cambia titolo al form
+        this.setStatus("Selezionare un'opzione per iniziare a decifrare il messaggio"); //messaggio per la status label
+        bodyPanel.add(new AreaLavoroPanel());                        //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                                      //completa l'inizializzazione dell'interfaccia
+    }
+    
+    
+   @Override
     public void registerController() {
         GUIControllerUC2 gcAL = GUIControllerUC2.getInstance();
         gcAL.addView(this);
@@ -98,6 +118,10 @@ public class IntercettaMsgPanel extends JFrame implements View {
 
     public JButton getNuovaSessioneBtn() {
         return nuovaSessioneBtn;
+    }
+
+    public JButton getCaricaSessioneBtn() {
+        return caricaSessioneBtn;
     }
 
     //METODI SETTER

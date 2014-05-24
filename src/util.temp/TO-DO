@@ -14,7 +14,7 @@ TO-DO (aggiornato 23/05/14)
 - Creare classe MappaSostituzioni
 - Creare classe MappaPosCarattere
 - Creare classe MappaPosizioni
-- Creare classi del pattern proxy
+- Creare classi del pattern proxy (OK LUIGI, da controllare!! )
 [OK] Creare interfaccia MessaggioAstratto
 - Implementare classe Mossa
 - Implementare classe albero
