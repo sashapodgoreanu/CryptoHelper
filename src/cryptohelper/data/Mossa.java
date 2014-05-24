@@ -24,6 +24,11 @@ public class Mossa {
     private char character;
     private char inverseChar;
 
+    public Mossa(char character, char inverseChar) {
+        this.character = character;
+        this.inverseChar = inverseChar;
+    }
+
     public void map(char char1, char char2) {
         throw new UnsupportedOperationException();
     }
@@ -45,5 +50,11 @@ public class Mossa {
     public void setInverseChar(char inverseChar) {
         this.inverseChar = inverseChar;
     }
+
+    @Override
+    public String toString() {
+        return "Mossa{" + "character=" + character + ", inverseChar=" + inverseChar + '}';
+    }
+
 
 }

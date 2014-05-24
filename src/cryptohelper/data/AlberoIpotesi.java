@@ -1,14 +1,14 @@
 //Classe che gestisce l'albero delle ipotesi
 package cryptohelper.data;
 
-import java.util.ArrayList;
-
 public class AlberoIpotesi {
 
     private Ipotesi root;
+    private MappaPosizioni mappaPosizioni;
 
     public AlberoIpotesi() {
-        root = null;
+        root = new Ipotesi();
+        mappaPosizioni = null;
     }
 
     //Cerca la mossa. Restituisce TRUE in caso di riscontro, FALSE altrimenti
@@ -17,22 +17,52 @@ public class AlberoIpotesi {
         return false;
     }
 
-    //Aggiunge un ipotesi. Restituisce TRUE se l'operazione va a buon fine, FALSE altrimenti
-    public boolean addIpotesi(Ipotesi ip) {
+    public boolean addIpotesi(Ipotesi ipCorrente) {
+        if (isEmpty() || ipCorrente == null) {
+            return false;
+        }
+        return addIpotesi(ipCorrente, root);
+    }
 
+    private boolean addIpotesi(Ipotesi ipCorrente, Ipotesi ipPrecedente) {
+        if (ipPrecedente.isUltima()) {
+            ipPrecedente.getFigli().add(ipCorrente);
+            ipCorrente.setPadre(ipPrecedente);
+            ipPrecedente.setUltima(false);
+            return true;
+        } else {
+            for (int i = 0; i < ipPrecedente.getFigli().size(); i++) {
+                return addIpotesi(ipPrecedente.getFigli().get(i), ipPrecedente);
+            }
+        }
         return false;
     }
 
     //Restituisce l'ipotesi corrente
     public Ipotesi getIpotesiCorrente() {
-
-        return new Ipotesi();
+        if (isEmpty()) {
+            return null;
+        }
+        return null;
     }
 
-    //Effettua sostituzione di due caratteri. Restituisce TRUE se l'operazione va a buon fine, FALSE altrimenti
-    public boolean seffettuaSostituzione(char c1, char c2) {
+    public String effettuaSostituzione(char ch1, char ch2) {
+        if (isEmpty()) {
+            return null;
+        }
 
-        return false;
+        return null;
+    }
+
+    public boolean isEmpty() {
+        return (root == null || mappaPosizioni == null);
+    }
+
+    public Ipotesi createIpotesiCorrente(char ch1, char ch2) {
+        if (isEmpty()) {
+            return null;
+        }
+        return new Ipotesi(ch1, ch2);
     }
 
     //METODI GETTER
@@ -40,59 +70,9 @@ public class AlberoIpotesi {
         return root;
     }
 
-    //Classe ipotesi: gestisce i nodi dell'albero
-    public static class Ipotesi {
-
-        private Mossa mossa;
-        private Ipotesi padre;
-        private ArrayList<Ipotesi> figli;
-        private boolean ultima;
-        private boolean valid;
-
-        //Restituisce la mossa corrente
-        public Mossa getMossaCorrente() {
-
-            return new Mossa();
-        }
-
-        //Restituisce la mossa precedente
-        public Mossa getMossaPrecedente() {
-
-            return new Mossa();
-        }
-
-        //METODI GETTER IPOTESI
-        public Mossa getMossa() {
-            return mossa;
-        }
-
-        public Ipotesi getPadre() {
-            return padre;
-        }
-
-        public boolean isUltima() {
-            return ultima;
-        }
-
-        public boolean isValid() {
-            return valid;
-        }
-
-        //METODI SETTER IPOTESI
-        public void setMossa(Mossa mossa) {
-            this.mossa = mossa;
-        }
-
-        public void setPadre(Ipotesi padre) {
-            this.padre = padre;
-        }
-
-        public void setUltima(boolean ultima) {
-            this.ultima = ultima;
-        }
-
-        public void setValid(boolean valid) {
-            this.valid = valid;
-        }
+    @Override
+    public String toString() {
+        return "AlberoIpotesi{" + "root=" + root.toString() + '}';
     }
+
 }
