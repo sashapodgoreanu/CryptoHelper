@@ -61,12 +61,12 @@ public class AreaLavoroPanel extends JPanel implements View {
 
         corpoTestoCifrato.setText(sessione.getMessaggioIntercettato().getTestoCifrato());
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
-        corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 10, 10))); //assegna un margine al controllo
+        corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(5, 5, 5, 5))); //assegna un margine al controllo
         corpoTesto = new JTextPane();
         corpoTesto.setPreferredSize(new Dimension(500, 180));
         corpoTesto.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
-        corpoTesto.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(10, 10, 10, 10))); //assegna un margine al controllo
+        corpoTesto.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(5, 5, 5, 5))); //assegna un margine al controllo
 
         String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         Object[][] data = {{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""}};
