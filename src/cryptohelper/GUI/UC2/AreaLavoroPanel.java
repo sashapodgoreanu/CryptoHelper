@@ -50,12 +50,15 @@ public class AreaLavoroPanel extends JPanel implements View {
         leftPanelDown.setLayout(new BorderLayout());
 
         //INIT DEI CONTROLLI
-        codedTextLabel = new JLabel("Testo in chiaro:");
-        plainTextLabel = new JLabel("Testo cifrato:");
+        codedTextLabel = new JLabel("Testo cifrato:");
+        plainTextLabel = new JLabel("Testo in chiaro:");
         mappaturaLabel = new JLabel("Mappatura corrente:");
         corpoTestoCifrato = new JTextPane();
         corpoTestoCifrato.setPreferredSize(new Dimension(500, 180));
         corpoTestoCifrato.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
+        System.out.println("DADAD");
+        System.out.println(sessione.toString());
+
         corpoTestoCifrato.setText(sessione.getMessaggioIntercettato().getTestoCifrato());
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
         corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 10, 10))); //assegna un margine al controllo

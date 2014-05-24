@@ -112,14 +112,14 @@ public class SessioneLavoro {
 
     @Override
     public String toString() {
-        return "Sessione{" + "id=" + idSessione + ", utente=" + autore + ", Titolo=" + nomeSessione + ", modifica=" + ultimaModifica + '}';
+        return "Sessione{" + "id=" + idSessione + "Nome=" + nomeSessione + ", utente=" + autore + ", messaggio=" + messaggioIntercettato + ", albero= " + alberoIpotesi + ", soluzione= " + soluzione + ", modifica= " + ultimaModifica +"}";
     }
 
     //Preleva l'elenco delle sessioni inviati dallo studente indicato
     public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
         XStream xstream = new XStream(new StaxDriver());
         String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
-        QueryResult qr = null;
+        QueryResult qr;
         ArrayList<SessioneLavoro> sessioni = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
@@ -128,12 +128,7 @@ public class SessioneLavoro {
                 //preleva il messaggio e lo converte da xml a oggetto Java
                 MessaggioIntercettato msg = (MessaggioIntercettato) xstream.fromXML(qr.getString("Messaggio_intercettato"));
                 // ATTENZIONE!!!!!  DA RIVEDERE I CAMPI CHE HO MESSO A NULL
-                System.out.println("asas");
-                System.out.println(msg.toString());
-
                 SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, msg, null, null);
-                System.out.println("nnnn");
-                System.out.println(temp.toString());
                 sessioni.add(temp);
             }
         } catch (Exception ex) {
