@@ -543,10 +543,10 @@ public class GUIControllerUC1 {
                     if (sistemaCifratura.salva()) {
                         panelloPrincipale.setStatus("Salvato con sucesso");
                     } else {
-                        panelloPrincipale.setStatus("E stato un errore! non salvato");
+                        panelloPrincipale.setStatus("Si è verificato un errore! Il metodo di cifratura non è stato salvato");
                     }
                 } else {
-                    panelloPrincipale.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
+                    panelloPrincipale.setStatus("La mappatura non è corretta o contiene caratteri illegali - sono accettate solo lettere");
                 }
             } else if ((metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE) || metodo.equals(Cifrario.PAROLA_CHIAVE)) && creaSDCPanel.getNomeCifraturaField().getText() == null) {
                 String chiave = creaSDCPanel.getChiave().getText();
@@ -556,11 +556,11 @@ public class GUIControllerUC1 {
                     if (sistemaCifratura.salva()) {
                         panelloPrincipale.setStatus("Salvato con sucesso");
                     } else {
-                        panelloPrincipale.setStatus("E stato un errore! non salvato");
+                        panelloPrincipale.setStatus("Si è verificato un errore! Il metodo di cifratura non è stato salvato");
                     }
                 } else {
                     if (metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE)) {
-                        panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere un numero");
+                        panelloPrincipale.setStatus("La chiave non è corretta o contiene caratteri illegali - sono accettati solo numeri");
                     } else {
                         panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere una parola");
                     }
