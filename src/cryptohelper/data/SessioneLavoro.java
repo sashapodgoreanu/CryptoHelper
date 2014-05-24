@@ -3,6 +3,7 @@ package cryptohelper.data;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import cryptohelper.com.COMController;
+import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -19,20 +20,20 @@ public class SessioneLavoro {
     UserInfo autore;
     String ultimaModifica;
     AlberoIpotesi alberoIpotesi;
-    Messaggio messaggioIntercettato;
+    MessaggioIntercettato messaggioIntercettato;
     Soluzione soluzione;
 
-    //COSTRUTTORE I
-    public SessioneLavoro(int id, String nome, UserInfo studente, AlberoIpotesi albero, Messaggio messaggio /* soluzione*/) {
-
-        idSessione = id;
-        nomeSessione = nome;
-        autore = studente;
-        messaggioIntercettato = messaggio;
-        alberoIpotesi = albero;
+    //COSTRUTTORE
+    public SessioneLavoro(int id, String nomeSessione, UserInfo autore, MessaggioIntercettato messaggio, AlberoIpotesi albero, Soluzione soluzione) {
+        this.idSessione = id;
+        this.nomeSessione = nomeSessione;
+        this.autore = autore;
+        this.messaggioIntercettato = messaggio;
+        this.alberoIpotesi = albero;
+        this.soluzione = soluzione;
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
-        ultimaModifica = (dateFormat.format(date));
+        this.ultimaModifica = (dateFormat.format(date));
     }
 
     //Salva una sessione nella tabella SESSIONELAVORO del db. Restituisce TRUE se l'oparazione va a buon fine
@@ -116,20 +117,20 @@ public class SessioneLavoro {
 
     //Preleva l'elenco delle sessioni inviati dallo studente indicato
     public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
+        XStream xstream = new XStream(new StaxDriver());
         String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
         QueryResult qr = null;
         ArrayList<SessioneLavoro> sessioni = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
-                UserInfo user = UserInfo.getUserInfo(idStudente);
+                UserInfo user = UserInfo.getUserInfo(idStudente); //preleva dati dell'utente in base all'id
+                //preleva il messaggio e lo converte da xml a oggetto Java
+                MessaggioIntercettato msg = (MessaggioIntercettato) xstream.fromXML(qr.getString("Messaggio_intercettato"));
                 // ATTENZIONE!!!!!  DA RIVEDERE I CAMPI CHE HO MESSO A NULL
                 UserInfo autore = UserInfo.getUserInfo(idStudente);
-                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, null, null);
+                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, msg, null, null);
                 sessioni.add(temp);
-                //      SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
-                //                 qr.getInt("id_messaggio_intercettato"), qr.getString("ultima_modifica"));
-                //       sessioni.add(temp);
             }
         } catch (Exception ex) {
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
@@ -154,7 +155,7 @@ public class SessioneLavoro {
         return ultimaModifica;
     }
 
-    public Messaggio getMessaggioIntercettato() {
+    public MessaggioIntercettato getMessaggioIntercettato() {
         return messaggioIntercettato;
     }
 
