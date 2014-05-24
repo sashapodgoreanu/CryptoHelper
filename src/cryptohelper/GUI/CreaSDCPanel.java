@@ -25,10 +25,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-/**
- *
- * @author Sasha Alexandru Podgoreanu
- */
 public class CreaSDCPanel extends JPanel implements View {
 
     private JRadioButton monoalfabeticoBtn;
@@ -43,13 +39,13 @@ public class CreaSDCPanel extends JPanel implements View {
     private JTextArea corpoMessaggioProva;
     private JTextArea corpoMessaggioResult;
 
-    private JPanel topPanel;//contiene i JRadioButtons
-    private JPanel leftPanel; // contiene la logica applicativa per creare un sistema di cifratura
-    private JPanel rightPanel; // contiene la logica applicativa per creare un sistema di cifratura
-    private JPanel bottomPanel; //scrollpane per table
+    private JPanel topPanel;            //contiene i JRadioButtons
+    private JPanel leftPanel;           // contiene la logica applicativa per creare un sistema di cifratura
+    private JPanel rightPanel;          // contiene la logica applicativa per creare un sistema di cifratura
+    private JPanel bottomPanel;         //scrollpane per table
 
-    private JTable table; // tabela per mappatura per cifrario parolachiave
-    private JScrollPane scrollPane; //scrollpane per table
+    private JTable table;               // tabella per mappatura per cifrario parolachiave
+    private JScrollPane scrollPane;     //scrollpane per la tabella
     
     private  String metodo;//Metodo
 
