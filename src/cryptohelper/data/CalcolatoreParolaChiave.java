@@ -16,19 +16,21 @@ public class CalcolatoreParolaChiave extends CalcolatoreMappatura {
     @Override
     public Mappatura calcola(String chiave) {
         chiave = chiave.toLowerCase();
-        if (containsDigit(chiave)) {
-            return null;
-        }
         Mappatura m = new Mappatura();
-        char[] res = new char[26];
-        for (int i = 0; i < chiave.length(); i++) {
-            res[i] = chiave.charAt(i);
-        }
-        m.setMappaInversa(res);
+        //m.setMappaInversa(merge(chiave, m.getMappa()));
         return m;
     }
+    /*
+     private char[] merge(String key, char[] map){
+     char[] res = new char[26];
+     boolean duplicate;
+     for (int i = 0; i < 10; i++) {
+     duplicate = false;
+     for (int j = i; !duplicate && j >=0; j--) {
+     if(key.charAt(i) == )
+     }
+     }
+     return null;
+     }*/
 
-    private boolean containsDigit(String string) {
-        return string.matches(".*\\d.*");
-    }
 }
