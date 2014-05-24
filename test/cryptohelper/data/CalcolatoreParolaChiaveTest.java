@@ -59,9 +59,9 @@ public class CalcolatoreParolaChiaveTest {
         String chiave = "comestai";
         CalcolatoreParolaChiave instance = new CalcolatoreParolaChiave();
         result = instance.calcola(chiave);
+        System.out.println(result.toString());
         char[] expResult = {'c', 'o', 'm', 'e', 's', 't', 'a', 'i', 'b', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'n', 'p', 'q', 'r', 'u', 'v', 'w', 'x', 'y', 'z'};
-        assertTrue(Arrays.equals(expResult, result.getMappaInversa()));
-
+         assertTrue(Arrays.equals(expResult, result.getMappaInversa()));
         result = instance.calcola("");
         assertTrue(Arrays.equals(result.getMappa(), result.getMappaInversa()));
         result = instance.calcola(" ");

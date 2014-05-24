@@ -68,7 +68,7 @@ public class Mappatura {
 
     @Override
     public String toString() {
-        String a = "Mappatura{";
+        String a = "Mappatura- Inversemap{";
         for (int i = 0; i < 26; i++) {
             a = a +","+ mappaInversa[i];
         }

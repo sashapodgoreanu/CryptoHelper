@@ -89,6 +89,7 @@ public class GUIControllerUC1 {
             inboxPanel = (InboxPanel) v;
             inboxPanel.getElencoMessaggiRicevuti().addListSelectionListener(new ViewInboxMsgListener());
             inboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaInboxMsgListener());
+            inboxPanel.getDecifraBtn().addActionListener(new DecifraMsgListener());
         } else if (v instanceof OutboxPanel) {
             outboxPanel = (OutboxPanel) v;
             outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewOutboxMsgListener());
@@ -268,6 +269,28 @@ public class GUIControllerUC1 {
             mess.elimina();
             inboxPanel.deleteSelectedIndex();
             panelloPrincipale.setStatus("Messaggio eliminato correttamente!");
+        }
+    }
+
+    //classe listener per il button "decifra" del pannello outbox 
+    private class DecifraMsgListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MessaggioDestinatario mess = (MessaggioDestinatario) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
+            UserInfo mittente = mess.getMittente();
+            SistemaCifratura sdc = SistemaCifratura.load(mittente.getId(), utilizzatoreSistema.getId());
+            if (inboxPanel.getChiaveField().getText().equals(sdc.getChiave())) {
+
+                String testoDecifrato = sdc.decifra(mess.getTestoCifrato());
+                String body = inboxPanel.getCorpoMessaggio().getText();
+                System.out.println(testoDecifrato);
+                inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)) + " " + testoDecifrato);
+
+            } else {
+                panelloPrincipale.setStatus("La chiave non è corretta");
+            }
+           
         }
     }
 

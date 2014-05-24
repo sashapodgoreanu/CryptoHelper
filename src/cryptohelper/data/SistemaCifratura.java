@@ -75,6 +75,10 @@ public class SistemaCifratura {
         return Cifratore.cifraMonoalfabetica(map, testo);
     }
 
+    public String decifra(String testo) {
+        return Cifratore.decifraMonoalfabetica(map, testo);
+    }
+
     public Mappatura create(String metodo, String chiave) {
         this.metodo = metodo;
         this.chiave = chiave;
