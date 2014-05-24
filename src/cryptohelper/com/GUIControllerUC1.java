@@ -285,7 +285,8 @@ public class GUIControllerUC1 {
                 String testoDecifrato = sdc.decifra(mess.getTestoCifrato());
                 String body = inboxPanel.getCorpoMessaggio().getText();
                 System.out.println(testoDecifrato);
-                inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)) + " " + testoDecifrato);
+                System.out.println((new HtmlVisitor().visit(mess)));
+                inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)) + "<br/><b>Testo Decifrato:</b><br/>" + testoDecifrato + "</html>");
 
             } else {
                 panelloPrincipale.setStatus("La chiave non è corretta");
