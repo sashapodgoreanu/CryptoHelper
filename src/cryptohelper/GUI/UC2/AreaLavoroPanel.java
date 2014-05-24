@@ -18,8 +18,8 @@ public class AreaLavoroPanel extends JPanel implements View {
     JPanel leftPanel;        //pannello a sinistra
     JPanel rightPanel;       //pannello a destra
     JPanel bottomPanel;      //pannello in basso
-    JPanel leftPanelA;        //divisore per pannello a sinistra   
-    JPanel leftPanelB;        //divisore per pannello a sinistra
+    JPanel leftPanelUp;      //divisore per pannello a sinistra   
+    JPanel leftPanelDown;    //divisore per pannello a sinistra
     JLabel codedTextLabel;
     JLabel plainTextLabel;
     JTextPane corpoTesto;
@@ -29,8 +29,8 @@ public class AreaLavoroPanel extends JPanel implements View {
     public AreaLavoroPanel(/*MessaggioIntercettato messaggio*/) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
-        leftPanelA = new JPanel();
-        leftPanelB = new JPanel();
+        leftPanelUp = new JPanel();
+        leftPanelDown = new JPanel();
 
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
@@ -48,8 +48,8 @@ public class AreaLavoroPanel extends JPanel implements View {
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
-        leftPanelA.setLayout(new BorderLayout());
-        leftPanelB.setLayout(new BorderLayout());
+        leftPanelUp.setLayout(new BorderLayout());
+        leftPanelDown.setLayout(new BorderLayout());
         topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
@@ -67,12 +67,12 @@ public class AreaLavoroPanel extends JPanel implements View {
         corpoTesto.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(10, 10, 10, 10))); //assegna un margine al controllo
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI             
-        leftPanelA.add(codedTextLabel, BorderLayout.NORTH);
-        leftPanelA.add(corpoTestoCifrato, BorderLayout.CENTER);
-        leftPanelB.add(plainTextLabel, BorderLayout.NORTH);
-        leftPanelB.add(corpoTesto, BorderLayout.CENTER);
-        leftPanel.add(leftPanelA, BorderLayout.NORTH);
-        leftPanel.add(leftPanelB, BorderLayout.SOUTH);
+        leftPanelUp.add(codedTextLabel, BorderLayout.NORTH);
+        leftPanelUp.add(corpoTestoCifrato, BorderLayout.CENTER);
+        leftPanelDown.add(plainTextLabel, BorderLayout.NORTH);
+        leftPanelDown.add(corpoTesto, BorderLayout.CENTER);
+        leftPanel.add(leftPanelUp, BorderLayout.NORTH);
+        leftPanel.add(leftPanelDown, BorderLayout.SOUTH);
 
         //AGGIUNTA DEI PANNELLI
        // this.add(topPanel, BorderLayout.NORTH);
