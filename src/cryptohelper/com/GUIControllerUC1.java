@@ -277,14 +277,18 @@ public class GUIControllerUC1 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            MessaggioMittente mess = (MessaggioMittente) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
+            MessaggioDestinatario mess = (MessaggioDestinatario) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
             UserInfo mittente = mess.getMittente();
             SistemaCifratura sdc = SistemaCifratura.load(mittente.getId(), utilizzatoreSistema.getId());
-            if (inboxPanel.getChiaveField().getText().equals(sdc.getChiave())){
-                String testoCifrato = mess.getTestoCifrato();
+            if (inboxPanel.getChiaveField().getText().equals(sdc.getChiave())) {
+
+                String testoDecifrato = sdc.decifra(mess.getTestoCifrato());
+                String body = inboxPanel.getCorpoMessaggio().getText();
+                System.out.println(testoDecifrato);
+                inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)) + " " + testoDecifrato);
 
             } else {
-               panelloPrincipale.setStatus("Messaggio eliminato correttamente!");  
+                panelloPrincipale.setStatus("La chiave non è corretta");
             }
            
         }

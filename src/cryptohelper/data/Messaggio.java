@@ -370,8 +370,9 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
     }
 
     @Override
-    public void decifra() {
-       
+    public String decifra() {
+        return null;
     }
+
 
 }
