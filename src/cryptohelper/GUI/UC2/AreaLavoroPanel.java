@@ -29,11 +29,10 @@ public class AreaLavoroPanel extends JPanel implements View {
     public AreaLavoroPanel(/*MessaggioIntercettato messaggio*/) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
-        leftPanelUp = new JPanel();
-        leftPanelDown = new JPanel();
-
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
+        leftPanelUp = new JPanel();
+        leftPanelDown = new JPanel();
         //    this.messaggioIntercettato = messaggio;
         this.init();
     }
@@ -75,7 +74,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         leftPanel.add(leftPanelDown, BorderLayout.SOUTH);
 
         //AGGIUNTA DEI PANNELLI
-       // this.add(topPanel, BorderLayout.NORTH);
+        // this.add(topPanel, BorderLayout.NORTH);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
         this.add(bottomPanel, BorderLayout.SOUTH);
