@@ -99,6 +99,7 @@ public class HtmlVisitor implements Visitor {
     }
     
       //Stampa dati oggetto SessioneLavoro
+    @Override
       public String visit(SessioneLavoro sl) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
@@ -111,7 +112,6 @@ public class HtmlVisitor implements Visitor {
         sb.append("</p>");
         sb.append("<p>");
         sb.append("<b>Data ultima modifica: </b>").append(sl.getUltimaModifica());
-        sb.append(" ").append(sl.getUtente().getCognome());
         sb.append("</p>");
         sb.append("</html>");
         return sb.toString();

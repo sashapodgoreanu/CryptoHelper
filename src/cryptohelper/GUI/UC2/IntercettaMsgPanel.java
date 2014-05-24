@@ -51,11 +51,11 @@ public class IntercettaMsgPanel extends JFrame implements View {
         statusLabel.setOpaque(true);
         statusLabel.setBackground(Color.LIGHT_GRAY);
         statusLabel.setForeground(Color.RED);
-        statusLabel.setBorder(new EmptyBorder(10, 10, 10, 10)); //padding per il tsto della status bar
+        statusLabel.setBorder(new EmptyBorder(10, 10, 10, 10)); //padding per il testo della status bar
 
         //INIT DEL FRAME
         this.setTitle("CryptoHelper - Intercetta un messaggio");
-        this.setSize(900, 550);
+        this.setSize(900, 590);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
         this.add(toolbarPanel, BorderLayout.NORTH);

@@ -16,18 +16,18 @@ public class SessioneLavoro {
 
     int idSessione;
     String nomeSessione;
-    UserInfo utente;
+    UserInfo autore;
     String ultimaModifica;
     AlberoIpotesi alberoIpotesi;
     Messaggio messaggioIntercettato;
-    // soluzione
+    Soluzione soluzione;
 
     //COSTRUTTORE I
     public SessioneLavoro(int id, String nome, UserInfo studente, AlberoIpotesi albero, Messaggio messaggio /* soluzione*/) {
 
         idSessione = id;
         nomeSessione = nome;
-        utente = studente;
+        autore = studente;
         messaggioIntercettato = messaggio;
         alberoIpotesi = albero;
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -43,7 +43,7 @@ public class SessioneLavoro {
 
         boolean result = false;
         DBController dbc = DBController.getInstance();
-        String queryInsert = "INSERT INTO SessioneLavoro(Id_Utente, Nome_Sessione, ALBERO_IPOTESI, Messaggio_Intercettato, Ultima_Modifica)"
+        String queryInsert = "INSERT INTO SessioneLavoro(Id_Utente, Nome_Sessione, Albero_Ipotesi, Messaggio_Intercettato, Ultima_Modifica)"
                 + "VALUES("
                 + this.getUtente().getId()
                 + ",'"
@@ -65,31 +65,31 @@ public class SessioneLavoro {
                 + " WHERE ID = " + this.getIdSessione();
         try {
             //una nuova sessione
-   //         if (this.getIdSessione() == 0) {
-                int newID = dbc.executeUpdateAndReturnKey(queryInsert);
-                System.out.println("id_sessione: "+newID);
-                //se newID = -1 allora è stato un errore nel inserimento nel db;
-                if (newID != -1) {
-                    this.idSessione = newID;
-                    System.out.println("AGGIUNGO SESSIONE");
-                    System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Aggiunto con successo " + this.toString());
-                    System.out.println(true);
-                    return true;
+            //         if (this.getIdSessione() == 0) {
+            int newID = dbc.executeUpdateAndReturnKey(queryInsert);
+            System.out.println("id_sessione: " + newID);
+            //se newID = -1 allora è stato un errore nel inserimento nel db;
+            if (newID != -1) {
+                this.idSessione = newID;
+                System.out.println("AGGIUNGO SESSIONE");
+                System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Aggiunto con successo " + this.toString());
+                System.out.println(true);
+                return true;
 
-                }
-    /*            if (newID == -1 && this.idSessione != 0) {
-                    System.out.println(false);
-                    System.out.println("ERRORE NEL INSERIMENTO");
-                    //errore nel inserimento
-                    return false;
-                }
-                //aggiornamento di un messaggio
-            } else {
-                result = dbc.executeUpdate(querryUpdate);
-                System.out.println("AGGIORNO");
-                System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "Aggiornato: " + this.toString());
             }
-*/
+            /*            if (newID == -1 && this.idSessione != 0) {
+             System.out.println(false);
+             System.out.println("ERRORE NEL INSERIMENTO");
+             //errore nel inserimento
+             return false;
+             }
+             //aggiornamento di un messaggio
+             } else {
+             result = dbc.executeUpdate(querryUpdate);
+             System.out.println("AGGIORNO");
+             System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "Aggiornato: " + this.toString());
+             }
+             */
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -111,10 +111,10 @@ public class SessioneLavoro {
 
     @Override
     public String toString() {
-        return "Sessione{" + "id=" + idSessione + ", utente=" + utente + ", Titolo=" + nomeSessione + ", modifica=" + ultimaModifica + '}';
+        return "Sessione{" + "id=" + idSessione + ", utente=" + autore + ", Titolo=" + nomeSessione + ", modifica=" + ultimaModifica + '}';
     }
-    
-     //Preleva l'elenco delle sessioni inviati dallo studente indicato
+
+    //Preleva l'elenco delle sessioni inviati dallo studente indicato
     public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
         String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
         QueryResult qr = null;
@@ -123,10 +123,9 @@ public class SessioneLavoro {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
                 UserInfo user = UserInfo.getUserInfo(idStudente);
-
-           
                 // ATTENZIONE!!!!!  DA RIVEDERE I CAMPI CHE HO MESSO A NULL
-                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("nome_Sessione"), null, null, null);
+                UserInfo autore = UserInfo.getUserInfo(idStudente);
+                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, null, null);
                 sessioni.add(temp);
                 //      SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
                 //                 qr.getInt("id_messaggio_intercettato"), qr.getString("ultima_modifica"));
@@ -137,11 +136,10 @@ public class SessioneLavoro {
         }
         return sessioni;
     }
-   
 
     //METODI GETTER
     public UserInfo getUtente() {
-        return utente;
+        return autore;
     }
 
     public int getIdSessione() {
@@ -170,7 +168,7 @@ public class SessioneLavoro {
 
     //METODI SETTER
     public void setUtente(UserInfo utente) {
-        this.utente = utente;
+        this.autore = utente;
     }
 
     public void setIdSessione(int idSessione) {
