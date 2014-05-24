@@ -12,10 +12,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author st106342
- */
 public class SessioneLavoro {
 
     int idSessione;
@@ -108,26 +104,6 @@ public class SessioneLavoro {
         }
         return result;
     }
-    /*
-     //Preleva l'elenco delle sessioni inviati dallo studente indicato
-     public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
-     String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
-     QueryResult qr = null;
-     ArrayList<SessioneLavoro> sessioni = new ArrayList<>();
-     try {
-     qr = DBController.getInstance().executeQuery(query);
-     while (qr.next()) {
-     UserInfo user = UserInfo.getUserInfo(idStudente);
-     SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
-     qr.getInt("id_messaggio_intercettato"), qr.getInt("ultima_modifica"));
-     sessioni.add(temp);
-     }
-     } catch (Exception ex) {
-     Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
-     }
-     return sessioni;
-     }
-     */
 
     @Override
     public String toString() {
@@ -143,7 +119,7 @@ public class SessioneLavoro {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
                 UserInfo user = UserInfo.getUserInfo(idStudente);
-          //      SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
+                //      SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getInt("id_utente"), qr.getInt("id_albero"),
                 //                 qr.getInt("id_messaggio_intercettato"), qr.getString("ultima_modifica"));
                 //       sessioni.add(temp);
             }
