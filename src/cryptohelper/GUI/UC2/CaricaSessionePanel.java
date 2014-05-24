@@ -71,7 +71,7 @@ public class CaricaSessionePanel extends JPanel implements View {
 
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoSessioni);
-        scrollPane.setPreferredSize(new Dimension(165, 250));
+        scrollPane.setPreferredSize(new Dimension(200, 250));
         infoSessione = new JTextPane();
         infoSessione.setPreferredSize(new Dimension(600, 250));
         infoSessione.setContentType("text/html"); //consente formattazione html
@@ -135,7 +135,7 @@ public class CaricaSessionePanel extends JPanel implements View {
         return infoSessione;
     }
 
-    public JButton getokBtn() {
+    public JButton getOkBtn() {
         return okBtn;
     }
     

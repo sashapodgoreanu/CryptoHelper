@@ -4,8 +4,8 @@ package cryptohelper.com;
 
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.UC2.CaricaSessionePanel;
-import cryptohelper.GUI.UC2.IntercettaMessaggioPanel;
-import cryptohelper.GUI.UC2.ScegliMsgPanel;
+import cryptohelper.GUI.UC2.IntercettaMsgPanel;
+import cryptohelper.GUI.UC2.NuovaSessionePanel;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.SessioneLavoro;
@@ -22,8 +22,8 @@ public class GUIControllerUC2 {
 
     private static GUIControllerUC2 instance;
     private COMController comC;
-    private IntercettaMessaggioPanel intercettaMessaggioPanel;
-    private ScegliMsgPanel scegliMsgPanel;
+    private IntercettaMsgPanel intercettaMessaggioPanel;
+    private NuovaSessionePanel scegliMsgPanel;
     private CaricaSessionePanel caricaSessionePanel;
 
     private GUIControllerUC2() {
@@ -39,14 +39,15 @@ public class GUIControllerUC2 {
 
     //registra i pannelli e i loro actionListener
     public void addView(View v) {
-        if (v instanceof IntercettaMessaggioPanel) {
-            intercettaMessaggioPanel = (IntercettaMessaggioPanel) v;
+        if (v instanceof IntercettaMsgPanel) {
+            intercettaMessaggioPanel = (IntercettaMsgPanel) v;
             intercettaMessaggioPanel.getNuovaSessioneBtn().addActionListener(new NewSessioneListener());
             intercettaMessaggioPanel.getCaricaSessioneBtn().addActionListener(new LoadSessionListener());
             intercettaMessaggioPanel.getLogoutBtn().addActionListener(new LogoutListener());
-        } else if (v instanceof ScegliMsgPanel) {
-            scegliMsgPanel = (ScegliMsgPanel) v;
+        } else if (v instanceof NuovaSessionePanel) {
+            scegliMsgPanel = (NuovaSessionePanel) v;
             scegliMsgPanel.getElencoMessaggi().addListSelectionListener(new ViewMsgChoiceListener());
+            scegliMsgPanel.getOkBtn().addActionListener(new openWorkspaceListener());
         } else if (v instanceof CaricaSessionePanel) {
             caricaSessionePanel = (CaricaSessionePanel) v;
             caricaSessionePanel.getElencoSessioni().addListSelectionListener(new ViewSessionChoiceListener());
@@ -84,11 +85,9 @@ public class GUIControllerUC2 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            intercettaMessaggioPanel.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<SessioneLavoro> temp = SessioneLavoro.caricaSessioni(comC.getStudente().getId());
-            System.out.println(comC.getStudente().getId() + "");
             intercettaMessaggioPanel.initCaricaSessione(temp);
         }
     }
@@ -101,6 +100,7 @@ public class GUIControllerUC2 {
             System.out.println("Clicked LIST");
             MessaggioIntercettato chosenMsg = (MessaggioIntercettato) scegliMsgPanel.getElencoMessaggi().getSelectedValue();
             scegliMsgPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(chosenMsg)));
+            scegliMsgPanel.getOkBtn().setEnabled(true);
         }
     }
 
@@ -124,6 +124,18 @@ public class GUIControllerUC2 {
             session.elimina();
             caricaSessionePanel.deleteSelectedIndex();
             intercettaMessaggioPanel.setStatus("Bozza eliminata correttamente!");
+        }
+    }
+
+    //classe listener per il button "avanti" in nuova sessione e carica sessione
+    private class openWorkspaceListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            //     ArrayList<SessioneLavoro> temp = SessioneLavoro.caricaSessioni(comC.getStudente().getId());
+           intercettaMessaggioPanel.initAreaLavoro();
         }
     }
 

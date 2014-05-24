@@ -12,7 +12,7 @@ import cryptohelper.GUI.PanelloPrincipale;
 import cryptohelper.GUI.ProponiSDCPanel;
 import cryptohelper.GUI.RegistrationForm;
 import cryptohelper.GUI.SdcPanel;
-import cryptohelper.GUI.UC2.IntercettaMessaggioPanel;
+import cryptohelper.GUI.UC2.IntercettaMsgPanel;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Mappatura;
 import cryptohelper.data.Messaggio;
@@ -241,7 +241,7 @@ public class GUIControllerUC1 {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioIntercettato> msgArrLst = Messaggio.caricaMessaggi();
-            IntercettaMessaggioPanel al = new IntercettaMessaggioPanel();
+            IntercettaMsgPanel al = new IntercettaMsgPanel();
             panelloPrincipale.dispose();
         }
     }

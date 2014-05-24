@@ -18,20 +18,23 @@ public class AreaLavoroPanel extends JPanel implements View {
     JPanel leftPanel;        //pannello a sinistra
     JPanel rightPanel;       //pannello a destra
     JPanel bottomPanel;      //pannello in basso
-    JLabel targetListLabel;
-    JLabel messageTextLabel;
-    JList elencoMessaggi;
-    JTextPane corpoMessaggio;
-    JScrollPane scrollPane;
-    JButton okBtn;
+    JPanel leftPanelA;        //divisore per pannello a sinistra   
+    JPanel leftPanelB;        //divisore per pannello a sinistra
+    JLabel codedTextLabel;
+    JLabel plainTextLabel;
+    JTextPane corpoTesto;
+    JTextPane corpoTestoCifrato;
     MessaggioIntercettato messaggioIntercettato; //messaggio intercettato su cui lavorare
 
-    public AreaLavoroPanel(MessaggioIntercettato messaggio) {
+    public AreaLavoroPanel(/*MessaggioIntercettato messaggio*/) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
+        leftPanelA = new JPanel();
+        leftPanelB = new JPanel();
+
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
-        this.messaggioIntercettato = messaggio;
+        //    this.messaggioIntercettato = messaggio;
         this.init();
     }
 
@@ -45,48 +48,34 @@ public class AreaLavoroPanel extends JPanel implements View {
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
+        leftPanelA.setLayout(new BorderLayout());
+        leftPanelB.setLayout(new BorderLayout());
         topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
-        targetListLabel = new JLabel("Messaggi disponibili:");
-        messageTextLabel = new JLabel("Contenuto del messaggio:");
-        okBtn = new JButton("Avanti");
-      /* elencoMessaggi = new JList(new Vector<MessaggioIntercettato>(elencoMessaggiArrLst));
-        elencoMessaggi.setCellRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (renderer instanceof JLabel && value instanceof Messaggio) {
-                    MessaggioIntercettato temp = (Messaggio) value;
-                    ((JLabel) renderer).setText(temp.getTitolo());
-                }
-                return renderer;
-            }
-       });
-      elencoMessaggi.setSelectedIndex(0);
-        scrollPane = new JScrollPane();
-        scrollPane.setViewportView(elencoMessaggi);
-        scrollPane.setPreferredSize(new Dimension(165, 250));
-        corpoMessaggio = new JTextPane();
-        corpoMessaggio.setPreferredSize(new Dimension(600, 250));
-        corpoMessaggio.setContentType("text/html"); //consente formattazione html
-        corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
+        codedTextLabel = new JLabel("Testo in chiaro:");
+        plainTextLabel = new JLabel("Testo cifrato:");
+        corpoTestoCifrato = new JTextPane();
+        corpoTestoCifrato.setPreferredSize(new Dimension(500, 185));
+        corpoTestoCifrato.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
-        corpoMessaggio.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
-        Messaggio index0 = (Messaggio) elencoMessaggi.getSelectedValue();
-        if (index0 != null) {
-      //      corpoMessaggio.setText(new HtmlVisitor().visit(index0));
-        }
-*/
-        //AGGIUNTA DEI CONTROLLI AI PANNELLI        
-        leftPanel.add(messageTextLabel, BorderLayout.NORTH);
-        leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
-        rightPanel.add(targetListLabel, BorderLayout.NORTH);
-        rightPanel.add(scrollPane, BorderLayout.CENTER);
-        bottomPanel.add(okBtn);
+        corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(10, 10, 10, 10))); //assegna un margine al controllo
+        corpoTesto = new JTextPane();
+        corpoTesto.setPreferredSize(new Dimension(500, 185));
+        corpoTesto.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
+        b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
+        corpoTesto.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(10, 10, 10, 10))); //assegna un margine al controllo
+
+        //AGGIUNTA DEI CONTROLLI AI PANNELLI             
+        leftPanelA.add(codedTextLabel, BorderLayout.NORTH);
+        leftPanelA.add(corpoTestoCifrato, BorderLayout.CENTER);
+        leftPanelB.add(plainTextLabel, BorderLayout.NORTH);
+        leftPanelB.add(corpoTesto, BorderLayout.CENTER);
+        leftPanel.add(leftPanelA, BorderLayout.NORTH);
+        leftPanel.add(leftPanelB, BorderLayout.SOUTH);
 
         //AGGIUNTA DEI PANNELLI
-        this.add(topPanel, BorderLayout.NORTH);
+       // this.add(topPanel, BorderLayout.NORTH);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
         this.add(bottomPanel, BorderLayout.SOUTH);
@@ -102,16 +91,12 @@ public class AreaLavoroPanel extends JPanel implements View {
     }
 
     //METODI GETTER
-    public JList getElencoMessaggi() {
-        return elencoMessaggi;
+    public JTextPane getCorpoTesto() {
+        return corpoTesto;
     }
 
-    public JTextPane getCorpoMessaggio() {
-        return corpoMessaggio;
-    }
-
-    public JButton getokBtn() {
-        return okBtn;
+    public JTextPane getCorpoTestoCifrato() {
+        return corpoTestoCifrato;
     }
 
 }
