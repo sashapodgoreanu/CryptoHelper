@@ -16,10 +16,17 @@
 
 package cryptohelper.proxy;
 
+import java.io.File;
+
 /**
  *
  * @author Luigi
  */
 public class ProxyFrequenzaFiller extends FrequenzaFiller {
+
+    @Override
+    public double[] getFreqFromFile(File file) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
