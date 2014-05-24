@@ -18,6 +18,7 @@ public class AreaLavoroPanel extends JPanel implements View {
     JPanel leftPanelDown;    //divisore per pannello a sinistra
     JLabel codedTextLabel;
     JLabel plainTextLabel;
+    JLabel mappaturaLabel;
     JTextPane corpoTesto;
     JTextPane corpoTestoCifrato;
     JTable mappatura;
@@ -51,6 +52,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         //INIT DEI CONTROLLI
         codedTextLabel = new JLabel("Testo in chiaro:");
         plainTextLabel = new JLabel("Testo cifrato:");
+        mappaturaLabel = new JLabel("Mappatura corrente:");
         corpoTestoCifrato = new JTextPane();
         corpoTestoCifrato.setPreferredSize(new Dimension(500, 180));
         corpoTestoCifrato.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
@@ -77,6 +79,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         leftPanelDown.add(corpoTesto, BorderLayout.CENTER);
         leftPanel.add(leftPanelUp, BorderLayout.NORTH);
         leftPanel.add(leftPanelDown, BorderLayout.SOUTH);
+        topPanel.add(mappaturaLabel);
         topPanel.add(scrollPane);
 
         //AGGIUNTA DEI PANNELLI
