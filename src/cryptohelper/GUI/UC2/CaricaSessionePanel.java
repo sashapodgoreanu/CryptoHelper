@@ -68,7 +68,6 @@ public class CaricaSessionePanel extends JPanel implements View {
             }
         });
         elencoSessioni.setSelectedIndex(0);
-
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(elencoSessioni);
         scrollPane.setPreferredSize(new Dimension(200, 250));
@@ -138,9 +137,13 @@ public class CaricaSessionePanel extends JPanel implements View {
     public JButton getOkBtn() {
         return okBtn;
     }
-    
-     public JButton getEliminaSessioneBtn() {
+
+    public JButton getEliminaSessioneBtn() {
         return eliminaSessioneBtn;
     }
-     
+
+    public SessioneLavoro getSelectedSession() {
+        return elencoSessioniArrLst.get(elencoSessioni.getSelectedIndex());
+    }
+
 }

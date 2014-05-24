@@ -3,7 +3,7 @@ package cryptohelper.GUI.UC2;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
-import cryptohelper.interfaces.MessaggioIntercettato;
+import cryptohelper.data.SessioneLavoro;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.Border;
@@ -23,16 +23,16 @@ public class AreaLavoroPanel extends JPanel implements View {
     JTextPane corpoTestoCifrato;
     JTable mappatura;
     JScrollPane scrollPane;
-    MessaggioIntercettato messaggioIntercettato; //messaggio intercettato su cui lavorare
+    SessioneLavoro sessione; //sessione su cui si sta lavorando
 
-    public AreaLavoroPanel(/*MessaggioIntercettato messaggio*/) {
+    public AreaLavoroPanel(SessioneLavoro sessione) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
         leftPanelUp = new JPanel();
         leftPanelDown = new JPanel();
-        //    this.messaggioIntercettato = messaggio;
+        this.sessione = sessione;
         this.init();
     }
 
@@ -56,6 +56,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         corpoTestoCifrato = new JTextPane();
         corpoTestoCifrato.setPreferredSize(new Dimension(500, 180));
         corpoTestoCifrato.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
+        corpoTestoCifrato.setText(sessione.getMessaggioIntercettato().getTestoCifrato());
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
         corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 10, 10))); //assegna un margine al controllo
         corpoTesto = new JTextPane();
