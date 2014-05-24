@@ -56,7 +56,7 @@ public class SessioneLavoro {
                 + "','"
                 + this.getUltimaModifica()
                 + "')";
-        String querryUpdate = "UPDATE SessioneLavoro"
+        String queryUpdate = "UPDATE SessioneLavoro"
                 + " Id_Utente = '" + this.getUtente().getId()
                 + "','"
                 + " Id_Messaggio_Intercettato = '" + this.getMessaggioIntercettato().getId()
@@ -124,13 +124,13 @@ public class SessioneLavoro {
         try {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
-                UserInfo user = UserInfo.getUserInfo(idStudente); //preleva dati dell'utente in base all'id
+                UserInfo autore = UserInfo.getUserInfo(idStudente); //preleva dati dell'utente in base all'id
                 //preleva il messaggio e lo converte da xml a oggetto Java
                 MessaggioIntercettato msg = (MessaggioIntercettato) xstream.fromXML(qr.getString("Messaggio_intercettato"));
                 // ATTENZIONE!!!!!  DA RIVEDERE I CAMPI CHE HO MESSO A NULL
                 System.out.println("asas");
                 System.out.println(msg.toString());
-                UserInfo autore = UserInfo.getUserInfo(idStudente);
+
                 SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, msg, null, null);
                 System.out.println("nnnn");
                 System.out.println(temp.toString());
