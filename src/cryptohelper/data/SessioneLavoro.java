@@ -123,8 +123,6 @@ public class SessioneLavoro {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
                 UserInfo user = UserInfo.getUserInfo(idStudente);
-
-           
                 // ATTENZIONE!!!!!  DA RIVEDERE I CAMPI CHE HO MESSO A NULL
                 SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("nome_Sessione"), null, null, null);
                 sessioni.add(temp);

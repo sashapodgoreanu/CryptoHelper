@@ -46,8 +46,8 @@ public class CreaSDCPanel extends JPanel implements View {
 
     private JTable table;               // tabella per mappatura per cifrario parolachiave
     private JScrollPane scrollPane;     //scrollpane per la tabella
-    
-    private  String metodo;//Metodo
+
+    private String metodo;//Metodo
 
     public CreaSDCPanel() {
 
@@ -62,7 +62,7 @@ public class CreaSDCPanel extends JPanel implements View {
         leftPanel = new JPanel(new BorderLayout());
         rightPanel = new JPanel(new BorderLayout());
         bottomPanel = new JPanel(new FlowLayout());
-   
+
         monoalfabeticoBtn = new JRadioButton("Monoalfabetico");
         parolaChiaveRBtn = new JRadioButton("Parola chiave");
         cesareRBtn = new JRadioButton("Cesare");
@@ -70,7 +70,6 @@ public class CreaSDCPanel extends JPanel implements View {
         scrollPane = new JScrollPane();
         salvaSdcBtn = new JButton("Salva cifrario");
         provasdcBtn = new JButton("Prova la cifratura");
-        
 
         //ragrupa i bottoni   - when i select a radiobutton will deselect the precedent selected. 
         ButtonGroup group = new ButtonGroup();
@@ -100,20 +99,20 @@ public class CreaSDCPanel extends JPanel implements View {
     public void initMonoalfabetico() {
         remake();
         metodo = Cifrario.MONOALFABETICO;
-       
+
         //mappatura
         String[] columnNames = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         Object[][] data = {
-            {"Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M"}
+            {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"}
         };
         nomeCifraturaField = new JTextField(20);
         table = new JTable(data, columnNames);
         table.setCellSelectionEnabled(true);
-         //Setup per table 
+        //Setup per table 
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(table);
         scrollPane.setPreferredSize(new Dimension(550, 39));
-        
+
         //text area per provare sdc
         corpoMessaggioProva = new JTextArea();
         corpoMessaggioProva.setSize(new Dimension(60, 60));
@@ -125,17 +124,15 @@ public class CreaSDCPanel extends JPanel implements View {
         corpoMessaggioResult.setLineWrap(true);
         corpoMessaggioResult.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
 
-        
-        leftPanel.add(new JLabel("Mapatura:"),BorderLayout.NORTH);
-        rightPanel.add(scrollPane,BorderLayout.NORTH);
-        leftPanel.add(new JLabel("Prova:"),BorderLayout.CENTER);
-        rightPanel.add(corpoMessaggioProva,BorderLayout.CENTER);
-        leftPanel.add(new JLabel("Resultato:"),BorderLayout.SOUTH);
-        rightPanel.add(corpoMessaggioResult,BorderLayout.SOUTH);
+        leftPanel.add(new JLabel("Mapatura:"), BorderLayout.NORTH);
+        rightPanel.add(scrollPane, BorderLayout.NORTH);
+        leftPanel.add(new JLabel("Prova:"), BorderLayout.CENTER);
+        rightPanel.add(corpoMessaggioProva, BorderLayout.CENTER);
+        leftPanel.add(new JLabel("Resultato:"), BorderLayout.SOUTH);
+        rightPanel.add(corpoMessaggioResult, BorderLayout.SOUTH);
         leftPanel.revalidate();
         rightPanel.revalidate();
 
-        
         bottomPanel.add(provasdcBtn);
         bottomPanel.add(new JLabel("Nome cifratura"));
         bottomPanel.add(nomeCifraturaField);
@@ -143,8 +140,8 @@ public class CreaSDCPanel extends JPanel implements View {
         bottomPanel.revalidate();
 
     }
-    
-    public void initCifrario(){
+
+    public void initCifrario() {
         remake();
         //50 - la dimensione del textfield - qui si inserisce la chiave
         chiave = new JTextField(50);
@@ -153,39 +150,40 @@ public class CreaSDCPanel extends JPanel implements View {
         corpoMessaggioProva.setPreferredSize(new Dimension(60, 60));
         corpoMessaggioProva.setLineWrap(true);
         corpoMessaggioProva.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
-        
-         //resultato di cifratura
+
+        //resultato di cifratura
         corpoMessaggioResult = new JTextArea();
         corpoMessaggioResult.setSize(new Dimension(60, 60));
         corpoMessaggioResult.setLineWrap(true);
         corpoMessaggioResult.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
 
         //la parte della creatione della mapatura
-        leftPanel.add(new JLabel("Chiave: "),BorderLayout.NORTH);
-        rightPanel.add(chiave,BorderLayout.NORTH);
-        leftPanel.add(new JLabel("Prova: "),BorderLayout.CENTER);
-        rightPanel.add(corpoMessaggioProva,BorderLayout.CENTER);
-        leftPanel.add(new JLabel("Resultato: "),BorderLayout.SOUTH);
-        rightPanel.add(corpoMessaggioResult,BorderLayout.SOUTH);
+        leftPanel.add(new JLabel("Chiave: "), BorderLayout.NORTH);
+        rightPanel.add(chiave, BorderLayout.NORTH);
+        leftPanel.add(new JLabel("Prova: "), BorderLayout.CENTER);
+        rightPanel.add(corpoMessaggioProva, BorderLayout.CENTER);
+        leftPanel.add(new JLabel("Resultato: "), BorderLayout.SOUTH);
+        rightPanel.add(corpoMessaggioResult, BorderLayout.SOUTH);
         leftPanel.revalidate();
         rightPanel.revalidate();
-        
+
         nomeCifraturaField = new JTextField(20);
         bottomPanel.add(provasdcBtn);
         bottomPanel.add(new JLabel("Nome cifratura"));
         bottomPanel.add(nomeCifraturaField);
         bottomPanel.add(salvaSdcBtn);
     }
-    public void initCesare(){
+
+    public void initCesare() {
         initCifrario();
         metodo = Cifrario.CESARE;
     }
-    
+
     public void initParolaChiave() {
         initCesare();
         metodo = Cifrario.PAROLA_CHIAVE;
     }
-    
+
     public void initPseudoCasuale() {
         initCesare();
         metodo = Cifrario.PSEUDOCASUALE;
@@ -286,21 +284,5 @@ public class CreaSDCPanel extends JPanel implements View {
     public JRadioButton getMappaturaBtn() {
         return monoalfabeticoBtn;
     }
-
-    
-    
-    
-    
-    
-    
-      
-    
-    
-    
-    
-    
-    
-    
-    
 
 }

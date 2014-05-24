@@ -3,14 +3,10 @@ package cryptohelper.GUI.UC2;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
-import cryptohelper.data.HtmlVisitor;
-import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioIntercettato;
-import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
 public class AreaLavoroPanel extends JPanel implements View {
 
@@ -24,6 +20,8 @@ public class AreaLavoroPanel extends JPanel implements View {
     JLabel plainTextLabel;
     JTextPane corpoTesto;
     JTextPane corpoTestoCifrato;
+    JTable mappatura;
+    JScrollPane scrollPane;
     MessaggioIntercettato messaggioIntercettato; //messaggio intercettato su cui lavorare
 
     public AreaLavoroPanel(/*MessaggioIntercettato messaggio*/) {
@@ -43,7 +41,7 @@ public class AreaLavoroPanel extends JPanel implements View {
 
         //INIT DEI LAYOUT
         this.setLayout(new BorderLayout());
-        topPanel.setLayout(new GridLayout(2, 26));
+        topPanel.setLayout(new FlowLayout());
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
@@ -57,12 +55,20 @@ public class AreaLavoroPanel extends JPanel implements View {
         corpoTestoCifrato.setPreferredSize(new Dimension(500, 180));
         corpoTestoCifrato.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
-        corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(10, 10, 10, 10))); //assegna un margine al controllo
+        corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 10, 10))); //assegna un margine al controllo
         corpoTesto = new JTextPane();
         corpoTesto.setPreferredSize(new Dimension(500, 180));
         corpoTesto.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
         corpoTesto.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(10, 10, 10, 10))); //assegna un margine al controllo
+
+        String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        Object[][] data = {{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""}};
+        mappatura = new JTable(data, alfabeto);
+        mappatura.setCellSelectionEnabled(true);
+        scrollPane = new JScrollPane();
+        scrollPane.setViewportView(mappatura);
+        scrollPane.setPreferredSize(new Dimension(600, 40));
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI             
         leftPanelUp.add(codedTextLabel, BorderLayout.NORTH);
@@ -71,12 +77,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         leftPanelDown.add(corpoTesto, BorderLayout.CENTER);
         leftPanel.add(leftPanelUp, BorderLayout.NORTH);
         leftPanel.add(leftPanelDown, BorderLayout.SOUTH);
-
-        String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-        for(int i=0; i<26; i++)
-        {
-            topPanel.add(new JComboBox(alfabeto));
-        }
+        topPanel.add(scrollPane);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
