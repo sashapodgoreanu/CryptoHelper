@@ -1,14 +1,26 @@
 //pannello messaggi in arrivo
 package cryptohelper.GUI;
 
-import cryptohelper.interfaces.MessaggioDestinatario;
-import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.HtmlVisitor;
+import cryptohelper.interfaces.MessaggioDestinatario;
+import cryptohelper.interfaces.View;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Vector;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
@@ -22,6 +34,8 @@ public class InboxPanel extends JPanel implements View {
     JLabel messageTextLabel;
     JButton decifraBtn;
     JButton eliminaMessaggioBtn;
+    JTextField chiaveField;
+    JLabel chiaveLabel;
     JList elencoMessaggiRicevuti;
     JTextPane corpoMessaggio;
     JScrollPane scrollPane;
@@ -53,6 +67,9 @@ public class InboxPanel extends JPanel implements View {
         messageTextLabel = new JLabel("Contenuto del messaggio:");
         decifraBtn = new JButton("Decifra messaggio");
         eliminaMessaggioBtn = new JButton("Elimina messaggio");
+
+        chiaveField = new JTextField(10);
+        chiaveLabel = new JLabel("Chiave:");
         corpoMessaggio = new JTextPane();
         corpoMessaggio.setPreferredSize(new Dimension(600, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
@@ -85,6 +102,8 @@ public class InboxPanel extends JPanel implements View {
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
+        bottomPanel.add(chiaveLabel);
+        bottomPanel.add(chiaveField);
         bottomPanel.add(decifraBtn);
         bottomPanel.add(eliminaMessaggioBtn);
 
@@ -148,5 +167,15 @@ public class InboxPanel extends JPanel implements View {
     public void setMittentiMessaggiArrLst(ArrayList<MessaggioDestinatario> bozzeArayLst) {
         this.mittentiMessaggiArrLst = bozzeArayLst;
     }
+
+    public JButton getDecifraBtn() {
+        return decifraBtn;
+    }
+
+    public JTextField getChiaveField() {
+        return chiaveField;
+    }
+
+
 
 }

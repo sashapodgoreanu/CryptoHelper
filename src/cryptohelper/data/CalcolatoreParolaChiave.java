@@ -25,7 +25,8 @@ public class CalcolatoreParolaChiave extends CalcolatoreMappatura {
         char[] res = new char[26];
         int k = 0;
         boolean duplicate;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < key.length(); i++) {
+            //System.out.println(i);
             duplicate = false;
             for (int j = i - 1; !duplicate && j >= 0; j--) {
                 if (key.charAt(i) == key.charAt(j)) {
@@ -34,6 +35,7 @@ public class CalcolatoreParolaChiave extends CalcolatoreMappatura {
             }
             if (!duplicate && k < res.length) {
                 res[k] = key.charAt(i);
+                k++;
             }
         }
         for (int i = 0; i < map.length; i++) {
@@ -44,7 +46,8 @@ public class CalcolatoreParolaChiave extends CalcolatoreMappatura {
                 }
             }
             if (!duplicate && k < res.length) {
-                res[k] = key.charAt(i);
+                res[k] = map[i];
+                k++;
             }
         }
         return res;

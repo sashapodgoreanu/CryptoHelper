@@ -1,10 +1,10 @@
 //Classe Messaggio
 package cryptohelper.data;
 
-import cryptohelper.interfaces.MessaggioDestinatario;
-import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.com.COMController;
+import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
+import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -371,7 +371,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
 
     @Override
     public void decifra() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
 }
