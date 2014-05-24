@@ -43,24 +43,23 @@ public class AreaLavoroPanel extends JPanel implements View {
 
         //INIT DEI LAYOUT
         this.setLayout(new BorderLayout());
-        topPanel.setLayout(new FlowLayout());
+        topPanel.setLayout(new GridLayout(2, 26));
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
         leftPanelUp.setLayout(new BorderLayout());
         leftPanelDown.setLayout(new BorderLayout());
-        topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
         codedTextLabel = new JLabel("Testo in chiaro:");
         plainTextLabel = new JLabel("Testo cifrato:");
         corpoTestoCifrato = new JTextPane();
-        corpoTestoCifrato.setPreferredSize(new Dimension(500, 185));
+        corpoTestoCifrato.setPreferredSize(new Dimension(500, 180));
         corpoTestoCifrato.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
         corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(10, 10, 10, 10))); //assegna un margine al controllo
         corpoTesto = new JTextPane();
-        corpoTesto.setPreferredSize(new Dimension(500, 185));
+        corpoTesto.setPreferredSize(new Dimension(500, 180));
         corpoTesto.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
         corpoTesto.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(10, 10, 10, 10))); //assegna un margine al controllo
@@ -73,11 +72,17 @@ public class AreaLavoroPanel extends JPanel implements View {
         leftPanel.add(leftPanelUp, BorderLayout.NORTH);
         leftPanel.add(leftPanelDown, BorderLayout.SOUTH);
 
+        String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        for(int i=0; i<26; i++)
+        {
+            topPanel.add(new JComboBox(alfabeto));
+        }
+
         //AGGIUNTA DEI PANNELLI
-        // this.add(topPanel, BorderLayout.NORTH);
+        this.add(topPanel, BorderLayout.NORTH);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
-        this.add(bottomPanel, BorderLayout.SOUTH);
+      //  this.add(bottomPanel, BorderLayout.SOUTH);
 
         //REGISTRAZIONE VISTA NEL COTROLLER
         registerController();
