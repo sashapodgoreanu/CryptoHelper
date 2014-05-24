@@ -3,14 +3,10 @@ package cryptohelper.GUI.UC2;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
-import cryptohelper.data.HtmlVisitor;
-import cryptohelper.data.Messaggio;
-import cryptohelper.interfaces.MessaggioIntercettato;
-import java.util.Vector;
+import cryptohelper.data.SessioneLavoro;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
 public class AreaLavoroPanel extends JPanel implements View {
 
@@ -22,18 +18,21 @@ public class AreaLavoroPanel extends JPanel implements View {
     JPanel leftPanelDown;    //divisore per pannello a sinistra
     JLabel codedTextLabel;
     JLabel plainTextLabel;
+    JLabel mappaturaLabel;
     JTextPane corpoTesto;
     JTextPane corpoTestoCifrato;
-    MessaggioIntercettato messaggioIntercettato; //messaggio intercettato su cui lavorare
+    JTable mappatura;
+    JScrollPane scrollPane;
+    SessioneLavoro sessione; //sessione su cui si sta lavorando
 
-    public AreaLavoroPanel(/*MessaggioIntercettato messaggio*/) {
+    public AreaLavoroPanel(SessioneLavoro sessione) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
         leftPanelUp = new JPanel();
         leftPanelDown = new JPanel();
-        //    this.messaggioIntercettato = messaggio;
+        this.sessione = sessione;
         this.init();
     }
 
@@ -49,21 +48,30 @@ public class AreaLavoroPanel extends JPanel implements View {
         bottomPanel.setLayout(new FlowLayout());
         leftPanelUp.setLayout(new BorderLayout());
         leftPanelDown.setLayout(new BorderLayout());
-        topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
         codedTextLabel = new JLabel("Testo in chiaro:");
         plainTextLabel = new JLabel("Testo cifrato:");
+        mappaturaLabel = new JLabel("Mappatura corrente:");
         corpoTestoCifrato = new JTextPane();
-        corpoTestoCifrato.setPreferredSize(new Dimension(500, 185));
+        corpoTestoCifrato.setPreferredSize(new Dimension(500, 180));
         corpoTestoCifrato.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
+        corpoTestoCifrato.setText(sessione.getMessaggioIntercettato().getTestoCifrato());
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
-        corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(10, 10, 10, 10))); //assegna un margine al controllo
+        corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 10, 10))); //assegna un margine al controllo
         corpoTesto = new JTextPane();
-        corpoTesto.setPreferredSize(new Dimension(500, 185));
+        corpoTesto.setPreferredSize(new Dimension(500, 180));
         corpoTesto.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
         corpoTesto.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(10, 10, 10, 10))); //assegna un margine al controllo
+
+        String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        Object[][] data = {{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""}};
+        mappatura = new JTable(data, alfabeto);
+        mappatura.setCellSelectionEnabled(true);
+        scrollPane = new JScrollPane();
+        scrollPane.setViewportView(mappatura);
+        scrollPane.setPreferredSize(new Dimension(600, 40));
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI             
         leftPanelUp.add(codedTextLabel, BorderLayout.NORTH);
@@ -72,12 +80,14 @@ public class AreaLavoroPanel extends JPanel implements View {
         leftPanelDown.add(corpoTesto, BorderLayout.CENTER);
         leftPanel.add(leftPanelUp, BorderLayout.NORTH);
         leftPanel.add(leftPanelDown, BorderLayout.SOUTH);
+        topPanel.add(mappaturaLabel);
+        topPanel.add(scrollPane);
 
         //AGGIUNTA DEI PANNELLI
-        // this.add(topPanel, BorderLayout.NORTH);
+        this.add(topPanel, BorderLayout.NORTH);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
-        this.add(bottomPanel, BorderLayout.SOUTH);
+      //  this.add(bottomPanel, BorderLayout.SOUTH);
 
         //REGISTRAZIONE VISTA NEL COTROLLER
         registerController();

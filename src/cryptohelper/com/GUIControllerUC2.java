@@ -23,7 +23,7 @@ public class GUIControllerUC2 {
     private static GUIControllerUC2 instance;
     private COMController comC;
     private IntercettaMsgPanel intercettaMessaggioPanel;
-    private NuovaSessionePanel scegliMsgPanel;
+    private NuovaSessionePanel nuovaSessionePanel;
     private CaricaSessionePanel caricaSessionePanel;
 
     private GUIControllerUC2() {
@@ -45,13 +45,14 @@ public class GUIControllerUC2 {
             intercettaMessaggioPanel.getCaricaSessioneBtn().addActionListener(new LoadSessionListener());
             intercettaMessaggioPanel.getLogoutBtn().addActionListener(new LogoutListener());
         } else if (v instanceof NuovaSessionePanel) {
-            scegliMsgPanel = (NuovaSessionePanel) v;
-            scegliMsgPanel.getElencoMessaggi().addListSelectionListener(new ViewMsgChoiceListener());
-            scegliMsgPanel.getOkBtn().addActionListener(new openWorkspaceListener());
+            nuovaSessionePanel = (NuovaSessionePanel) v;
+            nuovaSessionePanel.getElencoMessaggi().addListSelectionListener(new ViewMsgChoiceListener());
+            // nuovaSessionePanel.getOkBtn().addActionListener(new LoadWorkspaceListener());
         } else if (v instanceof CaricaSessionePanel) {
             caricaSessionePanel = (CaricaSessionePanel) v;
             caricaSessionePanel.getElencoSessioni().addListSelectionListener(new ViewSessionChoiceListener());
             caricaSessionePanel.getEliminaSessioneBtn().addActionListener(new DeleteSessionListener());
+            caricaSessionePanel.getOkBtn().addActionListener(new LoadWorkspaceListener());
         }
 
     }
@@ -98,9 +99,9 @@ public class GUIControllerUC2 {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             System.out.println("Clicked LIST");
-            MessaggioIntercettato chosenMsg = (MessaggioIntercettato) scegliMsgPanel.getElencoMessaggi().getSelectedValue();
-            scegliMsgPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(chosenMsg)));
-            scegliMsgPanel.getOkBtn().setEnabled(true);
+            MessaggioIntercettato chosenMsg = (MessaggioIntercettato) nuovaSessionePanel.getElencoMessaggi().getSelectedValue();
+            nuovaSessionePanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(chosenMsg)));
+            nuovaSessionePanel.getOkBtn().setEnabled(true);
         }
     }
 
@@ -110,8 +111,8 @@ public class GUIControllerUC2 {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             System.out.println("Clicked LIST");
-            SessioneLavoro chosenMsg = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
-            caricaSessionePanel.getInfoSessione().setText((new HtmlVisitor().visit(chosenMsg)));
+            SessioneLavoro chosenSes = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
+            caricaSessionePanel.getInfoSessione().setText((new HtmlVisitor().visit(chosenSes)));
         }
     }
 
@@ -128,14 +129,15 @@ public class GUIControllerUC2 {
     }
 
     //classe listener per il button "avanti" in nuova sessione e carica sessione
-    private class openWorkspaceListener implements ActionListener {
+    private class LoadWorkspaceListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            //     ArrayList<SessioneLavoro> temp = SessioneLavoro.caricaSessioni(comC.getStudente().getId());
-           intercettaMessaggioPanel.initAreaLavoro();
+            SessioneLavoro session = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
+            System.out.println(session.toString());
+            intercettaMessaggioPanel.initAreaLavoro(session);
         }
     }
 

@@ -69,17 +69,17 @@ public class TestDbController {
             System.out.println(m1.toString());
             AlberoIpotesi alberoSessione = new AlberoIpotesi();
             
-            SessioneLavoro s1 = new SessioneLavoro(0, "SessionePROVA", destinatario, alberoSessione, m1);
+            SessioneLavoro s1 = new SessioneLavoro(0, "SessionePROVA", destinatario, m1,alberoSessione, null);
             System.out.println("S1");
             System.out.println(s1.toString());
             s1.salva();
             
-            SessioneLavoro s2 = new SessioneLavoro(1, "Sessione2", destinatario, alberoSessione, m1);
+            SessioneLavoro s2 = new SessioneLavoro(1, "Sessione2", destinatario,m1, alberoSessione, null);
             System.out.println("S2");
             System.out.println(s2.toString());
             s2.salva();
             
-            SessioneLavoro s3 = new SessioneLavoro(1, "Sessione2", destinatario, alberoSessione, m1);
+            SessioneLavoro s3 = new SessioneLavoro(1, "Sessione2", destinatario, m1, alberoSessione, null);
             System.out.println("S2");
             System.out.println(s3.toString());
             s3.salva();

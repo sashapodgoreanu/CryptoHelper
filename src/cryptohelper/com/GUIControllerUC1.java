@@ -89,6 +89,7 @@ public class GUIControllerUC1 {
             inboxPanel = (InboxPanel) v;
             inboxPanel.getElencoMessaggiRicevuti().addListSelectionListener(new ViewInboxMsgListener());
             inboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaInboxMsgListener());
+            inboxPanel.getDecifraBtn().addActionListener(new DecifraMsgListener());
         } else if (v instanceof OutboxPanel) {
             outboxPanel = (OutboxPanel) v;
             outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewOutboxMsgListener());
@@ -268,6 +269,29 @@ public class GUIControllerUC1 {
             mess.elimina();
             inboxPanel.deleteSelectedIndex();
             panelloPrincipale.setStatus("Messaggio eliminato correttamente!");
+        }
+    }
+
+    //classe listener per il button "decifra" del pannello outbox 
+    private class DecifraMsgListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MessaggioDestinatario mess = (MessaggioDestinatario) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
+            UserInfo mittente = mess.getMittente();
+            SistemaCifratura sdc = SistemaCifratura.load(mittente.getId(), utilizzatoreSistema.getId());
+            if (inboxPanel.getChiaveField().getText().equals(sdc.getChiave())) {
+
+                String testoDecifrato = sdc.decifra(mess.getTestoCifrato());
+                String body = inboxPanel.getCorpoMessaggio().getText();
+                System.out.println(testoDecifrato);
+                System.out.println((new HtmlVisitor().visit(mess)));
+                inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)) + "<br/><b>Testo Decifrato:</b><br/>" + testoDecifrato + "</html>");
+
+            } else {
+                panelloPrincipale.setStatus("La chiave non è corretta");
+            }
+           
         }
     }
 
@@ -543,10 +567,10 @@ public class GUIControllerUC1 {
                     if (sistemaCifratura.salva()) {
                         panelloPrincipale.setStatus("Salvato con sucesso");
                     } else {
-                        panelloPrincipale.setStatus("E stato un errore! non salvato");
+                        panelloPrincipale.setStatus("Si è verificato un errore! Il metodo di cifratura non è stato salvato");
                     }
                 } else {
-                    panelloPrincipale.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
+                    panelloPrincipale.setStatus("La mappatura non è corretta o contiene caratteri illegali - sono accettate solo lettere");
                 }
             } else if ((metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE) || metodo.equals(Cifrario.PAROLA_CHIAVE)) && creaSDCPanel.getNomeCifraturaField().getText() == null) {
                 String chiave = creaSDCPanel.getChiave().getText();
@@ -556,11 +580,11 @@ public class GUIControllerUC1 {
                     if (sistemaCifratura.salva()) {
                         panelloPrincipale.setStatus("Salvato con sucesso");
                     } else {
-                        panelloPrincipale.setStatus("E stato un errore! non salvato");
+                        panelloPrincipale.setStatus("Si è verificato un errore! Il metodo di cifratura non è stato salvato");
                     }
                 } else {
                     if (metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE)) {
-                        panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere un numero");
+                        panelloPrincipale.setStatus("La chiave non è corretta o contiene caratteri illegali - sono accettati solo numeri");
                     } else {
                         panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere una parola");
                     }

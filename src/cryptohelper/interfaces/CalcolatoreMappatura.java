@@ -7,7 +7,7 @@ package cryptohelper.interfaces;
 
 import cryptohelper.data.CalcolatoreCesare;
 import cryptohelper.data.CalcolatoreMonoalfabetico;
-//import cryptohelper.data.CalcolatoreParolaChiave;
+import cryptohelper.data.CalcolatoreParolaChiave;
 import cryptohelper.data.CalcolatorePseudocasuale;
 import cryptohelper.data.Mappatura;
 
@@ -34,9 +34,9 @@ public abstract class CalcolatoreMappatura {
             return new CalcolatoreMonoalfabetico();
         } else if (metodo.equals(Cifrario.CESARE)) {
             return new CalcolatoreCesare();
-        } /*else if (metodo.equals(Cifrario.PAROLA_CHIAVE)) {
+        } else if (metodo.equals(Cifrario.PAROLA_CHIAVE)) {
             return new CalcolatoreParolaChiave();
-        }*/ else if (metodo.equals(Cifrario.PSEUDOCASUALE)) {
+        } else if (metodo.equals(Cifrario.PSEUDOCASUALE)) {
             return new CalcolatorePseudocasuale();
         }
         return null;

@@ -16,6 +16,7 @@ TO-DO (aggiornato 23/05/14)
 - Creare classe MappaPosizioni
 - Creare classi del pattern proxy (OK LUIGI, da controllare!! )
 [OK] Creare interfaccia MessaggioAstratto
+- Classe sistema di cifratura => rivedere/completare alcuni metodi
 - Implementare classe Mossa
 - Implementare classe albero
 - Implementare classe soluzione
