@@ -128,8 +128,12 @@ public class SessioneLavoro {
                 //preleva il messaggio e lo converte da xml a oggetto Java
                 MessaggioIntercettato msg = (MessaggioIntercettato) xstream.fromXML(qr.getString("Messaggio_intercettato"));
                 // ATTENZIONE!!!!!  DA RIVEDERE I CAMPI CHE HO MESSO A NULL
+                System.out.println("asas");
+                System.out.println(msg.toString());
                 UserInfo autore = UserInfo.getUserInfo(idStudente);
                 SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, msg, null, null);
+                System.out.println("nnnn");
+                System.out.println(temp.toString());
                 sessioni.add(temp);
             }
         } catch (Exception ex) {
