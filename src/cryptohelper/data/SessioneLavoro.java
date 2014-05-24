@@ -56,7 +56,7 @@ public class SessioneLavoro {
                 + "','"
                 + this.getUltimaModifica()
                 + "')";
-        String querryUpdate = "UPDATE SessioneLavoro"
+        String queryUpdate = "UPDATE SessioneLavoro"
                 + " Id_Utente = '" + this.getUtente().getId()
                 + "','"
                 + " Id_Messaggio_Intercettato = '" + this.getMessaggioIntercettato().getId()
@@ -112,23 +112,22 @@ public class SessioneLavoro {
 
     @Override
     public String toString() {
-        return "Sessione{" + "id=" + idSessione + ", utente=" + autore + ", Titolo=" + nomeSessione + ", modifica=" + ultimaModifica + '}';
+        return "Sessione{" + "id=" + idSessione + "Nome=" + nomeSessione + ", utente=" + autore + ", messaggio=" + messaggioIntercettato + ", albero= " + alberoIpotesi + ", soluzione= " + soluzione + ", modifica= " + ultimaModifica +"}";
     }
 
     //Preleva l'elenco delle sessioni inviati dallo studente indicato
     public static ArrayList<SessioneLavoro> caricaSessioni(int idStudente) {
         XStream xstream = new XStream(new StaxDriver());
         String query = "SELECT * FROM SessioneLavoro WHERE ID_Utente = " + idStudente;
-        QueryResult qr = null;
+        QueryResult qr;
         ArrayList<SessioneLavoro> sessioni = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
-                UserInfo user = UserInfo.getUserInfo(idStudente); //preleva dati dell'utente in base all'id
+                UserInfo autore = UserInfo.getUserInfo(idStudente); //preleva dati dell'utente in base all'id
                 //preleva il messaggio e lo converte da xml a oggetto Java
                 MessaggioIntercettato msg = (MessaggioIntercettato) xstream.fromXML(qr.getString("Messaggio_intercettato"));
                 // ATTENZIONE!!!!!  DA RIVEDERE I CAMPI CHE HO MESSO A NULL
-                UserInfo autore = UserInfo.getUserInfo(idStudente);
                 SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, msg, null, null);
                 sessioni.add(temp);
             }
