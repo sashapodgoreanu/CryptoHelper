@@ -20,19 +20,11 @@ package cryptohelper.proxy;
  *
  * @author Luigi
  */
-public abstract class FileHandler {
-
-    protected String fileName;
-
-    public FileHandler(String fName) {
-        fileName = fName;
+public class testProxy {
+    
+    public static void main (String []args) {
+        
+        
     }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public abstract String getContent();
-
-    public abstract String getLine(int requestedLine);
+    
 }
