@@ -7,6 +7,7 @@ import cryptohelper.data.SessioneLavoro;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,14 +69,32 @@ public class TestDbController {
             System.out.println(m1.toString());
             AlberoIpotesi alberoSessione = new AlberoIpotesi();
             
-            SessioneLavoro s1 = new SessioneLavoro(0, "Sessione", destinatario, alberoSessione, m1);
-            System.out.println("AAAAAA");
+            SessioneLavoro s1 = new SessioneLavoro(0, "SessionePROVA", destinatario, alberoSessione, m1);
+            System.out.println("S1");
             System.out.println(s1.toString());
             s1.salva();
             
+            SessioneLavoro s2 = new SessioneLavoro(1, "Sessione2", destinatario, alberoSessione, m1);
+            System.out.println("S2");
+            System.out.println(s2.toString());
+            s2.salva();
             
+            SessioneLavoro s3 = new SessioneLavoro(1, "Sessione2", destinatario, alberoSessione, m1);
+            System.out.println("S2");
+            System.out.println(s3.toString());
+            s3.salva();
             
+            ArrayList<SessioneLavoro> sessioniUser1 = SessioneLavoro.caricaSessioni(destinatario.getId());
+            System.out.println("Sessioni User1" + sessioniUser1.toString());
             
+                        
+            
+   /*         SessioneLavoro s3 = new SessioneLavoro(2, "Sessione3", destinatario, alberoSessione, m1);
+            s3.salva();
+            
+            SessioneLavoro s4 = new SessioneLavoro(3, "Sessione4", destinatario, alberoSessione, m1);
+            s4.salva();
+     */       
             /************************* TEST SAVE TO XML *****************************************/
             /*
              UserInfo mittente = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
