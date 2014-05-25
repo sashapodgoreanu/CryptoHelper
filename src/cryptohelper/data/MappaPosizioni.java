@@ -20,8 +20,10 @@ public class MappaPosizioni {
         }
     }
 
-    public Mossa createMossaCorrente(char ch) {
-        throw new UnsupportedOperationException();
+    public char get
+
+    map(char c) {
+        //to-do
     }
 
     public MappaPosCarattere[] getMappa() {
