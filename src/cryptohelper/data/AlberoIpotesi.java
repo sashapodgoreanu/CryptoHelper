@@ -8,7 +8,7 @@ public class AlberoIpotesi {
 
     public AlberoIpotesi() {
         root = new Ipotesi();
-        mappaPosizioni = null;
+        mappaPosizioni = new MappaPosizioni();
     }
 
     //Cerca la mossa. Restituisce TRUE in caso di riscontro, FALSE altrimenti
@@ -19,20 +19,23 @@ public class AlberoIpotesi {
 
     public boolean addIpotesi(Ipotesi ipCorrente) {
         if (isEmpty() || ipCorrente == null) {
+            System.out.println("not Ok");
             return false;
+
         }
         return addIpotesi(ipCorrente, root);
     }
 
-    private boolean addIpotesi(Ipotesi ipCorrente, Ipotesi ipPrecedente) {
-        if (ipPrecedente.isUltima()) {
-            ipPrecedente.getFigli().add(ipCorrente);
-            ipCorrente.setPadre(ipPrecedente);
-            ipPrecedente.setUltima(false);
+    private boolean addIpotesi(Ipotesi ipCorrente, Ipotesi rootI) {
+        if (rootI.isUltima()) {
+            rootI.getFigli().add(ipCorrente);
+            ipCorrente.setPadre(rootI);
+            rootI.setUltima(false);
+            System.out.println("ok");
             return true;
         } else {
-            for (int i = 0; i < ipPrecedente.getFigli().size(); i++) {
-                return addIpotesi(ipPrecedente.getFigli().get(i), ipPrecedente);
+            for (int i = 0; i < rootI.getFigli().size(); i++) {
+                return addIpotesi(ipCorrente, rootI.getFigli().get(i));
             }
         }
         return false;

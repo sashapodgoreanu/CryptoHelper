@@ -32,6 +32,7 @@ public class Ipotesi {
     private boolean valid;
 
     public Ipotesi() {
+        System.out.println("New ipotesi");
         mossaCorrente = null;
         mossaPrecedente = null;
         padre = null;
@@ -43,7 +44,7 @@ public class Ipotesi {
     public Ipotesi(char ch1, char ch2) {
         mossaCorrente = new Mossa(ch1, ch2);
         padre = null;
-        figli = new ArrayList<Ipotesi>();
+        figli = new ArrayList<>();
         valid = true;
         ultima = true;
     }
@@ -98,7 +99,10 @@ public class Ipotesi {
 
     @Override
     public String toString() {
-        return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", mossaPrecedente=" + mossaPrecedente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
+        if (mossaPrecedente == null)
+        return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
+        else
+            return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", mossaPrecedente=" + mossaPrecedente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
     }
 
 
