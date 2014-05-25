@@ -54,6 +54,17 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         this.destinatario = destinatario;
     }
 
+    public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto) {
+        this.id = id;
+        this.testo = testo;
+        this.testoCifrato = testoCifrato;
+        this.lingua = lingua;
+        this.titolo = titolo;
+        this.bozza = bozza;
+        this.letto = letto;
+
+    }
+
     //Costruttore III
     public Messaggio(int id, String testo, String lingua, String titolo, boolean bozza, boolean letto, UserInfo mittente, UserInfo destinatario, SistemaCifratura sdc) {
         this.id = id;
