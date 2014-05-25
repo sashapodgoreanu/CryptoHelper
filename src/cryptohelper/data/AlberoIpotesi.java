@@ -54,10 +54,12 @@ public class AlberoIpotesi {
         return null;
     }
 
+    //verifica se l'albero è vuoto
     public boolean isEmpty() {
         return (root == null || mappaPosizioni == null);
     }
 
+    //Crea una nuova ipotesi corrente (se l'albero non è vuoto)
     public Ipotesi createIpotesiCorrente(char ch1, char ch2) {
         if (isEmpty()) {
             return null;
@@ -65,7 +67,6 @@ public class AlberoIpotesi {
         return new Ipotesi(ch1, ch2);
     }
 
-    //METODI GETTER
     public Ipotesi getRoot() {
         return root;
     }

@@ -19,6 +19,7 @@ public class AreaLavoroPanel extends JPanel implements View {
     JLabel codedTextLabel;
     JLabel plainTextLabel;
     JLabel mappaturaLabel;
+    JLabel languageLabel;
     JTextPane corpoTesto;
     JTextPane corpoTestoCifrato;
     JTable mappatura;
@@ -53,6 +54,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         codedTextLabel = new JLabel("Testo cifrato:");
         plainTextLabel = new JLabel("Testo in chiaro:");
         mappaturaLabel = new JLabel("Mappatura corrente:");
+        languageLabel = new JLabel("Lingua messaggio: " + sessione.getMessaggioIntercettato().getLingua());
         corpoTestoCifrato = new JTextPane();
         corpoTestoCifrato.setPreferredSize(new Dimension(500, 180));
         corpoTestoCifrato.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
@@ -85,6 +87,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         leftPanel.add(leftPanelDown, BorderLayout.SOUTH);
         topPanel.add(mappaturaLabel);
         topPanel.add(scrollPane);
+        rightPanel.add(languageLabel, BorderLayout.NORTH);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
