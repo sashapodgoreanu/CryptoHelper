@@ -1,5 +1,4 @@
 //Classe ipotesi: gestisce i nodi dell'albero
-
 package cryptohelper.data;
 
 import java.util.ArrayList;
@@ -79,12 +78,20 @@ public class Ipotesi {
         this.valid = valid;
     }
 
-    @Override
-    public String toString() {
-        if (mossaPrecedente == null)
-        return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
-        else
-            return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", mossaPrecedente=" + mossaPrecedente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
+    public void initMossaPrecedente() {
+        createMossaCorrente(ch1);
     }
 
+    @Override
+    public String toString() {
+        if (mossaPrecedente == null && mossaCorrente == null) {
+            return "Ipotesi{ultima=" + ultima + ", valid=" + valid + '}';
+        } else if (mossaPrecedente == null) {
+            return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
+        } else if (mossaCorrente == null) {
+            return "Ipotesi{" + "mossaCorrente=" + mossaPrecedente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
+        } else {
+            return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", mossaPrecedente=" + mossaPrecedente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
+        }
+    }
 }

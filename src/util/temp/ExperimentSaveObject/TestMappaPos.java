@@ -24,24 +24,6 @@ import cryptohelper.data.MappaPosizioni;
 public class TestMappaPos {
 
     public static void main(String[] args) {
-        MappaPosizioni alfabeto = new MappaPosizioni();
-        alfabeto.addPos('a', 1);
-        alfabeto.addPos('b', 2);
-        alfabeto.addPos('c', 2);
-        alfabeto.addPos('d', 2);
-        alfabeto.addPos('a', 2);
-        alfabeto.addPos('e', 3);
-        alfabeto.addPos('e', 5);
-        alfabeto.addPos('f', 9);
-        alfabeto.addPos('g', 6);
-        System.out.println(alfabeto.getMappa()['a'].toString());
-        System.out.println(alfabeto.getMappa()['b'].toString());
-        System.out.println(alfabeto.getMappa()['c'].toString());
-        System.out.println(alfabeto.getMappa()['d'].toString());
-        System.out.println(alfabeto.getMappa()['e'].toString());
-        System.out.println(alfabeto.getMappa()['f'].toString());
-        System.out.println(alfabeto.getMappa()['g'].toString());
-        
         String testoCifrato = "Per gli studenti UNITO iscritti ad un corso di studi NON in Informatica (come, ad es., Matematica)\n"
                 + "\n"
                 + "Per ottenere l'accesso ai corsi on-line resi disponibili su questa piattaforma, gli studenti NON iscritti ad uno dei Corsi di Studi in Informatica devono seguire la seguente procedura:\n"
@@ -54,6 +36,7 @@ public class TestMappaPos {
        MappaPosizioni alfabeto2 = new MappaPosizioni();
        alfabeto2.inizializza(testoCifrato);
        System.out.println(alfabeto2.toString());
+        System.out.println((int) 'A');
         
         
 

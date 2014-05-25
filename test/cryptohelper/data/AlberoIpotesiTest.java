@@ -30,7 +30,11 @@ import org.junit.Test;
  */
 public class AlberoIpotesiTest {
 
-    Ipotesi ipCorrente;
+    Ipotesi ip1;
+    Ipotesi ip2;
+    Ipotesi ip3;
+    Ipotesi ip4;
+    Ipotesi ip5;
 
     public AlberoIpotesiTest() {
     }
@@ -45,7 +49,11 @@ public class AlberoIpotesiTest {
 
     @Before
     public void setUp() {
-        ipCorrente = new Ipotesi('a', 'b');
+        ip1 = new Ipotesi('a', 'b');
+        ip2 = new Ipotesi('c', 'd');
+        ip3 = new Ipotesi('f', 'g');
+        ip4 = new Ipotesi('s', 'g');
+        ip5 = new Ipotesi('h', 'y');
     }
 
     @After
@@ -78,9 +86,12 @@ public class AlberoIpotesiTest {
 
         AlberoIpotesi alberoIpotesi = new AlberoIpotesi();
         //boolean expResult = false;
-        boolean result = alberoIpotesi.addIpotesi(ipCorrente);
-        System.out.println(ipCorrente.toString());
-        System.out.println(alberoIpotesi.toString());
+        boolean result = alberoIpotesi.addIpotesi(ip1);
+        result = alberoIpotesi.addIpotesi(ip2);
+        result = alberoIpotesi.addIpotesi(ip3);
+        result = alberoIpotesi.addIpotesi(ip4);
+        result = alberoIpotesi.addIpotesi(ip5);
+        alberoIpotesi.display();
         //assertEquals(expResult, result);
     }
 

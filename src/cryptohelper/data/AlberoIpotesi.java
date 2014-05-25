@@ -74,9 +74,22 @@ public class AlberoIpotesi {
         return root;
     }
 
-    @Override
-    public String toString() {
-        return "AlberoIpotesi{" + "root=" + root.toString() + '}';
+    public void display() {
+        if (isEmpty()) {
+            return;
+        }
+        int profondita = 0;
+        display(root, profondita);
+    }
+
+    private void display(Ipotesi ipotesi, int profondita) {
+        if (ipotesi != null) {
+            System.out.println("profondita:" + profondita + " " + ipotesi.toString());
+            profondita++;
+            for (int i = 0; i < ipotesi.getFigli().size(); i++) {
+                display(ipotesi.getFigli().get(i), profondita);
+            }
+        }
     }
 
 }

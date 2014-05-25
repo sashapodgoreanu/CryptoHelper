@@ -31,11 +31,7 @@ public class MappaPosCarattere {
     }
     
     public ArrayList<Integer> getListaPos() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void setListaPos(ArrayList<Integer> listaPos) {
-        throw new UnsupportedOperationException();
+        return listaPos;
     }
 
     public char getCarattere() {

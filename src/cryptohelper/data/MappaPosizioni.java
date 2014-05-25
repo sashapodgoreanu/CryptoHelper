@@ -5,7 +5,7 @@ public class MappaPosizioni {
     private MappaPosCarattere[] mappa;
 
     public MappaPosizioni() {
-        mappa = new MappaPosCarattere[256];
+        mappa = new MappaPosCarattere[512];
     }
 
     public String executeMossa(Mossa mossa, String testoLavoro) {
@@ -13,9 +13,9 @@ public class MappaPosizioni {
     }
 
     public void inizializza(String testoCifrato) {
-        testoCifrato = testoCifrato.toLowerCase(); //trasforma tutti i carratteri in caratteri minuscoli
+        testoCifrato = testoCifrato.toUpperCase(); //trasforma tutti i carratteri in caratteri minuscoli
         for (int i = 0; i < testoCifrato.length(); i++) {
-            if(testoCifrato.charAt(i)>= 'a' || testoCifrato.charAt(i) <='z')
+            if (testoCifrato.charAt(i) >= 'A' || testoCifrato.charAt(i) <= 'Z')
                 addPos(testoCifrato.charAt(i), i);
         }
     }
@@ -32,9 +32,9 @@ public class MappaPosizioni {
         this.mappa = mappa;
     }
 
-    public void addPos(char ch1, int pos) {
+    private void addPos(char ch1, int pos) {
         boolean exists = false;
-        for (int i = 'a'; i <= 'z'; i++) {
+        for (int i = 'A'; i <= 'Z'; i++) {
             if (mappa[i] != null && mappa[i].getCarattere() == ch1) {
                 mappa[i].addPosizione(pos);
                 exists = true;
@@ -50,7 +50,7 @@ public class MappaPosizioni {
     @Override
     public String toString() {
         StringBuilder a = new StringBuilder();
-        for(int i = 'a'; i< 'z'; i++){
+        for (int i = 'A'; i <= 'Z'; i++) {
             if (this.mappa[i] != null)
                 a.append(mappa[i].toString()).append("\n");
         }
