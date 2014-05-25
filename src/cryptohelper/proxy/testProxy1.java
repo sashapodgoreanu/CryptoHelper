@@ -32,15 +32,18 @@ public class testProxy1 {
         ArrayList<Integer> list = new ArrayList<Integer>();
         File file = new File("bgItaliano.txt");
         BufferedReader reader = null;
-
+        int i = 0;
+        
         try {
             FileInputStream fis = new FileInputStream(file);
             char current;
             String numero = "";
             String numeroCompleto = "";
             
+            
             while (fis.available() > 0) {
                 current = (char) fis.read();
+                
                 if (current != '\t') {
 //                    System.out.print(current);
                     numero = ""+current;
@@ -49,38 +52,17 @@ public class testProxy1 {
                 else if (current == '\t') {
                     System.out.println(numeroCompleto);
                     numeroCompleto = "";
+                    i++;
+                    System.out.println("i = "+i);
                 }
+             
+                
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        /*
-        try {
-            reader = new BufferedReader(new FileReader(file));
-            String text = null;
-
-            int i;
-            while ((text = reader.readLine()) != null) {
-                System.out.println(text);
-                i = ((int) Integer.parseInt(text));
-                System.out.println(i);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-            }
-        }
-*/
-//print out the list
-        System.out.println(list);
+        System.out.println("i = "+i);
 
     }
 
