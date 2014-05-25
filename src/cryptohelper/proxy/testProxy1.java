@@ -15,9 +15,9 @@
  */
 package cryptohelper.proxy;
 
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -31,19 +31,31 @@ public class testProxy1 {
 
     public static void main(String[] args) {
 
-        
-        
         ArrayList<Integer> list = new ArrayList<Integer>();
         File file = new File("bgItaliano.txt");
         BufferedReader reader = null;
 
         try {
+            FileInputStream fis = new FileInputStream(file);
+            char current;
+            while (fis.available() > 0) {
+                current = (char) fis.read();
+                if(current != '\t')
+                    System.out.print(current);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
+        try {
             reader = new BufferedReader(new FileReader(file));
             String text = null;
 
-            char i;
-            while ((text = reader.readLine()) != null) {       
-                i = ((char)Integer.parseInt(text));      
+            int i;
+            while ((text = reader.readLine()) != null) {
+                System.out.println(text);
+                i = ((int) Integer.parseInt(text));
                 System.out.println(i);
             }
         } catch (FileNotFoundException e) {
@@ -58,7 +70,7 @@ public class testProxy1 {
             } catch (IOException e) {
             }
         }
-
+*/
 //print out the list
         System.out.println(list);
 
