@@ -18,8 +18,6 @@ package cryptohelper.proxy;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -38,10 +36,20 @@ public class testProxy1 {
         try {
             FileInputStream fis = new FileInputStream(file);
             char current;
+            String numero = "";
+            String numeroCompleto = "";
+            
             while (fis.available() > 0) {
                 current = (char) fis.read();
-                if(current != '\t')
-                    System.out.print(current);
+                if (current != '\t') {
+//                    System.out.print(current);
+                    numero = ""+current;
+                    numeroCompleto = numeroCompleto + numero; 
+                }
+                else if (current == '\t') {
+                    System.out.println(numeroCompleto);
+                    numeroCompleto = "";
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
