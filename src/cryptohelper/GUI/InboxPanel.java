@@ -1,4 +1,4 @@
-//pannello messaggi in arrivo
+//pannello per la gestione dei messaggi in arrivo
 package cryptohelper.GUI;
 
 import cryptohelper.com.GUIControllerUC1;

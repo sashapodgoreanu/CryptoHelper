@@ -27,7 +27,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
     private UserInfo destinatario;
     private SistemaCifratura sistemaCifratura;
 
-    //COSTRUTTORE I
+    //Costruttore I
     public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto, UserInfo mittente, UserInfo destinatario, SistemaCifratura sc) {
         this.id = id;
         this.testo = testo;
@@ -41,17 +41,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         this.sistemaCifratura = sc;
     }
 
-    //COSTRUTTORE II
-    public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto) {
-        this.id = id;
-        this.testo = testo;
-        this.testoCifrato = testoCifrato;
-        this.lingua = lingua;
-        this.titolo = titolo;
-        this.bozza = bozza;
-        this.letto = letto;
-    }
-
+    //Costruttore II
     public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto, UserInfo mittente, UserInfo destinatario) {
         this.id = id;
         this.testo = testo;
@@ -64,6 +54,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         this.destinatario = destinatario;
     }
 
+    //Costruttore III
     public Messaggio(int id, String testo, String lingua, String titolo, boolean bozza, boolean letto, UserInfo mittente, UserInfo destinatario, SistemaCifratura sdc) {
         this.id = id;
         this.testo = testo;
@@ -74,6 +65,10 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         this.mittente = mittente;
         this.destinatario = destinatario;
         this.sistemaCifratura = sdc;
+    }
+
+    //Costruttore vuoto
+    public Messaggio() {
     }
 
     // METODI GETTER
