@@ -58,44 +58,43 @@ public class TestDbController {
                 m.salva();
             }
 
-            
-            /************************* TEST SAVE TO XML *****************************************/
-            Messaggio m1 = new Messaggio(0, "testo" + 3, "testoCifrato", "lingua", "titolo", true, true);
+            /**
+             * *********************** TEST SAVE TO XML ****************************************
+             */
             UserInfo destinatario = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
             UserInfo mittente = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
-            m1.setMittente(mittente);
-            m1.setDestinatario(destinatario);
-            
+            Messaggio m1 = new Messaggio(0, "testo" + 3, "testoCifrato", "lingua", "titolo", true, true, mittente, destinatario);
+
             System.out.println(m1.toString());
             AlberoIpotesi alberoSessione = new AlberoIpotesi();
-            
-            SessioneLavoro s1 = new SessioneLavoro(0, "SessionePROVA", destinatario, m1,alberoSessione, null);
+
+            SessioneLavoro s1 = new SessioneLavoro(0, "SessionePROVA", destinatario, m1, alberoSessione, null);
             System.out.println("S1");
             System.out.println(s1.toString());
             s1.salva();
-            
-            SessioneLavoro s2 = new SessioneLavoro(1, "Sessione2", destinatario,m1, alberoSessione, null);
+
+            SessioneLavoro s2 = new SessioneLavoro(1, "Sessione2", destinatario, m1, alberoSessione, null);
             System.out.println("S2");
             System.out.println(s2.toString());
             s2.salva();
-            
+
             SessioneLavoro s3 = new SessioneLavoro(1, "Sessione2", destinatario, m1, alberoSessione, null);
             System.out.println("S2");
             System.out.println(s3.toString());
             s3.salva();
-            
+
             ArrayList<SessioneLavoro> sessioniUser1 = SessioneLavoro.caricaSessioni(destinatario.getId());
             System.out.println("Sessioni User1" + sessioniUser1.toString());
+
+            /*         SessioneLavoro s3 = new SessioneLavoro(2, "Sessione3", destinatario, alberoSessione, m1);
+             s3.salva();
             
-                        
-            
-   /*         SessioneLavoro s3 = new SessioneLavoro(2, "Sessione3", destinatario, alberoSessione, m1);
-            s3.salva();
-            
-            SessioneLavoro s4 = new SessioneLavoro(3, "Sessione4", destinatario, alberoSessione, m1);
-            s4.salva();
-     */       
-            /************************* TEST SAVE TO XML *****************************************/
+             SessioneLavoro s4 = new SessioneLavoro(3, "Sessione4", destinatario, alberoSessione, m1);
+             s4.salva();
+             */
+            /**
+             * *********************** TEST SAVE TO XML ****************************************
+             */
             /*
              UserInfo mittente = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
              UserInfo destinatario = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
@@ -103,7 +102,6 @@ public class TestDbController {
              m.setDestinatario(destinatario);
              System.out.println("messaggio" + m.toString());
              m.salva();*/
-
             //db.getDestinatari();
             QueryResult lista = db.executeQuery("SELECT * FROM Studenti");
             //System.out.println(SistemaCifratura.getSistemaCifratura(1).toString());

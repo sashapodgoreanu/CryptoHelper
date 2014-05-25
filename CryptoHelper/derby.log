@@ -12,3 +12,9 @@ os.arch=amd64
 os.version=6.1
 derby.system.home=D:\Università\A. A. 2013-2014\Sviluppo delle applicazioni software\Progetto\CryptoHelper\CryptoHelper
 Programma di caricamento classe database avviato - derby.database.classpath=''
+----------------------------------------------------------------
+Sun May 25 13:21:11 CEST 2014: arresto in corso del motore di Derby
+----------------------------------------------------------------
+Sun May 25 13:21:11 CEST 2014:
+Arresto in corso dell'istanza a816c00e-0146-3274-3918-00002a0c9ee5 nella directory del database D:\Università\A. A. 2013-2014\Sviluppo delle applicazioni software\Progetto\CryptoHelper\CryptoHelper\CHDB con il caricatore di classi sun.misc.Launcher$AppClassLoader@749cd006
+----------------------------------------------------------------
