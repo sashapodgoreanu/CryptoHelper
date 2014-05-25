@@ -1,4 +1,4 @@
-//Pannello messaggi inviati
+//Pannello per la gestione dei messaggi inviati
 package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;

@@ -44,7 +44,7 @@ public class TestDbController {
             st6.salva();
 
             for (int i = 0; i < 3; i++) {
-                Messaggio m = new Messaggio(0, "testo" + i, "testoCifrato", "lingua", "titolo", true, true);
+                Messaggio m = new Messaggio(0, "testo" + i, "testoCifrato", "italiano", "titolo", true, true);
                 st7.salva();
                 st3.salva();
                 st4.salva();

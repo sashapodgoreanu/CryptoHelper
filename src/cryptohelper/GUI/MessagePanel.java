@@ -1,4 +1,4 @@
-//Finestra principale della GUI
+//Pannello per inviare un nuovo messaggio ad un altro utente
 package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;

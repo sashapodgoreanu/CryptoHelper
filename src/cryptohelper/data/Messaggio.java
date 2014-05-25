@@ -27,7 +27,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
     private UserInfo destinatario;
     private SistemaCifratura sistemaCifratura;
 
-    //COSTRUTTORE I
+    //Costruttore I
     public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto, UserInfo mittente, UserInfo destinatario, SistemaCifratura sc) {
         this.id = id;
         this.testo = testo;
@@ -41,17 +41,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         this.sistemaCifratura = sc;
     }
 
-    //COSTRUTTORE II
-    public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto) {
-        this.id = id;
-        this.testo = testo;
-        this.testoCifrato = testoCifrato;
-        this.lingua = lingua;
-        this.titolo = titolo;
-        this.bozza = bozza;
-        this.letto = letto;
-    }
-
+    //Costruttore II
     public Messaggio(int id, String testo, String testoCifrato, String lingua, String titolo, boolean bozza, boolean letto, UserInfo mittente, UserInfo destinatario) {
         this.id = id;
         this.testo = testo;
@@ -64,6 +54,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         this.destinatario = destinatario;
     }
 
+    //Costruttore III
     public Messaggio(int id, String testo, String lingua, String titolo, boolean bozza, boolean letto, UserInfo mittente, UserInfo destinatario, SistemaCifratura sdc) {
         this.id = id;
         this.testo = testo;
@@ -76,17 +67,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         this.sistemaCifratura = sdc;
     }
 
-    //TEST 
-    /*
-     public Messaggio(int id, String testo, String titolo, boolean bozza, UserInfo mittente, UserInfo destinatario) {
-     this.id = id;
-     this.testo = testo;
-     this.titolo = titolo;
-     this.bozza = bozza;
-     this.mittente = mittente;
-     this.destinatario = destinatario;
-     }
-     */
+    //Costruttore vuoto
     public Messaggio() {
     }
 
@@ -135,54 +116,6 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
     @Override
     public boolean isLetto() {
         return letto;
-    }
-
-    // METODI SETTER
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setTesto(String testo) {
-        this.testo = testo;
-    }
-
-    public void setTestoCifrato(String testoCifrato) {
-        this.testoCifrato = testoCifrato;
-    }
-
-    public void setLingua(String lingua) {
-        this.lingua = lingua;
-    }
-
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
-
-    public void setBozza(boolean bozza) {
-        this.bozza = bozza;
-    }
-
-    public void setLetto(boolean letto) {
-        this.letto = letto;
-    }
-
-    public void setSistemaCifratura(SistemaCifratura sistemaCifratura) {
-        this.sistemaCifratura = sistemaCifratura;
-    }
-
-    @Override
-    public void setMittente(UserInfo mittente) {
-        this.mittente = mittente;
-    }
-
-    @Override
-    public void setDestinatario(UserInfo destinatario) {
-        this.destinatario = destinatario;
-    }
-
-    @Override
-    public String toString() {
-        return "Messaggio{" + "id=" + id + ", testo=" + testo + ", testoCifrato=" + testoCifrato + ", lingua=" + lingua + ", titolo=" + titolo + ", bozza=" + bozza + ", letto=" + letto + ", mittente=" + mittente + ", destinatario=" + destinatario + ", sistemaCifratura=" + sistemaCifratura + '}';
     }
 
     //Salva un messaggio nella tabella Messaggi del db. Restituisce TRUE se l'oparazione va a buon fine
@@ -255,7 +188,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         return result;
     }
 
-    //Elimina un messaggio dalla tabella messaggi. Restituisce TRUE se l'oparazione va a buon fine
+    //Elimina un messaggio dalla tabella messaggi. Restituisce TRUE se l'operazione va a buon fine
     @Override
     public boolean elimina() {
         DBController dbc = DBController.getInstance();
@@ -296,7 +229,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         return messaggi;
     }
 
-    //Preleva l'elenco delle bozze  TODO _ Aggiungere destinatraio e mittente
+    //Preleva l'elenco delle bozze
     public static ArrayList<MessaggioMittente> caricaBozze(int idStudente) {
         String query = "SELECT * FROM Messaggi WHERE ID_Mittente = " + idStudente + "AND Bozza = True";
         QueryResult qr = null;
@@ -374,5 +307,52 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         return null;
     }
 
+    // METODI SETTER
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTesto(String testo) {
+        this.testo = testo;
+    }
+
+    public void setTestoCifrato(String testoCifrato) {
+        this.testoCifrato = testoCifrato;
+    }
+
+    public void setLingua(String lingua) {
+        this.lingua = lingua;
+    }
+
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+
+    public void setBozza(boolean bozza) {
+        this.bozza = bozza;
+    }
+
+    public void setLetto(boolean letto) {
+        this.letto = letto;
+    }
+
+    public void setSistemaCifratura(SistemaCifratura sistemaCifratura) {
+        this.sistemaCifratura = sistemaCifratura;
+    }
+
+    @Override
+    public void setMittente(UserInfo mittente) {
+        this.mittente = mittente;
+    }
+
+    @Override
+    public void setDestinatario(UserInfo destinatario) {
+        this.destinatario = destinatario;
+    }
+
+    @Override
+    public String toString() {
+        return "Messaggio{" + "id=" + id + ", testo=" + testo + ", testoCifrato=" + testoCifrato + ", lingua=" + lingua + ", titolo=" + titolo + ", bozza=" + bozza + ", letto=" + letto + ", mittente=" + mittente + ", destinatario=" + destinatario + ", sistemaCifratura=" + sistemaCifratura + '}';
+    }
 
 }
