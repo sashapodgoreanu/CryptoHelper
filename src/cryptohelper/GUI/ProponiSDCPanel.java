@@ -1,7 +1,4 @@
-/**
- *
- * @author Sasha Alexandru Podgoreanu
- */
+//Pannello per la proporre un sistema di cifratura d altri utenti
 package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;
@@ -29,11 +26,10 @@ public class ProponiSDCPanel extends JPanel implements View {
     JPanel rightPanel;       //pannello a destra
     JPanel bottomPanel;      //pannello in basso
     JButton proponiSDCBtn;
-
     JScrollPane scrollPaneDest;
     JScrollPane scrollPaneSdc;
-    JList elencoDestinatari;            //visualizza la lista dei destinatariArrLst
-    JList elencoSDC;            //visualizza la lista dei destinatariArrLst
+    JList elencoDestinatari;    //visualizza la lista dei destinatari (destinatariArrLst)
+    JList elencoSDC;            //visualizza la lista dei sistemi di cifraura (sdcArrLst)
     ArrayList<UserInfo> destinatariArrLst;
     ArrayList<SistemaCifratura> sdcArrLst;
 
@@ -78,7 +74,7 @@ public class ProponiSDCPanel extends JPanel implements View {
         });
         elencoDestinatari.setSelectedIndex(0);
         scrollPaneDest = new JScrollPane();
-        scrollPaneDest.setViewportView(elencoDestinatari);     
+        scrollPaneDest.setViewportView(elencoDestinatari);
         scrollPaneDest.setPreferredSize(new Dimension(165, 250));
         elencoSDC = new JList(new Vector<SistemaCifratura>(sdcArrLst));
         elencoSDC.setCellRenderer(new DefaultListCellRenderer() {
@@ -98,7 +94,6 @@ public class ProponiSDCPanel extends JPanel implements View {
         scrollPaneSdc.setViewportView(elencoSDC);
         scrollPaneSdc.setPreferredSize(new Dimension(120, 250));
 
-        
         //AGGIUNTA DEI CONTROLLI AI PANNELLI
         leftPanel.add(new JLabel("Sistemi di cifratura disponibili:"), BorderLayout.NORTH);
         leftPanel.add(scrollPaneSdc, BorderLayout.CENTER);
@@ -122,28 +117,29 @@ public class ProponiSDCPanel extends JPanel implements View {
         gc.addView(this);
     }
 
-    public JButton getProponiSDCBtn() {
-        return proponiSDCBtn;
-    }
-
-    public void setProponiSDCBtn(JButton proponiSDCBtn) {
-        this.proponiSDCBtn = proponiSDCBtn;
+    //METODI GETTER
+    public JList getElencoSDC() {
+        return elencoSDC;
     }
 
     public JList getElencoDestinatari() {
         return elencoDestinatari;
     }
 
-    public void setElencoDestinatari(JList elencoDestinatari) {
-        this.elencoDestinatari = elencoDestinatari;
+    public JButton getProponiSDCBtn() {
+        return proponiSDCBtn;
     }
 
-    public JList getElencoSDC() {
-        return elencoSDC;
-    }
-
+    //METODI SETTER
     public void setElencoSDC(JList elencoSDC) {
         this.elencoSDC = elencoSDC;
     }
 
+    public void setElencoDestinatari(JList elencoDestinatari) {
+        this.elencoDestinatari = elencoDestinatari;
+    }
+
+    public void setProponiSDCBtn(JButton proponiSDCBtn) {
+        this.proponiSDCBtn = proponiSDCBtn;
+    }
 }

@@ -13,18 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package cryptohelper.proxy;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 /**
  *
  * @author Luigi
  */
 public class testProxy {
-    
-    public static void main (String []args) {
-        
-        
+
+    public static void main(String[] args) {
+
+        FileInputStream fstream;
+
+        try {
+            fstream = new FileInputStream("bgItaliano.txt");
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String data;
+            while ((data = br.readLine()) != null) {
+                //How can I do what I described above here?
+                System.out.println(data);
+            }
+        } catch (Exception e) {
+
+        }
     }
-    
 }

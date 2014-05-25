@@ -1,5 +1,5 @@
-//////////////////////////////////////
-//Finestra principale della GUI
+//Pannello per la gestione delle bozze
+
 package cryptohelper.GUI;
 
 import cryptohelper.interfaces.View;
