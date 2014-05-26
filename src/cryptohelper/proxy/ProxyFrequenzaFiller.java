@@ -44,7 +44,7 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
     public double[][] getBigrammiFromFile(File file) throws IOException {
 
         if (realFiller == null) {
-            realFiller = new RealFrequenzaFiller(filename);
+            realFiller = new RealFrequenzaFiller(fileBigrammi);
 
             return realFiller.getBigrammiFromFile(file);
         } else {
