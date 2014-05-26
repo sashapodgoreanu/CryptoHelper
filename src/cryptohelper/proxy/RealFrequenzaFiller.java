@@ -35,7 +35,6 @@ public class RealFrequenzaFiller extends FrequenzaFiller {
         System.out.println("Creating a real handler ");
     }
 
-    
     @Override
     public double[] getFreq() throws IOException {
 

@@ -15,10 +15,7 @@
  */
 package cryptohelper.proxy;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  *
@@ -40,7 +37,6 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
 
         if (realFiller == null) {
             realFiller = new RealFrequenzaFiller(super.getFileFreq(), super.getFileBigrammi());
-
             frequenza = realFiller.getFreq();
             return frequenza;
 
@@ -72,7 +68,6 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
 
         if (realFiller == null) {
             realFiller = new RealFrequenzaFiller(super.getFileFreq(), super.getFileBigrammi());
-
             bigrammi = realFiller.getBigrammi();
             return bigrammi;
         } else {
