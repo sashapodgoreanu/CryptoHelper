@@ -27,31 +27,46 @@ import java.util.Scanner;
 public class RealFrequenzaFiller extends FrequenzaFiller {
 
     private double[] frequenza;
-    private double[][] bigrammi;
+    private int[][] bigrammi;
 
-    public RealFrequenzaFiller(String fName) {
-        super(fName);
+    public RealFrequenzaFiller (String frequenzeFile, String bigrammiFile) {
+        super(frequenzeFile, bigrammiFile);
         System.out.println("Creating a real handler ");
     }
 
+    
     @Override
-    public double[] getFreqFromFile(File file) {
+    public double[] getFreqFromFile(File file) throws IOException {
 
+        System.out.println("accessing from proxy cache");
+        FileReader fin = new FileReader("frequenzeIta.txt");
+
+        frequenza = new double[26];
+        Scanner src = new Scanner(fin);
+
+        for (int i = 0; i < 26; i++) {
+            if (src.hasNextInt()) {
+                frequenza[i] = src.nextDouble();
+            } else {//se non è un intero consumalo
+                src.next();
+            }
+        }
+        fin.close();
         return frequenza;
     }
 
-    public double[][] getBigrammiFromFile(File file) throws IOException {
+    public int[][] getBigrammiFromFile(File file) throws IOException {
 
         System.out.println("accessing from proxy cache");
         FileReader fin = new FileReader("bgItaliano.txt");
 
-        bigrammi = new double[26][26];
+        bigrammi = new int[26][26];
         Scanner src = new Scanner(fin);
 
         for (int i = 0; i < 26; i++) {
             for (int j = 0; j < 26; j++) {
-                if (src.hasNextDouble()) {
-                    bigrammi[i][j] = src.nextDouble();
+                if (src.hasNextInt()) {
+                    bigrammi[i][j] = src.nextInt();
                 } else {//se non è un intero consumalo
                     src.next();
                 }

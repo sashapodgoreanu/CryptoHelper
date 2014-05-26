@@ -29,14 +29,21 @@ public abstract class FrequenzaFiller {
     protected String fileBigrammi;
     
 
-    public FrequenzaFiller (String fName) {
-        fileBigrammi = fName;
+    public FrequenzaFiller (String frequenzeFile, String bigrammiFile) {
+        fileFreq = frequenzeFile;
+        fileBigrammi = bigrammiFile;
+    } 
+
+    public String getFileFreq() {
+        return fileFreq;
     }
 
-   
+    public String getFileBigrammi() {
+        return fileBigrammi;
+    }
+ 
+    public abstract double[] getFreqFromFile(File file) throws IOException;
     
-    public abstract double[] getFreqFromFile(File file);
-    
-    public abstract double[][] getBigrammiFromFile(File file) throws IOException;
+    public abstract int[][] getBigrammiFromFile(File file) throws IOException;
     
 }

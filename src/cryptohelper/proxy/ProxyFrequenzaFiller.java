@@ -28,44 +28,68 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
 
     private RealFrequenzaFiller realFiller;
     private double[] frequenza;
-    private double[][] bigrammi;
+    private int[][] bigrammi;
 
-    public ProxyFrequenzaFiller(String fName) {
-        super(fName);
+    public ProxyFrequenzaFiller (String frequenzeFile, String bigrammiFile) {
+        super(frequenzeFile, bigrammiFile);
         System.out.println("Creating a proxy cache");
     }
 
     @Override
-    public double[] getFreqFromFile(File file) {
-
-        return frequenza;
-    }
-
-    public double[][] getBigrammiFromFile(File file) throws IOException {
+    public double[] getFreqFromFile(File file) throws IOException {
 
         if (realFiller == null) {
-            realFiller = new RealFrequenzaFiller(fileBigrammi);
+            realFiller = new RealFrequenzaFiller(super.getFileFreq(), super.getFileBigrammi());
 
-            return realFiller.getBigrammiFromFile(file);
+            frequenza = realFiller.getFreqFromFile(file);
+            return frequenza;
+
+        } else {
+
+            System.out.println("accessing from proxy cache");
+            FileReader fin = new FileReader("frequenzeIta.txt");
+
+            frequenza = new double[26];
+            Scanner src = new Scanner(fin);
+
+            for (int i = 0; i < 26; i++) {
+                if (src.hasNextInt()) {
+                    frequenza[i] = src.nextDouble();
+                } else {//se non è un intero consumalo
+                    src.next();
+                }
+            }
+            fin.close();
+            return frequenza;
+        }
+
+    }
+
+    public int[][] getBigrammiFromFile(File file) throws IOException {
+
+        if (realFiller == null) {
+            realFiller = new RealFrequenzaFiller(super.getFileFreq(), super.getFileBigrammi());
+
+            bigrammi = realFiller.getBigrammiFromFile(file);
+            return bigrammi;
         } else {
 
             System.out.println("accessing from proxy cache");
             FileReader fin = new FileReader("bgItaliano.txt");
 
-            bigrammi = new double[26][26];
+            bigrammi = new int[26][26];
             Scanner src = new Scanner(fin);
 
             for (int i = 0; i < 26; i++) {
                 for (int j = 0; j < 26; j++) {
-                    if (src.hasNextDouble()) {
-                        bigrammi[i][j] = src.nextDouble();
+                    if (src.hasNextInt()) {
+                        bigrammi[i][j] = src.nextInt();
                     } else {//se non è un intero consumalo
                         src.next();
                     }
                 }
                 fin.close();
-            } 
-
+            }
             return bigrammi;
         } //chiudo else
 
