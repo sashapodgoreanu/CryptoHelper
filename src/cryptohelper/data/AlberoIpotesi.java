@@ -27,10 +27,15 @@ public class AlberoIpotesi {
     }
 
     private boolean addIpotesi(Ipotesi ipCorrente, Ipotesi rootI) {
+        if (mappaPosizioni == null) {
+            return false;
+        }
         if (rootI.isUltima()) {
             rootI.getFigli().add(ipCorrente);
             ipCorrente.setPadre(rootI);
             rootI.setUltima(false);
+            //to-do
+            //rootI.setMossaPrecedente(mappaPosizioni.);
             System.out.println("ok");
             return true;
         } else {
@@ -49,10 +54,24 @@ public class AlberoIpotesi {
         return null;
     }
 
+    /**
+     *
+     * @param ch1 carattere Cifrato o sostituito con un presunto carattere in
+     * chiaro in precedenza
+     * @param ch2 carattere da sostituire con un presunto carattere in chiaro
+     * @return
+     */
     public String effettuaSostituzione(char ch1, char ch2) {
         if (isEmpty()) {
             return null;
         }
+        //Tutti i caratteri dentro la MappaturaPosizioni sono lettere Upercase.
+        //Una volta fatta effettuaSostituzione(ch1, ch2), ch2 sara un presunto carattere in chiaro qundi deve essere carattere minuscolo
+        if (ch2 >= 'A' && ch2 <= 'Z') {
+            //trasforma
+            ch2 = (char) (ch2 + 32);
+        }
+        Ipotesi ipCorrente  = new Ipotesi(ch1,ch2);
 
         return null;
     }
@@ -62,7 +81,12 @@ public class AlberoIpotesi {
         return (root == null || mappaPosizioni == null);
     }
 
-    //Crea una nuova ipotesi corrente (se l'albero non è vuoto)
+    /**
+     *
+     * @param ch1 carattere nuova
+     * @param ch2 carattere da sostituire
+     * @return nuova ipotesi corrente (se l'albero non è vuoto)
+     */
     public Ipotesi createIpotesiCorrente(char ch1, char ch2) {
         if (isEmpty()) {
             return null;
