@@ -20,11 +20,11 @@ public class MappaPosizioni {
         }
     }
 
-    public char get
+   // public char get
 
-    map(char c) {
+    //map(char c) {
         //to-do
-    }
+ //   }
 
     public MappaPosCarattere[] getMappa() {
         return mappa;

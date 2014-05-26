@@ -92,6 +92,7 @@ public class AlberoIpotesiTest {
         result = alberoIpotesi.addIpotesi(ip4);
         result = alberoIpotesi.addIpotesi(ip5);
         alberoIpotesi.display();
+        //to do
         //assertEquals(expResult, result);
     }
 
