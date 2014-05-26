@@ -29,6 +29,10 @@ public class Mossa {
         this.inverseChar = inverseChar;
     }
 
+    public Mossa createMossaUndo() {
+        return new Mossa(inverseChar, character);
+    }
+
     public void map(char char1, char char2) {
         throw new UnsupportedOperationException();
     }

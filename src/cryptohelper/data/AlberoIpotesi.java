@@ -57,17 +57,12 @@ public class AlberoIpotesi {
         if (mappaPosizioni == null) {
             return false;
         }
-        
-        //System.out.println("addIpotesi" + mappaPosizioni.toString());
-        
-        
+
         if (rootI.isUltima()) {
-            char ch1 = ipCorrente.getMossaCorrente().getCharacter();
-            rootI.setMossaPrecedente(mappaPosizioni.createMossaUndo(ch1));
+            rootI.setMossaPrecedente(ipCorrente.getMossaCorrente().createMossaUndo());
             rootI.setUltima(false);
             rootI.getFigli().add(ipCorrente);
             ipCorrente.setPadre(rootI);
-            
             System.out.println("ok");
             return true;
         } else {

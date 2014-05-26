@@ -13,10 +13,6 @@ public class MappaPosizioni {
         return null;
     }
 
-    private void updateMappa(Mossa mossa) {
-
-    }
-
     public void inizializza(String testoCifrato) {
         mappa = new MappaPosCarattere[256];
         testoCifrato = testoCifrato.toUpperCase(); //trasforma tutti i carratteri in caratteri minuscoli
@@ -25,15 +21,6 @@ public class MappaPosizioni {
                 addPos(testoCifrato.charAt(i), i);
             }
         }
-    }
-
-    public Mossa createMossaUndo(char ch2) {
-        //System.out.println("createMossaUndoUppercase " + ch2);
-        char ch1 = mappa[(int) ch2].getCarattere();
-        if ((ch1 - 32) == ch2) {
-            mappa[(int) ch2].setIsUpercase(true);//
-        }
-        return new Mossa(ch1, ch2);
     }
 
     public MappaPosCarattere[] getMappa() {

@@ -51,10 +51,10 @@ public class AlberoIpotesiTest {
     @Before
     public void setUp() {
         alberoIpotesi = new AlberoIpotesi("Hello World");
-        ip1 = new Ipotesi('h', 'w');
-        ip2 = new Ipotesi('l', 'e');
+        ip1 = new Ipotesi('H', 'w');
+        ip2 = new Ipotesi('w', 'e');
         ip3 = new Ipotesi('o', 'v');
-        ip4 = new Ipotesi('w', 'r');
+        ip4 = new Ipotesi('E', 'r');
         ip5 = new Ipotesi('w', 'y');
     }
 
