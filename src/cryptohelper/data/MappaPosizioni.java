@@ -20,8 +20,10 @@ public class MappaPosizioni {
         }
     }
     
-    public Mossa createMossa(char ch){
-        return null;
+    public Mossa createMossaUndo(char ch2){
+        char ch1 = mappa[(int)ch2].getCarattere();
+        mappa[(int)ch2].setIsUpercase(true);
+        return new Mossa(ch1, ch2);
     }
 
    // public char get
