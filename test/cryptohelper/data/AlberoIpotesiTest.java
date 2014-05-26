@@ -15,9 +15,13 @@
  */
 package cryptohelper.data;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -50,12 +54,7 @@ public class AlberoIpotesiTest {
 
     @Before
     public void setUp() {
-        alberoIpotesi = new AlberoIpotesi("Hello World");
-        ip1 = new Ipotesi('H', 'w');
-        ip2 = new Ipotesi('w', 'e');
-        ip3 = new Ipotesi('o', 'v');
-        ip4 = new Ipotesi('E', 'r');
-        ip5 = new Ipotesi('w', 'y');
+        alberoIpotesi = new AlberoIpotesi("AONJCO");
     }
 
     @After
@@ -71,7 +70,7 @@ public class AlberoIpotesiTest {
     public void testCerca() {
         System.out.println("cerca");
         Mossa mossa = null;
-        AlberoIpotesi instance = new AlberoIpotesi("Hello World");
+        AlberoIpotesi instance = new AlberoIpotesi("AAAAAAAAAA");
         boolean expResult = false;
         boolean result = instance.cerca(mossa);
         assertEquals(expResult, result);
@@ -85,73 +84,67 @@ public class AlberoIpotesiTest {
     @Test
     public void testAddIpotesi() {
         System.out.println("Test of addIpotesi method, of class AlberoIpotesi.");
-        //boolean expResult = false;
+        ip1 = new Ipotesi('H', 'w');
         boolean result = alberoIpotesi.addIpotesi(ip1);
-        result = alberoIpotesi.addIpotesi(ip2);
-        result = alberoIpotesi.addIpotesi(ip3);
-        result = alberoIpotesi.addIpotesi(ip4);
-        result = alberoIpotesi.addIpotesi(ip5);
         alberoIpotesi.display();
-        //to do
-        //assertEquals(expResult, result);
-    }
+        assertEquals(true, result);
+        assertNotNull(alberoIpotesi.getIpotesiCorrente());
 
-    /**
-     * Test of getIpotesiCorrente method, of class AlberoIpotesi.
-     */
-    @Test
-    @Ignore
-    public void testGetIpotesiCorrente() {
-
+        if (alberoIpotesi.addIpotesi(null)) {
+            fail("Ha falito - non si puo aggiungere un'ipotesi nulla");
+        }
     }
 
     /**
      * Test of effettuaSostituzione method, of class AlberoIpotesi.
      */
     @Test
-    @Ignore
     public void testEffettuaSostituzione() {
+        String testoLavoro = "AONJCO";
+        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        testoLavoro = alberoIpotesi.effettuaSostituzione('A', 'c', testoLavoro);
+        //System.out.println(testoLavoro);
 
+        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        testoLavoro = alberoIpotesi.effettuaSostituzione('O', 'a', testoLavoro);
+        //System.out.println(testoLavoro);
+
+        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        testoLavoro = alberoIpotesi.effettuaSostituzione('N', 'p', testoLavoro);
+        //System.out.println(testoLavoro);
+
+        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        testoLavoro = alberoIpotesi.effettuaSostituzione('J', 'i', testoLavoro);
+        //System.out.println(testoLavoro);
+
+        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        testoLavoro = alberoIpotesi.effettuaSostituzione('C', 't', testoLavoro);
+        //System.out.println(testoLavoro);
+        assertEquals("capita", testoLavoro);
+
+        alberoIpotesi = new AlberoIpotesi("A");
+        testoLavoro = "A";
+        testoLavoro = alberoIpotesi.effettuaSostituzione('A', 'A', testoLavoro);
+        assertEquals("a", testoLavoro);
+
+        alberoIpotesi = new AlberoIpotesi("A");
+        testoLavoro = "A";
+        testoLavoro = alberoIpotesi.effettuaSostituzione('A', 'A', testoLavoro);
+        assertThat("A", is(not(testoLavoro)));
+        assertThat("a", is(testoLavoro));
+
+        alberoIpotesi = new AlberoIpotesi("AB");
+        testoLavoro = "AB";
+        System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        testoLavoro = alberoIpotesi.effettuaSostituzione('B', 'A', testoLavoro);
+        System.out.println(testoLavoro);
+        System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        assertThat("BA", is(not(testoLavoro)));
+        assertThat("ba", is(not(testoLavoro)));
+        assertThat("Ba", is(not(testoLavoro)));
+        assertThat("bA", is(not(testoLavoro)));
+        assertThat("AA", is(not(testoLavoro)));
+        assertThat("aA", is(not(testoLavoro)));
+        assertThat("Aa", is(testoLavoro));
     }
-
-    /**
-     * Test of isEmpty method, of class AlberoIpotesi.
-     */
-    @SuppressWarnings("unused")
-    @Test
-    @Ignore
-    public void testIsEmpty() {
-
-    }
-
-    /**
-     * Test of createIpotesiCorrente method, of class AlberoIpotesi.
-     */
-    @SuppressWarnings("unused")
-    @Test
-    @Ignore
-    public void testCreateIpotesiCorrente() {
- 
-    }
-
-    /**
-     * Test of getRoot method, of class AlberoIpotesi.
-     */
-    @SuppressWarnings("unused")
-    @Test
-    @Ignore
-    public void testGetRoot() {
- 
-    }
-
-    /**
-     * Test of toString method, of class AlberoIpotesi.
-     */
-    @SuppressWarnings("unused")
-    @Test
-    @Ignore
-    public void testToString() {
-     
-    }
-
 }

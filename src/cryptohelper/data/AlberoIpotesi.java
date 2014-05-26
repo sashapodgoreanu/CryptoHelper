@@ -39,10 +39,8 @@ public class AlberoIpotesi {
         }
         Ipotesi ipCorrente = new Ipotesi(ch1, ch2);
         addIpotesi(ipCorrente);
-        Ipotesi ipPrecedente = ipCorrente.getPadre();
-        
+        return mappaPosizioni.executeMossa(ipCorrente.getMossaCorrente(), testoLavoro);
 
-        return null;
     }
 
     public boolean addIpotesi(Ipotesi ipCorrente) {
@@ -107,6 +105,16 @@ public class AlberoIpotesi {
         if (isEmpty()) {
             return null;
         }
+        return getIpotesiCorrente(root);
+    }
+
+    private Ipotesi getIpotesiCorrente(Ipotesi ip) {
+        if (ip.isUltima()) {
+            return ip;
+        }
+        for (int i = 0; i < ip.getFigli().size(); i++) {
+            return getIpotesiCorrente(ip.getFigli().get(i));
+        }
         return null;
     }
 
@@ -117,6 +125,14 @@ public class AlberoIpotesi {
     //verifica se l'albero è vuoto
     public boolean isEmpty() {
         return (root == null || mappaPosizioni == null);
+    }
+
+    public MappaPosizioni getMappaPosizioni() {
+        return mappaPosizioni;
+    }
+
+    public void setMappaPosizioni(MappaPosizioni mappaPosizioni) {
+        this.mappaPosizioni = mappaPosizioni;
     }
 
 }
