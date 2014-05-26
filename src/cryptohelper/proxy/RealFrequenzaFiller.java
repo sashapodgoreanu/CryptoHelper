@@ -25,6 +25,7 @@ import java.util.Scanner;
  * @author Luigi
  */
 public class RealFrequenzaFiller extends FrequenzaFiller {
+    
 
     private double[] frequenza;
     private int[][] bigrammi;
@@ -36,10 +37,10 @@ public class RealFrequenzaFiller extends FrequenzaFiller {
 
     
     @Override
-    public double[] getFreqFromFile(File file) throws IOException {
+    public double[] getFreq() throws IOException {
 
-        System.out.println("accessing from proxy cache");
-        FileReader fin = new FileReader("frequenzeIta.txt");
+        System.out.println("accessing the file");
+        FileReader fin = new FileReader(super.getFileFreq());
 
         frequenza = new double[26];
         Scanner src = new Scanner(fin);
@@ -55,10 +56,11 @@ public class RealFrequenzaFiller extends FrequenzaFiller {
         return frequenza;
     }
 
-    public int[][] getBigrammiFromFile(File file) throws IOException {
+    @Override
+    public int[][] getBigrammi() throws IOException {
 
-        System.out.println("accessing from proxy cache");
-        FileReader fin = new FileReader("bgItaliano.txt");
+        System.out.println("accessing the file");
+        FileReader fin = new FileReader(super.getFileBigrammi());
 
         bigrammi = new int[26][26];
         Scanner src = new Scanner(fin);

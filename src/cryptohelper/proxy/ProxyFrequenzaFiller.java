@@ -36,16 +36,17 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
     }
 
     @Override
-    public double[] getFreqFromFile(File file) throws IOException {
+    public double[] getFreq() throws IOException {
 
         if (realFiller == null) {
             realFiller = new RealFrequenzaFiller(super.getFileFreq(), super.getFileBigrammi());
 
-            frequenza = realFiller.getFreqFromFile(file);
+            frequenza = realFiller.getFreq();
             return frequenza;
 
         } else {
-
+            System.out.println("accessing from proxy cache");
+/* 
             System.out.println("accessing from proxy cache");
             FileReader fin = new FileReader("frequenzeIta.txt");
 
@@ -60,21 +61,24 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
                 }
             }
             fin.close();
-            return frequenza;
+  */          return frequenza;
         }
+        
 
     }
 
-    public int[][] getBigrammiFromFile(File file) throws IOException {
+    @Override
+    public int[][] getBigrammi() throws IOException {
 
         if (realFiller == null) {
             realFiller = new RealFrequenzaFiller(super.getFileFreq(), super.getFileBigrammi());
 
-            bigrammi = realFiller.getBigrammiFromFile(file);
+            bigrammi = realFiller.getBigrammi();
             return bigrammi;
         } else {
-
             System.out.println("accessing from proxy cache");
+
+    /*        System.out.println("accessing from proxy cache");
             FileReader fin = new FileReader("bgItaliano.txt");
 
             bigrammi = new int[26][26];
@@ -90,7 +94,7 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
                 }
                 fin.close();
             }
-            return bigrammi;
+      */      return bigrammi;
         } //chiudo else
 
     }

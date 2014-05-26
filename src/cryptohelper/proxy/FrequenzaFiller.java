@@ -42,8 +42,8 @@ public abstract class FrequenzaFiller {
         return fileBigrammi;
     }
  
-    public abstract double[] getFreqFromFile(File file) throws IOException;
+    public abstract double[] getFreq() throws IOException;
     
-    public abstract int[][] getBigrammiFromFile(File file) throws IOException;
+    public abstract int[][] getBigrammi() throws IOException;
     
 }
