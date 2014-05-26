@@ -10,31 +10,38 @@ public class MappaPosizioni {
         inizializza(testoCifrato);
     }
 
+    /**
+     * Il metodo cambia il testoLavoro e aggiorna la mappa con parametri forniti
+     * dalla mossa
+     *
+     * @param mossa Una nuova assunzione
+     * @param testoLavoro testo su quale si sta lavornado
+     * @return testoLavoro cambiato dopo aver eseguito la mossa
+     */
     public String executeMossa(Mossa mossa, String testoLavoro) {
         StringBuilder sb = new StringBuilder(testoLavoro);
         //System.out.println("executeMossa sb " + sb + " Mossa: " + mossa.toString());
         for (int i = 'A'; i <= 'z'; i++) {
-            //System.out.println("executeMossa " + (char) i + " mappa[i] " + mappa[i]);
+            //cerca nella mappa dove risiede il carattere cifrato che si vuole scambiare
             if (mappa[i] != null && (mappa[i].getCarattere() == mossa.getCharacter())) {
-                //System.out.println(" mappa[i].getCarattere() " + mappa[i].getCarattere());
+                //cambia il carrattere cifrato con quello presunto
                 mappa[i].setCarattere(mossa.getInverseChar());
+                //cambia il nuovo carattere presunto anche nel testoLavoro
                 ArrayList<Integer> lista = mappa[i].getListaPos();
                 for (int j = 0; j < lista.size(); j++) {
                     sb.setCharAt(lista.get(j), mappa[i].getCarattere());
                 }
-            } else {
-                //System.out.println("Mossa non valida");
             }
         }
         return sb.toString();
     }
-    
-    
 
     /**
      * metodo final - non e redifinibile in una sottoclase
+     * Inizzializa la mappa
+     * dei caratteri di un testoCifrato
      *
-     * @param testoCifrato
+     * @param testoCifrato su quale si lavora
      */
     public final void inizializza(String testoCifrato) {
         mappa = new MappaPosCarattere[256];
@@ -46,6 +53,13 @@ public class MappaPosizioni {
         }
     }
 
+    /**
+     * Metodo ausiliario per aggiungere un carattere e aggiungere/aggiornare
+     * posizione nel testo del carattere nella mappa
+     *
+     * @param ch1 - nuovo carattere o una occorenza
+     * @param pos - dove si trova ch1 net testo
+     */
     private void addPos(char ch1, int pos) {
         //controllo se ch1 esiste nella mappa
         boolean exists = false;
