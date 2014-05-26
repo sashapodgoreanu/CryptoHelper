@@ -17,6 +17,7 @@
 package cryptohelper.proxy;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -24,22 +25,19 @@ import java.io.File;
  */
 public abstract class FrequenzaFiller {
     
-    protected String fileFreq;
-    protected String fileBigrammi;
+    protected String filename;
+    
 
-    public FrequenzaFiller () {
-        
-    }
-    
-    
-    public String getFileFreq() {
-        return fileFreq;
+    public FrequenzaFiller (String fName) {
+        filename = fName;
     }
 
-    public String getFileBigrammi() {
-        return fileBigrammi;
-    }
+    public String getFilename() {
+        return filename;
+    }   
     
     public abstract double[] getFreqFromFile(File file);
+    
+    public abstract double[][] getBigrammiFromFile(File file) throws IOException;
     
 }

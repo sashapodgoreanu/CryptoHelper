@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package cryptohelper.proxy;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
@@ -24,9 +26,49 @@ import java.io.File;
  */
 public class ProxyFrequenzaFiller extends FrequenzaFiller {
 
+    private RealFrequenzaFiller realFiller;
+    private double[] frequenza;
+    private double[][] bigrammi;
+
+    public ProxyFrequenzaFiller(String fName) {
+        super(fName);
+        System.out.println("Creating a proxy cache");
+    }
+
     @Override
     public double[] getFreqFromFile(File file) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        return frequenza;
     }
-    
+
+    public double[][] getBigrammiFromFile(File file) throws IOException {
+
+        if (realFiller == null) {
+            realFiller = new RealFrequenzaFiller(filename);
+
+            return realFiller.getBigrammiFromFile(file);
+        } else {
+
+            System.out.println("accessing from proxy cache");
+            FileReader fin = new FileReader("bgItaliano.txt");
+
+            bigrammi = new double[26][26];
+            Scanner src = new Scanner(fin);
+
+            for (int i = 0; i < 26; i++) {
+                for (int j = 0; j < 26; j++) {
+                    if (src.hasNextDouble()) {
+                        bigrammi[i][j] = src.nextDouble();
+                    } else {//se non è un intero consumalo
+                        src.next();
+                    }
+                }
+                fin.close();
+            } 
+
+            return bigrammi;
+        } //chiudo else
+
+    }
+
 }
