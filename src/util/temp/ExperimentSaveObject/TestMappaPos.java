@@ -33,7 +33,7 @@ public class TestMappaPos {
                 + "!! Chiusura per tutorato !!\n"
                 + "\n"
                 + "Gli studenti che incorrono nelle sanzioni relative al tutorato devono contattare uno dei componenti della commissione tutorato. Questo è l'unico modo con cui possono ottenere la riapertura dell'accesso all'e-learning.";
-       MappaPosizioni alfabeto2 = new MappaPosizioni();
+        MappaPosizioni alfabeto2 = new MappaPosizioni("sss");
        alfabeto2.inizializza(testoCifrato);
        System.out.println(alfabeto2.toString());
         System.out.println((int) 'A');

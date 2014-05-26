@@ -35,6 +35,7 @@ public class AlberoIpotesiTest {
     Ipotesi ip3;
     Ipotesi ip4;
     Ipotesi ip5;
+    AlberoIpotesi alberoIpotesi;
 
     public AlberoIpotesiTest() {
     }
@@ -49,11 +50,12 @@ public class AlberoIpotesiTest {
 
     @Before
     public void setUp() {
-        ip1 = new Ipotesi('a', 'b');
-        ip2 = new Ipotesi('c', 'd');
-        ip3 = new Ipotesi('f', 'g');
-        ip4 = new Ipotesi('s', 'g');
-        ip5 = new Ipotesi('h', 'y');
+        alberoIpotesi = new AlberoIpotesi("Hello World");
+        ip1 = new Ipotesi('h', 'w');
+        ip2 = new Ipotesi('l', 'e');
+        ip3 = new Ipotesi('o', 'v');
+        ip4 = new Ipotesi('w', 'r');
+        ip5 = new Ipotesi('w', 'y');
     }
 
     @After
@@ -69,7 +71,7 @@ public class AlberoIpotesiTest {
     public void testCerca() {
         System.out.println("cerca");
         Mossa mossa = null;
-        AlberoIpotesi instance = new AlberoIpotesi();
+        AlberoIpotesi instance = new AlberoIpotesi("Hello World");
         boolean expResult = false;
         boolean result = instance.cerca(mossa);
         assertEquals(expResult, result);
@@ -83,8 +85,6 @@ public class AlberoIpotesiTest {
     @Test
     public void testAddIpotesi() {
         System.out.println("Test of addIpotesi method, of class AlberoIpotesi.");
-
-        AlberoIpotesi alberoIpotesi = new AlberoIpotesi();
         //boolean expResult = false;
         boolean result = alberoIpotesi.addIpotesi(ip1);
         result = alberoIpotesi.addIpotesi(ip2);
@@ -102,13 +102,7 @@ public class AlberoIpotesiTest {
     @Test
     @Ignore
     public void testGetIpotesiCorrente() {
-        System.out.println("getIpotesiCorrente");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        Ipotesi expResult = null;
-        Ipotesi result = instance.getIpotesiCorrente();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -117,15 +111,7 @@ public class AlberoIpotesiTest {
     @Test
     @Ignore
     public void testEffettuaSostituzione() {
-        System.out.println("effettuaSostituzione");
-        char ch1 = ' ';
-        char ch2 = ' ';
-        AlberoIpotesi instance = new AlberoIpotesi();
-        String expResult = "";
-        String result = instance.effettuaSostituzione(ch1, ch2);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -135,13 +121,7 @@ public class AlberoIpotesiTest {
     @Test
     @Ignore
     public void testIsEmpty() {
-        System.out.println("isEmpty");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        boolean expResult = false;
-        boolean result = instance.isEmpty();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -151,15 +131,7 @@ public class AlberoIpotesiTest {
     @Test
     @Ignore
     public void testCreateIpotesiCorrente() {
-        System.out.println("createIpotesiCorrente");
-        char ch1 = ' ';
-        char ch2 = ' ';
-        AlberoIpotesi instance = new AlberoIpotesi();
-        Ipotesi expResult = null;
-        Ipotesi result = instance.createIpotesiCorrente(ch1, ch2);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+ 
     }
 
     /**
@@ -169,13 +141,7 @@ public class AlberoIpotesiTest {
     @Test
     @Ignore
     public void testGetRoot() {
-        System.out.println("getRoot");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        Ipotesi expResult = null;
-        Ipotesi result = instance.getRoot();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+ 
     }
 
     /**
@@ -185,13 +151,7 @@ public class AlberoIpotesiTest {
     @Test
     @Ignore
     public void testToString() {
-        System.out.println("toString");
-        AlberoIpotesi instance = new AlberoIpotesi();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+     
     }
 
 }

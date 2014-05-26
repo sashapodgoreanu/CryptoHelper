@@ -19,16 +19,13 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
  * @author st106342
  */
 public class ProxyFrequenzaFillerTest {
-    ProxyFrequenzaFiller instance;
+    //ProxyFrequenzaFiller instance;
 
     public ProxyFrequenzaFillerTest() {
     }
@@ -44,8 +41,8 @@ public class ProxyFrequenzaFillerTest {
     //inizizlizare parametri locali
     @Before
     public void setUp() {
-       instance = new  ProxyFrequenzaFiller("frequenzeIta.txt","bgItaliano.txt");
-       System.out.println("inizializa instance");
+       //instance = new  ProxyFrequenzaFiller("frequenzeIta.txt","bgItaliano.txt");
+        // System.out.println("inizializa instance");
     }
 
     @After
@@ -55,8 +52,8 @@ public class ProxyFrequenzaFillerTest {
     /**
      * Test of getFreq method, of class ProxyFrequenzaFiller.
      */
-    @Test
-    public void testGetFreq() throws Exception {
+    /* @Test
+     public void testGetFreq() throws Exception {
         System.out.println("Test of getFreq method, of class ProxyFrequenzaFiller.");
         double[] result = instance.getFreq();
         for (int i = 0; i < result.length; i++) {
@@ -65,12 +62,12 @@ public class ProxyFrequenzaFillerTest {
         
 
     }
-
+*/
     /**
      * Test of getBigrammi method, of class ProxyFrequenzaFiller.
      */
-    @Test
-    public void testGetBigrammi() throws Exception {
+    /* @Test
+     public void testGetBigrammi() throws Exception {
         System.out.println("getBigrammi");
         int[][] result = instance.getBigrammi();
         for (int i = 0; i < 26; i++) {
@@ -81,6 +78,6 @@ public class ProxyFrequenzaFillerTest {
         }
         
         //assertArrayEquals(expResult, result);
-    }
+    }*/
 
 }

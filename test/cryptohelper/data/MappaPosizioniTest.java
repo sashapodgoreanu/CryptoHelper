@@ -46,7 +46,7 @@ public class MappaPosizioniTest {
 
     @Before
     public void setUp() {
-        mappapos = new MappaPosizioni();
+        mappapos = new MappaPosizioni("555");
     }
 
     @After
@@ -62,7 +62,7 @@ public class MappaPosizioniTest {
         System.out.println("executeMossa");
         Mossa mossa = null;
         String testoLavoro = "";
-        MappaPosizioni instance = new MappaPosizioni();
+        MappaPosizioni instance = new MappaPosizioni("333");
         String expResult = "";
         String result = instance.executeMossa(mossa, testoLavoro);
         assertEquals(expResult, result);
@@ -81,27 +81,12 @@ public class MappaPosizioniTest {
         for (int i = 'A'; i <= 'Z'; i++) {
             assertNull(mappapos.getMappa()[i]);
         }
-        mappapos = new MappaPosizioni();
+        mappapos = new MappaPosizioni("az");
+        testoCifrato = "az";
         mappapos.inizializza(testoCifrato);
         assertEquals(mappapos.getMappa()['A'].getCarattere(), 'A');
         assertEquals(Integer.valueOf(mappapos.getMappa()['A'].getListaPos().get(0)), Integer.valueOf(0));
         assertEquals(mappapos.getMappa()['Z'].getCarattere(), 'Z');
         assertEquals(Integer.valueOf(mappapos.getMappa()['Z'].getListaPos().get(0)), Integer.valueOf(1));
-    }
-
-    /**
-     * Test of createMossaCorrente method, of class MappaPosizioni.
-     */
-    @Test
-    @Ignore
-    public void testCreateMossaCorrente() {
-        System.out.println("createMossaCorrente");
-        char ch = ' ';
-        MappaPosizioni instance = new MappaPosizioni();
-        Mossa expResult = null;
-        Mossa result = instance.createMossaCorrente(ch);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 }

@@ -66,7 +66,7 @@ public class TestDbController {
             Messaggio m1 = new Messaggio(0, "testo" + 3, "testoCifrato", "lingua", "titolo", true, true, mittente, destinatario);
 
             System.out.println(m1.toString());
-            AlberoIpotesi alberoSessione = new AlberoIpotesi();
+            AlberoIpotesi alberoSessione = new AlberoIpotesi("aaa");
 
             SessioneLavoro s1 = new SessioneLavoro(0, "SessionePROVA", destinatario, m1, alberoSessione, null);
             System.out.println("S1");

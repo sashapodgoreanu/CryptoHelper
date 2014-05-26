@@ -6,9 +6,10 @@ public class AlberoIpotesi {
     private Ipotesi root;
     private MappaPosizioni mappaPosizioni;
 
-    public AlberoIpotesi() {
+    public AlberoIpotesi(String testoCifrato) {
         root = new Ipotesi();
-        mappaPosizioni = new MappaPosizioni();
+        mappaPosizioni = new MappaPosizioni(testoCifrato);
+
     }
 
     //Cerca la mossa. Restituisce TRUE in caso di riscontro, FALSE altrimenti
@@ -22,9 +23,11 @@ public class AlberoIpotesi {
      * @param ch1 carattere Cifrato o sostituito con un presunto carattere in
      * chiaro in precedenza
      * @param ch2 carattere da sostituire con un presunto carattere in chiaro
-     * @return
+     * @param testoLavoro - testo su quale si sta lavorando per decifrare
+     * @return testoLavoro modificato sostituendo ch1 cifrato con ch2 presunto
+     * carattere in chiaro
      */
-    public String effettuaSostituzione(char ch1, char ch2) {
+    public String effettuaSostituzione(char ch1, char ch2, String testoLavoro) {
         if (isEmpty()) {
             return null;
         }
@@ -46,7 +49,6 @@ public class AlberoIpotesi {
         if (isEmpty() || ipCorrente == null) {
             System.out.println("not Ok");
             return false;
-
         }
         return addIpotesi(ipCorrente, root);
     }
@@ -55,12 +57,17 @@ public class AlberoIpotesi {
         if (mappaPosizioni == null) {
             return false;
         }
+        
+        //System.out.println("addIpotesi" + mappaPosizioni.toString());
+        
+        
         if (rootI.isUltima()) {
-            rootI.getFigli().add(ipCorrente);
-            ipCorrente.setPadre(rootI);
-            rootI.setUltima(false);
             char ch1 = ipCorrente.getMossaCorrente().getCharacter();
             rootI.setMossaPrecedente(mappaPosizioni.createMossaUndo(ch1));
+            rootI.setUltima(false);
+            rootI.getFigli().add(ipCorrente);
+            ipCorrente.setPadre(rootI);
+            
             System.out.println("ok");
             return true;
         } else {
