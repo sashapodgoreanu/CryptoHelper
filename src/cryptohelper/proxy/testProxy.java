@@ -18,6 +18,7 @@ package cryptohelper.proxy;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -26,21 +27,15 @@ import java.io.InputStreamReader;
  */
 public class testProxy {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        FileInputStream fstream;
-
-        try {
-            fstream = new FileInputStream("bgItaliano.txt");
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            String data;
-            while ((data = br.readLine()) != null) {
-                //How can I do what I described above here?
-                System.out.println(data);
+        ProxyFrequenzaFiller instance = new  ProxyFrequenzaFiller("frequenzeIta.txt","bgItaliano.txt");
+        int[][] a = instance.getBigrammi();
+ /*       for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < 26; j++) {
+                System.out.print(a[i][j]); 
             }
-        } catch (Exception e) {
-
+            System.out.println(); 
         }
-    }
+   */ }
 }

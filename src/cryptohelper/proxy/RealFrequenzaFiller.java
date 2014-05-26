@@ -25,12 +25,11 @@ import java.util.Scanner;
  * @author Luigi
  */
 public class RealFrequenzaFiller extends FrequenzaFiller {
-    
 
     private double[] frequenza;
     private int[][] bigrammi;
 
-    public RealFrequenzaFiller (String frequenzeFile, String bigrammiFile) {
+    public RealFrequenzaFiller(String frequenzeFile, String bigrammiFile) {
         super(frequenzeFile, bigrammiFile);
         System.out.println("Creating a real handler ");
     }
@@ -45,7 +44,7 @@ public class RealFrequenzaFiller extends FrequenzaFiller {
         Scanner src = new Scanner(fin);
 
         for (int i = 0; i < 26; i++) {
-            if (src.hasNextInt()) {
+            if (src.hasNextDouble()) {
                 frequenza[i] = src.nextDouble();
             } else {//se non è un intero consumalo
                 src.next();
@@ -63,17 +62,52 @@ public class RealFrequenzaFiller extends FrequenzaFiller {
 
         bigrammi = new int[26][26];
         Scanner src = new Scanner(fin);
+        System.out.println(super.getFileBigrammi());
 
+        /*     for (int i = 0; i < 26; i++) {
+         for (int j = 0; src.hasNext() && j < 26; j++) {
+         if (src.hasNextInt()) {
+         int temp = src.nextInt();
+         //         System.out.println("****"+temp);
+         bigrammi[i][j] = temp;
+         } else {//se non è un intero consumalo
+         src.next();
+         }
+         }
+         fin.close();
+         }*/
+        int i = 0;
+        int j = 0;
+        
+        while (src.hasNext()) {
+ //            System.out.println("oooooooooooooooo");
+            if (src.hasNextInt()) {
+                 int temp = src.nextInt();
+ //                 System.out.println("****"+temp);
+                 if (j < 26) {   
+                    bigrammi[i][j] =  temp;
+                    j++;
+                 }
+                 else {
+                     i++;
+                     j=0;
+                 }
+                 
+//                 System.out.println("oooooooooooooooo");
+            } else {//se non è un intero consumalo
+                src.next();
+            }
+
+        }
+        fin.close();
+/*      
         for (int i = 0; i < 26; i++) {
             for (int j = 0; j < 26; j++) {
-                if (src.hasNextInt()) {
-                    bigrammi[i][j] = src.nextInt();
-                } else {//se non è un intero consumalo
-                    src.next();
-                }
+                System.out.print(bigrammi[i][j]);
             }
-            fin.close();
+            System.out.println();
         }
+*/
         return bigrammi;
     }
 
