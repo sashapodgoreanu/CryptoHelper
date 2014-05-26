@@ -25,16 +25,15 @@ import java.io.IOException;
  */
 public abstract class FrequenzaFiller {
     
-    protected String filename;
+    protected String fileFreq;
+    protected String fileBigrammi;
     
 
     public FrequenzaFiller (String fName) {
-        filename = fName;
+        fileBigrammi = fName;
     }
 
-    public String getFilename() {
-        return filename;
-    }   
+   
     
     public abstract double[] getFreqFromFile(File file);
     
