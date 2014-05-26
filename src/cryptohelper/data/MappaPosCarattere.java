@@ -23,6 +23,7 @@ import java.util.ArrayList;
  */
 public class MappaPosCarattere {
     private char carattere;
+    private boolean isUpercase;
     private ArrayList<Integer> listaPos;
 
     public MappaPosCarattere(char carattere) {
@@ -47,6 +48,15 @@ public class MappaPosCarattere {
             listaPos.add(pos);
     }
 
+    public boolean isIsUpercase() {
+        return isUpercase;
+    }
+
+    public void setIsUpercase(boolean isUpercase) {
+        this.isUpercase = isUpercase;
+    }
+    
+    
     @Override
     public String toString() {
         return "MappaPosCarattere{" + "carattere=" + carattere + ", listaPos=" + listaPos + '}';

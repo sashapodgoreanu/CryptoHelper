@@ -17,43 +17,6 @@ public class AlberoIpotesi {
         return false;
     }
 
-    public boolean addIpotesi(Ipotesi ipCorrente) {
-        if (isEmpty() || ipCorrente == null) {
-            System.out.println("not Ok");
-            return false;
-
-        }
-        return addIpotesi(ipCorrente, root);
-    }
-
-    private boolean addIpotesi(Ipotesi ipCorrente, Ipotesi rootI) {
-        if (mappaPosizioni == null) {
-            return false;
-        }
-        if (rootI.isUltima()) {
-            rootI.getFigli().add(ipCorrente);
-            ipCorrente.setPadre(rootI);
-            rootI.setUltima(false);
-            //to-do
-            //rootI.setMossaPrecedente(mappaPosizioni.);
-            System.out.println("ok");
-            return true;
-        } else {
-            for (int i = 0; i < rootI.getFigli().size(); i++) {
-                return addIpotesi(ipCorrente, rootI.getFigli().get(i));
-            }
-        }
-        return false;
-    }
-
-    //Restituisce l'ipotesi corrente
-    public Ipotesi getIpotesiCorrente() {
-        if (isEmpty()) {
-            return null;
-        }
-        return null;
-    }
-
     /**
      *
      * @param ch1 carattere Cifrato o sostituito con un presunto carattere in
@@ -71,31 +34,52 @@ public class AlberoIpotesi {
             //trasforma
             ch2 = (char) (ch2 + 32);
         }
-        Ipotesi ipCorrente  = new Ipotesi(ch1,ch2);
+        Ipotesi ipCorrente = new Ipotesi(ch1, ch2);
+        addIpotesi(ipCorrente);
+        Ipotesi ipPrecedente = ipCorrente.getPadre();
+        
 
         return null;
     }
 
-    //verifica se l'albero è vuoto
-    public boolean isEmpty() {
-        return (root == null || mappaPosizioni == null);
+    public boolean addIpotesi(Ipotesi ipCorrente) {
+        if (isEmpty() || ipCorrente == null) {
+            System.out.println("not Ok");
+            return false;
+
+        }
+        return addIpotesi(ipCorrente, root);
+    }
+
+    private boolean addIpotesi(Ipotesi ipCorrente, Ipotesi rootI) {
+        if (mappaPosizioni == null) {
+            return false;
+        }
+        if (rootI.isUltima()) {
+            rootI.getFigli().add(ipCorrente);
+            ipCorrente.setPadre(rootI);
+            rootI.setUltima(false);
+            char ch1 = ipCorrente.getMossaCorrente().getCharacter();
+            rootI.setMossaPrecedente(mappaPosizioni.createMossaUndo(ch1));
+            System.out.println("ok");
+            return true;
+        } else {
+            for (int i = 0; i < rootI.getFigli().size(); i++) {
+                return addIpotesi(ipCorrente, rootI.getFigli().get(i));
+            }
+        }
+        return false;
     }
 
     /**
+     * Ipotesi che sare utilizata per impostare
      *
      * @param ch1 carattere nuova
      * @param ch2 carattere da sostituire
      * @return nuova ipotesi corrente (se l'albero non è vuoto)
      */
     public Ipotesi createIpotesiCorrente(char ch1, char ch2) {
-        if (isEmpty()) {
-            return null;
-        }
         return new Ipotesi(ch1, ch2);
-    }
-
-    public Ipotesi getRoot() {
-        return root;
     }
 
     public void display() {
@@ -114,6 +98,23 @@ public class AlberoIpotesi {
                 display(ipotesi.getFigli().get(i), profondita);
             }
         }
+    }
+
+    //Restituisce l'ipotesi corrente
+    public Ipotesi getIpotesiCorrente() {
+        if (isEmpty()) {
+            return null;
+        }
+        return null;
+    }
+
+    public Ipotesi getRoot() {
+        return root;
+    }
+
+    //verifica se l'albero è vuoto
+    public boolean isEmpty() {
+        return (root == null || mappaPosizioni == null);
     }
 
 }
