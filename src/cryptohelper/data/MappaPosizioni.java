@@ -19,6 +19,10 @@ public class MappaPosizioni {
                 addPos(testoCifrato.charAt(i), i);
         }
     }
+    
+    public Mossa createMossa(char ch){
+        return null;
+    }
 
    // public char get
 

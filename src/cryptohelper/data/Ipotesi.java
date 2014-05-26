@@ -78,10 +78,6 @@ public class Ipotesi {
         this.valid = valid;
     }
 
-    public void initMossaPrecedente() {
-        createMossaCorrente(ch1);
-    }
-
     @Override
     public String toString() {
         if (mossaPrecedente == null && mossaCorrente == null) {
