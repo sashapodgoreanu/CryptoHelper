@@ -1,7 +1,8 @@
-package cryptohelper.com;
+package cryptohelper.data;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
+import cryptohelper.com.COMController;
 import cryptohelper.data.AlberoIpotesi;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.QueryResult;

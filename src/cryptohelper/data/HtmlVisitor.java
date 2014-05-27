@@ -1,7 +1,6 @@
 //Classe che implementa l'interfaccia Visitor e si occupa della stampa con formattazione dei vari testi
 package cryptohelper.data;
 
-import cryptohelper.com.SessioneLavoro;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;

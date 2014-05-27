@@ -2,7 +2,7 @@ package cryptohelper.interfaces;
 
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.Proposta;
-import cryptohelper.com.SessioneLavoro;
+import cryptohelper.data.SessioneLavoro;
 
 public interface Visitor {
 

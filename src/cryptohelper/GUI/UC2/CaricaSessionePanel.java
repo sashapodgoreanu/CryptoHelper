@@ -5,7 +5,7 @@ import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
-import cryptohelper.com.SessioneLavoro;
+import cryptohelper.data.SessioneLavoro;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;

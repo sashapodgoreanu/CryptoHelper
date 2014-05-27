@@ -1,6 +1,6 @@
 package cryptohelper.service;
 
-import cryptohelper.com.SessioneLavoro;
+import cryptohelper.data.SessioneLavoro;
 import cryptohelper.data.AlberoIpotesi;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.QueryResult;

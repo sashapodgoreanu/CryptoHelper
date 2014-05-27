@@ -2,7 +2,7 @@
 package cryptohelper.GUI.UC2;
 
 import cryptohelper.com.GUIControllerUC2;
-import cryptohelper.com.SessioneLavoro;
+import cryptohelper.data.SessioneLavoro;
 import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
