@@ -7,7 +7,8 @@ public class AlberoIpotesi {
     private MappaPosizioni mappaPosizioni;
 
     public AlberoIpotesi(String testoCifrato) {
-        root = new Ipotesi();
+        //la root non ha una mossa corrente. questo nodo serve per memorizare l'informazione per un eventuale undo()
+        root = new Ipotesi('-', '-');
         mappaPosizioni = new MappaPosizioni(testoCifrato);
 
     }
@@ -46,6 +47,32 @@ public class AlberoIpotesi {
 
     }
 
+    public boolean cerca(char ch1, char ch2) {
+        if (isEmpty()) {
+            return false;
+        }
+        return cerca(ch1, ch2, root);
+    }
+
+    private boolean cerca(char ch1, char ch2, Ipotesi ip) {
+        if (ip != null) {
+            if (ip.getMossaCorrente().getCharacter() == ch1 && ip.getMossaCorrente().getInverseChar() == ch2) {
+                return true;
+            } else {
+                for (int i = 0; i < ip.getFigli().size(); i++) {
+                    return cerca(ch1, ch2, ip.getFigli().get(i));
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Aggiunge una nuova ipotesi al'AlberoIpotesi.
+     *
+     * @param ipCorrente ipotesi corrente che contiene solo mossa corrente
+     * @return true se ipCorrente aggiunto con successo
+     */
     public boolean addIpotesi(Ipotesi ipCorrente) {
         if (isEmpty() || ipCorrente == null) {
             System.out.println("not Ok");
@@ -72,17 +99,6 @@ public class AlberoIpotesi {
             }
         }
         return false;
-    }
-
-    /**
-     * Ipotesi che sare utilizata per impostare
-     *
-     * @param ch1 carattere nuova
-     * @param ch2 carattere da sostituire
-     * @return nuova ipotesi corrente (se l'albero non è vuoto)
-     */
-    public Ipotesi createIpotesiCorrente(char ch1, char ch2) {
-        return new Ipotesi(ch1, ch2);
     }
 
     public void display() {
@@ -119,10 +135,6 @@ public class AlberoIpotesi {
             return getIpotesiCorrente(ip.getFigli().get(i));
         }
         return null;
-    }
-
-    public Ipotesi getRoot() {
-        return root;
     }
 
     //verifica se l'albero è vuoto

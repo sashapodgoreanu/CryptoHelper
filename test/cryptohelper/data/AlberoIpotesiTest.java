@@ -20,12 +20,13 @@ import static org.hamcrest.CoreMatchers.not;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -64,18 +65,41 @@ public class AlberoIpotesiTest {
     /**
      * Test of cerca method, of class AlberoIpotesi.
      */
-    @SuppressWarnings("unused")
     @Test
-    @Ignore
     public void testCerca() {
-        System.out.println("cerca");
-        Mossa mossa = null;
-        AlberoIpotesi instance = new AlberoIpotesi("AAAAAAAAAA");
-        boolean expResult = false;
-        boolean result = instance.cerca(mossa);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Test of cerca method, of class AlberoIpotesi.");
+        String testoLavoro = "AONJCO";
+        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        testoLavoro = alberoIpotesi.effettuaSostituzione('A', 'c', testoLavoro);
+        assertTrue(alberoIpotesi.cerca('A', 'c'));
+        assertFalse(alberoIpotesi.cerca('a', 'c'));
+        assertFalse(alberoIpotesi.cerca('c', 'a'));
+        assertFalse(alberoIpotesi.cerca('C', 'A'));
+        assertFalse(alberoIpotesi.cerca('A', 'C'));
+        assertFalse(alberoIpotesi.cerca('a', 'C'));
+
+        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        testoLavoro = alberoIpotesi.effettuaSostituzione('O', 'a', testoLavoro);
+        assertTrue(alberoIpotesi.cerca('O', 'a'));
+        assertFalse(alberoIpotesi.cerca('o', 'a'));
+        assertFalse(alberoIpotesi.cerca('a', 'o'));
+        assertFalse(alberoIpotesi.cerca('O', 'A'));
+        assertFalse(alberoIpotesi.cerca('A', 'o'));
+        assertFalse(alberoIpotesi.cerca('a', 'O'));
+        //System.out.println(testoLavoro);
+
+        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        testoLavoro = alberoIpotesi.effettuaSostituzione('N', 'p', testoLavoro);
+        //System.out.println(testoLavoro);
+
+        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        testoLavoro = alberoIpotesi.effettuaSostituzione('J', 'i', testoLavoro);
+        //System.out.println(testoLavoro);
+
+        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        testoLavoro = alberoIpotesi.effettuaSostituzione('C', 't', testoLavoro);
+
+        //System.out.println(testoLavoro);
     }
 
     /**
@@ -103,11 +127,11 @@ public class AlberoIpotesiTest {
         String testoLavoro = "AONJCO";
         //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
         testoLavoro = alberoIpotesi.effettuaSostituzione('A', 'c', testoLavoro);
-        //System.out.println(testoLavoro);
+        
 
         //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
         testoLavoro = alberoIpotesi.effettuaSostituzione('O', 'a', testoLavoro);
-        //System.out.println(testoLavoro);
+
 
         //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
         testoLavoro = alberoIpotesi.effettuaSostituzione('N', 'p', testoLavoro);

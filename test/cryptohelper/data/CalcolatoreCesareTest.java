@@ -18,9 +18,9 @@ package cryptohelper.data;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -62,13 +62,13 @@ public class CalcolatoreCesareTest {
         assertEquals('x'-  result.mapOf('x'),0);  
         assertEquals('x' - result.mapOf('x'),0);  
         result = instance.calcola("1");
-        assertEquals('z' - result.mapOf('a'),0);
-        assertEquals('a'- result.mapOf('b'), 0);
-        assertEquals('y'- result.mapOf('z'),0);
+        assertEquals('b' - result.mapOf('a'), 0);
+        assertEquals('c' - result.mapOf('b'), 0);
+        assertEquals('a' - result.mapOf('z'), 0);
         result = instance.calcola("2");
-        assertEquals('y'- result.mapOf('a'),0);
-        assertEquals('z'-result.mapOf('b'),0);
-        assertEquals('x' - result.mapOf('z'),0);
+        assertEquals('c' - result.mapOf('a'), 0);
+        assertEquals('d' - result.mapOf('b'), 0);
+        assertEquals('b' - result.mapOf('z'), 0);
         
        
     }

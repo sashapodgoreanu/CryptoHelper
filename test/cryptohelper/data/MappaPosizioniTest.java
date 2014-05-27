@@ -19,10 +19,8 @@ import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -57,17 +55,23 @@ public class MappaPosizioniTest {
      * Test of executeMossa method, of class MappaPosizioni.
      */
     @Test
-    @Ignore
     public void testExecuteMossa() {
-        System.out.println("executeMossa");
-        Mossa mossa = null;
-        String testoLavoro = "";
-        MappaPosizioni instance = new MappaPosizioni("333");
-        String expResult = "";
+        System.out.println("Test of executeMossa method, of class MappaPosizioni.");
+        Mossa mossa = new Mossa('A', 'd');
+        String testoLavoro = "ABCD";
+        MappaPosizioni instance = new MappaPosizioni(testoLavoro);
+        String expResult = "dBCD";
         String result = instance.executeMossa(mossa, testoLavoro);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        /**
+         * ******************************************************************
+         */
+        mossa = new Mossa('x', 'y');
+        testoLavoro = "ABCD";
+        instance = new MappaPosizioni(testoLavoro);
+        expResult = "ABCD";
+        result = instance.executeMossa(mossa, testoLavoro);
+        assertEquals(expResult, result);
     }
 
     /**
