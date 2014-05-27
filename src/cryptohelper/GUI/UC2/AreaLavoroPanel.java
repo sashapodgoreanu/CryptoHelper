@@ -5,9 +5,10 @@ import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import static java.awt.SystemColor.text;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
@@ -17,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
-import javax.swing.border.Border;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 
@@ -38,7 +38,9 @@ public class AreaLavoroPanel extends JPanel implements View {
     JTextPane corpoTesto;
     JTextPane corpoTestoCifrato;
     JTable mappatura;
-    JScrollPane scrollPane;
+    JScrollPane scrollPaneMappatura;
+    JScrollPane scrollPaneTesto;
+    JScrollPane scrollPaneTestoCifrato;
     ArrayList<JComboBox> jcomboBoxes;//dropdown per selezionare un carattere
     MessaggioIntercettato messaggioIntercettato; //sessione su cui si sta lavorando
 
@@ -72,42 +74,42 @@ public class AreaLavoroPanel extends JPanel implements View {
         plainTextLabel = new JLabel("Testo in chiaro:");
         mappaturaLabel = new JLabel("Mappatura corrente:");
         languageLabel = new JLabel("Lingua messaggio: " + messaggioIntercettato.getLingua());
+        Font font = new Font("monospaced", Font.PLAIN, 16);
         corpoTestoCifrato = new JTextPane();
-        corpoTestoCifrato.setPreferredSize(new Dimension(500, 180));
-        corpoTestoCifrato.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
-        //System.out.println(sessione.toString());
-
+        corpoTestoCifrato.setEditable(true); //rende in sola lettura il campo con il testo del messaggio
         corpoTestoCifrato.setText(messaggioIntercettato.getTestoCifrato());
-        Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
-        corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(5, 5, 5, 5))); //assegna un margine al controllo
+        corpoTestoCifrato.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); //assegna un margine al controllo
+        corpoTestoCifrato.setFont(font);
         corpoTesto = new JTextPane();
         corpoTesto.setText(messaggioIntercettato.getAreaLavoro());
-        corpoTesto.setPreferredSize(new Dimension(500, 180));
         corpoTesto.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
-        b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
-        corpoTesto.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(5, 5, 5, 5))); //assegna un margine al controllo
-
-        //String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-        //Object[][] data = {{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""}};
+        corpoTesto.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); //assegna un margine al controllo
+        corpoTesto.setFont(font);
         mappatura = new JTable(new MappaturaModel());
         mappatura.setCellSelectionEnabled(true);
         for (int i = 0; i < 26; i++) {
             setUpCollona(mappatura.getColumnModel().getColumn(i));
         }
 
-        scrollPane = new JScrollPane();
-        scrollPane.setViewportView(mappatura);
-        scrollPane.setPreferredSize(new Dimension(800, 40));
+        scrollPaneMappatura = new JScrollPane();
+        scrollPaneTesto = new JScrollPane();
+        scrollPaneTestoCifrato = new JScrollPane();
+        scrollPaneMappatura.setViewportView(mappatura);
+        scrollPaneMappatura.setPreferredSize(new Dimension(800, 40));
+        scrollPaneTesto.setViewportView(corpoTesto);
+        scrollPaneTesto.setPreferredSize(new Dimension(550, 245));
+        scrollPaneTestoCifrato.setViewportView(corpoTestoCifrato);
+        scrollPaneTestoCifrato.setPreferredSize(new Dimension(550, 245));
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI             
         leftPanelUp.add(codedTextLabel, BorderLayout.NORTH);
-        leftPanelUp.add(corpoTestoCifrato, BorderLayout.CENTER);
+        leftPanelUp.add(scrollPaneTestoCifrato, BorderLayout.CENTER);
         leftPanelDown.add(plainTextLabel, BorderLayout.NORTH);
-        leftPanelDown.add(corpoTesto, BorderLayout.CENTER);
+        leftPanelDown.add(scrollPaneTesto, BorderLayout.CENTER);
         leftPanel.add(leftPanelUp, BorderLayout.NORTH);
         leftPanel.add(leftPanelDown, BorderLayout.SOUTH);
         topPanel.add(mappaturaLabel);
-        topPanel.add(scrollPane);
+        topPanel.add(scrollPaneMappatura);
         rightPanel.add(languageLabel, BorderLayout.NORTH);
 
         //AGGIUNTA DEI PANNELLI
@@ -204,7 +206,6 @@ public class AreaLavoroPanel extends JPanel implements View {
     public void setCorpoTesto(JTextPane corpoTesto) {
         this.corpoTesto = corpoTesto;
     }
-
 
     public JTextPane getCorpoTestoCifrato() {
         return corpoTestoCifrato;
