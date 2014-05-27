@@ -283,8 +283,8 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
     }
 
     //Preleva tutti i messaggi intercettabili dal db escludendo le bozze
-    public static ArrayList<MessaggioIntercettato> caricaMessaggi() {
-        String query = "SELECT * FROM Messaggi WHERE Bozza = False";
+    public static ArrayList<MessaggioIntercettato> caricaMessaggi(int idStudente) {
+        String query = "SELECT * FROM Messaggi WHERE Bozza = False AND ID_Mittente <> " + idStudente;
         QueryResult qr = null;
         ArrayList<MessaggioIntercettato> msgs = new ArrayList<>();
         try {

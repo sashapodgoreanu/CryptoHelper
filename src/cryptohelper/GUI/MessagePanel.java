@@ -133,19 +133,7 @@ public class MessagePanel extends JPanel implements View {
         return elencoDestinatari;
     }
 
-    /*
-     public void initChiave(String metodo){
-     bottomPanel.remove(chiaveField);
-     bottomPanel.remove(chiaveMsg);
-     if(metodo.equals("parola chiave")){
-     chiaveField = new JTextField(26);
-     chiaveMsg.setText("Parola-chiave password");
-     bottomPanel.add(chiaveMsg, 0);
-     bottomPanel.add(chiaveField, 1);
-     bottomPanel.revalidate();
-     }
-     }*/
-    public JButton getNuovoMessaggioBtn() {
+     public JButton getNuovoMessaggioBtn() {
         return newMessageBtn;
     }
 

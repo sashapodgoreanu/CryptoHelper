@@ -76,7 +76,7 @@ public class GUIControllerUC2 {
             intercettaMessaggioPanel.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            ArrayList<MessaggioIntercettato> temp = Messaggio.caricaMessaggi();
+            ArrayList<MessaggioIntercettato> temp = Messaggio.caricaMessaggi(comC.getStudente().getId());
             intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(false);
             intercettaMessaggioPanel.initNuovaSessione(temp);
         }
