@@ -1,5 +1,6 @@
 package cryptohelper.com;
 
+import cryptohelper.data.Messaggio;
 import cryptohelper.data.Proposta;
 import cryptohelper.data.QueryResult;
 import cryptohelper.data.SistemaCifratura;
@@ -8,10 +9,12 @@ import cryptohelper.data.UserInfo;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class COMController {
+
+    private static Log log = LogFactory.getLog(Messaggio.class);   //per log
 
     private Studente studente;
     private static COMController instance;
@@ -63,9 +66,9 @@ public class COMController {
                 uInfo.add(temp);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         System.out.println(uInfo.toString());
         return uInfo;
@@ -82,9 +85,9 @@ public class COMController {
                 uInfo.add(temp);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return uInfo;
     }

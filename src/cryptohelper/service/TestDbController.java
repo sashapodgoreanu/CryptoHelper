@@ -1,9 +1,9 @@
 package cryptohelper.service;
 
-import cryptohelper.data.SessioneLavoro;
 import cryptohelper.data.AlberoIpotesi;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.QueryResult;
+import cryptohelper.data.SessioneLavoro;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.sql.SQLException;
@@ -43,8 +43,8 @@ public class TestDbController {
             st5.salva();
             st6.salva();
 
-            for (int i = 0; i < 3; i++) {
-                Messaggio m = new Messaggio(0, "Seleziona l'iniziale e esplora l'intera lista di traduzioni comincianti per quella lettera presenti nel dizionario italiano-inglese." + i, "qbibzflkr i'fkfzfrib b bqmilpr i'fktbpr ifqtr af tprauzflkf sljfksfrktf mbp nubiir ibttbpr mpbqbktf kbi afzflkrpfl ftrifrkl-fkdibqb.", "italiano", "titolo", true, true);
+            for (int i = 0; i < 10; i++) {
+                Messaggio m = new Messaggio(0, "Testo chiaro" + i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i, "testo cifrato" + i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i, "italiano", "titolo", true, true);
                 st7.salva();
                 st3.salva();
                 st4.salva();

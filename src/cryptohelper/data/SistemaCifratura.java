@@ -5,11 +5,12 @@ import cryptohelper.interfaces.CalcolatoreMappatura;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class SistemaCifratura {
 
+    private static Log log = LogFactory.getLog(Messaggio.class);   //per log
     private int id;
     private String nome;
     private String chiave;
@@ -64,9 +65,9 @@ public class SistemaCifratura {
                 temp = getSistemaCifratura(qr.getInt("ID_SDC"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return temp;
     }
@@ -135,6 +136,7 @@ public class SistemaCifratura {
             }
 
         } catch (SQLException ex) {
+            log.fatal(ex.getMessage());
 
         }
         return result;
@@ -201,9 +203,9 @@ public class SistemaCifratura {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return sdcs;
     }
@@ -219,9 +221,9 @@ public class SistemaCifratura {
                 System.out.println("SistemaCifratura: " + temp.toString());
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return temp;
     }

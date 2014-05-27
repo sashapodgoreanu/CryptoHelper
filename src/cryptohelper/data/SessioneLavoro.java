@@ -2,12 +2,6 @@ package cryptohelper.data;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-import cryptohelper.com.COMController;
-import cryptohelper.data.AlberoIpotesi;
-import cryptohelper.data.Messaggio;
-import cryptohelper.data.QueryResult;
-import cryptohelper.data.Soluzione;
-import cryptohelper.data.UserInfo;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
@@ -15,11 +9,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class SessioneLavoro {
 
+    private static Log log = LogFactory.getLog(Messaggio.class);   //per log
     int idSessione;
     String nomeSessione;
     UserInfo autore;
@@ -112,14 +107,14 @@ public class SessioneLavoro {
         try {
             result = dbc.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
+            log.fatal(ex.getMessage());
         }
         return result;
     }
 
     @Override
     public String toString() {
-        return "Sessione{" + "id=" + idSessione + "Nome=" + nomeSessione + ", utente=" + autore + ", messaggio=" + messaggioIntercettato + ", albero= " + alberoIpotesi + ", soluzione= " + soluzione + ", modifica= " + ultimaModifica +"}";
+        return "Sessione{" + "id=" + idSessione + "Nome=" + nomeSessione + ", utente=" + autore + ", messaggio=" + messaggioIntercettato + ", albero= " + alberoIpotesi + ", soluzione= " + soluzione + ", modifica= " + ultimaModifica + "}";
     }
 
     //Preleva l'elenco delle sessioni inviati dallo studente indicato
@@ -139,21 +134,17 @@ public class SessioneLavoro {
                 sessioni.add(temp);
             }
         } catch (Exception ex) {
-            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return sessioni;
     }
 
     public boolean effetuaSostituzione(char ch1, char ch2) {
-
         alberoIpotesi.display();
         System.out.println(this.getClass() + ": effetuaSostituzione da " + ch1 + "  " + ch2);
         System.out.println(this.getClass() + "messaggioIntercettato.getAreaLavoro(): " + messaggioIntercettato.getAreaLavoro());
-        ;
-
         messaggioIntercettato.setAreaLavoro(alberoIpotesi.effettuaSostituzione(ch1, ch2, messaggioIntercettato.getAreaLavoro()));
-
-        return false;
+        return this.alberoIpotesi.cerca(ch1, ch2);
     }
 
     //METODI GETTER

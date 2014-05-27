@@ -1,18 +1,19 @@
 // classe Proposta
 package cryptohelper.data;
 
-import static cryptohelper.data.SistemaCifratura.getSistemaCifratura;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author SashaAlexandru
  */
 public class Proposta {
+
+    private static Log log = LogFactory.getLog(Messaggio.class);   //per log
 
     private SistemaCifratura sdc;
     private UserInfo proponente;
@@ -83,7 +84,7 @@ public class Proposta {
                 return false;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Proposta.class.getName()).log(Level.SEVERE, null, ex);
+            log.fatal(ex.getMessage());
         }
 
         String queryInsert = "INSERT INTO SDCPARTNERS(ID_CREATORE, ID_PARTNER,ID_SDC,STATO_PROPOSTA)"
@@ -115,7 +116,7 @@ public class Proposta {
                 result = dbc.executeUpdate(querryUpdate);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Proposta.class.getName()).log(Level.SEVERE, null, ex);
+            log.fatal(ex.getMessage());
         }
         return result;
     }
@@ -141,11 +142,9 @@ public class Proposta {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SistemaCifratura.class
-                    .getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(SistemaCifratura.class
-                    .getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return proposte;
     }
@@ -172,11 +171,9 @@ public class Proposta {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SistemaCifratura.class
-                    .getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(SistemaCifratura.class
-                    .getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return proposte;
     }
@@ -190,7 +187,7 @@ public class Proposta {
 
             result = dbc.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(Proposta.class.getName()).log(Level.SEVERE, null, ex);
+            log.fatal(ex.getMessage());
         }
         return result;
     }    

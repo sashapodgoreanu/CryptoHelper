@@ -1,21 +1,18 @@
 //Classe Messaggio
 package cryptohelper.data;
 
-import cryptohelper.com.COMController;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class Messaggio implements MessaggioDestinatario, MessaggioMittente, MessaggioIntercettato {
 
-    private Log log = LogFactory.getLog(Messaggio.class);   //per debug
+    private static Log log = LogFactory.getLog(Messaggio.class);   //per log
     private int id;
     private String testo;
     private String testoCifrato;
@@ -84,6 +81,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
     }
 
     // METODI GETTER
+    @Override
     public int getId() {
         return id;
     }
@@ -112,10 +110,15 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         return sistemaCifratura;
     }
 
+    @Override
     public UserInfo getDestinatario() {
         return destinatario;
     }
 
+    /**
+     *
+     * @return
+     */
     public UserInfo getMittente() {
         return mittente;
     }
@@ -210,7 +213,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
 
             result = dbc.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
+            log.fatal(ex.getMessage());
         }
         return result;
     }
@@ -235,7 +238,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
             }
         } catch (Exception ex) {
             System.out.println("eccezione caricaessaggiDestinatario");
-            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         System.out.println("messaggi ricevuti pannello principale: " + messaggi.toString());
         return messaggi;
@@ -248,7 +251,11 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         ArrayList<MessaggioMittente> bozze = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
+            int i = 0;
+            System.out.println("qr next" + qr.next());
             while (qr.next()) {
+                System.out.println("i=" + i);
+                i++;
                 UserInfo mit = UserInfo.getUserInfo(idStudente);
                 UserInfo dest = UserInfo.getUserInfo(qr.getInt("ID_Destinatario"));
                 MessaggioMittente temp = new Messaggio(qr.getInt("ID"), qr.getString("Testo"), qr.getString("TestoCifrato"),
@@ -257,7 +264,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
                 bozze.add(temp);
             }
         } catch (Exception ex) {
-            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return bozze;
     }
@@ -278,7 +285,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
                 inviati.add(temp);
             }
         } catch (Exception ex) {
-            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return inviati;
     }
@@ -299,7 +306,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
                 msgs.add(temp);
             }
         } catch (Exception ex) {
-            Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return msgs;
     }

@@ -1,22 +1,29 @@
 TO-DO (aggiornato 23/05/14)
 
 ********************** UC1 **************************
-- creaSistemaDicifratura
-- cifra/decifra messaggio nella inbox
-- implementare i rimanenti cifrari.
-- invia nuovo messaggio => da ricontrollare il parametro con testo cifrato (vedi commenti nel codice del metodo e della classe messaggio)
-- cambiare parametro testo cifrato nel salva messaggio di MessagePanel
+- ok creaSistemaDicifratura
+- ok cifra/decifra messaggio nella inbox
+- ok implementare i rimanenti cifrari.
+- ok invia nuovo messaggio => da ricontrollare il parametro con testo cifrato (vedi commenti nel codice del metodo e della classe messaggio)
+- ok cambiare parametro testo cifrato nel salva messaggio di MessagePanel
 
 
 ********************** UC2 **************************
 - Creare interfaccia per le azioni della spia [in corso]
-- Creare classe AnalisiFrequenza
-- ok  Creare classe MappaSostituzioni
+- ok Creare classe AnalisiFrequenza
+- ok Creare classe MappaSostituzioni
 - ok Creare classe MappaPosCarattere
 - ok Creare classe MappaPosizioni
 - Creare classi del pattern proxy (OK LUIGI, da controllare!! )
-[OK] Creare interfaccia MessaggioAstratto
+- Creare classi del pattern proxy (OK LUIGI, da controllare!! )
+- Creare classi del pattern proxy (OK LUIGI, da controllare!! )
+- Creare classi del pattern proxy (OK LUIGI, da controllare!! )
+- Creare classi del pattern proxy (OK LUIGI, da controllare!! )
+- Creare classi del pattern proxy (OK LUIGI, da controllare!! )
+- Creare classi del pattern proxy (OK LUIGI, da controllare!! )
+- Creare classi del pattern proxy (OK LUIGI, da controllare!! )
+  [OK] Creare interfaccia MessaggioAstratto
 - ok Classe sistema di cifratura => rivedere/completare alcuni metodi
 - ok Implementare classe Mossa
--  in corso Implementare classe albero
+- (in corso) Implementare classe albero
 - Implementare classe soluzione

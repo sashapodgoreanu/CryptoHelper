@@ -1,14 +1,16 @@
 //classe Studente
 package cryptohelper.data;
 
-import cryptohelper.interfaces.Model;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-public class Studente implements Model {
+public class Studente {
 
+    private static Log log = LogFactory.getLog(Messaggio.class);   //per log
     private int id;
     private String nome;
     private String cognome;
@@ -123,7 +125,7 @@ public class Studente implements Model {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(Studente.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return false;
     }

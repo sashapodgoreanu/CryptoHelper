@@ -18,8 +18,6 @@ public class QueryResult {
     private int iterator;
     private int size;
 
-   
-
     public QueryResult(ArrayList<Map<String, Object>> lista) {
         this.lista = lista;
         iterator = -1;
@@ -30,14 +28,19 @@ public class QueryResult {
         return "QueryResult{" + "lista=" + lista + "}";
     }
 
-    
-    public boolean next(){
-        if (iterator == lista.size()) {
+    public boolean next() {
+        System.out.println(lista.size() + " " + lista.isEmpty() + "  " + iterator);
+        if (lista.isEmpty()) {
+            System.out.println("return false is empty");
+            return false;
+        } else if (iterator == lista.size() - 1) {
             reset();
             //qui esce pero fa il reset
+            System.out.println("return false");
             return false;
         } else {
             iterator++;
+            System.out.println("return true");
             return true;
         }
     }
@@ -55,7 +58,7 @@ public class QueryResult {
         return result;
     }
 
-    public int getInt(String key) throws Exception { 
+    public int getInt(String key) throws Exception {
         if (lista.isEmpty()) {
             System.out.println(lista.isEmpty());
             throw new Exception("Lista vuota");
@@ -79,8 +82,9 @@ public class QueryResult {
     public void setLista(ArrayList<Map<String, Object>> lista) {
         this.lista = lista;
     }
-     public int getSize() {
+
+    public int getSize() {
         return lista.size();
     }
-    
+
 }

@@ -3,7 +3,6 @@ package cryptohelper.data;
 
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,7 +68,7 @@ public class UserInfo {
         } catch (SQLException ex) {
             Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            //Logger.getLogger(SistemaCifratura.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
         return temp;
     }
