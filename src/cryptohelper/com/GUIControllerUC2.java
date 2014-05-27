@@ -77,6 +77,7 @@ public class GUIControllerUC2 {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioIntercettato> temp = Messaggio.caricaMessaggi();
+            intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(false);
             intercettaMessaggioPanel.initNuovaSessione(temp);
         }
     }
@@ -89,6 +90,7 @@ public class GUIControllerUC2 {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<SessioneLavoro> temp = SessioneLavoro.caricaSessioni(comC.getStudente().getId());
+            intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(false);
             intercettaMessaggioPanel.initCaricaSessione(temp);
         }
     }
@@ -137,6 +139,7 @@ public class GUIControllerUC2 {
             System.out.println("Clicked " + ev.getText());
             SessioneLavoro session = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
             System.out.println(session.toString());
+            intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
             intercettaMessaggioPanel.initAreaLavoro(session);
         }
     }

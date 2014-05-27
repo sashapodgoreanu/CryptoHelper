@@ -90,7 +90,7 @@ public class IntercettaMsgPanel extends JFrame implements View {
         bodyPanel.add(new CaricaSessionePanel(sessioniArrLst));      //aggiunge il nuovo pannello
         bodyPanel.revalidate();                                      //completa l'inizializzazione dell'interfaccia
     }
-    
+
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "carica sessione"
     public void initAreaLavoro(SessioneLavoro sessione) {
         this.resetPanels();
@@ -99,9 +99,8 @@ public class IntercettaMsgPanel extends JFrame implements View {
         bodyPanel.add(new AreaLavoroPanel(sessione));                //aggiunge il nuovo pannello
         bodyPanel.revalidate();                                      //completa l'inizializzazione dell'interfaccia
     }
-    
-    
-   @Override
+
+    @Override
     public void registerController() {
         GUIControllerUC2 gcAL = GUIControllerUC2.getInstance();
         gcAL.addView(this);
@@ -122,6 +121,10 @@ public class IntercettaMsgPanel extends JFrame implements View {
 
     public JButton getCaricaSessioneBtn() {
         return caricaSessioneBtn;
+    }
+
+    public JButton getSalvaSessioneBtn() {
+        return salvaSessioneBtn;
     }
 
     //METODI SETTER
