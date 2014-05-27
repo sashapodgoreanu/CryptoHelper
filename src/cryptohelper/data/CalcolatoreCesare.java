@@ -29,7 +29,7 @@ public class CalcolatoreCesare extends cryptohelper.interfaces.CalcolatoreMappat
         Mappatura map = new Mappatura();
         char[] mappaInversa = new char[26];
         for (int i = 0; i < 26; i++) {
-            mappaInversa[(i+key)%26] = map.getChar(i);
+            mappaInversa[i] = map.getChar((i + key) % 26);
         }
         map.setMappaInversa(mappaInversa);
         return map;
