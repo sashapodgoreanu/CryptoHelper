@@ -1,9 +1,5 @@
 package cryptohelper.data;
 
-/**
- *
- * @author st116628
- */
 public class Cifratore {
 
     public static String cifraMonoalfabetica(Mappatura mappa, String testo) {
