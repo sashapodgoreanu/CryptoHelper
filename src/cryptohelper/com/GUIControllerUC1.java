@@ -240,7 +240,7 @@ public class GUIControllerUC1 {
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            ArrayList<MessaggioIntercettato> msgArrLst = Messaggio.caricaMessaggi();
+            ArrayList<MessaggioIntercettato> msgArrLst = Messaggio.caricaMessaggi(utilizzatoreSistema.getId());
             IntercettaMsgPanel al = new IntercettaMsgPanel();
             panelloPrincipale.dispose();
         }
