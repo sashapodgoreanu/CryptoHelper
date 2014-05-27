@@ -37,6 +37,8 @@ public class AlberoIpotesi {
         if (ch2 >= 'A' && ch2 <= 'Z') {
             //trasforma
             ch2 = (char) (ch2 + 32);
+        } else if (ch2 == '-') {
+            ch2 = ch1;
         }
         Ipotesi ipCorrente = new Ipotesi(ch1, ch2);
         addIpotesi(ipCorrente);

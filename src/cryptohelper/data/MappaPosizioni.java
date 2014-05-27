@@ -20,25 +20,18 @@ public class MappaPosizioni {
      */
     public String executeMossa(Mossa mossa, String testoLavoro) {
         StringBuilder sb = new StringBuilder(testoLavoro);
-        //System.out.println("executeMossa sb " + sb + " Mossa: " + mossa.toString());
-        //for (int i = 'A'; i <= 'z'; i++) {
-            //cerca nella mappa dove risiede il carattere cifrato che si vuole scambiare
-           // if (mappa[i] != null && (mappa[i].getCarattere() == mossa.getCharacter())) {
-                //cambia il carrattere cifrato con quello presunto
-                mappa[mossa.getCharacter()].setCarattere(mossa.getInverseChar());
-                //cambia il nuovo carattere presunto anche nel testoLavoro
-                ArrayList<Integer> lista = mappa[mossa.getCharacter()].getListaPos();
-                for (int j = 0; j < lista.size(); j++) {
-                    sb.setCharAt(lista.get(j), mappa[mossa.getCharacter()].getCarattere());
-                }
-        //}
-        //}
+        //cambia il carrattere cifrato con quello presunto
+        mappa[mossa.getCharacter()].setCarattere(mossa.getInverseChar());
+        //cambia il nuovo carattere presunto anche nel testoLavoro
+        ArrayList<Integer> lista = mappa[mossa.getCharacter()].getListaPos();
+        for (int j = 0; j < lista.size(); j++) {
+            sb.setCharAt(lista.get(j), mappa[mossa.getCharacter()].getCarattere());
+        }
         return sb.toString();
     }
 
     /**
-     * metodo final - non e redifinibile in una sottoclase
-     * Inizzializa la mappa
+     * metodo final - non e redifinibile in una sottoclase Inizzializa la mappa
      * dei caratteri di un testoCifrato
      *
      * @param testoCifrato su quale si lavora
