@@ -117,7 +117,6 @@ public class GUIControllerUC1 {
             sdcPanel.getInboxProposteSDCBtn().addActionListener(new InboxSDCListener());
         } else if (v instanceof CreaSDCPanel) {
             creaSDCPanel = (CreaSDCPanel) v;
-            creaSDCPanel.getMappaturaBtn().addActionListener(new MetodoDicifraturaListener());
             creaSDCPanel.getCesareRBtn().addActionListener(new MetodoDicifraturaListener());
             creaSDCPanel.getParolaChiaveRBtn().addActionListener(new MetodoDicifraturaListener());
             creaSDCPanel.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
@@ -381,13 +380,12 @@ public class GUIControllerUC1 {
                 creaSDCPanel.initParolaChiave();
             } else if (ev.getText().equalsIgnoreCase("cesare")) {
                 creaSDCPanel.initCesare();
-            } else if (ev.getText().equalsIgnoreCase("monoalfabetico")){
-                creaSDCPanel.initMonoalfabetico();
             } else if (ev.getText().equalsIgnoreCase("pseudocasuale")){
                 creaSDCPanel.initPseudoCasuale();
             }
             //crea sistema di cifratura
             sistemaCifratura = new SistemaCifratura(utilizzatoreSistema);
+            panelloPrincipale.setStatus("Compilare i campi per creare un nuovo sistema di cifratura");
         }
     }
 
