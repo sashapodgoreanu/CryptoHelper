@@ -11,12 +11,12 @@ TO-DO (aggiornato 23/05/14)
 ********************** UC2 **************************
 - Creare interfaccia per le azioni della spia [in corso]
 - Creare classe AnalisiFrequenza
-- Creare classe MappaSostituzioni
-- Creare classe MappaPosCarattere
-- Creare classe MappaPosizioni
+- ok  Creare classe MappaSostituzioni
+- ok Creare classe MappaPosCarattere
+- ok Creare classe MappaPosizioni
 - Creare classi del pattern proxy (OK LUIGI, da controllare!! )
 [OK] Creare interfaccia MessaggioAstratto
-- Classe sistema di cifratura => rivedere/completare alcuni metodi
-- Implementare classe Mossa
-- Implementare classe albero
+- ok Classe sistema di cifratura => rivedere/completare alcuni metodi
+- ok Implementare classe Mossa
+-  in corso Implementare classe albero
 - Implementare classe soluzione
