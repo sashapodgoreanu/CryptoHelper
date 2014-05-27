@@ -20,13 +20,16 @@ public class MappaPosizioni {
      */
     public String executeMossa(Mossa mossa, String testoLavoro) {
         StringBuilder sb = new StringBuilder(testoLavoro);
-        //cambia il carrattere cifrato con quello presunto
-        mappa[mossa.getCharacter()].setCarattere(mossa.getInverseChar());
-        //cambia il nuovo carattere presunto anche nel testoLavoro
-        ArrayList<Integer> lista = mappa[mossa.getCharacter()].getListaPos();
-        for (int j = 0; j < lista.size(); j++) {
-            sb.setCharAt(lista.get(j), mappa[mossa.getCharacter()].getCarattere());
+        //se un carattere non è mappato nella mappa, la sua posizione nella mappa è null
+        if (mappa[mossa.getCharacter()] != null) {
+            //cambia il carrattere cifrato con quello presunto
+            mappa[mossa.getCharacter()].setCarattere(mossa.getInverseChar());//cambia il nuovo carattere presunto anche nel testoLavoro
+            ArrayList<Integer> lista = mappa[mossa.getCharacter()].getListaPos();
+            for (int j = 0; j < lista.size(); j++) {
+                sb.setCharAt(lista.get(j), mappa[mossa.getCharacter()].getCarattere());
+            }
         }
+
         return sb.toString();
     }
 
