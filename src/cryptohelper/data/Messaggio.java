@@ -19,6 +19,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
     private int id;
     private String testo;
     private String testoCifrato;
+    private String areaLavoro;
     private String lingua;
     private String titolo;
     private boolean bozza;
@@ -364,6 +365,16 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
     @Override
     public String toString() {
         return "Messaggio{" + "id=" + id + ", testo=" + testo + ", testoCifrato=" + testoCifrato + ", lingua=" + lingua + ", titolo=" + titolo + ", bozza=" + bozza + ", letto=" + letto + ", mittente=" + mittente + ", destinatario=" + destinatario + ", sistemaCifratura=" + sistemaCifratura + '}';
+    }
+
+    @Override
+    public String getAreaLavoro() {
+        return areaLavoro;
+    }
+
+    @Override
+    public void setAreaLavoro(String test) {
+        areaLavoro = test;
     }
 
 }

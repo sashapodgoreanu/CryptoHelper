@@ -1,9 +1,9 @@
 package cryptohelper.service;
 
+import cryptohelper.com.SessioneLavoro;
 import cryptohelper.data.AlberoIpotesi;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.QueryResult;
-import cryptohelper.data.SessioneLavoro;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.sql.SQLException;
@@ -44,7 +44,7 @@ public class TestDbController {
             st6.salva();
 
             for (int i = 0; i < 3; i++) {
-                Messaggio m = new Messaggio(0, "testo" + i, "testoCifrato", "italiano", "titolo", true, true);
+                Messaggio m = new Messaggio(0, "Seleziona l'iniziale e esplora l'intera lista di traduzioni comincianti per quella lettera presenti nel dizionario italiano-inglese." + i, "qbibzflkr i'fkfzfrib b bqmilpr i'fktbpr ifqtr af tprauzflkf sljfksfrktf mbp nubiir ibttbpr mpbqbktf kbi afzflkrpfl ftrifrkl-fkdibqb.", "italiano", "titolo", true, true);
                 st7.salva();
                 st3.salva();
                 st4.salva();
@@ -63,10 +63,27 @@ public class TestDbController {
              */
             UserInfo destinatario = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
             UserInfo mittente = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
-            Messaggio m1 = new Messaggio(0, "testo" + 3, "testoCifrato", "lingua", "titolo", true, true, mittente, destinatario);
+            Messaggio m1 = new Messaggio(0, "English is a West Germanic language that "
+                    + "was first spoken in early medieval England and is now a global lingua "
+                    + "franca.[4][5] It is spoken as a first language by the majority populations "
+                    + "of several sovereign states, including the United Kingdom, the United States, "
+                    + "Canada, Australia, Ireland, New Zealand and a number of Caribbean nations; and "
+                    + "it is an official language of almost 60 sovereign states. It is the third-most-common "
+                    + "native language in the world, after Mandarin Chinese and Spanish.[6] It is widely"
+                    + " learned as a second language and is an official language of the European Union,"
+                    + " many Commonwealth countries and the United Nations, as well as in many world organisations.",
+                    "bkdifqe fq r wbqt dbpjrkfs irkdurdb tert wrq cfpqt qmlhbk fk brpiy jbafbvri bkdirka rka fq "
+                    + "klw r dilori ifkdur cprksr.[4][5] ft fq qmlhbk rq r cfpqt irkdurdb oy teb jrglpfty "
+                    + "mlmuirtflkq lc qbvbpri qlvbpbfdk qtrtbq, fksiuafkd teb ukftba hfkdalj, teb ukftba qtrtbq,"
+                    + " srkrar, ruqtprifr, fpbirka, kbw zbrirka rka r kujobp lc srpfoobrk krtflkq; rka ft fq rk"
+                    + " lccfsfri irkdurdb lc rijlqt 60 qlvbpbfdk qtrtbq. ft fq teb tefpa-jlqt-sljjlk krtfvb irkdurdb"
+                    + " fk teb wlpia, rctbp jrkarpfk sefkbqb rka qmrkfqe.[6] ft fq wfabiy ibrpkba rq r qbslka"
+                    + " irkdurdb rka fq rk lccfsfri irkdurdb lc"
+                    + " teb buplmbrk ukflk, jrky sljjlkwbrite sluktpfbq rka teb ukftba krtflkq,"
+                    + " rq wbii rq fk jrky wlpia lpdrkfqrtflkq.", "lingua", "titolo", true, true, mittente, destinatario);
 
             System.out.println(m1.toString());
-            AlberoIpotesi alberoSessione = new AlberoIpotesi("aaa");
+            AlberoIpotesi alberoSessione = new AlberoIpotesi(m1.getTestoCifrato());
 
             SessioneLavoro s1 = new SessioneLavoro(0, "SessionePROVA", destinatario, m1, alberoSessione, null);
             System.out.println("S1");

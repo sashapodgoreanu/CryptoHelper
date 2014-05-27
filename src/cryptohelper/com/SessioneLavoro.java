@@ -1,8 +1,12 @@
-package cryptohelper.data;
+package cryptohelper.com;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-import cryptohelper.com.COMController;
+import cryptohelper.data.AlberoIpotesi;
+import cryptohelper.data.Messaggio;
+import cryptohelper.data.QueryResult;
+import cryptohelper.data.Soluzione;
+import cryptohelper.data.UserInfo;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
@@ -29,6 +33,7 @@ public class SessioneLavoro {
         this.nomeSessione = nomeSessione;
         this.autore = autore;
         this.messaggioIntercettato = messaggio;
+        messaggioIntercettato.setAreaLavoro(messaggioIntercettato.getTestoCifrato());
         this.alberoIpotesi = albero;
         this.soluzione = soluzione;
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -127,14 +132,26 @@ public class SessioneLavoro {
                 UserInfo autore = UserInfo.getUserInfo(idStudente); //preleva dati dell'utente in base all'id
                 //preleva il messaggio e lo converte da xml a oggetto Java
                 MessaggioIntercettato msg = (MessaggioIntercettato) xstream.fromXML(qr.getString("Messaggio_intercettato"));
-                // ATTENZIONE!!!!!  DA RIVEDERE I CAMPI CHE HO MESSO A NULL
-                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, msg, null, null);
+                AlberoIpotesi albero = (AlberoIpotesi) xstream.fromXML(qr.getString("ALBERO_IPOTESI"));
+                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, msg, albero, null);
                 sessioni.add(temp);
             }
         } catch (Exception ex) {
             Logger.getLogger(COMController.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
         return sessioni;
+    }
+
+    public boolean effetuaSostituzione(char ch1, char ch2) {
+
+        alberoIpotesi.display();
+        System.out.println(this.getClass() + ": effetuaSostituzione da " + ch1 + "  " + ch2);
+        System.out.println(this.getClass() + "messaggioIntercettato.getAreaLavoro(): " + messaggioIntercettato.getAreaLavoro());
+        ;
+
+        messaggioIntercettato.setAreaLavoro(alberoIpotesi.effettuaSostituzione(ch1, ch2, messaggioIntercettato.getAreaLavoro()));
+
+        return false;
     }
 
     //METODI GETTER

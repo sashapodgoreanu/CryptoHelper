@@ -3,12 +3,12 @@
 package cryptohelper.com;
 
 import cryptohelper.GUI.LoginForm;
+import cryptohelper.GUI.UC2.AreaLavoroPanel;
 import cryptohelper.GUI.UC2.CaricaSessionePanel;
 import cryptohelper.GUI.UC2.IntercettaMsgPanel;
 import cryptohelper.GUI.UC2.NuovaSessionePanel;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
-import cryptohelper.data.SessioneLavoro;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
 import java.awt.event.ActionEvent;
@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 public class GUIControllerUC2 {
 
@@ -25,6 +27,8 @@ public class GUIControllerUC2 {
     private IntercettaMsgPanel intercettaMessaggioPanel;
     private NuovaSessionePanel nuovaSessionePanel;
     private CaricaSessionePanel caricaSessionePanel;
+    private AreaLavoroPanel areaLavoroPanel;
+    private SessioneLavoro session;
 
     private GUIControllerUC2() {
         comC = COMController.getInstance();
@@ -53,8 +57,26 @@ public class GUIControllerUC2 {
             caricaSessionePanel.getElencoSessioni().addListSelectionListener(new ViewSessionChoiceListener());
             caricaSessionePanel.getEliminaSessioneBtn().addActionListener(new DeleteSessionListener());
             caricaSessionePanel.getOkBtn().addActionListener(new LoadWorkspaceListener());
-        }
+        } else if (v instanceof AreaLavoroPanel) {
+            areaLavoroPanel = (AreaLavoroPanel) v;
+            areaLavoroPanel.getMappatura().getModel().addTableModelListener(new TableMappaturaListener());
 
+        }
+    }
+
+    private class TableMappaturaListener implements TableModelListener {
+
+        @Override
+        public void tableChanged(TableModelEvent e) {
+            System.out.println("effettua una sostituzione");
+            int index = e.getColumn(); //index della colona editata
+            String sost = (String) areaLavoroPanel.getMappatura().getValueAt(0, index); //valore della riga 0 e colona index
+            char ch2 = sost.charAt(0); //trasforma la stringa sost in char
+            session.effetuaSostituzione((char) (index + 'A'), ch2);
+            areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
+
+
+        }
     }
 
     //classe listener per il button "logout" della finestra principale
@@ -123,8 +145,8 @@ public class GUIControllerUC2 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            SessioneLavoro session = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
-            session.elimina();
+            SessioneLavoro sessionTemp = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
+            sessionTemp.elimina();
             caricaSessionePanel.deleteSelectedIndex();
             intercettaMessaggioPanel.setStatus("Bozza eliminata correttamente!");
         }
@@ -137,10 +159,10 @@ public class GUIControllerUC2 {
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            SessioneLavoro session = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
-            System.out.println(session.toString());
+            session = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
+            System.out.println("LoadWorkspaceListener :" + session.toString());
             intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
-            intercettaMessaggioPanel.initAreaLavoro(session);
+            intercettaMessaggioPanel.initAreaLavoro(session.getMessaggioIntercettato());
         }
     }
 

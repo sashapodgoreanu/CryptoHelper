@@ -31,6 +31,7 @@ public class AlberoIpotesi {
         if (isEmpty()) {
             return null;
         }
+        System.out.println("Not null");
         //Tutti i caratteri dentro la MappaturaPosizioni sono lettere Upercase.
         //Una volta fatta effettuaSostituzione(ch1, ch2), ch2 sara un presunto carattere in chiaro qundi deve essere carattere minuscolo
         if (ch2 >= 'A' && ch2 <= 'Z') {

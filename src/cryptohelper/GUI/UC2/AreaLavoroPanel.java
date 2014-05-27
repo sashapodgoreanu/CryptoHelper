@@ -1,14 +1,29 @@
 //Pannello con gli strumenti per decifrare il messaggio per la spia
 package cryptohelper.GUI.UC2;
 
-import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
-import cryptohelper.data.SessioneLavoro;
-import javax.swing.*;
-import java.awt.*;
+import cryptohelper.interfaces.MessaggioIntercettato;
+import cryptohelper.interfaces.View;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextPane;
 import javax.swing.border.Border;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumn;
 
 public class AreaLavoroPanel extends JPanel implements View {
+
+    private boolean DEBUG = true;
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
@@ -24,16 +39,17 @@ public class AreaLavoroPanel extends JPanel implements View {
     JTextPane corpoTestoCifrato;
     JTable mappatura;
     JScrollPane scrollPane;
-    SessioneLavoro sessione; //sessione su cui si sta lavorando
+    ArrayList<JComboBox> jcomboBoxes;//dropdown per selezionare un carattere
+    MessaggioIntercettato messaggioIntercettato; //sessione su cui si sta lavorando
 
-    public AreaLavoroPanel(SessioneLavoro sessione) {
+    public AreaLavoroPanel(MessaggioIntercettato messaggioIntercettato) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
         leftPanelUp = new JPanel();
         leftPanelDown = new JPanel();
-        this.sessione = sessione;
+        this.messaggioIntercettato = messaggioIntercettato;
         this.init();
     }
 
@@ -51,32 +67,37 @@ public class AreaLavoroPanel extends JPanel implements View {
         leftPanelDown.setLayout(new BorderLayout());
 
         //INIT DEI CONTROLLI
+        jcomboBoxes = new ArrayList<>();
         codedTextLabel = new JLabel("Testo cifrato:");
         plainTextLabel = new JLabel("Testo in chiaro:");
         mappaturaLabel = new JLabel("Mappatura corrente:");
-        languageLabel = new JLabel("Lingua messaggio: " + sessione.getMessaggioIntercettato().getLingua());
+        languageLabel = new JLabel("Lingua messaggio: " + messaggioIntercettato.getLingua());
         corpoTestoCifrato = new JTextPane();
         corpoTestoCifrato.setPreferredSize(new Dimension(500, 180));
         corpoTestoCifrato.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
-        System.out.println("DADAD");
-        System.out.println(sessione.toString());
+        //System.out.println(sessione.toString());
 
-        corpoTestoCifrato.setText(sessione.getMessaggioIntercettato().getTestoCifrato());
+        corpoTestoCifrato.setText(messaggioIntercettato.getTestoCifrato());
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
         corpoTestoCifrato.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(5, 5, 5, 5))); //assegna un margine al controllo
         corpoTesto = new JTextPane();
+        corpoTesto.setText(messaggioIntercettato.getAreaLavoro());
         corpoTesto.setPreferredSize(new Dimension(500, 180));
         corpoTesto.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
         corpoTesto.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(5, 5, 5, 5))); //assegna un margine al controllo
 
-        String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-        Object[][] data = {{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""}};
-        mappatura = new JTable(data, alfabeto);
+        //String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        //Object[][] data = {{"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""}};
+        mappatura = new JTable(new MappaturaModel());
         mappatura.setCellSelectionEnabled(true);
+        for (int i = 0; i < 26; i++) {
+            setUpCollona(mappatura.getColumnModel().getColumn(i));
+        }
+
         scrollPane = new JScrollPane();
         scrollPane.setViewportView(mappatura);
-        scrollPane.setPreferredSize(new Dimension(600, 40));
+        scrollPane.setPreferredSize(new Dimension(800, 40));
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI             
         leftPanelUp.add(codedTextLabel, BorderLayout.NORTH);
@@ -99,6 +120,76 @@ public class AreaLavoroPanel extends JPanel implements View {
         registerController();
     }
 
+    public void setUpCollona(TableColumn collona) {
+        //Set up the editor for the sport cells.
+        JComboBox comboBox = new JComboBox();
+        comboBox.addItem("-");
+        for (int i = 'A'; i <= 'Z'; i++) {
+            comboBox.addItem(String.valueOf((char) i));
+        }
+        jcomboBoxes.add(comboBox);
+        collona.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+
+    class MappaturaModel extends AbstractTableModel {
+
+        private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
+        private Object[][] data = {
+            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
+        };
+
+        public int getColumnCount() {
+            return alfabeto.length;
+        }
+
+        public int getRowCount() {
+            return data.length;
+        }
+
+        public String getColumnName(int col) {
+            return alfabeto[col];
+        }
+
+        public Object getValueAt(int row, int col) {
+            return data[row][col];
+        }
+
+        public boolean isCellEditable(int row, int col) {
+            return col >= 0;
+        }
+
+        public void setValueAt(Object value, int row, int col) {
+            if (true) {
+                System.out.println("Set valore nella " + row + "," + col
+                        + " a " + value
+                );
+            }
+
+            data[row][col] = value;
+            fireTableCellUpdated(row, col);
+
+            if (DEBUG) {
+                System.out.println("Nuovo valore :");
+                printDebugData();
+            }
+        }
+
+        private void printDebugData() {
+            int numRows = getRowCount();
+            int numCols = getColumnCount();
+
+            for (int i = 0; i < numRows; i++) {
+                System.out.print("    row " + i + ":");
+                for (int j = 0; j < numCols; j++) {
+                    System.out.print("  " + data[i][j]);
+                }
+                System.out.println();
+            }
+            System.out.println("--------------------------");
+        }
+    }
+
     @Override
     public void registerController() {
         GUIControllerUC2 gc = GUIControllerUC2.getInstance();
@@ -110,8 +201,21 @@ public class AreaLavoroPanel extends JPanel implements View {
         return corpoTesto;
     }
 
+    public void setCorpoTesto(JTextPane corpoTesto) {
+        this.corpoTesto = corpoTesto;
+    }
+
+
     public JTextPane getCorpoTestoCifrato() {
         return corpoTestoCifrato;
+    }
+
+    public JTable getMappatura() {
+        return mappatura;
+    }
+
+    public void setMappatura(JTable mappatura) {
+        this.mappatura = mappatura;
     }
 
 }

@@ -33,10 +33,6 @@ public class Mossa {
         return new Mossa(inverseChar, character);
     }
 
-    public void map(char char1, char char2) {
-        throw new UnsupportedOperationException();
-    }
-
     //METODI GETTER
     public char getCharacter() {
         return character;
