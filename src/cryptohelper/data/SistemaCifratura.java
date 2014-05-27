@@ -88,6 +88,7 @@ public class SistemaCifratura {
     }
 
     public boolean salva() {
+        System.out.println(this.getClass() + " salva ");
         boolean result = false;
         DBController dbc = DBController.getInstance();
         //querry per salvare la prima volta
@@ -170,7 +171,7 @@ public class SistemaCifratura {
             return isNumeric(chiave);
         } else if (metodo.equals("parola chiave")) {
             return chiave.matches("[a-zA-Z]*") && chiave.length() > 0;
-            }
+        }
         return false;
     }
 
