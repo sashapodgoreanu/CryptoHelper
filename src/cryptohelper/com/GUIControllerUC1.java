@@ -575,7 +575,7 @@ public class GUIControllerUC1 {
                 } else {
                     panelloPrincipale.setStatus("La mappatura non è corretta o contiene caratteri illegali - sono accettate solo lettere");
                 }
-            } else if ((metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE) || metodo.equals(Cifrario.PAROLA_CHIAVE)) && creaSDCPanel.getNomeCifraturaField().getText() != null) {
+            } else if ((metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE) || metodo.equals(Cifrario.PAROLA_CHIAVE))) {
                 String chiave = creaSDCPanel.getChiave().getText();
                 System.out.println(this.getClass() + " metodo " + (metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE) || metodo.equals(Cifrario.PAROLA_CHIAVE)));
                 if (sistemaCifratura.valid(metodo, chiave)) {
