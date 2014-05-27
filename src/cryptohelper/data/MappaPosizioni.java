@@ -21,18 +21,18 @@ public class MappaPosizioni {
     public String executeMossa(Mossa mossa, String testoLavoro) {
         StringBuilder sb = new StringBuilder(testoLavoro);
         //System.out.println("executeMossa sb " + sb + " Mossa: " + mossa.toString());
-        for (int i = 'A'; i <= 'z'; i++) {
+        //for (int i = 'A'; i <= 'z'; i++) {
             //cerca nella mappa dove risiede il carattere cifrato che si vuole scambiare
-            if (mappa[i] != null && (mappa[i].getCarattere() == mossa.getCharacter())) {
+           // if (mappa[i] != null && (mappa[i].getCarattere() == mossa.getCharacter())) {
                 //cambia il carrattere cifrato con quello presunto
-                mappa[i].setCarattere(mossa.getInverseChar());
+                mappa[mossa.getCharacter()].setCarattere(mossa.getInverseChar());
                 //cambia il nuovo carattere presunto anche nel testoLavoro
-                ArrayList<Integer> lista = mappa[i].getListaPos();
+                ArrayList<Integer> lista = mappa[mossa.getCharacter()].getListaPos();
                 for (int j = 0; j < lista.size(); j++) {
-                    sb.setCharAt(lista.get(j), mappa[i].getCarattere());
+                    sb.setCharAt(lista.get(j), mappa[mossa.getCharacter()].getCarattere());
                 }
-            }
-        }
+        //}
+        //}
         return sb.toString();
     }
 

@@ -81,6 +81,7 @@ public class TestDbController {
                     + " irkdurdb rka fq rk lccfsfri irkdurdb lc"
                     + " teb buplmbrk ukflk, jrky sljjlkwbrite sluktpfbq rka teb ukftba krtflkq,"
                     + " rq wbii rq fk jrky wlpia lpdrkfqrtflkq.", "lingua", "titolo", true, true, mittente, destinatario);
+            m1.setAreaLavoro(m1.getTestoCifrato().toUpperCase());
 
             System.out.println(m1.toString());
             AlberoIpotesi alberoSessione = new AlberoIpotesi(m1.getTestoCifrato());

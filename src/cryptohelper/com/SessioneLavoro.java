@@ -33,7 +33,8 @@ public class SessioneLavoro {
         this.nomeSessione = nomeSessione;
         this.autore = autore;
         this.messaggioIntercettato = messaggio;
-        messaggioIntercettato.setAreaLavoro(messaggioIntercettato.getTestoCifrato());
+        //TO-DO da rimuovere o da rivedere 
+        messaggioIntercettato.setAreaLavoro(messaggioIntercettato.getTestoCifrato().toUpperCase());
         this.alberoIpotesi = albero;
         this.soluzione = soluzione;
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
