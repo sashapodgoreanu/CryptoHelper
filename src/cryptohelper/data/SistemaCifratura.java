@@ -90,6 +90,9 @@ public class SistemaCifratura {
     public boolean salva() {
         System.out.println(this.getClass() + " salva ");
         boolean result = false;
+        if (this.nome == null || this.nome.length() == 0) {
+            return false;
+        }
         DBController dbc = DBController.getInstance();
         //querry per salvare la prima volta
         String queryInsert = "INSERT INTO SISTEMICIFRATURA(NOME, METODO, CHIAVE, CREATORE)"
