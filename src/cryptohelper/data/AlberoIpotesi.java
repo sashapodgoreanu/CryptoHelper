@@ -32,15 +32,6 @@ public class AlberoIpotesi {
         if (isEmpty()) {
             return null;
         }
-        System.out.println("Not null");
-        //Tutti i caratteri dentro la MappaturaPosizioni sono lettere Upercase.
-        //Una volta fatta effettuaSostituzione(ch1, ch2), ch2 sara un presunto carattere in chiaro qundi deve essere carattere minuscolo
-        if (ch2 >= 'A' && ch2 <= 'Z') {
-            //trasforma
-            ch2 = (char) (ch2 + 32);
-        } else if (ch2 == '-') {
-            ch2 = ch1;
-        }
         Ipotesi ipCorrente = new Ipotesi(ch1, ch2);
         addIpotesi(ipCorrente);
         return mappaPosizioni.executeMossa(ipCorrente.getMossaCorrente(), testoLavoro);
@@ -56,6 +47,7 @@ public class AlberoIpotesi {
 
     private boolean cerca(char ch1, char ch2, Ipotesi ip) {
         if (ip != null) {
+            System.out.println(ip.getMossaCorrente().getCharacter() + " " + ch1 + " " + ip.getMossaCorrente().getInverseChar() + " " + ch2);
             if (ip.getMossaCorrente().getCharacter() == ch1 && ip.getMossaCorrente().getInverseChar() == ch2) {
                 return true;
             } else {

@@ -2,7 +2,6 @@
 //è un GUIController per l'area di lavoro della spia (parte UC2 del codice)
 package cryptohelper.com;
 
-import cryptohelper.data.SessioneLavoro;
 import cryptohelper.GUI.LoginForm;
 import cryptohelper.GUI.UC2.AreaLavoroPanel;
 import cryptohelper.GUI.UC2.CaricaSessionePanel;
@@ -10,6 +9,7 @@ import cryptohelper.GUI.UC2.IntercettaMsgPanel;
 import cryptohelper.GUI.UC2.NuovaSessionePanel;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
+import cryptohelper.data.SessioneLavoro;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
 import java.awt.event.ActionEvent;
@@ -70,12 +70,16 @@ public class GUIControllerUC2 {
         @Override
         public void tableChanged(TableModelEvent e) {
             System.out.println("effettua una sostituzione");
+            intercettaMessaggioPanel.setStatus("");
             int index = e.getColumn(); //index della colona editata
             String sost = (String) areaLavoroPanel.getMappatura().getValueAt(0, index); //valore della riga 0 e colona index
             char ch2 = sost.charAt(0); //trasforma la stringa sost in char
-            session.effetuaSostituzione((char) (index + 'A'), ch2);
+            boolean mossaEffettuatainPrecedenza = session.effetuaSostituzione((char) (index + 'A'), ch2);
+            System.out.println(mossaEffettuatainPrecedenza);
+            if (mossaEffettuatainPrecedenza) {
+                intercettaMessaggioPanel.setStatus((char) (index + 'A') + " " + ch2 + " - Mossa effetuata in precedenza!");
+            }
             areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
-
 
         }
     }

@@ -140,11 +140,20 @@ public class SessioneLavoro {
     }
 
     public boolean effetuaSostituzione(char ch1, char ch2) {
-        alberoIpotesi.display();
+        //Tutti i caratteri dentro la MappaturaPosizioni sono lettere Upercase.
+        //Una volta fatta effettuaSostituzione(ch1, ch2), ch2 sara un presunto carattere in chiaro qundi deve essere carattere minuscolo
+        if (ch2 >= 'A' && ch2 <= 'Z') {
+            //trasforma
+            ch2 = (char) (ch2 + 32);
+        } else if (ch2 == '-') {
+            ch2 = ch1;
+        }
+        boolean mossaDuplicata = alberoIpotesi.cerca(ch1, ch2);
         System.out.println(this.getClass() + ": effetuaSostituzione da " + ch1 + "  " + ch2);
         System.out.println(this.getClass() + "messaggioIntercettato.getAreaLavoro(): " + messaggioIntercettato.getAreaLavoro());
         messaggioIntercettato.setAreaLavoro(alberoIpotesi.effettuaSostituzione(ch1, ch2, messaggioIntercettato.getAreaLavoro()));
-        return this.alberoIpotesi.cerca(ch1, ch2);
+        alberoIpotesi.display();
+        return mossaDuplicata;
     }
 
     //METODI GETTER
