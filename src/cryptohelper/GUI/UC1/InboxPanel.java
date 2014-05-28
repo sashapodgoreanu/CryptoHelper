@@ -1,5 +1,5 @@
 //pannello per la gestione dei messaggi in arrivo
-package cryptohelper.GUI;
+package cryptohelper.GUI.UC1;
 
 import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.HtmlVisitor;

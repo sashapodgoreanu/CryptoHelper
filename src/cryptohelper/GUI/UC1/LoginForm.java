@@ -1,5 +1,5 @@
 //Classe Login Form - Gestisce il form per l'accesso al servizio da parte degli utenti
-package cryptohelper.GUI;
+package cryptohelper.GUI.UC1;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;

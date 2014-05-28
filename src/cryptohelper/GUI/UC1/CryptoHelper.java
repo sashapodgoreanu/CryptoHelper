@@ -1,6 +1,6 @@
 //classe di avvio del programma
 
-package cryptohelper.GUI;
+package cryptohelper.GUI.UC1;
 
 public class CryptoHelper {
 

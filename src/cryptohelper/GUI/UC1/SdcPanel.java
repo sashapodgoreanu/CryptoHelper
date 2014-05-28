@@ -1,5 +1,5 @@
 //Pannello per le operazioni con il sistema di cifratura
-package cryptohelper.GUI;
+package cryptohelper.GUI.UC1;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;

@@ -1,5 +1,5 @@
 //Pannello per la proporre un sistema di cifratura d altri utenti
-package cryptohelper.GUI;
+package cryptohelper.GUI.UC1;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;

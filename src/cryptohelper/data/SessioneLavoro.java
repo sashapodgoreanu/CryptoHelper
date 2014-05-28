@@ -139,21 +139,40 @@ public class SessioneLavoro {
         return sessioni;
     }
 
+    /**
+     * Il metodo effetua una sostituzione sul arealavoro del
+     * MessaggioIntercetatto ed aggiorna la Mappaturapossizione in base alla
+     * mossa effetuata
+     *
+     * @param ch1 carattere cifrato da sostituire
+     * @param ch2 presunto carattere in chiaro
+     * @return true se la sostituzone ch1 -> ch2 è stata fata gia fatta
+     */
     public boolean effetuaSostituzione(char ch1, char ch2) {
         //Tutti i caratteri dentro la MappaturaPosizioni sono lettere Upercase.
         //Una volta fatta effettuaSostituzione(ch1, ch2), ch2 sara un presunto carattere in chiaro qundi deve essere carattere minuscolo
         if (ch2 >= 'A' && ch2 <= 'Z') {
             //trasforma
             ch2 = (char) (ch2 + 32);
+            //il carattere '-' coincide con torna allo stato iniziale del carattere cifrato
         } else if (ch2 == '-') {
             ch2 = ch1;
         }
+        //verifica della mossa duplicata se gia presente nel'alberoIpotesi
         boolean mossaDuplicata = alberoIpotesi.cerca(ch1, ch2);
         System.out.println(this.getClass() + ": effetuaSostituzione da " + ch1 + "  " + ch2);
-        System.out.println(this.getClass() + "messaggioIntercettato.getAreaLavoro(): " + messaggioIntercettato.getAreaLavoro());
+        //AQggiorna areaLavoro del messaggioIntercettato con la sostituzione della mossa ch1-> ch2
         messaggioIntercettato.setAreaLavoro(alberoIpotesi.effettuaSostituzione(ch1, ch2, messaggioIntercettato.getAreaLavoro()));
         alberoIpotesi.display();
         return mossaDuplicata;
+    }
+
+    /**
+     * il metodo riptistina lo stato della sessione che è stato salvato nel data
+     * base
+     */
+    public void loadSession() {
+
     }
 
     //METODI GETTER

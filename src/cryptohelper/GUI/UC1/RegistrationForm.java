@@ -1,5 +1,5 @@
 //Classe RegistrationForm - Gestisce l'interfaccia per la registrazione di nuovi utenti
-package cryptohelper.GUI;
+package cryptohelper.GUI.UC1;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;

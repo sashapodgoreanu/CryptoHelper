@@ -2,7 +2,7 @@
 //è un GUIController per l'area di lavoro della spia (parte UC2 del codice)
 package cryptohelper.com;
 
-import cryptohelper.GUI.LoginForm;
+import cryptohelper.GUI.UC1.LoginForm;
 import cryptohelper.GUI.UC2.AreaLavoroPanel;
 import cryptohelper.GUI.UC2.CaricaSessionePanel;
 import cryptohelper.GUI.UC2.IntercettaMsgPanel;

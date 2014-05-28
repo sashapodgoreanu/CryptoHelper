@@ -1,5 +1,5 @@
 //Pannello per inviare un nuovo messaggio ad un altro utente
-package cryptohelper.GUI;
+package cryptohelper.GUI.UC1;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
