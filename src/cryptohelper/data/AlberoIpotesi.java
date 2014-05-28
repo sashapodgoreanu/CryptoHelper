@@ -33,7 +33,9 @@ public class AlberoIpotesi {
             return null;
         }
         Ipotesi ipCorrente = new Ipotesi(ch1, ch2);
+        System.out.println("prima");
         addIpotesi(ipCorrente);
+        System.out.println("dopo");
         return mappaPosizioni.executeMossa(ipCorrente.getMossaCorrente(), testoLavoro);
 
     }
@@ -67,7 +69,7 @@ public class AlberoIpotesi {
      */
     public boolean addIpotesi(Ipotesi ipCorrente) {
         if (isEmpty() || ipCorrente == null) {
-            System.out.println("not Ok");
+            System.out.println("addIpotesi not Ok");
             return false;
         }
         return addIpotesi(ipCorrente, root);
@@ -75,27 +77,29 @@ public class AlberoIpotesi {
 
     private boolean addIpotesi(Ipotesi ipCorrente, Ipotesi rootI) {
         if (mappaPosizioni == null) {
+            System.out.println("addIpotesi mappaPosizioni == null");
             return false;
         }
-
         if (rootI.isUltima()) {
-            rootI.setMossaPrecedente(ipCorrente.getMossaCorrente().createMossaUndo());
+            System.out.println("addIpotesi NON DEVE ESSERE NULL" + rootI.getMossaPrecedente());
+            rootI.setMossaPrecedente(mappaPosizioni.createMossaUndo(ipCorrente.getMossaCorrente()));
             rootI.setUltima(false);
             rootI.getFigli().add(ipCorrente);
             ipCorrente.setPadre(rootI);
             System.out.println("ok");
             return true;
-        } else {
-            for (int i = 0; i < rootI.getFigli().size(); i++) {
-                return addIpotesi(ipCorrente, rootI.getFigli().get(i));
-            }
         }
+        for (int i = 0; i < rootI.getFigli().size(); i++) {
+            System.out.println("addIpotesi FOOORR" + rootI.getFigli().get(i));
+            return addIpotesi(ipCorrente, rootI.getFigli().get(i));
+        }
+        System.out.println("addIpotesi Return falseeee");
         return false;
     }
 
     public String undo(String testoLavoro) {
         Ipotesi ip = getIpotesiCorrente();
-        System.out.println(ip);
+        System.out.println("ipcorrente " + ip.toString());
         Ipotesi padre = ip.getPadre();
         ip.setValid(false);
         ip.setUltima(false);
@@ -115,11 +119,13 @@ public class AlberoIpotesi {
 
     private Ipotesi getIpotesiCorrente(Ipotesi ip) {
         if (ip.isUltima()) {
+            System.out.println("getIpotesiCorrente:" + ip.toString() + " padre " + ip.getPadre());
             return ip;
         }
         for (int i = 0; i < ip.getFigli().size(); i++) {
             return getIpotesiCorrente(ip.getFigli().get(i));
         }
+        System.out.println("Return a nulll !!!!!!!!!!!!!!!!!!!!!!");
         return null;
     }
 
@@ -134,7 +140,7 @@ public class AlberoIpotesi {
 
     private void display(Ipotesi ipotesi, int profondita, int figlio) {
         if (ipotesi != null) {
-            System.out.println("profondita:" + profondita + " figlio:" +figlio+" "+ ipotesi.toString());
+            System.out.println("profondita:" + profondita + " figlio:" + figlio + " " + ipotesi.toString());
             profondita++;
             for (int i = 0; i < ipotesi.getFigli().size(); i++) {
                 display(ipotesi.getFigli().get(i), profondita, i);

@@ -27,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -67,7 +66,7 @@ public class AlberoIpotesiTest {
      * Test of cerca method, of class AlberoIpotesi.
      */
     @Test
-    @Ignore
+    //@Ignore
     public void testCerca() {
         System.out.println("Test of cerca method, of class AlberoIpotesi.");
         String testoLavoro = "AONJCO";
@@ -108,7 +107,7 @@ public class AlberoIpotesiTest {
      * Test of addIpotesi method, of class AlberoIpotesi.
      */
     @Test
-    @Ignore
+    //@Ignore
     public void testAddIpotesi() {
         System.out.println("Test of addIpotesi method, of class AlberoIpotesi.");
         ip1 = new Ipotesi('H', 'w');
@@ -126,7 +125,7 @@ public class AlberoIpotesiTest {
      * Test of effettuaSostituzione method, of class AlberoIpotesi.
      */
     @Test
-    @Ignore
+    //@Ignore
     public void testEffettuaSostituzione() {
         String testoLavoro = "AONJCO";
         //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
