@@ -10,14 +10,6 @@ public class Mossa {
         this.inverseChar = inverseChar;
     }
 
-    public Mossa createMossaUndo() {
-        char undoChar = inverseChar;
-        if(undoChar>= 'a' && undoChar<= 'z'){
-            undoChar = (char) (undoChar - 32);
-        }
-        return new Mossa(undoChar, character);
-    }
-
     //METODI GETTER
     public char getCharacter() {
         return character;
@@ -35,4 +27,10 @@ public class Mossa {
     public void setInverseChar(char inverseChar) {
         this.inverseChar = inverseChar;
     }
+
+    @Override
+    public String toString() {
+        return "Mossa{" + "character=" + character + ", inverseChar=" + inverseChar + '}';
+    }
+
 }

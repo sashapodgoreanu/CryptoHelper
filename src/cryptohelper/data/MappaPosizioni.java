@@ -73,6 +73,30 @@ public class MappaPosizioni {
         return mappa;
     }
 
+    /**
+     * Data una mossa da sostituire 2 caratteri che sara eseguita, restituisce
+     * la mossa effetuata in precedenza.
+     *
+     * @param mossa corrente
+     * @return mossa per undo (mossa precedente)
+     */
+    public Mossa createMossaUndo(Mossa mossa) {
+        char undoChar = this.mapOf(mossa.getCharacter());
+        return new Mossa(mossa.getCharacter(), undoChar);
+    }
+
+    /**
+     * Dato un carattere ch cifrato, il metodo restituisce il suo corisponde
+     * carattere presunto in chiaro. Se per esempio abbiamo assunto che 'C' =
+     * 'h', allora dato 'C' il metodo restituisce 'h' .
+     *
+     * @param ch carattere cifrato
+     * @return il presunto carattere in chiaro
+     */
+    public char mapOf(char ch) {
+        return mappa[ch].getCarattere();
+    }
+
     public void setMappa(MappaPosCarattere[] mappa) {
         this.mappa = mappa;
     }
