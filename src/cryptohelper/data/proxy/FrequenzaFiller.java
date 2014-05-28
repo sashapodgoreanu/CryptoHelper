@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package cryptohelper.proxy;
+package cryptohelper.data.proxy;
+
 
 import java.io.File;
 import java.io.IOException;
