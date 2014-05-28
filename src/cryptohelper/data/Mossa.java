@@ -8,6 +8,7 @@ public class Mossa {
     public Mossa(char character, char inverseChar) {
         this.character = character;
         this.inverseChar = inverseChar;
+        //System.out.println("Mosaaaaa: " + character + " " + inverseChar);
     }
 
     //METODI GETTER

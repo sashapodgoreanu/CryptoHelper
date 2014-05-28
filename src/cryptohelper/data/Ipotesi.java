@@ -11,6 +11,7 @@ public class Ipotesi {
     private ArrayList<Ipotesi> figli;
     private boolean ultima;
     private boolean valid;
+    private boolean isRoot;
 
     public Ipotesi() {
         System.out.println("New ipotesi");
@@ -20,10 +21,12 @@ public class Ipotesi {
         figli = new ArrayList<>();
         ultima = true;
         valid = true;
+        isRoot = false;
     }
 
     public Ipotesi(char ch1, char ch2) {
         mossaCorrente = new Mossa(ch1, ch2);
+        mossaPrecedente = null;
         padre = null;
         figli = new ArrayList<>();
         valid = true;
@@ -77,6 +80,15 @@ public class Ipotesi {
     public void setValid(boolean valid) {
         this.valid = valid;
     }
+
+    public boolean isIsRoot() {
+        return isRoot;
+    }
+
+    public void setIsRoot(boolean isRoot) {
+        this.isRoot = isRoot;
+    }
+
 
     @Override
     public String toString() {

@@ -1,6 +1,8 @@
 //Classe che gestisce l'albero delle ipotesi
 package cryptohelper.data;
 
+import java.util.ArrayList;
+
 public class AlberoIpotesi {
 
     private Ipotesi root;
@@ -9,6 +11,7 @@ public class AlberoIpotesi {
     public AlberoIpotesi(String testoCifrato) {
         //la root non ha una mossa corrente. questo nodo serve per memorizare l'informazione per un eventuale undo()
         root = new Ipotesi('-', '-');
+        root.setIsRoot(true);
         mappaPosizioni = new MappaPosizioni(testoCifrato);
 
     }
@@ -40,6 +43,7 @@ public class AlberoIpotesi {
 
     }
 
+    //TO-DO DA REVISIONARE RICERCA 
     public boolean cerca(char ch1, char ch2) {
         if (isEmpty()) {
             return false;
@@ -69,64 +73,126 @@ public class AlberoIpotesi {
      */
     public boolean addIpotesi(Ipotesi ipCorrente) {
         if (isEmpty() || ipCorrente == null) {
-            System.out.println("addIpotesi not Ok");
             return false;
         }
         return addIpotesi(ipCorrente, root);
     }
 
-    private boolean addIpotesi(Ipotesi ipCorrente, Ipotesi rootI) {
-        if (mappaPosizioni == null) {
-            System.out.println("addIpotesi mappaPosizioni == null");
-            return false;
-        }
-        if (rootI.isUltima()) {
-            System.out.println("addIpotesi NON DEVE ESSERE NULL" + rootI.getMossaPrecedente());
-            rootI.setMossaPrecedente(mappaPosizioni.createMossaUndo(ipCorrente.getMossaCorrente()));
-            rootI.setUltima(false);
-            rootI.getFigli().add(ipCorrente);
-            ipCorrente.setPadre(rootI);
-            System.out.println("ok");
+    private boolean addIpotesi(Ipotesi nuovaIpotesi, Ipotesi ultimaIpotesi) {
+        if (ultimaIpotesi.isUltima()) {
+            ultimaIpotesi.setMossaPrecedente(mappaPosizioni.createMossaUndo(nuovaIpotesi.getMossaCorrente()));
+            ultimaIpotesi.setUltima(false);
+            ultimaIpotesi.getFigli().add(nuovaIpotesi);
+            nuovaIpotesi.setPadre(ultimaIpotesi);
             return true;
+        } else {
+            ArrayList<Ipotesi> temp = ultimaIpotesi.getFigli();
+            if (temp.size() == 0) {
+                return false;
+            }
+            boolean result;
+            int i = 0;
+            result = addIpotesi(nuovaIpotesi, ultimaIpotesi.getFigli().get(i));
+            i++;
+            while (i < temp.size()) {
+                if (result == true) {
+                    return result;
+                } else {
+                    result = addIpotesi(nuovaIpotesi, ultimaIpotesi.getFigli().get(i));
+                    i++;
+                }
+            }
+            return result;
         }
-        for (int i = 0; i < rootI.getFigli().size(); i++) {
-            System.out.println("addIpotesi FOOORR" + rootI.getFigli().get(i));
-            return addIpotesi(ipCorrente, rootI.getFigli().get(i));
-        }
-        System.out.println("addIpotesi Return falseeee");
-        return false;
     }
 
     public String undo(String testoLavoro) {
+        Mossa mossaUndo = null;
         Ipotesi ip = getIpotesiCorrente();
-        System.out.println("ipcorrente " + ip.toString());
+        System.out.println("PRIMA IPOTESI CORENTE: " + ip.toString());
         Ipotesi padre = ip.getPadre();
-        ip.setValid(false);
-        ip.setUltima(false);
-        padre.setUltima(true);
-        Mossa mossaUndo = padre.getMossaPrecedente();
+        if (padre == null) { //se padre = null allora ip == root
+            System.out.println("ROOOOOT");
+            ip.setValid(true);
+            ip.setUltima(true);
+            mossaUndo = ip.getMossaPrecedente();
+        } else {
+            System.out.println("NO ROOOOOOT");
+            ip.setValid(false);
+            ip.setUltima(false);
+            padre.setUltima(true);
+            mossaUndo = padre.getMossaPrecedente();
+        }
+        System.out.println("**********************************");
+        display();//debug
+        System.out.println("**********************************");
+        System.out.println("DOPO IPOTESI CORENTE: " + ip.toString());
         return mappaPosizioni.executeMossa(mossaUndo, testoLavoro);
     }
 
     //Restituisce l'ipotesi corrente
     public Ipotesi getIpotesiCorrente() {
         if (isEmpty()) {
-            System.out.println(this.getClass() + ": return null");
             return null;
         }
         return getIpotesiCorrente(root);
     }
+    /*
+     private Node search(String name, Node node){
+     if(node != null){
+     if(node.name().equals(name)){
+     return node;
+     } else {
+     Node foundNode = search(name, node.left);
+     if(foundNode == null) {
+     foundNode = search(name, node.right);
+     }
+     return foundNode.
+     }
+     } else {
+     return null;
+     }
+     }*/
 
+    /*
+     if(node != null){
+     if(node.name().equals(name)){
+     return node;
+     }
+     else {
+     Node tmp = search(name, node.left);
+     if (tmp != null) { // if we find it at left
+     return tmp; // we return it
+     }
+     // else we return the result of the search in the right node
+     return search(name, node.right);
+     }
+     }
+     return null;
+     */
     private Ipotesi getIpotesiCorrente(Ipotesi ip) {
-        if (ip.isUltima()) {
-            System.out.println("getIpotesiCorrente:" + ip.toString() + " padre " + ip.getPadre());
+        if (ip != null && ip.isUltima()) {
             return ip;
+        } else {
+            ArrayList<Ipotesi> temp = ip.getFigli();
+            if (temp.size() == 0) {
+                return null;
+            }
+            Ipotesi ultimaIp;
+            int i = 0;
+            ultimaIp = getIpotesiCorrente(ip.getFigli().get(i));
+            i++;
+            while (i < temp.size()) {
+
+                if (ultimaIp != null) {
+                    return ultimaIp;
+                } else {
+                    ultimaIp = getIpotesiCorrente(ip.getFigli().get(i));
+                    i++;
+                }
+            }
+            return ultimaIp;
         }
-        for (int i = 0; i < ip.getFigli().size(); i++) {
-            return getIpotesiCorrente(ip.getFigli().get(i));
-        }
-        System.out.println("Return a nulll !!!!!!!!!!!!!!!!!!!!!!");
-        return null;
     }
 
     public void display() {

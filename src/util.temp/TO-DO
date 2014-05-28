@@ -29,3 +29,5 @@ TO-DO (aggiornato 23/05/14)
 - Implementare classe soluzione
 - creare utenti, messagi esempi da tenere nel db
 - refactoring, commenti e pulizia del codice
+- da revisionare ricerca ipotesi
+- da ritornare ad area lavoro una mossa e reimpostare la tabella mosse. 
