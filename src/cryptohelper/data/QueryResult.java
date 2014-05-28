@@ -29,14 +29,14 @@ public class QueryResult {
     }
 
     public boolean next() {
-        System.out.println(lista.size() + " " + lista.isEmpty() + "  " + iterator);
+        //System.out.println(lista.size() + " " + lista.isEmpty() + "  " + iterator);
         if (lista.isEmpty()) {
-            System.out.println("return false is empty");
+            //System.out.println("return false is empty");
             return false;
         } else if (iterator == lista.size() - 1) {
             reset();
             //qui esce pero fa il reset
-            System.out.println("return false");
+            //System.out.println("return false");
             return false;
         } else {
             iterator++;

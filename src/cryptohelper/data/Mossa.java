@@ -11,12 +11,11 @@ public class Mossa {
     }
 
     public Mossa createMossaUndo() {
-        return new Mossa(inverseChar, character);
-    }
-
-    @Override
-    public String toString() {
-        return "Mossa{" + "character=" + character + ", inverseChar=" + inverseChar + '}';
+        char undoChar = inverseChar;
+        if(undoChar>= 'a' && undoChar<= 'z'){
+            undoChar = (char) (undoChar - 32);
+        }
+        return new Mossa(undoChar, character);
     }
 
     //METODI GETTER

@@ -41,9 +41,13 @@ public class MappaPosizioni {
      */
     public final void inizializza(String testoCifrato) {
         mappa = new MappaPosCarattere[256];
+        for (int i = 'A'; i <= 'Z'; i++) {
+            MappaPosCarattere temp = new MappaPosCarattere((char)i);
+            mappa[i] = temp; 
+        }
         testoCifrato = testoCifrato.toUpperCase(); //trasforma tutti i carratteri in caratteri minuscoli
         for (int i = 0; i < testoCifrato.length(); i++) {
-            if (testoCifrato.charAt(i) >= 'A' || testoCifrato.charAt(i) <= 'Z') {
+            if (testoCifrato.charAt(i) >= 'A' && testoCifrato.charAt(i) <= 'z') {
                 addPos(testoCifrato.charAt(i), i);
             }
         }
@@ -57,19 +61,11 @@ public class MappaPosizioni {
      * @param pos - dove si trova ch1 net testo
      */
     private void addPos(char ch1, int pos) {
-        //controllo se ch1 esiste nella mappa
-        boolean exists = false;
         for (int i = 'A'; i <= 'Z'; i++) {
-            if (mappa[i] != null && mappa[i].getCarattere() == ch1) {
+            if (mappa[i].getCarattere() == ch1) {
                 //si aggiunge una nuova posizione in un testo per ch1 nella mappa
                 mappa[i].addPosizione(pos);
-                exists = true;
             }
-        }
-        if (!exists) { // se il ch1 non esiste ancora nella mappa si crea una nuova calsse MappaPosCarattere e si aggiunge alla mappa
-            MappaPosCarattere temp = new MappaPosCarattere(ch1);
-            mappa[ch1] = temp;
-            mappa[ch1].addPosizione(pos);
         }
     }
 
