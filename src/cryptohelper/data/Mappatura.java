@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cryptohelper.data;
 
-/**
- *
- * @author st116628
- */
 public class Mappatura {
 
     private static final char[] mappa = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
@@ -41,15 +32,16 @@ public class Mappatura {
         }
         return 0;
     }
-  
-    public char getChar(int posizione){
+
+    public char getChar(int posizione) {
         return mappa[posizione];
     }
-    
-    public int getposizione(char carattere){
+
+    public int getposizione(char carattere) {
         for (int i = 0; i < mappa.length; i++) {
-            if (mappa[i] == carattere)
+            if (mappa[i] == carattere) {
                 return i;
+            }
         }
         return -1;
     }
@@ -70,12 +62,9 @@ public class Mappatura {
     public String toString() {
         String a = "Mappatura- Inversemap{";
         for (int i = 0; i < 26; i++) {
-            a = a +","+ mappaInversa[i];
+            a = a + "," + mappaInversa[i];
         }
         return a + '}';
     }
-    
-    
-    
-    
+
 }

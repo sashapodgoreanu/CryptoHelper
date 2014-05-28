@@ -95,7 +95,7 @@ public class AlberoIpotesi {
 
     public String undo(String testoLavoro) {
         Ipotesi ip = getIpotesiCorrente();
-        System.out.println(ip.toString());
+        System.out.println(ip);
         Ipotesi padre = ip.getPadre();
         ip.setValid(false);
         ip.setUltima(false);
@@ -107,6 +107,7 @@ public class AlberoIpotesi {
     //Restituisce l'ipotesi corrente
     public Ipotesi getIpotesiCorrente() {
         if (isEmpty()) {
+            System.out.println(this.getClass() + ": return null");
             return null;
         }
         return getIpotesiCorrente(root);
@@ -127,15 +128,16 @@ public class AlberoIpotesi {
             return;
         }
         int profondita = 0;
-        display(root, profondita);
+        int figlio = 0;
+        display(root, profondita, figlio);
     }
 
-    private void display(Ipotesi ipotesi, int profondita) {
+    private void display(Ipotesi ipotesi, int profondita, int figlio) {
         if (ipotesi != null) {
-            System.out.println("profondita:" + profondita + " " + ipotesi.toString());
+            System.out.println("profondita:" + profondita + " figlio:" +figlio+" "+ ipotesi.toString());
             profondita++;
             for (int i = 0; i < ipotesi.getFigli().size(); i++) {
-                display(ipotesi.getFigli().get(i), profondita);
+                display(ipotesi.getFigli().get(i), profondita, i);
             }
         }
     }

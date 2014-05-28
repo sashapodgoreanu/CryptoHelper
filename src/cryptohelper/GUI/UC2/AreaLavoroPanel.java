@@ -5,6 +5,7 @@ import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -26,15 +27,19 @@ public class AreaLavoroPanel extends JPanel implements View {
     private boolean DEBUG = true;
 
     JPanel topPanel;         //pannello in alto
-    JPanel leftPanel;        //pannello a sinistra
-    JPanel rightPanel;       //pannello a destra
+    JPanel middlePanel;      //pannello al centro
     JPanel bottomPanel;      //pannello in basso
-    JPanel leftPanelUp;      //divisore per pannello a sinistra   
-    JPanel leftPanelDown;    //divisore per pannello a sinistra
+    JPanel middlePanelLeft;  //pannello a sinistra nell'area centrale   
+    JPanel middlePanelRight; //pannello a destra nell'area centrale  
+    JPanel infoMessaggio;    //pannello con informazioni sul messaggio intercettato
+    JPanel infoMessaggioInner;    //pannello con informazioni sul messaggio intercettato
+    JLabel infoMessaggioLabel;
     JLabel codedTextLabel;
     JLabel plainTextLabel;
     JLabel mappaturaLabel;
     JLabel languageLabel;
+    JLabel senderLabel;
+    JLabel receiverLabel;
     JTextPane corpoTesto;
     JTextPane corpoTestoCifrato;
     JTable mappatura;
@@ -47,11 +52,12 @@ public class AreaLavoroPanel extends JPanel implements View {
 
     public AreaLavoroPanel(MessaggioIntercettato messaggioIntercettato) {
         topPanel = new JPanel();
-        leftPanel = new JPanel();
-        rightPanel = new JPanel();
+        middlePanel = new JPanel();
         bottomPanel = new JPanel();
-        leftPanelUp = new JPanel();
-        leftPanelDown = new JPanel();
+        middlePanelLeft = new JPanel();
+        middlePanelRight = new JPanel();
+        infoMessaggio = new JPanel();
+        infoMessaggioInner = new JPanel();
         this.messaggioIntercettato = messaggioIntercettato;
         this.init();
     }
@@ -63,19 +69,25 @@ public class AreaLavoroPanel extends JPanel implements View {
         //INIT DEI LAYOUT
         this.setLayout(new BorderLayout());
         topPanel.setLayout(new FlowLayout());
-        leftPanel.setLayout(new BorderLayout());
-        rightPanel.setLayout(new BorderLayout());
-        bottomPanel.setLayout(new FlowLayout());
-        leftPanelUp.setLayout(new BorderLayout());
-        leftPanelDown.setLayout(new BorderLayout());
+        middlePanel.setLayout(new BorderLayout());
+        bottomPanel.setLayout(new BorderLayout());
+        middlePanelLeft.setLayout(new BorderLayout());
+        middlePanelRight.setLayout(new BorderLayout());
+        infoMessaggio.setLayout(new FlowLayout());
+        infoMessaggio.setLayout(new FlowLayout());
+        infoMessaggioInner.setBorder(BorderFactory.createLineBorder(Color.GRAY)); //bordo per il panel
+        infoMessaggioInner.setBackground(Color.WHITE);
 
         //INIT DEI CONTROLLI
         jcomboBoxes = new ArrayList<>();
         codedTextLabel = new JLabel("Testo cifrato:");
         plainTextLabel = new JLabel("Testo in chiaro:");
         mappaturaLabel = new JLabel("Mappatura corrente:");
-        undoBtn = new JButton("undo");
-        languageLabel = new JLabel("Lingua messaggio: " + messaggioIntercettato.getLingua());
+        infoMessaggioLabel = new JLabel("Dettagli aggiuntivi:  ");
+        undoBtn = new JButton("Annulla utlima ipotesi");
+        languageLabel = new JLabel("Lingua: " + messaggioIntercettato.getLingua() + "               ");
+        senderLabel = new JLabel("Mittente: " + messaggioIntercettato.getMittente().getNome() + " " + messaggioIntercettato.getMittente().getCognome() + "               ");
+        receiverLabel = new JLabel("Destinatario: " + messaggioIntercettato.getDestinatario().getNome() + " " + messaggioIntercettato.getDestinatario().getCognome());
         Font font = new Font("monospaced", Font.PLAIN, 16);
         corpoTestoCifrato = new JTextPane();
         corpoTestoCifrato.setEditable(true); //rende in sola lettura il campo con il testo del messaggio
@@ -104,22 +116,26 @@ public class AreaLavoroPanel extends JPanel implements View {
         scrollPaneTestoCifrato.setPreferredSize(new Dimension(550, 245));
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI             
-        leftPanelUp.add(codedTextLabel, BorderLayout.NORTH);
-        leftPanelUp.add(scrollPaneTestoCifrato, BorderLayout.CENTER);
-        leftPanelDown.add(plainTextLabel, BorderLayout.NORTH);
-        leftPanelDown.add(scrollPaneTesto, BorderLayout.CENTER);
-        leftPanel.add(leftPanelUp, BorderLayout.NORTH);
-        leftPanel.add(leftPanelDown, BorderLayout.SOUTH);
+        middlePanelLeft.add(codedTextLabel, BorderLayout.NORTH);
+        middlePanelLeft.add(scrollPaneTestoCifrato, BorderLayout.CENTER);
+        middlePanelRight.add(plainTextLabel, BorderLayout.NORTH);
+        middlePanelRight.add(scrollPaneTesto, BorderLayout.CENTER);
+        middlePanel.add(middlePanelLeft, BorderLayout.WEST);
+        middlePanel.add(middlePanelRight, BorderLayout.EAST);
         topPanel.add(mappaturaLabel);
         topPanel.add(scrollPaneMappatura);
         topPanel.add(undoBtn);
-        rightPanel.add(languageLabel, BorderLayout.NORTH);
+        infoMessaggio.add(infoMessaggioLabel);
+        infoMessaggioInner.add(languageLabel);
+        infoMessaggioInner.add(senderLabel);
+        infoMessaggioInner.add(receiverLabel);
+        infoMessaggio.add(infoMessaggioInner);
+        bottomPanel.add(infoMessaggio, BorderLayout.SOUTH);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
-        this.add(leftPanel, BorderLayout.WEST);
-        this.add(rightPanel, BorderLayout.EAST);
-      //  this.add(bottomPanel, BorderLayout.SOUTH);
+        this.add(middlePanel, BorderLayout.CENTER);
+        this.add(bottomPanel, BorderLayout.SOUTH);
 
         //REGISTRAZIONE VISTA NEL COTROLLER
         registerController();
@@ -134,65 +150,6 @@ public class AreaLavoroPanel extends JPanel implements View {
         }
         jcomboBoxes.add(comboBox);
         collona.setCellEditor(new DefaultCellEditor(comboBox));
-    }
-
-    class MappaturaModel extends AbstractTableModel {
-
-        private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-
-        private Object[][] data = {
-            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
-        };
-
-        public int getColumnCount() {
-            return alfabeto.length;
-        }
-
-        public int getRowCount() {
-            return data.length;
-        }
-
-        public String getColumnName(int col) {
-            return alfabeto[col];
-        }
-
-        public Object getValueAt(int row, int col) {
-            return data[row][col];
-        }
-
-        public boolean isCellEditable(int row, int col) {
-            return col >= 0;
-        }
-
-        public void setValueAt(Object value, int row, int col) {
-            if (true) {
-                System.out.println("Set valore nella " + row + "," + col
-                        + " a " + value
-                );
-            }
-
-            data[row][col] = value;
-            fireTableCellUpdated(row, col);
-
-            if (DEBUG) {
-                System.out.println("Nuovo valore :");
-                printDebugData();
-            }
-        }
-
-        private void printDebugData() {
-            int numRows = getRowCount();
-            int numCols = getColumnCount();
-
-            for (int i = 0; i < numRows; i++) {
-                System.out.print("    row " + i + ":");
-                for (int j = 0; j < numCols; j++) {
-                    System.out.print("  " + data[i][j]);
-                }
-                System.out.println();
-            }
-            System.out.println("--------------------------");
-        }
     }
 
     @Override
@@ -226,5 +183,144 @@ public class AreaLavoroPanel extends JPanel implements View {
         return undoBtn;
     }
 
+    //**************************************************************************
+    //
+    //Classe interna per la tabella della mappatura
+    class MappaturaModel extends AbstractTableModel {
 
-}
+        private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
+        private Object[][] data = {
+            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
+        };
+
+        private void printDebugData() {
+            int numRows = getRowCount();
+            int numCols = getColumnCount();
+
+            for (int i = 0; i < numRows; i++) {
+                System.out.print("    row " + i + ":");
+                for (int j = 0; j < numCols; j++) {
+                    System.out.print("  " + data[i][j]);
+                }
+                System.out.println();
+            }
+            System.out.println("--------------------------");
+        }
+
+        //METODI SETTER
+        @Override
+        public int getColumnCount() {
+            return alfabeto.length;
+        }
+
+        @Override
+        public int getRowCount() {
+            return data.length;
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            return alfabeto[col];
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            return data[row][col];
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int col) {
+            return col >= 0;
+        }
+
+        //METODI GETTER
+        @Override
+        public void setValueAt(Object value, int row, int col) {
+            if (true) {
+                System.out.println("Set valore nella " + row + "," + col
+                        + " a " + value
+                );
+            }
+
+            data[row][col] = value;
+            fireTableCellUpdated(row, col);
+
+            if (DEBUG) {
+                System.out.println("Nuovo valore :");
+                printDebugData();
+            }
+        }
+    } //end class MappaturaModel
+
+    //**************************************************************************
+    //
+    //Classe interna per la tabella delle frequenze dei bigrammi
+    class BigrammiModel extends AbstractTableModel {
+
+        private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
+        private Object[][] data = {
+            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
+        };
+
+        private void printDebugData() {
+            int numRows = getRowCount();
+            int numCols = getColumnCount();
+
+            for (int i = 0; i < numRows; i++) {
+                System.out.print("    row " + i + ":");
+                for (int j = 0; j < numCols; j++) {
+                    System.out.print("  " + data[i][j]);
+                }
+                System.out.println();
+            }
+            System.out.println("--------------------------");
+        }
+
+        //METODI SETTER
+        @Override
+        public int getColumnCount() {
+            return alfabeto.length;
+        }
+
+        @Override
+        public int getRowCount() {
+            return data.length;
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            return alfabeto[col];
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            return data[row][col];
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int col) {
+            return col >= 0;
+        }
+
+        //METODI GETTER
+        @Override
+        public void setValueAt(Object value, int row, int col) {
+            if (true) {
+                System.out.println("Set valore nella " + row + "," + col
+                        + " a " + value
+                );
+            }
+
+            data[row][col] = value;
+            fireTableCellUpdated(row, col);
+
+            if (DEBUG) {
+                System.out.println("Nuovo valore :");
+                printDebugData();
+            }
+        }
+    } //end class BigrammiModel
+
+}//end class AreaLavoroPanel

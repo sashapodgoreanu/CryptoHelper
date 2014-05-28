@@ -1,24 +1,5 @@
-/*
- * Copyright 2014 SashaAlexandru.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package cryptohelper.data;
 
-/**
- *
- * @author SashaAlexandru
- */
 public class Mossa {
 
     private char character;
@@ -30,7 +11,11 @@ public class Mossa {
     }
 
     public Mossa createMossaUndo() {
-        return new Mossa(inverseChar, character);
+        char undoChar = inverseChar;
+        if(undoChar>= 'a' && undoChar<= 'z'){
+            undoChar = (char) (undoChar - 32);
+        }
+        return new Mossa(undoChar, character);
     }
 
     //METODI GETTER
@@ -50,11 +35,4 @@ public class Mossa {
     public void setInverseChar(char inverseChar) {
         this.inverseChar = inverseChar;
     }
-
-    @Override
-    public String toString() {
-        return "Mossa{" + "character=" + character + ", inverseChar=" + inverseChar + '}';
-    }
-
-
 }
