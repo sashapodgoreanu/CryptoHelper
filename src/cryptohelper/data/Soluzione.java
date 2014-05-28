@@ -1,15 +1,10 @@
 package cryptohelper.data;
 
-
 public class Soluzione {
-    
+
     private int id;
     private boolean valida;
 
-    
-    
-    
-    
     //METODI GETTER
     public int getId() {
         return id;
@@ -27,5 +22,5 @@ public class Soluzione {
     public void setValida(boolean valida) {
         this.valida = valida;
     }
-    
+
 }
