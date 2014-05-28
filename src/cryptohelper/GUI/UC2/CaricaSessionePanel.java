@@ -48,7 +48,9 @@ public class CaricaSessionePanel extends JPanel implements View {
         leftPanel.setLayout(new BorderLayout());
         rightPanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new FlowLayout());
-        topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));   //padding per separare i controlli
+        topPanel.setBorder(new EmptyBorder(0, 0, 20, 0));       //padding per separare i controlli
+        leftPanel.setBorder(new EmptyBorder(10, 150, 20, 0));   //padding per separare i controlli
+        rightPanel.setBorder(new EmptyBorder(10, 0, 20, 150));  //padding per separare i controlli
 
         //INIT DEI CONTROLLI
         targetListLabel = new JLabel("Sessioni disponibili:");

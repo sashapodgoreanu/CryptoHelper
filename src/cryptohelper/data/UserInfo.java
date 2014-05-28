@@ -19,8 +19,6 @@ public class UserInfo {
     public UserInfo() {
     }
 
-   
-
     public UserInfo(int id, String nome, String cognome) {
         this.id = id;
         this.nome = nome;
@@ -53,6 +51,7 @@ public class UserInfo {
         this.cognome = cognome;
     }
 
+    //restituisce un oggeto userInfo con i dati prelevati dal database in base all'id passato per parametro
     public static UserInfo getUserInfo(int id) {
         String query = "SELECT * FROM STUDENTI WHERE ID =" + id;
         QueryResult qr = null;

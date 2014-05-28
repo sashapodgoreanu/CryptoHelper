@@ -30,9 +30,9 @@ public class Studente {
         this.password = password;
     }
 
-    public Studente() {        
+    public Studente() {
     }
-    
+
     public Studente(int id, String nome, String cognome) {
         this.id = id;
         this.nome = nome;
@@ -101,7 +101,7 @@ public class Studente {
             //se result == -1 è stato un errore nel executeUpdateAndReturnKey(querry)
             if (result != -1) {
                 this.setId(result);
-                System.out.println("INFO DATA:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": Aggiunto con successo "+this.toString());
+                System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Aggiunto con successo " + this.toString());
             } else {
                 return false;
             }

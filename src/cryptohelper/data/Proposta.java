@@ -7,10 +7,6 @@ import java.util.ArrayList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author SashaAlexandru
- */
 public class Proposta {
 
     private static Log log = LogFactory.getLog(Messaggio.class);   //per log
@@ -25,38 +21,6 @@ public class Proposta {
         this.proponente = proponente;
         this.partner = partner;
         this.stato = "pending";
-    }
-
-    public UserInfo getProponente() {
-        return proponente;
-    }
-
-    public UserInfo getPartner() {
-        return partner;
-    }
-
-    public void setProponente(UserInfo proponente) {
-        this.proponente = proponente;
-    }
-
-    public void setPartner(UserInfo partner) {
-        this.partner = partner;
-    }
-
-    public SistemaCifratura getSdc() {
-        return sdc;
-    }
-
-    public void setSdc(SistemaCifratura sdc) {
-        this.sdc = sdc;
-    }
-
-    public String getStato() {
-        return stato;
-    }
-
-    public void setStato(String stato) {
-        this.stato = stato;
     }
 
     public boolean salva() {
@@ -165,9 +129,9 @@ public class Proposta {
             System.out.println(qr.toString());
             while (qr.next()) {
                 if (qr.getString("stato_proposta").equals("accettata")) {
-                Proposta temp = new Proposta(SistemaCifratura.getSistemaCifratura(qr.getInt("ID_SDC")), UserInfo.getUserInfo(qr.getInt("ID_CREATORE")), UserInfo.getUserInfo(qr.getInt("ID_PARTNER")));
-                System.out.println("Proposta: " + temp.toString());
-                proposte.add(temp);
+                    Proposta temp = new Proposta(SistemaCifratura.getSistemaCifratura(qr.getInt("ID_SDC")), UserInfo.getUserInfo(qr.getInt("ID_CREATORE")), UserInfo.getUserInfo(qr.getInt("ID_PARTNER")));
+                    System.out.println("Proposta: " + temp.toString());
+                    proposte.add(temp);
                 }
             }
         } catch (SQLException ex) {
@@ -177,12 +141,12 @@ public class Proposta {
         }
         return proposte;
     }
-    
+
     //Elimina una proposta dalla tabella sdcpartners. Restituisce TRUE se l'oparazione va a buon fine
     public boolean elimina() {
         DBController dbc = DBController.getInstance();
         boolean result = false;
-        String query = "DELETE FROM SDCPARTNERS WHERE ID_SDC =" + sdc.getId()+"AND ID_CREATORE = "+ proponente.getId()+"AND ID_PARTNER ="+ partner.getId()+"";
+        String query = "DELETE FROM SDCPARTNERS WHERE ID_SDC =" + sdc.getId() + "AND ID_CREATORE = " + proponente.getId() + "AND ID_PARTNER =" + partner.getId() + "";
         try {
 
             result = dbc.executeUpdate(query);
@@ -190,17 +154,50 @@ public class Proposta {
             log.fatal(ex.getMessage());
         }
         return result;
-    }    
-    
+    }
+
+    @Override
+    public String toString() {
+        return "Proposta{" + "sdc=" + sdc.getId() + ", proponente=" + proponente.getId() + ", partner=" + partner.getId() + ", stato=" + stato + '}';
+    }
 
     /*
      public static Proposta getProposta(UserInfo u1, UserInfo u2) {
         
      }
      */
-    @Override
-    public String toString() {
-        return "Proposta{" + "sdc=" + sdc.getId() + ", proponente=" + proponente.getId() + ", partner=" + partner.getId() + ", stato=" + stato + '}';
+    
+    //METODI GETTER
+    public UserInfo getProponente() {
+        return proponente;
     }
 
+    public UserInfo getPartner() {
+        return partner;
+    }
+
+    public SistemaCifratura getSdc() {
+        return sdc;
+    }
+
+    public String getStato() {
+        return stato;
+    }
+
+    //METODI SETTER
+    public void setProponente(UserInfo proponente) {
+        this.proponente = proponente;
+    }
+
+    public void setPartner(UserInfo partner) {
+        this.partner = partner;
+    }
+
+    public void setSdc(SistemaCifratura sdc) {
+        this.sdc = sdc;
+    }
+
+    public void setStato(String stato) {
+        this.stato = stato;
+    }
 }

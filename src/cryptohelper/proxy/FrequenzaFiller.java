@@ -35,6 +35,7 @@ public abstract class FrequenzaFiller {
     } 
 
     public String getFileFreq() {
+ //       System.out.println(fileFreq);
         return fileFreq;
     }
 

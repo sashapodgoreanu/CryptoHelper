@@ -15,7 +15,6 @@
  */
 package cryptohelper.proxy;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -38,6 +37,7 @@ public class RealFrequenzaFiller extends FrequenzaFiller {
     public double[] getFreq() throws IOException {
 
         System.out.println("accessing the file");
+        
         FileReader fin = new FileReader(super.getFileFreq());
 
         frequenza = new double[26];
@@ -46,6 +46,7 @@ public class RealFrequenzaFiller extends FrequenzaFiller {
         for (int i = 0; i < 26; i++) {
             if (src.hasNextDouble()) {
                 frequenza[i] = src.nextDouble();
+   //             System.out.println(frequenza[i]);
             } else {//se non è un intero consumalo
                 src.next();
             }
@@ -62,53 +63,21 @@ public class RealFrequenzaFiller extends FrequenzaFiller {
 
         bigrammi = new int[26][26];
         Scanner src = new Scanner(fin);
-        System.out.println(super.getFileBigrammi());
 
-        /*     for (int i = 0; i < 26; i++) {
-         for (int j = 0; src.hasNext() && j < 26; j++) {
-         if (src.hasNextInt()) {
-         int temp = src.nextInt();
-         //         System.out.println("****"+temp);
-         bigrammi[i][j] = temp;
-         } else {//se non è un intero consumalo
-         src.next();
-         }
-         }
-         fin.close();
-         }*/
-        int i = 0;
-        int j = 0;
-        
-        while (src.hasNext()) {
- //            System.out.println("oooooooooooooooo");
-            if (src.hasNextInt()) {
-                 int temp = src.nextInt();
- //                 System.out.println("****"+temp);
-                 if (j < 26) {   
-                    bigrammi[i][j] =  temp;
-                    j++;
-                 }
-                 else {
-                     i++;
-                     j=0;
-                 }
-                 
-//                 System.out.println("oooooooooooooooo");
-            } else {//se non è un intero consumalo
-                src.next();
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < 26; j++) {
+                if (src.hasNextInt()) {
+                    bigrammi[i][j] = src.nextInt();
+        //            System.out.println(bigrammi[i][j]);
+                } else {//se non è un intero consumalo
+                    src.next();
+                }
             }
 
         }
         fin.close();
-/*      
-        for (int i = 0; i < 26; i++) {
-            for (int j = 0; j < 26; j++) {
-                System.out.print(bigrammi[i][j]);
-            }
-            System.out.println();
-        }
-*/
         return bigrammi;
+
     }
 
 }
