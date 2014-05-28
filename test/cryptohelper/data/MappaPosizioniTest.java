@@ -85,6 +85,7 @@ public class MappaPosizioniTest {
         for (int i = 'A'; i <= 'Z'; i++) {
             assertNotNull(mappapos.getMappa()[i]);
         }
+        //System.out.println(mappapos.toString());
         mappapos = new MappaPosizioni("az");
         testoCifrato = "az";
         mappapos.inizializza(testoCifrato);
