@@ -18,7 +18,7 @@ package cryptohelper.data;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -83,7 +83,7 @@ public class MappaPosizioniTest {
         String testoCifrato = "5555";
         mappapos.inizializza(testoCifrato);
         for (int i = 'A'; i <= 'Z'; i++) {
-            assertNull(mappapos.getMappa()[i]);
+            assertNotNull(mappapos.getMappa()[i]);
         }
         mappapos = new MappaPosizioni("az");
         testoCifrato = "az";
