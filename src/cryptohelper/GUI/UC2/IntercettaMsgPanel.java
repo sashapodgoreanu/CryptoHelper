@@ -99,7 +99,7 @@ public class IntercettaMsgPanel extends JFrame implements View {
     public void initAreaLavoro(MessaggioIntercettato messaggioIntercettato) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Carica sessione di lavoro");   //cambia titolo al form
-        this.setStatus("Selezionare un'opzione per iniziare a decifrare il messaggio"); //messaggio per la status label
+        this.setStatus("Formulare una nuova ipotesi di sostituzione per iniziare a decifrare il messaggio"); //messaggio per la status label
         bodyPanel.add(new AreaLavoroPanel(messaggioIntercettato));   //aggiunge il nuovo pannello
         bodyPanel.revalidate();                                      //completa l'inizializzazione dell'interfaccia
     }

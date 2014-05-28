@@ -24,7 +24,7 @@ import javax.swing.table.TableColumn;
 
 public class AreaLavoroPanel extends JPanel implements View {
 
-    private boolean DEBUG = true;
+    private boolean DEBUG = true; //attiva le stampe di debug
 
     JPanel topPanel;         //pannello in alto
     JPanel middlePanel;      //pannello al centro
@@ -43,8 +43,10 @@ public class AreaLavoroPanel extends JPanel implements View {
     JTextPane corpoTesto;
     JTextPane corpoTestoCifrato;
     JTable mappatura;
+    JTable bigrammi;
     JButton undoBtn;
     JScrollPane scrollPaneMappatura;
+    JScrollPane scrollPaneBigrammi;
     JScrollPane scrollPaneTesto;
     JScrollPane scrollPaneTestoCifrato;
     ArrayList<JComboBox> jcomboBoxes;//dropdown per selezionare un carattere
@@ -84,7 +86,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         plainTextLabel = new JLabel("Testo in chiaro:");
         mappaturaLabel = new JLabel("Mappatura corrente:");
         infoMessaggioLabel = new JLabel("Dettagli aggiuntivi:  ");
-        undoBtn = new JButton("Annulla utlima ipotesi");
+        undoBtn = new JButton("Annulla ipotesi");
         languageLabel = new JLabel("Lingua: " + messaggioIntercettato.getLingua() + "               ");
         senderLabel = new JLabel("Mittente: " + messaggioIntercettato.getMittente().getNome() + " " + messaggioIntercettato.getMittente().getCognome() + "               ");
         receiverLabel = new JLabel("Destinatario: " + messaggioIntercettato.getDestinatario().getNome() + " " + messaggioIntercettato.getDestinatario().getCognome());
@@ -100,16 +102,29 @@ public class AreaLavoroPanel extends JPanel implements View {
         corpoTesto.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); //assegna un margine al controllo
         corpoTesto.setFont(font);
         mappatura = new JTable(new MappaturaModel());
+        mappatura.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
+        mappatura.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         mappatura.setCellSelectionEnabled(true);
         for (int i = 0; i < 26; i++) {
             setUpCollona(mappatura.getColumnModel().getColumn(i));
         }
 
+        bigrammi = new JTable(new BigrammiModel());
+        bigrammi.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
+        bigrammi.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
+        bigrammi.setCellSelectionEnabled(true);
+        for (int i = 0; i < 26; i++) {
+            setUpCollona(bigrammi.getColumnModel().getColumn(i));
+        }
+
         scrollPaneMappatura = new JScrollPane();
+        scrollPaneBigrammi = new JScrollPane();
         scrollPaneTesto = new JScrollPane();
         scrollPaneTestoCifrato = new JScrollPane();
         scrollPaneMappatura.setViewportView(mappatura);
-        scrollPaneMappatura.setPreferredSize(new Dimension(800, 40));
+        scrollPaneMappatura.setPreferredSize(new Dimension(800, 39));
+        scrollPaneBigrammi.setViewportView(bigrammi);
+        scrollPaneBigrammi.setPreferredSize(new Dimension(800, 55));
         scrollPaneTesto.setViewportView(corpoTesto);
         scrollPaneTesto.setPreferredSize(new Dimension(550, 245));
         scrollPaneTestoCifrato.setViewportView(corpoTestoCifrato);
@@ -130,6 +145,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         infoMessaggioInner.add(senderLabel);
         infoMessaggioInner.add(receiverLabel);
         infoMessaggio.add(infoMessaggioInner);
+        bottomPanel.add(scrollPaneBigrammi, BorderLayout.CENTER);
         bottomPanel.add(infoMessaggio, BorderLayout.SOUTH);
 
         //AGGIUNTA DEI PANNELLI
@@ -141,8 +157,8 @@ public class AreaLavoroPanel extends JPanel implements View {
         registerController();
     }
 
+    //set-up della tabella mappature
     public void setUpCollona(TableColumn collona) {
-        //Set up the editor for the sport cells.
         JComboBox comboBox = new JComboBox();
         comboBox.addItem("-");
         for (int i = 'A'; i <= 'Z'; i++) {
@@ -191,8 +207,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
         private Object[][] data = {
-            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
-        };
+            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},};
 
         private void printDebugData() {
             int numRows = getRowCount();
@@ -261,7 +276,9 @@ public class AreaLavoroPanel extends JPanel implements View {
         private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
         private Object[][] data = {
+            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
             {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
+
         };
 
         private void printDebugData() {
