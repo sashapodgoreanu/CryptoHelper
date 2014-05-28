@@ -59,7 +59,7 @@ public class IntercettaMsgPanel extends JFrame implements View {
 
         //INIT DEL FRAME
         this.setTitle("CryptoHelper - Intercetta un messaggio");
-        this.setSize(1200, 700);
+        this.setSize(1200, 600);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
         this.add(toolbarPanel, BorderLayout.NORTH);
