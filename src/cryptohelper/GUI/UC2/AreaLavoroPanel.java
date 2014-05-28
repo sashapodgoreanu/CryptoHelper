@@ -25,6 +25,7 @@ import javax.swing.table.TableColumn;
 public class AreaLavoroPanel extends JPanel implements View {
 
     private boolean DEBUG = true; //attiva le stampe di debug
+    private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
     JPanel topPanel;         //pannello in alto
     JPanel middlePanel;      //pannello al centro
@@ -33,6 +34,7 @@ public class AreaLavoroPanel extends JPanel implements View {
     JPanel middlePanelRight; //pannello a destra nell'area centrale  
     JPanel infoMessaggio;    //pannello con informazioni sul messaggio intercettato
     JPanel infoMessaggioInner;    //pannello con informazioni sul messaggio intercettato
+    JPanel bigrammiPanel;    //pannello per le frequenze dei bigrammi
     JLabel infoMessaggioLabel;
     JLabel codedTextLabel;
     JLabel plainTextLabel;
@@ -40,6 +42,7 @@ public class AreaLavoroPanel extends JPanel implements View {
     JLabel languageLabel;
     JLabel senderLabel;
     JLabel receiverLabel;
+    JLabel bigrammiLabel;
     JTextPane corpoTesto;
     JTextPane corpoTestoCifrato;
     JTable mappatura;
@@ -49,6 +52,7 @@ public class AreaLavoroPanel extends JPanel implements View {
     JScrollPane scrollPaneBigrammi;
     JScrollPane scrollPaneTesto;
     JScrollPane scrollPaneTestoCifrato;
+    JComboBox bigrammiComboBox;
     ArrayList<JComboBox> jcomboBoxes;//dropdown per selezionare un carattere
     MessaggioIntercettato messaggioIntercettato; //sessione su cui si sta lavorando
 
@@ -60,6 +64,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         middlePanelRight = new JPanel();
         infoMessaggio = new JPanel();
         infoMessaggioInner = new JPanel();
+        bigrammiPanel = new JPanel();
         this.messaggioIntercettato = messaggioIntercettato;
         this.init();
     }
@@ -79,6 +84,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         infoMessaggio.setLayout(new FlowLayout());
         infoMessaggioInner.setBorder(BorderFactory.createLineBorder(Color.GRAY)); //bordo per il panel
         infoMessaggioInner.setBackground(Color.WHITE);
+        bigrammiPanel.setLayout(new FlowLayout());
 
         //INIT DEI CONTROLLI
         jcomboBoxes = new ArrayList<>();
@@ -90,6 +96,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         languageLabel = new JLabel("Lingua: " + messaggioIntercettato.getLingua() + "               ");
         senderLabel = new JLabel("Mittente: " + messaggioIntercettato.getMittente().getNome() + " " + messaggioIntercettato.getMittente().getCognome() + "               ");
         receiverLabel = new JLabel("Destinatario: " + messaggioIntercettato.getDestinatario().getNome() + " " + messaggioIntercettato.getDestinatario().getCognome());
+        bigrammiLabel = new JLabel("Frequenza bigrammi per la lettera: ");
         Font font = new Font("monospaced", Font.PLAIN, 16);
         corpoTestoCifrato = new JTextPane();
         corpoTestoCifrato.setEditable(true); //rende in sola lettura il campo con il testo del messaggio
@@ -108,13 +115,14 @@ public class AreaLavoroPanel extends JPanel implements View {
         for (int i = 0; i < 26; i++) {
             setUpCollona(mappatura.getColumnModel().getColumn(i));
         }
-
+        bigrammiComboBox = new JComboBox(alfabeto);
         bigrammi = new JTable(new BigrammiModel());
         bigrammi.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         bigrammi.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         bigrammi.setCellSelectionEnabled(true);
         for (int i = 0; i < 26; i++) {
-            setUpCollona(bigrammi.getColumnModel().getColumn(i));
+            //to -do caricare frequenze prima lettera qui
+            //      setUpCollona(bigrammi.getColumnModel().getColumn(i));
         }
 
         scrollPaneMappatura = new JScrollPane();
@@ -145,7 +153,10 @@ public class AreaLavoroPanel extends JPanel implements View {
         infoMessaggioInner.add(senderLabel);
         infoMessaggioInner.add(receiverLabel);
         infoMessaggio.add(infoMessaggioInner);
-        bottomPanel.add(scrollPaneBigrammi, BorderLayout.CENTER);
+        bigrammiPanel.add(bigrammiLabel);
+        bigrammiPanel.add(bigrammiComboBox);
+        bigrammiPanel.add(scrollPaneBigrammi);
+        bottomPanel.add(bigrammiPanel, BorderLayout.CENTER);
         bottomPanel.add(infoMessaggio, BorderLayout.SOUTH);
 
         //AGGIUNTA DEI PANNELLI
@@ -203,8 +214,6 @@ public class AreaLavoroPanel extends JPanel implements View {
     //
     //Classe interna per la tabella della mappatura
     class MappaturaModel extends AbstractTableModel {
-
-        private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
         private Object[][] data = {
             {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},};
@@ -272,8 +281,6 @@ public class AreaLavoroPanel extends JPanel implements View {
     //
     //Classe interna per la tabella delle frequenze dei bigrammi
     class BigrammiModel extends AbstractTableModel {
-
-        private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
         private Object[][] data = {
             {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
