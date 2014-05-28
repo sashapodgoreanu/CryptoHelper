@@ -167,6 +167,11 @@ public class SessioneLavoro {
         return mossaDuplicata;
     }
 
+    public void undo(String testoLavoro) {
+        messaggioIntercettato.setAreaLavoro(alberoIpotesi.undo(testoLavoro));
+    }
+
+
     /**
      * il metodo riptistina lo stato della sessione che è stato salvato nel data
      * base

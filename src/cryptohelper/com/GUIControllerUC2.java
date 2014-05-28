@@ -61,7 +61,17 @@ public class GUIControllerUC2 {
         } else if (v instanceof AreaLavoroPanel) {
             areaLavoroPanel = (AreaLavoroPanel) v;
             areaLavoroPanel.getMappatura().getModel().addTableModelListener(new TableMappaturaListener());
+            areaLavoroPanel.getUndoBtn().addActionListener(new UndoListener());
 
+        }
+    }
+
+    private class UndoListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            session.undo(session.getMessaggioIntercettato().getAreaLavoro());
+            areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
         }
     }
 

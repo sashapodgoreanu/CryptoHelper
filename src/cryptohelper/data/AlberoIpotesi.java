@@ -93,22 +93,15 @@ public class AlberoIpotesi {
         return false;
     }
 
-    public void display() {
-        if (isEmpty()) {
-            return;
-        }
-        int profondita = 0;
-        display(root, profondita);
-    }
-
-    private void display(Ipotesi ipotesi, int profondita) {
-        if (ipotesi != null) {
-            System.out.println("profondita:" + profondita + " " + ipotesi.toString());
-            profondita++;
-            for (int i = 0; i < ipotesi.getFigli().size(); i++) {
-                display(ipotesi.getFigli().get(i), profondita);
-            }
-        }
+    public String undo(String testoLavoro) {
+        Ipotesi ip = getIpotesiCorrente();
+        System.out.println(ip.toString());
+        Ipotesi padre = ip.getPadre();
+        ip.setValid(false);
+        ip.setUltima(false);
+        padre.setUltima(true);
+        Mossa mossaUndo = padre.getMossaPrecedente();
+        return mappaPosizioni.executeMossa(mossaUndo, testoLavoro);
     }
 
     //Restituisce l'ipotesi corrente
@@ -127,6 +120,24 @@ public class AlberoIpotesi {
             return getIpotesiCorrente(ip.getFigli().get(i));
         }
         return null;
+    }
+
+    public void display() {
+        if (isEmpty()) {
+            return;
+        }
+        int profondita = 0;
+        display(root, profondita);
+    }
+
+    private void display(Ipotesi ipotesi, int profondita) {
+        if (ipotesi != null) {
+            System.out.println("profondita:" + profondita + " " + ipotesi.toString());
+            profondita++;
+            for (int i = 0; i < ipotesi.getFigli().size(); i++) {
+                display(ipotesi.getFigli().get(i), profondita);
+            }
+        }
     }
 
     //verifica se l'albero è vuoto

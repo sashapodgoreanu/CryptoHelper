@@ -8,10 +8,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import static java.awt.SystemColor.text;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,6 +38,7 @@ public class AreaLavoroPanel extends JPanel implements View {
     JTextPane corpoTesto;
     JTextPane corpoTestoCifrato;
     JTable mappatura;
+    JButton undoBtn;
     JScrollPane scrollPaneMappatura;
     JScrollPane scrollPaneTesto;
     JScrollPane scrollPaneTestoCifrato;
@@ -73,6 +74,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         codedTextLabel = new JLabel("Testo cifrato:");
         plainTextLabel = new JLabel("Testo in chiaro:");
         mappaturaLabel = new JLabel("Mappatura corrente:");
+        undoBtn = new JButton("undo");
         languageLabel = new JLabel("Lingua messaggio: " + messaggioIntercettato.getLingua());
         Font font = new Font("monospaced", Font.PLAIN, 16);
         corpoTestoCifrato = new JTextPane();
@@ -110,6 +112,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         leftPanel.add(leftPanelDown, BorderLayout.SOUTH);
         topPanel.add(mappaturaLabel);
         topPanel.add(scrollPaneMappatura);
+        topPanel.add(undoBtn);
         rightPanel.add(languageLabel, BorderLayout.NORTH);
 
         //AGGIUNTA DEI PANNELLI
@@ -218,5 +221,10 @@ public class AreaLavoroPanel extends JPanel implements View {
     public void setMappatura(JTable mappatura) {
         this.mappatura = mappatura;
     }
+
+    public JButton getUndoBtn() {
+        return undoBtn;
+    }
+
 
 }
