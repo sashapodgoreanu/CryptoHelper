@@ -15,7 +15,9 @@
  */
 package cryptohelper.proxy;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
@@ -27,7 +29,7 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
     private double[] frequenza;
     private int[][] bigrammi;
 
-    public ProxyFrequenzaFiller (String frequenzeFile, String bigrammiFile) {
+    public ProxyFrequenzaFiller(String frequenzeFile, String bigrammiFile) {
         super(frequenzeFile, bigrammiFile);
         System.out.println("Creating a proxy cache");
     }
@@ -42,24 +44,8 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
 
         } else {
             System.out.println("accessing from proxy cache");
-/* 
-            System.out.println("accessing from proxy cache");
-            FileReader fin = new FileReader("frequenzeIta.txt");
-
-            frequenza = new double[26];
-            Scanner src = new Scanner(fin);
-
-            for (int i = 0; i < 26; i++) {
-                if (src.hasNextInt()) {
-                    frequenza[i] = src.nextDouble();
-                } else {//se non è un intero consumalo
-                    src.next();
-                }
-            }
-            fin.close();
-  */          return frequenza;
+             return frequenza;
         }
-        
 
     }
 
@@ -72,24 +58,7 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
             return bigrammi;
         } else {
             System.out.println("accessing from proxy cache");
-
-    /*        System.out.println("accessing from proxy cache");
-            FileReader fin = new FileReader("bgItaliano.txt");
-
-            bigrammi = new int[26][26];
-            Scanner src = new Scanner(fin);
-
-            for (int i = 0; i < 26; i++) {
-                for (int j = 0; j < 26; j++) {
-                    if (src.hasNextInt()) {
-                        bigrammi[i][j] = src.nextInt();
-                    } else {//se non è un intero consumalo
-                        src.next();
-                    }
-                }
-                fin.close();
-            }
-      */      return bigrammi;
+            return bigrammi;
         } //chiudo else
 
     }
