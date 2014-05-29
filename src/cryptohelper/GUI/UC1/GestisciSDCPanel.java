@@ -5,13 +5,16 @@ import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Proposta;
+import cryptohelper.interfaces.VisitableGUI;
+import cryptohelper.interfaces.VisitorGUI;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
+import static java.lang.System.gc;
 import javax.swing.border.EmptyBorder;
 
-public class GestisciSDCPanel extends JPanel implements View {
+public class GestisciSDCPanel extends JPanel implements View, VisitableGUI {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
@@ -88,8 +91,13 @@ public class GestisciSDCPanel extends JPanel implements View {
 
     @Override
     public void registerController() {
-        GUIControllerUC1 gc = GUIControllerUC1.getInstance();
-        gc.addView(this);
+        gc = GUIControllerUC1.getInstance();
+        this.accept(gc);
+    }
+
+    @Override
+    public void accept(VisitorGUI visitor) {
+        visitor.visit(this);
     }
 
     public boolean deleteSelectedIndex() {

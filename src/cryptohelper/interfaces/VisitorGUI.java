@@ -22,6 +22,7 @@ import cryptohelper.GUI.UC1.LoginForm;
  * @author st106342
  */
 public interface VisitorGUI {
+
     public void visit(LoginForm v);
 
 }

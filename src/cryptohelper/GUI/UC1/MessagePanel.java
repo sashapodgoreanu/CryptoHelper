@@ -4,14 +4,17 @@ package cryptohelper.GUI.UC1;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.UserInfo;
+import cryptohelper.interfaces.VisitableGUI;
+import cryptohelper.interfaces.VisitorGUI;
 import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
+import static java.lang.System.gc;
 import java.util.Vector;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-public class MessagePanel extends JPanel implements View {
+public class MessagePanel extends JPanel implements View,VisitableGUI {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
@@ -114,10 +117,15 @@ public class MessagePanel extends JPanel implements View {
         registerController();
     }
 
-    @Override
+     @Override
     public void registerController() {
-        GUIControllerUC1 gc = GUIControllerUC1.getInstance();
-        gc.addView(this);
+        gc = GUIControllerUC1.getInstance();
+        this.accept(gc);
+    }
+
+    @Override
+    public void accept(VisitorGUI visitor) {
+        visitor.visit(this);
     }
 
     //METODI GETTER

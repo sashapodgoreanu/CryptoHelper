@@ -8,7 +8,7 @@ import cryptohelper.interfaces.VisitorGUI;
 import java.awt.*;
 import javax.swing.*;
 
-public class LoginForm extends JFrame implements View,VisitableGUI {
+public class LoginForm extends JFrame implements View, VisitableGUI {
 
     GUIControllerUC1 gc;
     JButton submitBtn;
@@ -53,6 +53,11 @@ public class LoginForm extends JFrame implements View,VisitableGUI {
         this.accept(gc);
     }
 
+    @Override
+    public void accept(VisitorGUI visitor) {
+        visitor.visit(this);
+    }
+
     //METODI GETTER
     public JLabel getErrorLoginLabel() {
         return errorLoginLabel;
@@ -92,12 +97,4 @@ public class LoginForm extends JFrame implements View,VisitableGUI {
         this.errorLoginLabel = erorLogin;
     }
 
- 
-   
-
-    @Override
-    public void accept(VisitorGUI visitor) {
-        visitor.visit(this);
-    }
-    
 }

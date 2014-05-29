@@ -6,13 +6,16 @@ import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.Proposta;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.UserInfo;
+import cryptohelper.interfaces.VisitableGUI;
+import cryptohelper.interfaces.VisitorGUI;
 import java.awt.BorderLayout;
+import static java.lang.System.gc;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class SdcPanel extends JPanel implements View {
+public class SdcPanel extends JPanel implements View, VisitableGUI {
 
     private JButton proponiSDCBtn;
     private JButton gestisciSDCBtn;
@@ -108,8 +111,13 @@ public class SdcPanel extends JPanel implements View {
 
     @Override
     public void registerController() {
-        GUIControllerUC1 gc = GUIControllerUC1.getInstance();
-        gc.addView(this);
+        gc = GUIControllerUC1.getInstance();
+        this.accept(gc);
+    }
+
+    @Override
+    public void accept(VisitorGUI visitor) {
+        visitor.visit(this);
     }
 
     //METODI GETTER
