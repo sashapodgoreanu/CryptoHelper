@@ -6,12 +6,14 @@ import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.data.UserInfo;
+import cryptohelper.interfaces.VisitableGUI;
+import cryptohelper.interfaces.VisitorGUI;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 
-public class PannelloPrincipale extends JFrame implements View {
+public class PannelloPrincipale extends JFrame implements View, VisitableGUI {
 
     JPanel toolbarPanel = new JPanel(); //pannello con pulsanti "nuovo messaggio", "inbox", "logout"...
     JPanel bodyPanel = new JPanel();    //pannello contenitore dell'area di lavoro
@@ -101,11 +103,11 @@ public class PannelloPrincipale extends JFrame implements View {
     public void initOutbox(ArrayList<MessaggioMittente> destArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Messaggi inviati");  //cambia titolo al form
-        this.setStatus("Selezionare un messaggio per visualizzarlo");           //messaggio per la status label
-        bodyPanel.add(new OutboxPanel(destArrLst));                             //aggiunge il nuovo pannello
-        bodyPanel.revalidate();                                                 //completa l'inizializzazione dell'interfaccia
+        this.setStatus("Selezionare un messaggio per visualizzarlo");    //messaggio per la status label
+        bodyPanel.add(new OutboxPanel(destArrLst));                      //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                                          //completa l'inizializzazione dell'interfaccia
     }
-
+    
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "gestisci bozze"  
     public void initGestioneBozze(ArrayList<MessaggioMittente> bozzeArrLst) {
         this.resetPanels();
@@ -132,12 +134,16 @@ public class PannelloPrincipale extends JFrame implements View {
         statusLabel.setText(" ");
     }
 
-    @Override
+   @Override
     public void registerController() {
-        GUIControllerUC1 gc = GUIControllerUC1.getInstance();
-        gc.addView(this);
+        this.accept(GUIControllerUC1.getInstance());
     }
 
+     @Override
+    public void accept(VisitorGUI visitor) {
+        visitor.visit(this);
+    }
+    
     //METODI GETTER
     public JButton getNuovoMessaggioBtn() {
         return nuovoMessaggioBtn;

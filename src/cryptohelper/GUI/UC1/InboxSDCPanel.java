@@ -6,6 +6,7 @@ import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Proposta;
 import cryptohelper.interfaces.VisitableGUI;
+import cryptohelper.interfaces.VisitorGUI;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
@@ -93,8 +94,12 @@ public class InboxSDCPanel extends JPanel implements View,VisitableGUI {
 
     @Override
     public void registerController() {
-        GUIControllerUC1 gc = GUIControllerUC1.getInstance();
-        gc.addView(this);
+       this.accept(GUIControllerUC1.getInstance());
+    }
+    
+     @Override
+    public void accept(VisitorGUI visitor) {
+        visitor.visit(this);
     }
 
     public boolean deleteSelectedIndex() {

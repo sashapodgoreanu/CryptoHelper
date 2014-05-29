@@ -120,8 +120,7 @@ public class OutboxPanel extends JPanel implements View, VisitableGUI {
 
     @Override
     public void registerController() {
-        gc = GUIControllerUC1.getInstance();
-        this.accept(gc);
+        this.accept(GUIControllerUC1.getInstance());
     }
 
     @Override
