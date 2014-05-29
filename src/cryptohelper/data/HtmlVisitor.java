@@ -1,12 +1,13 @@
 //Classe che implementa l'interfaccia Visitor e si occupa della stampa con formattazione dei vari testi
 package cryptohelper.data;
 
+import cryptohelper.interfaces.HtmlVisitorInterface;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
-import cryptohelper.interfaces.Visitor;
 
-public class HtmlVisitor implements Visitor {
+
+public class HtmlVisitor implements HtmlVisitorInterface {
 
     //Stampa dati oggetto Proposta
     @Override
