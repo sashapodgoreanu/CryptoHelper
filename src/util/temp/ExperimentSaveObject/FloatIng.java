@@ -38,7 +38,7 @@ public class FloatIng {
         System.out.println(x+"   "+(int) a+"   "+(int) b+"   "+(int) c+"   "+(int) g);
         char ch = 'A';
         ch = (char) (ch + 32);
-        System.out.println(ch);
+        System.out.println((int) 'A');
 
         StringBuilder sb = new StringBuilder("1234567890");
         sb.setCharAt(0, 'a');
