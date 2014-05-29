@@ -1,27 +1,44 @@
-/*
- * Copyright 2014 st106342.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+//Interfaccia del pattern Visitor per la creazione delle GUI
+
 package cryptohelper.interfaces;
 
+import cryptohelper.GUI.UC1.BozzePanel;
+import cryptohelper.GUI.UC1.CreaSDCPanel;
+import cryptohelper.GUI.UC1.GestisciSDCPanel;
+import cryptohelper.GUI.UC1.InboxPanel;
+import cryptohelper.GUI.UC1.InboxSDCPanel;
 import cryptohelper.GUI.UC1.LoginForm;
+import cryptohelper.GUI.UC1.MessagePanel;
+import cryptohelper.GUI.UC1.OutboxPanel;
+import cryptohelper.GUI.UC1.PannelloPrincipale;
+import cryptohelper.GUI.UC1.ProponiSDCPanel;
+import cryptohelper.GUI.UC1.RegistrationForm;
+import cryptohelper.GUI.UC1.SdcPanel;
 
-/**
- *
- * @author st106342
- */
 public interface VisitorGUI {
-    public void visit(LoginForm v);
+
+    public void visit(LoginForm lf);
+
+    public void visit(RegistrationForm rf);
+
+    public void visit(PannelloPrincipale pp);
+
+    public void visit(MessagePanel mp);
+
+    public void visit(BozzePanel bp);
+
+    public void visit(InboxPanel ip);
+
+    public void visit(OutboxPanel op);
+
+    public void visit(SdcPanel sdcp);
+
+    public void visit(CreaSDCPanel csdcp);
+
+    public void visit(GestisciSDCPanel gsdcp);
+
+    public void visit(ProponiSDCPanel psdcp);
+
+    public void visit(InboxSDCPanel isdcp);
 
 }

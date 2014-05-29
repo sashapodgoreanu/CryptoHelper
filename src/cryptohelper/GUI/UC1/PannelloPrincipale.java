@@ -11,7 +11,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 
-public class PanelloPrincipale extends JFrame implements View {
+public class PannelloPrincipale extends JFrame implements View {
 
     JPanel toolbarPanel = new JPanel(); //pannello con pulsanti "nuovo messaggio", "inbox", "logout"...
     JPanel bodyPanel = new JPanel();    //pannello contenitore dell'area di lavoro
@@ -30,7 +30,7 @@ public class PanelloPrincipale extends JFrame implements View {
     JButton inboxProposteSDCBtn;
     JButton proposteAccetateBtn;
 
-    public PanelloPrincipale() {
+    public PannelloPrincipale() {
         this.init();
     }
 
