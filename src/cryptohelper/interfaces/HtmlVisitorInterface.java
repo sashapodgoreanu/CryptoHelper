@@ -3,7 +3,7 @@ package cryptohelper.interfaces;
 import cryptohelper.data.Proposta;
 import cryptohelper.data.SessioneLavoro;
 
-public interface Visitor {
+public interface HtmlVisitorInterface {
 
     public String visit(Proposta proposta);
 

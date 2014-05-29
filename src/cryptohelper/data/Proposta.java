@@ -1,15 +1,15 @@
 // classe Proposta
 package cryptohelper.data;
 
-import cryptohelper.interfaces.Visitable;
-import cryptohelper.interfaces.Visitor;
+import cryptohelper.interfaces.HtmlVisitable;
+import cryptohelper.interfaces.HtmlVisitorInterface;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class Proposta implements Visitable {
+public class Proposta implements HtmlVisitable {
 
     private static Log log = LogFactory.getLog(Messaggio.class);   //per log
 
@@ -164,7 +164,7 @@ public class Proposta implements Visitable {
     }
 
    @Override
-    public void accept(Visitor visitor) {
+    public void accept(HtmlVisitorInterface visitor) {
         visitor.visit(this);
     }
     
