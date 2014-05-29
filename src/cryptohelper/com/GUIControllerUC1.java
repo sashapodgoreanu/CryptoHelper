@@ -24,7 +24,6 @@ import cryptohelper.interfaces.Cifrario;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
-import cryptohelper.interfaces.View;
 import cryptohelper.interfaces.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
