@@ -69,7 +69,7 @@ public class PannelloPrincipale extends JFrame implements View, VisitableGuiUC1 
 
         //INIT DEL FRAME
         this.setTitle("CryptoHelper - Menu Principale");
-        this.setSize(900, 550);
+        this.setSize(930, 550);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
         this.add(toolbarPanel, BorderLayout.NORTH);

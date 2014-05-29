@@ -131,7 +131,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
     public void visit(SdcPanel sdcp) {
         sdcPanel = sdcp;
         sdcPanel.getCreaSDCBtn().addActionListener(new CreateSDCListener());
-        sdcPanel.getGestisciSDCBtn().addActionListener(new GestisciSDCListener());
+        sdcPanel.getGestisciProposteBtn().addActionListener(new GestisciSDCListener());
         sdcPanel.getProponiSDCBtn().addActionListener(new ProponiSDCListener());
         sdcPanel.getInboxProposteSDCBtn().addActionListener(new InboxSDCListener());
     }

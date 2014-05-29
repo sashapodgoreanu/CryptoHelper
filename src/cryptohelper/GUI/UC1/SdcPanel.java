@@ -18,9 +18,10 @@ import javax.swing.border.EmptyBorder;
 public class SdcPanel extends JPanel implements View, VisitableGuiUC1 {
 
     private JButton proponiSDCBtn;
-    private JButton gestisciSDCBtn;
+    private JButton gestisciProposteBtn;
     private JButton inboxProposteSDCBtn;
     private JButton creaSDCBtn;
+    private JButton gestisciSDCBtn;
     private JPanel topPanel;
     private JPanel centerSDCPanel;
     private CreaSDCPanel creasdc;
@@ -36,10 +37,11 @@ public class SdcPanel extends JPanel implements View, VisitableGuiUC1 {
     public void init() {
         System.out.println("initCreateSDC");
         //creazione dei componenti
-        proponiSDCBtn = new JButton("Proponi sistema di cifratura");
-        inboxProposteSDCBtn = new JButton("Inbox");
-        creaSDCBtn = new JButton("Crea Sistema di Cifratura");
-        gestisciSDCBtn = new JButton("Sistemi di Cifratura accettati");
+        proponiSDCBtn = new JButton("Proponi sistema cifratura");
+        inboxProposteSDCBtn = new JButton("Proposte ricevute");
+        creaSDCBtn = new JButton("Crea sistema cifratura");
+        gestisciProposteBtn = new JButton("Gestisci proposte");
+        gestisciSDCBtn = new JButton("Gestisci sistemi cifratura");
         topPanel = new JPanel();
         centerSDCPanel = new JPanel(new BorderLayout());
         this.setLayout(new BorderLayout());
@@ -48,6 +50,7 @@ public class SdcPanel extends JPanel implements View, VisitableGuiUC1 {
         topPanel.add(creaSDCBtn);
         topPanel.add(proponiSDCBtn);
         topPanel.add(inboxProposteSDCBtn);
+        topPanel.add(gestisciProposteBtn);
         topPanel.add(gestisciSDCBtn);
 
         //aggiungi 2 panelli
@@ -136,9 +139,14 @@ public class SdcPanel extends JPanel implements View, VisitableGuiUC1 {
         return centerSDCPanel;
     }
 
-    public JButton getGestisciSDCBtn() {
+    public JButton getGestisciProposteBtn() {
+        return gestisciProposteBtn;
+    }
+    
+     public JButton getSDCBtn() {
         return gestisciSDCBtn;
     }
+     
 
     //METODI SETTER
     public void setProponiSDCBtn(JButton proponiSDCBtn) {
@@ -166,7 +174,7 @@ public class SdcPanel extends JPanel implements View, VisitableGuiUC1 {
     }
 
     public void setGestisciSDCBtn(JButton gestisciSDCBtn) {
-        this.gestisciSDCBtn = gestisciSDCBtn;
+        this.gestisciProposteBtn = gestisciSDCBtn;
     }
 
 }
