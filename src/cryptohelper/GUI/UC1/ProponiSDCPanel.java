@@ -5,10 +5,13 @@ import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.UserInfo;
+import cryptohelper.interfaces.VisitableGUI;
+import cryptohelper.interfaces.VisitorGUI;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import static java.lang.System.gc;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.DefaultListCellRenderer;
@@ -19,7 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-public class ProponiSDCPanel extends JPanel implements View {
+public class ProponiSDCPanel extends JPanel implements View, VisitableGUI {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
@@ -113,8 +116,13 @@ public class ProponiSDCPanel extends JPanel implements View {
 
     @Override
     public void registerController() {
-        GUIControllerUC1 gc = GUIControllerUC1.getInstance();
-        gc.addView(this);
+        gc = GUIControllerUC1.getInstance();
+        this.accept(gc);
+    }
+
+    @Override
+    public void accept(VisitorGUI visitor) {
+        visitor.visit(this);
     }
 
     //METODI GETTER

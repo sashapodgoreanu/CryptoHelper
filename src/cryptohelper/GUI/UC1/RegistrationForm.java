@@ -3,11 +3,12 @@ package cryptohelper.GUI.UC1;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
+import cryptohelper.interfaces.VisitableGUI;
+import cryptohelper.interfaces.VisitorGUI;
 import java.awt.*;
-import java.util.logging.Logger;
 import javax.swing.*;
 
-public class RegistrationForm extends JFrame implements View {
+public class RegistrationForm extends JFrame implements View, VisitableGUI {
 
     GUIControllerUC1 gc;
     JButton submitBtn;
@@ -65,7 +66,12 @@ public class RegistrationForm extends JFrame implements View {
     @Override
     public void registerController() {
         gc = GUIControllerUC1.getInstance();
-        gc.addView(this);
+        this.accept(gc);
+    }
+
+    @Override
+    public void accept(VisitorGUI visitor) {
+        visitor.visit(this);
     }
 
     //METODI GETTER
@@ -92,11 +98,11 @@ public class RegistrationForm extends JFrame implements View {
     public String getNicknameField() {
         return nicknameField.getText();
     }
-  
+
     public String getPasswordField() {
         return passwordField.getText();
     }
-  
+
     //METODI SETTER
     public void setErrorLabel(String errorMessage) {
         this.errorLabel.setText(errorMessage);

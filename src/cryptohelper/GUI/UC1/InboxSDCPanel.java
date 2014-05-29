@@ -5,13 +5,14 @@ import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Proposta;
+import cryptohelper.interfaces.VisitableGUI;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.EmptyBorder;
 
-public class InboxSDCPanel extends JPanel implements View {
+public class InboxSDCPanel extends JPanel implements View,VisitableGUI {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
