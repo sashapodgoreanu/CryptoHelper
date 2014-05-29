@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 st106342.
+ * Copyright 2014 st116629.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package cryptohelper.interfaces;
 
 /**
  *
- * @author st106342
+ * @author st116629
  */
-public interface VisitableGUI {
-
-    public void accept(VisitorGUI v);
+public class VisitorGuiUC2 {
+    
 }

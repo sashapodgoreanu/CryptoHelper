@@ -6,14 +6,14 @@ import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.data.UserInfo;
-import cryptohelper.interfaces.VisitableGUI;
-import cryptohelper.interfaces.VisitorGUI;
+import cryptohelper.interfaces.VisitableGuiUC1;
+import cryptohelper.interfaces.VisitorGuiUC1;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 
-public class PannelloPrincipale extends JFrame implements View, VisitableGUI {
+public class PannelloPrincipale extends JFrame implements View, VisitableGuiUC1 {
 
     JPanel toolbarPanel = new JPanel(); //pannello con pulsanti "nuovo messaggio", "inbox", "logout"...
     JPanel bodyPanel = new JPanel();    //pannello contenitore dell'area di lavoro
@@ -140,7 +140,7 @@ public class PannelloPrincipale extends JFrame implements View, VisitableGUI {
     }
 
      @Override
-    public void accept(VisitorGUI visitor) {
+    public void accept(VisitorGuiUC1 visitor) {
         visitor.visit(this);
     }
     

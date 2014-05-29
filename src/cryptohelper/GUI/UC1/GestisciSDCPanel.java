@@ -5,8 +5,8 @@ import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Proposta;
-import cryptohelper.interfaces.VisitableGUI;
-import cryptohelper.interfaces.VisitorGUI;
+import cryptohelper.interfaces.VisitableGuiUC1;
+import cryptohelper.interfaces.VisitorGuiUC1;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
@@ -14,7 +14,7 @@ import java.awt.*;
 import static java.lang.System.gc;
 import javax.swing.border.EmptyBorder;
 
-public class GestisciSDCPanel extends JPanel implements View, VisitableGUI {
+public class GestisciSDCPanel extends JPanel implements View, VisitableGuiUC1 {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
@@ -95,7 +95,7 @@ public class GestisciSDCPanel extends JPanel implements View, VisitableGUI {
     }
 
     @Override
-    public void accept(VisitorGUI visitor) {
+    public void accept(VisitorGuiUC1 visitor) {
         visitor.visit(this);
     }
 

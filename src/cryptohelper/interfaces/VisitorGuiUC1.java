@@ -15,7 +15,7 @@ import cryptohelper.GUI.UC1.ProponiSDCPanel;
 import cryptohelper.GUI.UC1.RegistrationForm;
 import cryptohelper.GUI.UC1.SdcPanel;
 
-public interface VisitorGUI {
+public interface VisitorGuiUC1 {
 
     public void visit(LoginForm lf);
 

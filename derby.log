@@ -9,3 +9,31 @@ java.runtime.version=1.7.0_25-b17
 user.dir=C:\Program Files\Java\jdk1.7.0_25\db
 derby.system.home=Z:\Sviluppo applicazioni software\CryptoHelper
 Programma di caricamento classe database avviato - derby.database.classpath=''
+----------------------------------------------------------------
+Thu May 29 16:49:20 CEST 2014:
+Arresto in corso dell'istanza a816c00e-0146-484b-fe1e-ffffdf157467 nella directory del database Z:\Sviluppo applicazioni software\CryptoHelper\CHDB con il caricatore di classi sun.misc.Launcher$AppClassLoader@826b12d
+Thu May 29 16:49:21 CEST 2014 Thread[DRDAConnThread_4,5,main] (DATABASE = CHDB), (DRDAID = {151}), Arresto database 'CHDB'.
+----------------------------------------------------------------
+Thu May 29 16:49:39 CEST 2014:
+Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): istanza 5fa6c273-0146-484b-fe1e-ffffdf157467
+su directory database Z:\Sviluppo applicazioni software\CryptoHelper\CHDB  con caricatore classi sun.misc.Launcher$AppClassLoader@826b12d 
+
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_25-b17
+user.dir=C:\Program Files\Java\jdk1.7.0_25\db
+derby.system.home=Z:\Sviluppo applicazioni software\CryptoHelper
+Programma di caricamento classe database avviato - derby.database.classpath=''
+----------------------------------------------------------------
+Thu May 29 16:49:44 CEST 2014:
+Arresto in corso dell'istanza 5fa6c273-0146-484b-fe1e-ffffdf157467 nella directory del database Z:\Sviluppo applicazioni software\CryptoHelper\CHDB con il caricatore di classi sun.misc.Launcher$AppClassLoader@826b12d
+Thu May 29 16:49:45 CEST 2014 Thread[DRDAConnThread_4,5,main] (DATABASE = CHDB), (DRDAID = {153}), Arresto database 'CHDB'.
+----------------------------------------------------------------
+Thu May 29 16:49:49 CEST 2014:
+Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): istanza faa18304-0146-484b-fe1e-ffffdf157467
+su directory database Z:\Sviluppo applicazioni software\CryptoHelper\CHDB  con caricatore classi sun.misc.Launcher$AppClassLoader@826b12d 
+
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_25-b17
+user.dir=C:\Program Files\Java\jdk1.7.0_25\db
+derby.system.home=Z:\Sviluppo applicazioni software\CryptoHelper
+Programma di caricamento classe database avviato - derby.database.classpath=''

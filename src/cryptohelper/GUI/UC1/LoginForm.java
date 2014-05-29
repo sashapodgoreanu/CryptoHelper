@@ -3,12 +3,12 @@ package cryptohelper.GUI.UC1;
 
 import cryptohelper.interfaces.*;
 import cryptohelper.com.GUIControllerUC1;
-import cryptohelper.interfaces.VisitableGUI;
-import cryptohelper.interfaces.VisitorGUI;
+import cryptohelper.interfaces.VisitableGuiUC1;
+import cryptohelper.interfaces.VisitorGuiUC1;
 import java.awt.*;
 import javax.swing.*;
 
-public class LoginForm extends JFrame implements View, VisitableGUI {
+public class LoginForm extends JFrame implements View, VisitableGuiUC1 {
 
     JButton submitBtn;
     JButton registrationBtn;
@@ -52,7 +52,7 @@ public class LoginForm extends JFrame implements View, VisitableGUI {
     }
 
     @Override
-    public void accept(VisitorGUI visitor) {
+    public void accept(VisitorGuiUC1 visitor) {
         visitor.visit(this);
     }
 
