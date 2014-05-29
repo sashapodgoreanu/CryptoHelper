@@ -65,7 +65,7 @@ public class TestDbController {
             UserInfo mittente = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
             Messaggio m1 = new Messaggio(0, "English is a West Germanic language that "
                     + "was first spoken in early medieval England and is now a global lingua "
-                    + "franca.[4][5] It is spoken as a first language by the majority populations "
+                    + "franca.It is spoken as a first language by the majority populations "
                     + "of several sovereign states, including the United Kingdom, the United States, "
                     + "Canada, Australia, Ireland, New Zealand and a number of Caribbean nations; and "
                     + "it is an official language of almost 60 sovereign states. It is the third-most-common "
@@ -73,14 +73,14 @@ public class TestDbController {
                     + " learned as a second language and is an official language of the European Union,"
                     + " many Commonwealth countries and the United Nations, as well as in many world organisations.",
                     "bkdifqe fq r wbqt dbpjrkfs irkdurdb tert wrq cfpqt qmlhbk fk brpiy jbafbvri bkdirka rka fq "
-                    + "klw r dilori ifkdur cprksr.[4][5] ft fq qmlhbk rq r cfpqt irkdurdb oy teb jrglpfty "
+                    + "klw r dilori ifkdur cprksr.ft fq qmlhbk rq r cfpqt irkdurdb oy teb jrglpfty "
                     + "mlmuirtflkq lc qbvbpri qlvbpbfdk qtrtbq, fksiuafkd teb ukftba hfkdalj, teb ukftba qtrtbq,"
                     + " srkrar, ruqtprifr, fpbirka, kbw zbrirka rka r kujobp lc srpfoobrk krtflkq; rka ft fq rk"
                     + " lccfsfri irkdurdb lc rijlqt 60 qlvbpbfdk qtrtbq. ft fq teb tefpa-jlqt-sljjlk krtfvb irkdurdb"
-                    + " fk teb wlpia, rctbp jrkarpfk sefkbqb rka qmrkfqe.[6] ft fq wfabiy ibrpkba rq r qbslka"
+                    + " fk teb wlpia, rctbp jrkarpfk sefkbqb rka qmrkfqe.ft fq wfabiy ibrpkba rq r qbslka"
                     + " irkdurdb rka fq rk lccfsfri irkdurdb lc"
                     + " teb buplmbrk ukflk, jrky sljjlkwbrite sluktpfbq rka teb ukftba krtflkq,"
-                    + " rq wbii rq fk jrky wlpia lpdrkfqrtflkq.", "lingua", "titolo", true, true, mittente, destinatario);
+                    + " rq wbii rq fk jrky wlpia lpdrkfqrtflkq.", "inglese", "titolo", true, true, mittente, destinatario);
             m1.setAreaLavoro(m1.getTestoCifrato().toUpperCase());
 
             System.out.println(m1.toString());

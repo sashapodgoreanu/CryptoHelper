@@ -72,7 +72,6 @@ public class HtmlVisitor implements Visitor {
     }
 
     //Stampa dati oggetto Messaggio Intercettato
-
     public String visit(MessaggioIntercettato msgIntercettato) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
@@ -96,10 +95,10 @@ public class HtmlVisitor implements Visitor {
         sb.append("</html>");
         return sb.toString();
     }
-    
-      //Stampa dati oggetto SessioneLavoro
+
+    //Stampa dati oggetto SessioneLavoro
     @Override
-      public String visit(SessioneLavoro sl) {
+    public String visit(SessioneLavoro sl) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
         sb.append("<p>");
@@ -115,5 +114,4 @@ public class HtmlVisitor implements Visitor {
         sb.append("</html>");
         return sb.toString();
     }
-      
 }

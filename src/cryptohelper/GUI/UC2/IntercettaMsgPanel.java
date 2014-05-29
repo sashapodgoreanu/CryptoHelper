@@ -59,7 +59,7 @@ public class IntercettaMsgPanel extends JFrame implements View {
 
         //INIT DEL FRAME
         this.setTitle("CryptoHelper - Intercetta un messaggio");
-        this.setSize(1200, 700);
+        this.setSize(1200, 600);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
         this.add(toolbarPanel, BorderLayout.NORTH);
@@ -96,12 +96,12 @@ public class IntercettaMsgPanel extends JFrame implements View {
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "carica sessione"
-    public void initAreaLavoro(MessaggioIntercettato messaggioIntercettato) {
+    public void initAreaLavoro(SessioneLavoro sessione) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Carica sessione di lavoro");   //cambia titolo al form
-        this.setStatus("Selezionare un'opzione per iniziare a decifrare il messaggio"); //messaggio per la status label
-        bodyPanel.add(new AreaLavoroPanel(messaggioIntercettato));   //aggiunge il nuovo pannello
-        bodyPanel.revalidate();                                      //completa l'inizializzazione dell'interfaccia
+        this.setStatus("Formulare una nuova ipotesi di sostituzione per iniziare a decifrare il messaggio"); //messaggio per la status label
+        bodyPanel.add(new AreaLavoroPanel(sessione));               //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                                     //completa l'inizializzazione dell'interfaccia
     }
 
     @Override

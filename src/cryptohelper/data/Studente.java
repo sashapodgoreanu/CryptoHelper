@@ -10,7 +10,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class Studente {
 
-    private static Log log = LogFactory.getLog(Messaggio.class);   //per log
+    private static Log log = LogFactory.getLog(Messaggio.class);   //log per debug
     private int id;
     private String nome;
     private String cognome;
@@ -37,48 +37,6 @@ public class Studente {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
-    }
-
-    //METODI GETTER
-    public int getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public String getNickanme() {
-        return nickname;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    //METODI SETTER
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
-    public void setNickanme(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     //Salva i dati di un nuovo utente (studente) sul db
@@ -135,4 +93,45 @@ public class Studente {
         return "Studente{" + "id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", nickname=" + nickname + ", password=" + password + '}';
     }
 
+    //METODI GETTER
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public String getNickanme() {
+        return nickname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    //METODI SETTER
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public void setNickanme(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

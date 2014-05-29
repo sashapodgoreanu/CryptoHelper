@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cryptohelper.proxy;
+package cryptohelper.data.proxy;
 
 import java.io.FileReader;
 import java.io.IOException;

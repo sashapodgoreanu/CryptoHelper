@@ -25,32 +25,6 @@ public class UserInfo {
         this.cognome = cognome;
     }
 
-    //METODI GETTER
-    public int getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    //METODI SETTER
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
     //restituisce un oggeto userInfo con i dati prelevati dal database in base all'id passato per parametro
     public static UserInfo getUserInfo(int id) {
         String query = "SELECT * FROM STUDENTI WHERE ID =" + id;
@@ -77,4 +51,29 @@ public class UserInfo {
         return "UserInfo{" + "id=" + id + ", nome=" + nome + ", cognome=" + cognome + '}';
     }
 
+    //METODI GETTER
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    //METODI SETTER
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
 }

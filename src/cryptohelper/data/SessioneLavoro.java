@@ -3,6 +3,8 @@ package cryptohelper.data;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import cryptohelper.interfaces.MessaggioIntercettato;
+import cryptohelper.interfaces.Visitable;
+import cryptohelper.interfaces.Visitor;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -12,7 +14,7 @@ import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class SessioneLavoro {
+public class SessioneLavoro implements Visitable  {
 
     private static Log log = LogFactory.getLog(Messaggio.class);   //per log
     int idSessione;
@@ -179,6 +181,11 @@ public class SessioneLavoro {
     public void loadSession() {
 
     }
+    
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
 
     //METODI GETTER
     public UserInfo getUtente() {
@@ -229,5 +236,7 @@ public class SessioneLavoro {
     public void setMessaggioIntercettato(Messaggio messaggioIntercettato) {
         this.messaggioIntercettato = messaggioIntercettato;
     }
+
+   
 
 }

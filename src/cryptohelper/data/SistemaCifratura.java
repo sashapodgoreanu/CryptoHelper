@@ -10,7 +10,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class SistemaCifratura {
 
-    private static Log log = LogFactory.getLog(Messaggio.class);   //per log
+    private static Log log = LogFactory.getLog(Messaggio.class);   //log per debug
     private int id;
     private String nome;
     private String chiave;
@@ -228,57 +228,58 @@ public class SistemaCifratura {
         return temp;
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "SistemaCifratura{" + "id=" + id + ", chiave=" + chiave + ", metodo=" + metodo + ", creatore=" + creatore + ", map=" + map.toString() + ", cm=" + cm + '}';
     }
 
-    public void setId(int id) {
-        this.id = id;
+    //METODI GETTER
+    public int getId() {
+        return id;
     }
 
     public String getChiave() {
         return chiave;
     }
 
-    public void setChiave(String chiave) {
-        this.chiave = chiave;
-    }
-
     public String getMetodo() {
         return metodo;
-    }
-
-    public void setMetodo(String metodo) {
-        this.metodo = metodo;
     }
 
     public UserInfo getCreatore() {
         return creatore;
     }
 
-    public void setCreatore(UserInfo creatore) {
-        this.creatore = creatore;
-    }
-
     public Mappatura getMp() {
         return map;
-    }
-
-    public void setMp(Mappatura map) {
-        this.map = map;
     }
 
     public String getNome() {
         return nome;
     }
 
+    //METODI SETTER
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setChiave(String chiave) {
+        this.chiave = chiave;
+    }
+
+    public void setMetodo(String metodo) {
+        this.metodo = metodo;
+    }
+
+    public void setCreatore(UserInfo creatore) {
+        this.creatore = creatore;
+    }
+
+    public void setMp(Mappatura map) {
+        this.map = map;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    @Override
-    public String toString() {
-        return "SistemaCifratura{" + "id=" + id + ", chiave=" + chiave + ", metodo=" + metodo + ", creatore=" + creatore + ", map=" + map.toString() + ", cm=" + cm + '}';
-    }
-
 }

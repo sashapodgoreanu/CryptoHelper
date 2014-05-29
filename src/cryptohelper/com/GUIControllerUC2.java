@@ -48,6 +48,7 @@ public class GUIControllerUC2 {
             intercettaMessaggioPanel = (IntercettaMsgPanel) v;
             intercettaMessaggioPanel.getNuovaSessioneBtn().addActionListener(new NewSessioneListener());
             intercettaMessaggioPanel.getCaricaSessioneBtn().addActionListener(new LoadSessionListener());
+            intercettaMessaggioPanel.getSalvaSessioneBtn().addActionListener(new SaveSessionListener());
             intercettaMessaggioPanel.getLogoutBtn().addActionListener(new LogoutListener());
         } else if (v instanceof NuovaSessionePanel) {
             nuovaSessionePanel = (NuovaSessionePanel) v;
@@ -63,15 +64,6 @@ public class GUIControllerUC2 {
             areaLavoroPanel.getMappatura().getModel().addTableModelListener(new TableMappaturaListener());
             areaLavoroPanel.getUndoBtn().addActionListener(new UndoListener());
 
-        }
-    }
-
-    private class UndoListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            session.undo(session.getMessaggioIntercettato().getAreaLavoro());
-            areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
         }
     }
 
@@ -119,7 +111,7 @@ public class GUIControllerUC2 {
         }
     }
 
-    //classe listener per il button Carica Sessione 
+    //classe listener per il button "Carica Sessione" 
     private class LoadSessionListener implements ActionListener {
 
         @Override
@@ -132,7 +124,26 @@ public class GUIControllerUC2 {
         }
     }
 
-    //classe listener per la scelta dei messaggi nella nuova sessione 
+    //classe listener per il button "Salva Sessione"
+    private class SaveSessionListener implements ActionListener {
+
+        @Override
+        @SuppressWarnings("empty-statement")
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            /*
+             SessioneLavoro temp = areaLavoroPanel.getSessioneCorrente();
+             if (temp.salva()) {
+             intercettaMessaggioPanel.setStatus("Sessione salvata correttamente!");
+             } else {
+             intercettaMessaggioPanel.setStatus("Si è verificato un errore nel salvataggio della sessione!");
+             }
+             */
+        }
+    }
+
+//classe listener per la scelta dei messaggi nella nuova sessione 
     private class ViewMsgChoiceListener implements ListSelectionListener {
 
         @Override
@@ -144,7 +155,7 @@ public class GUIControllerUC2 {
         }
     }
 
-    //classe listener per la scelta della sessione da caricare 
+//classe listener per la scelta della sessione da caricare 
     private class ViewSessionChoiceListener implements ListSelectionListener {
 
         @Override
@@ -155,7 +166,7 @@ public class GUIControllerUC2 {
         }
     }
 
-    //classe listener per il button "elimina sessione" del pannello "carica sessione" 
+//classe listener per il button "elimina sessione" del pannello "carica sessione" 
     private class DeleteSessionListener implements ActionListener {
 
         @Override
@@ -167,7 +178,7 @@ public class GUIControllerUC2 {
         }
     }
 
-    //classe listener per il button "avanti" in nuova sessione e carica sessione
+//classe listener per il button "avanti" in nuova sessione e carica sessione
     private class LoadWorkspaceListener implements ActionListener {
 
         @Override
@@ -177,7 +188,17 @@ public class GUIControllerUC2 {
             session = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
             System.out.println("LoadWorkspaceListener :" + session.toString());
             intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
-            intercettaMessaggioPanel.initAreaLavoro(session.getMessaggioIntercettato());
+            intercettaMessaggioPanel.initAreaLavoro(session);
+        }
+    }
+
+//classe listener per il button "undo" dell'area di lavoro
+    private class UndoListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            session.undo(session.getMessaggioIntercettato().getAreaLavoro());
+            areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
         }
     }
 

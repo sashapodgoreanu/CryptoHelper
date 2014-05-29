@@ -61,7 +61,9 @@ public class GUIControllerUC1 implements VisitorGUI {
     private ProponiSDCPanel proponiSDCPanel;
     private InboxSDCPanel inboxSDCPanel;
     private GestisciSDCPanel gestisciSDCPanel;
+    private static HtmlVisitor printerVisitor  = new HtmlVisitor(); //htmlVisitor, serve al pattern visitor per le stampe formato html degli oggetti
 
+    
     private GUIControllerUC1() {
         comC = COMController.getInstance();
     }
@@ -264,7 +266,7 @@ public class GUIControllerUC1 implements VisitorGUI {
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
             System.out.println(mess.toString());
-            inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)));
+            inboxPanel.getCorpoMessaggio().setText(printerVisitor.visit(mess));
         }
     }
 
@@ -293,9 +295,8 @@ public class GUIControllerUC1 implements VisitorGUI {
                 String testoDecifrato = sdc.decifra(mess.getTestoCifrato());
                 String body = inboxPanel.getCorpoMessaggio().getText();
                 System.out.println(testoDecifrato);
-                System.out.println((new HtmlVisitor().visit(mess)));
-                inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)) + "<br/><b>Testo Decifrato:</b><br/>" + testoDecifrato + "</html>");
-
+                System.out.println((printerVisitor.visit(mess)));
+                inboxPanel.getCorpoMessaggio().setText((printerVisitor.visit(mess)) + "<br/><b>Testo Decifrato:</b><br/>" + testoDecifrato + "</html>");
             } else {
                 panelloPrincipale.setStatus("La chiave non è corretta");
             }
@@ -311,7 +312,7 @@ public class GUIControllerUC1 implements VisitorGUI {
             panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             MessaggioMittente outboxMsg = (MessaggioMittente) outboxPanel.getElencoMessaggiInviati().getSelectedValue();
-            outboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(outboxMsg)));
+            outboxPanel.getCorpoMessaggio().setText((printerVisitor.visit(outboxMsg)));
         }
     }
 
@@ -404,7 +405,7 @@ public class GUIControllerUC1 implements VisitorGUI {
         @Override
         public void actionPerformed(ActionEvent e) {
             panelloPrincipale.setStatus(" ");
-            //un messaggio senza titolo non si puo salvare
+            //un messaggio senza titolo non può essere salvato
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
             if (ev.getText().equalsIgnoreCase("Salva come bozza")) {
@@ -744,7 +745,7 @@ public class GUIControllerUC1 implements VisitorGUI {
             panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             Proposta proposta = (Proposta) inboxSDCPanel.getElencoProposteRicevute().getSelectedValue();
-            inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)));
+            inboxSDCPanel.getInfoSdcLabel().setText(printerVisitor.visit(proposta));
         }
     }
 
