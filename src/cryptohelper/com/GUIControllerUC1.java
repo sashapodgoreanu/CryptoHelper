@@ -60,7 +60,7 @@ public class GUIControllerUC1 {
     private ProponiSDCPanel proponiSDCPanel;
     private InboxSDCPanel inboxSDCPanel;
     private GestisciSDCPanel gestisciSDCPanel;
-    private static HtmlVisitor printerVisitor  = new HtmlVisitor();
+    private static HtmlVisitor printerVisitor  = new HtmlVisitor(); //htmlVisitor, serve al pattern visitor per le stampe formato html degli oggetti
 
     
     private GUIControllerUC1() {
