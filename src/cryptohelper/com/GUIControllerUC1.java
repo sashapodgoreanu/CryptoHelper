@@ -8,7 +8,7 @@ import cryptohelper.GUI.UC1.InboxSDCPanel;
 import cryptohelper.GUI.UC1.LoginForm;
 import cryptohelper.GUI.UC1.MessagePanel;
 import cryptohelper.GUI.UC1.OutboxPanel;
-import cryptohelper.GUI.UC1.PanelloPrincipale;
+import cryptohelper.GUI.UC1.PannelloPrincipale;
 import cryptohelper.GUI.UC1.ProponiSDCPanel;
 import cryptohelper.GUI.UC1.RegistrationForm;
 import cryptohelper.GUI.UC1.SdcPanel;
@@ -26,7 +26,6 @@ import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.interfaces.View;
 import cryptohelper.interfaces.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class GUIControllerUC1 implements VisitorGUI {
     private COMController comC;
     private LoginForm loginForm;
     private RegistrationForm regForm;
-    private PanelloPrincipale panelloPrincipale;
+    private PannelloPrincipale panelloPrincipale;
     private SdcPanel sdcPanel;
     private MessagePanel messagePanel;
     private BozzePanel bozzePanel;
@@ -105,8 +104,8 @@ public class GUIControllerUC1 implements VisitorGUI {
             outboxPanel = (OutboxPanel) v;
             outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewOutboxMsgListener());
             outboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaOutboxMsgListener());
-        } else if (v instanceof PanelloPrincipale) {
-            panelloPrincipale = (PanelloPrincipale) v;
+        } else if (v instanceof PannelloPrincipale) {
+            panelloPrincipale = (PannelloPrincipale) v;
             panelloPrincipale.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
             panelloPrincipale.getInboxBtn().addActionListener(new GestisciInbox());
             panelloPrincipale.getOutboxBtn().addActionListener(new GestisciOutbox());
@@ -161,7 +160,7 @@ public class GUIControllerUC1 implements VisitorGUI {
             if (valid) {
                 loginForm.dispose();
                 utilizzatoreSistema = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
-                PanelloPrincipale pp = new PanelloPrincipale();
+                PannelloPrincipale pp = new PannelloPrincipale();
             } else {
                 loginForm.getErrorLoginLabel().setText("Errore di autenticazione");
             }
