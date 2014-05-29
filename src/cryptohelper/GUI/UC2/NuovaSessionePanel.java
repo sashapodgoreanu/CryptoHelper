@@ -1,11 +1,13 @@
 //Pannello che consente la scelta del messaggio da intercettare
 package cryptohelper.GUI.UC2;
 
+import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.interfaces.View;
-import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioIntercettato;
+import cryptohelper.interfaces.VisitableGUI;
+import cryptohelper.interfaces.VisitorGuiUC1;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.*;
@@ -13,7 +15,7 @@ import java.awt.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-public class NuovaSessionePanel extends JPanel implements View {
+public class NuovaSessionePanel extends JPanel implements View, VisitableGUI {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
@@ -100,8 +102,12 @@ public class NuovaSessionePanel extends JPanel implements View {
 
     @Override
     public void registerController() {
-        GUIControllerUC2 gc = GUIControllerUC2.getInstance();
-        gc.addView(this);
+        this.accept(GUIControllerUC1.getInstance());
+    }
+
+    @Override
+    public void accept(VisitorGuiUC1 visitor) {
+        visitor.visit(this);
     }
 
     //METODI GETTER

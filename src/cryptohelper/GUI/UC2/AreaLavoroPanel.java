@@ -1,10 +1,12 @@
 //Pannello con gli strumenti per decifrare il messaggio per la spia
 package cryptohelper.GUI.UC2;
 
-import cryptohelper.com.GUIControllerUC2;
+import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.SessioneLavoro;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
+import cryptohelper.interfaces.VisitableGUI;
+import cryptohelper.interfaces.VisitorGuiUC1;
 import java.util.ArrayList;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
@@ -12,7 +14,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.*;
 import java.awt.*;
 
-public class AreaLavoroPanel extends JPanel implements View {
+public class AreaLavoroPanel extends JPanel implements View, VisitableGUI {
 
     private boolean DEBUG = true; //attiva le stampe di debug
     private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -198,8 +200,12 @@ public class AreaLavoroPanel extends JPanel implements View {
 
     @Override
     public void registerController() {
-        GUIControllerUC2 gc = GUIControllerUC2.getInstance();
-        gc.addView(this);
+        this.accept(GUIControllerUC1.getInstance());
+    }
+
+    @Override
+    public void accept(VisitorGuiUC1 visitor) {
+        visitor.visit(this);
     }
 
     //METODI GETTER
@@ -222,7 +228,7 @@ public class AreaLavoroPanel extends JPanel implements View {
     public SessioneLavoro getSessioneCorrente() {
         return sessioneCorrente;
     }
-     
+
     //METODI SETTER
     public void setCorpoTesto(JTextPane corpoTesto) {
         this.corpoTesto = corpoTesto;

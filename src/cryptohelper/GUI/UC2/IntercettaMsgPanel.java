@@ -1,11 +1,13 @@
 //Finestra principale della GUI
 package cryptohelper.GUI.UC2;
 
-import cryptohelper.com.GUIControllerUC2;
+import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.SessioneLavoro;
 import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
+import cryptohelper.interfaces.VisitableGUI;
+import cryptohelper.interfaces.VisitorGuiUC1;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class IntercettaMsgPanel extends JFrame implements View {
+public class IntercettaMsgPanel extends JFrame implements View, VisitableGUI {
 
     JPanel toolbarPanel = new JPanel(); //pannello con pulsanti "nuovo messaggio", "inbox", "logout"...
     JPanel bodyPanel = new JPanel();    //pannello contenitore dell'area di lavoro
@@ -106,8 +108,12 @@ public class IntercettaMsgPanel extends JFrame implements View {
 
     @Override
     public void registerController() {
-        GUIControllerUC2 gcAL = GUIControllerUC2.getInstance();
-        gcAL.addView(this);
+        this.accept(GUIControllerUC1.getInstance());
+    }
+
+    @Override
+    public void accept(VisitorGuiUC1 visitor) {
+        visitor.visit(this);
     }
 
     //METODI GETTER
