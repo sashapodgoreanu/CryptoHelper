@@ -137,39 +137,7 @@ public class AlberoIpotesi {
         }
         return getIpotesiCorrente(root);
     }
-    /*
-     private Node search(String name, Node node){
-     if(node != null){
-     if(node.name().equals(name)){
-     return node;
-     } else {
-     Node foundNode = search(name, node.left);
-     if(foundNode == null) {
-     foundNode = search(name, node.right);
-     }
-     return foundNode.
-     }
-     } else {
-     return null;
-     }
-     }*/
 
-    /*
-     if(node != null){
-     if(node.name().equals(name)){
-     return node;
-     }
-     else {
-     Node tmp = search(name, node.left);
-     if (tmp != null) { // if we find it at left
-     return tmp; // we return it
-     }
-     // else we return the result of the search in the right node
-     return search(name, node.right);
-     }
-     }
-     return null;
-     */
     private Ipotesi getIpotesiCorrente(Ipotesi ip) {
         if (ip != null && ip.isUltima()) {
             return ip;

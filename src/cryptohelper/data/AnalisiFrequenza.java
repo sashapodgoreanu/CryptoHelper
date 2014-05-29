@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package cryptohelper.data;
 
 import cryptohelper.data.proxy.ProxyFrequenzaFiller;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -24,25 +24,51 @@ import java.util.Map;
  * @author st106342
  */
 public class AnalisiFrequenza {
-    
+
     SessioneLavoro sessione;
     double[] frequenzaTestoCifrato;
-    int[][] bigrammiTesto;  
+    int[][] bigrammiTesto;
     int numCaratteri;
     int numBigrammi;
     String lingua;
     String testoCifrato;
     ProxyFrequenzaFiller proxyFile;
-    
-    public AnalisiFrequenza () {
-        
+
+    public AnalisiFrequenza(String lingua, String testoCifrato) {
+        this.lingua = lingua;
+        this.testoCifrato = testoCifrato;
     }
-    
-    
-      
-    
-   
-    
-    
-    
+
+    public void calcolaAnalisiBigrami(String testoCifrato) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void calcolaAnalisiFrequenza(String testoCifrato) {
+        throw new UnsupportedOperationException();
+    }
+
+    public Map<Character, ArrayList<Integer>> getBigramiTestoCifrato(char ch) {
+        throw new UnsupportedOperationException();
+    }
+
+    public Map<Character, ArrayList<Integer>> getBigramiMsg(char ch) {
+        throw new UnsupportedOperationException();
+    }
+
+    public double[] getFrequenzaMsg() {
+        throw new UnsupportedOperationException();
+    }
+
+    public double[] getFrequenzaLingua() {
+        throw new UnsupportedOperationException();
+    }
+
+    public ArrayList<Character> getCaratteriSingoli(Object aLang) {
+        throw new UnsupportedOperationException();
+    }
+
+    public ArrayList<Character> getCaratteriSingoliTestoCifrato(Object aTestoCifrato) {
+        throw new UnsupportedOperationException();
+    }
+
 }
