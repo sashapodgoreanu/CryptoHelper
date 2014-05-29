@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cryptohelper.data;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-/**
- *
- * @author st116628
- */
 public class QueryResult {
 
     private ArrayList<Map<String, Object>> lista;
@@ -67,14 +58,20 @@ public class QueryResult {
         return result;
     }
 
-    public ArrayList<Map<String, Object>> getLista() {
-        return lista;
-    }
-
+    //METODI GETTER
     public int getIterator() {
         return iterator;
     }
 
+    public ArrayList<Map<String, Object>> getLista() {
+        return lista;
+    }
+
+    public int getSize() {
+        return lista.size();
+    }
+
+    //METODI SETTER
     public void setIterator(int iterator) {
         this.iterator = iterator;
     }
@@ -82,9 +79,4 @@ public class QueryResult {
     public void setLista(ArrayList<Map<String, Object>> lista) {
         this.lista = lista;
     }
-
-    public int getSize() {
-        return lista.size();
-    }
-
 }
