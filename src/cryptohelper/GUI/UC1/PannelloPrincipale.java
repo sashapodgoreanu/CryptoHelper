@@ -93,8 +93,8 @@ public class PannelloPrincipale extends JFrame implements View, VisitableGuiUC1 
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Inbox"
     public void initInbox(ArrayList<MessaggioDestinatario> mittentiArrLst) {
         this.resetPanels();
-        this.setTitle("CryptoHelper - Inbox");    //cambia titolo al form
-        this.setStatus("Selezionare un messaggio per aprirlo"); //messaggio per la status label
+        this.setTitle("CryptoHelper - Inbox");              //cambia titolo al form
+        this.setStatus("Selezionare un messaggio per aprirlo. Inserire una chiave per decifrarne il testo cifrato"); //messaggio per la status label
         bodyPanel.add(new InboxPanel(mittentiArrLst));      //aggiunge il nuovo pannello
         bodyPanel.revalidate();                             //completa l'inizializzazione dell'interfaccia
     }
@@ -102,7 +102,7 @@ public class PannelloPrincipale extends JFrame implements View, VisitableGuiUC1 
     //Iniziallizza l'interfaccia e i componenti quando viene premuto il button "Outbox"
     public void initOutbox(ArrayList<MessaggioMittente> destArrLst) {
         this.resetPanels();
-        this.setTitle("CryptoHelper - Messaggi inviati");  //cambia titolo al form
+        this.setTitle("CryptoHelper - Messaggi inviati");                //cambia titolo al form
         this.setStatus("Selezionare un messaggio per visualizzarlo");    //messaggio per la status label
         bodyPanel.add(new OutboxPanel(destArrLst));                      //aggiunge il nuovo pannello
         bodyPanel.revalidate();                                          //completa l'inizializzazione dell'interfaccia

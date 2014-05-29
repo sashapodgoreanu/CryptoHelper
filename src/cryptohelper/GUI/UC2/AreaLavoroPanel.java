@@ -1,12 +1,12 @@
 //Pannello con gli strumenti per decifrare il messaggio per la spia
 package cryptohelper.GUI.UC2;
 
-import cryptohelper.com.GUIControllerUC1;
+import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.SessioneLavoro;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
-import cryptohelper.interfaces.VisitableGUI;
-import cryptohelper.interfaces.VisitorGuiUC1;
+import cryptohelper.interfaces.VisitableGuiUC2;
+import cryptohelper.interfaces.VisitorGuiUC2;
 import java.util.ArrayList;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
@@ -14,7 +14,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.*;
 import java.awt.*;
 
-public class AreaLavoroPanel extends JPanel implements View, VisitableGUI {
+public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
     private boolean DEBUG = true; //attiva le stampe di debug
     private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -200,11 +200,11 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGUI {
 
     @Override
     public void registerController() {
-        this.accept(GUIControllerUC1.getInstance());
+        this.accept(GUIControllerUC2.getInstance());
     }
 
     @Override
-    public void accept(VisitorGuiUC1 visitor) {
+    public void accept(VisitorGuiUC2 visitor) {
         visitor.visit(this);
     }
 
