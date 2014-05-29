@@ -1,12 +1,14 @@
 //Classe Login Form - Gestisce il form per l'accesso al servizio da parte degli utenti
 package cryptohelper.GUI.UC1;
 
-import cryptohelper.interfaces.View;
+import cryptohelper.interfaces.*;
 import cryptohelper.com.GUIControllerUC1;
+import cryptohelper.interfaces.VisitableGUI;
+import cryptohelper.interfaces.VisitorGUI;
 import java.awt.*;
 import javax.swing.*;
 
-public class LoginForm extends JFrame implements View {
+public class LoginForm extends JFrame implements View,VisitableGUI {
 
     GUIControllerUC1 gc;
     JButton submitBtn;
@@ -48,7 +50,7 @@ public class LoginForm extends JFrame implements View {
     @Override
     public void registerController() {
         gc = GUIControllerUC1.getInstance();
-        gc.addView(this);
+        this.accept(gc);
     }
 
     //METODI GETTER
@@ -90,4 +92,12 @@ public class LoginForm extends JFrame implements View {
         this.errorLoginLabel = erorLogin;
     }
 
+ 
+   
+
+    @Override
+    public void accept(VisitorGUI visitor) {
+        visitor.visit(this);
+    }
+    
 }

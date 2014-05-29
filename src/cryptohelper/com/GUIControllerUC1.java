@@ -25,6 +25,8 @@ import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.interfaces.View;
+import cryptohelper.interfaces.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ import javax.swing.event.ListSelectionListener;
  * conoscere: i controllori e qualche modello Modello non deve conoscere nessuno
  * dei due.
  */
-public class GUIControllerUC1 {
+public class GUIControllerUC1 implements VisitorGUI {
 
     private COMController comC;
     private LoginForm loginForm;
@@ -71,16 +73,23 @@ public class GUIControllerUC1 {
         return instance;
     }
 
+
+
+    public void visit(LoginForm login) {
+        loginForm = login;
+        //solo per il test
+        loginForm.setUsernameField("sasha");
+        loginForm.setPasswordField("1234");
+        /**/
+        loginForm.getSubmit().addActionListener(new LoginFormListener());
+        loginForm.getRegistration().addActionListener(new RegistrationFormListener());
+    }
+
     //registra i pannelli e i loro actionListener
     public void addView(View v) {
+
         if (v instanceof LoginForm) {
-            loginForm = (LoginForm) v;
-            //solo per il test
-            loginForm.setUsernameField("sasha");
-            loginForm.setPasswordField("1234");
-            /**/
-            loginForm.getSubmit().addActionListener(new LoginFormListener());
-            loginForm.getRegistration().addActionListener(new RegistrationFormListener());
+
         } else if (v instanceof RegistrationForm) {
             regForm = (RegistrationForm) v;
             regForm.getCancelBtn().addActionListener(new CancelListener());
