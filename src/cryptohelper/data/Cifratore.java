@@ -12,7 +12,6 @@ public class Cifratore {
                 result = result + testo.charAt(i);
             }
         }
-        
         return result;
     }
 
@@ -28,8 +27,7 @@ public class Cifratore {
         }
         return result;
     }
-    
-    
+
     public String sostituisci(Mappatura mappa, String testo) {
 
         return null;

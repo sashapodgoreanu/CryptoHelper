@@ -10,6 +10,11 @@ public class Mossa {
         this.inverseChar = inverseChar;
     }
 
+    @Override
+    public String toString() {
+        return "Mossa{" + "character=" + character + ", inverseChar=" + inverseChar + '}';
+    }
+
     //METODI GETTER
     public char getCharacter() {
         return character;
@@ -27,10 +32,4 @@ public class Mossa {
     public void setInverseChar(char inverseChar) {
         this.inverseChar = inverseChar;
     }
-
-    @Override
-    public String toString() {
-        return "Mossa{" + "character=" + character + ", inverseChar=" + inverseChar + '}';
-    }
-
 }
