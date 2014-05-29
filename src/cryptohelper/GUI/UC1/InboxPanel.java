@@ -5,6 +5,8 @@ import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.View;
+import cryptohelper.interfaces.VisitableGuiUC1;
+import cryptohelper.interfaces.VisitorGuiUC1;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -24,7 +26,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-public class InboxPanel extends JPanel implements View {
+public class InboxPanel extends JPanel implements View, VisitableGuiUC1 {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
@@ -119,8 +121,12 @@ public class InboxPanel extends JPanel implements View {
 
     @Override
     public void registerController() {
-        GUIControllerUC1 gc = GUIControllerUC1.getInstance();
-        gc.addView(this);
+        this.accept(GUIControllerUC1.getInstance());
+    }
+
+    @Override
+    public void accept(VisitorGuiUC1 visitor) {
+        visitor.visit(this);
     }
 
     //elimina l'elemento selezionato nella lista delle bozze e aggiorna la vista
@@ -175,7 +181,5 @@ public class InboxPanel extends JPanel implements View {
     public JTextField getChiaveField() {
         return chiaveField;
     }
-
-
 
 }

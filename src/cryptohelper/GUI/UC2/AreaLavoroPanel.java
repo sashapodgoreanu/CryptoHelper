@@ -2,29 +2,19 @@
 package cryptohelper.GUI.UC2;
 
 import cryptohelper.com.GUIControllerUC2;
+import cryptohelper.data.SessioneLavoro;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Point;
+import cryptohelper.interfaces.VisitableGuiUC2;
+import cryptohelper.interfaces.VisitorGuiUC2;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.*;
+import java.awt.*;
 
-public class AreaLavoroPanel extends JPanel implements View {
+public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
     private boolean DEBUG = true; //attiva le stampe di debug
     private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -60,9 +50,10 @@ public class AreaLavoroPanel extends JPanel implements View {
     JScrollPane scrollPaneTestoCifrato;
     JComboBox bigrammiComboBox;
     ArrayList<JComboBox> jcomboBoxes;//dropdown per selezionare un carattere
-    MessaggioIntercettato messaggioIntercettato; //sessione su cui si sta lavorando
+    SessioneLavoro sessioneCorrente;//sessione su cui si sta lavorando
+    MessaggioIntercettato messaggioIntercettato; //messaggio della sessione
 
-    public AreaLavoroPanel(MessaggioIntercettato messaggioIntercettato) {
+    public AreaLavoroPanel(SessioneLavoro sessione) {
         topPanel = new JPanel();
         middlePanel = new JPanel();
         bottomPanel = new JPanel();
@@ -72,7 +63,8 @@ public class AreaLavoroPanel extends JPanel implements View {
         infoMessaggioInner = new JPanel();
         bigrammiPanel = new JPanel();
         caratteriPanel = new JPanel();
-        this.messaggioIntercettato = messaggioIntercettato;
+        this.sessioneCorrente = sessione;
+        this.messaggioIntercettato = sessione.getMessaggioIntercettato();
         this.init();
     }
 
@@ -106,7 +98,7 @@ public class AreaLavoroPanel extends JPanel implements View {
         languageLabel = new JLabel("Lingua: " + messaggioIntercettato.getLingua() + "               ");
         senderLabel = new JLabel("Mittente: " + messaggioIntercettato.getMittente().getNome() + " " + messaggioIntercettato.getMittente().getCognome() + "               ");
         receiverLabel = new JLabel("Destinatario: " + messaggioIntercettato.getDestinatario().getNome() + " " + messaggioIntercettato.getDestinatario().getCognome());
-        bigrammiLabel = new JLabel("Frequenze bigrammi per la lettera: ");
+        bigrammiLabel = new JLabel("Frequenze dei bigrammi per la lettera: ");
         caratteriLabel = new JLabel("Frequenze dei caratteri:");
         Font font = new Font("monospaced", Font.PLAIN, 16);
         corpoTestoCifrato = new JTextPane();
@@ -208,17 +200,17 @@ public class AreaLavoroPanel extends JPanel implements View {
 
     @Override
     public void registerController() {
-        GUIControllerUC2 gc = GUIControllerUC2.getInstance();
-        gc.addView(this);
+        this.accept(GUIControllerUC2.getInstance());
+    }
+
+    @Override
+    public void accept(VisitorGuiUC2 visitor) {
+        visitor.visit(this);
     }
 
     //METODI GETTER
     public JTextPane getCorpoTesto() {
         return corpoTesto;
-    }
-
-    public void setCorpoTesto(JTextPane corpoTesto) {
-        this.corpoTesto = corpoTesto;
     }
 
     public JTextPane getCorpoTestoCifrato() {
@@ -229,12 +221,21 @@ public class AreaLavoroPanel extends JPanel implements View {
         return mappatura;
     }
 
-    public void setMappatura(JTable mappatura) {
-        this.mappatura = mappatura;
-    }
-
     public JButton getUndoBtn() {
         return undoBtn;
+    }
+
+    public SessioneLavoro getSessioneCorrente() {
+        return sessioneCorrente;
+    }
+
+    //METODI SETTER
+    public void setCorpoTesto(JTextPane corpoTesto) {
+        this.corpoTesto = corpoTesto;
+    }
+
+    public void setMappatura(JTable mappatura) {
+        this.mappatura = mappatura;
     }
 
     //**************************************************************************

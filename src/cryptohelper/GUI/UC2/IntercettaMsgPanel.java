@@ -6,6 +6,8 @@ import cryptohelper.data.SessioneLavoro;
 import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
+import cryptohelper.interfaces.VisitableGuiUC2;
+import cryptohelper.interfaces.VisitorGuiUC2;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class IntercettaMsgPanel extends JFrame implements View {
+public class IntercettaMsgPanel extends JFrame implements View, VisitableGuiUC2 {
 
     JPanel toolbarPanel = new JPanel(); //pannello con pulsanti "nuovo messaggio", "inbox", "logout"...
     JPanel bodyPanel = new JPanel();    //pannello contenitore dell'area di lavoro
@@ -96,18 +98,22 @@ public class IntercettaMsgPanel extends JFrame implements View {
     }
 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "carica sessione"
-    public void initAreaLavoro(MessaggioIntercettato messaggioIntercettato) {
+    public void initAreaLavoro(SessioneLavoro sessione) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Carica sessione di lavoro");   //cambia titolo al form
         this.setStatus("Formulare una nuova ipotesi di sostituzione per iniziare a decifrare il messaggio"); //messaggio per la status label
-        bodyPanel.add(new AreaLavoroPanel(messaggioIntercettato));   //aggiunge il nuovo pannello
-        bodyPanel.revalidate();                                      //completa l'inizializzazione dell'interfaccia
+        bodyPanel.add(new AreaLavoroPanel(sessione));               //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                                     //completa l'inizializzazione dell'interfaccia
     }
 
     @Override
     public void registerController() {
-        GUIControllerUC2 gcAL = GUIControllerUC2.getInstance();
-        gcAL.addView(this);
+        this.accept(GUIControllerUC2.getInstance());
+    }
+
+    @Override
+    public void accept(VisitorGuiUC2 visitor) {
+        visitor.visit(this);
     }
 
     //METODI GETTER

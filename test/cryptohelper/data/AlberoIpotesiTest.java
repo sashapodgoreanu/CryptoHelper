@@ -1,18 +1,3 @@
-/*
- * Copyright 2014 SashaAlexandru.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package cryptohelper.data;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -29,10 +14,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/**
- *
- * @author SashaAlexandru
- */
 public class AlberoIpotesiTest {
 
     Ipotesi ip1;
@@ -130,11 +111,9 @@ public class AlberoIpotesiTest {
         String testoLavoro = "AONJCO";
         //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
         testoLavoro = alberoIpotesi.effettuaSostituzione('A', 'c', testoLavoro);
-        
 
         //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
         testoLavoro = alberoIpotesi.effettuaSostituzione('O', 'a', testoLavoro);
-
 
         //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
         testoLavoro = alberoIpotesi.effettuaSostituzione('N', 'p', testoLavoro);
@@ -174,7 +153,7 @@ public class AlberoIpotesiTest {
         assertThat("aA", is(not(testoLavoro)));
         assertThat("AA", is(testoLavoro));
     }
-    
+
     /**
      * Test of undo method, of class AlberoIpotesi.
      */
@@ -184,22 +163,20 @@ public class AlberoIpotesiTest {
         String testoLavoro = "AONJCO";
         //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
         testoLavoro = alberoIpotesi.effettuaSostituzione('A', 'c', testoLavoro);
-        System.out.println("testo lavoro "+testoLavoro);
+        System.out.println("testo lavoro " + testoLavoro);
         alberoIpotesi.display();
         testoLavoro = alberoIpotesi.effettuaSostituzione('C', 'd', testoLavoro);
-        System.out.println("testo lavoro "+testoLavoro);
+        System.out.println("testo lavoro " + testoLavoro);
         alberoIpotesi.display();
         testoLavoro = alberoIpotesi.undo(testoLavoro);
-        System.out.println("testo lavoro UNDO "+testoLavoro);
+        System.out.println("testo lavoro UNDO " + testoLavoro);
         alberoIpotesi.display();
         testoLavoro = alberoIpotesi.effettuaSostituzione('C', 'a', testoLavoro);
-        System.out.println("testo lavoro "+testoLavoro);
+        System.out.println("testo lavoro " + testoLavoro);
         alberoIpotesi.display();
         //testoLavoro = alberoIpotesi.undo(testoLavoro);
         //alberoIpotesi.display();
-        
-    
+
     }
-    
-    
+
 }

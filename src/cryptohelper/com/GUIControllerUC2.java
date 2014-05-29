@@ -11,7 +11,7 @@ import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.SessioneLavoro;
 import cryptohelper.interfaces.MessaggioIntercettato;
-import cryptohelper.interfaces.View;
+import cryptohelper.interfaces.VisitorGuiUC2;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-public class GUIControllerUC2 {
+public class GUIControllerUC2 implements VisitorGuiUC2 {
 
     private static GUIControllerUC2 instance;
     private COMController comC;
@@ -42,41 +42,39 @@ public class GUIControllerUC2 {
         return instance;
     }
 
-    //registra i pannelli e i loro actionListener
-    public void addView(View v) {
-        if (v instanceof IntercettaMsgPanel) {
-            intercettaMessaggioPanel = (IntercettaMsgPanel) v;
-            intercettaMessaggioPanel.getNuovaSessioneBtn().addActionListener(new NewSessioneListener());
-            intercettaMessaggioPanel.getCaricaSessioneBtn().addActionListener(new LoadSessionListener());
-            intercettaMessaggioPanel.getLogoutBtn().addActionListener(new LogoutListener());
-        } else if (v instanceof NuovaSessionePanel) {
-            nuovaSessionePanel = (NuovaSessionePanel) v;
-            nuovaSessionePanel.getElencoMessaggi().addListSelectionListener(new ViewMsgChoiceListener());
-            // nuovaSessionePanel.getOkBtn().addActionListener(new LoadWorkspaceListener());
-        } else if (v instanceof CaricaSessionePanel) {
-            caricaSessionePanel = (CaricaSessionePanel) v;
-            caricaSessionePanel.getElencoSessioni().addListSelectionListener(new ViewSessionChoiceListener());
-            caricaSessionePanel.getEliminaSessioneBtn().addActionListener(new DeleteSessionListener());
-            caricaSessionePanel.getOkBtn().addActionListener(new LoadWorkspaceListener());
-        } else if (v instanceof AreaLavoroPanel) {
-            areaLavoroPanel = (AreaLavoroPanel) v;
-            areaLavoroPanel.getMappatura().getModel().addTableModelListener(new TableMappaturaListener());
-            areaLavoroPanel.getUndoBtn().addActionListener(new UndoListener());
-
-        }
+    //METODI VISIT PER L'AGGIUNTA DEGLI ACTION LISTENER
+    @Override
+    public void visit(IntercettaMsgPanel imp) {
+        intercettaMessaggioPanel = imp;
+        intercettaMessaggioPanel.getNuovaSessioneBtn().addActionListener(new NewSessioneListener());
+        intercettaMessaggioPanel.getCaricaSessioneBtn().addActionListener(new LoadSessionListener());
+        intercettaMessaggioPanel.getSalvaSessioneBtn().addActionListener(new SaveSessionListener());
+        intercettaMessaggioPanel.getLogoutBtn().addActionListener(new LogoutListener());
     }
 
-    private class UndoListener implements ActionListener {
+    @Override
+    public void visit(NuovaSessionePanel nsp) {
+        nuovaSessionePanel = nsp;
+        nuovaSessionePanel.getElencoMessaggi().addListSelectionListener(new ViewMsgChoiceListener());
+        // nuovaSessionePanel.getOkBtn().addActionListener(new LoadWorkspaceListener());
+    }
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            session.undo(session.getMessaggioIntercettato().getAreaLavoro());
-            areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
-        }
+    @Override
+    public void visit(CaricaSessionePanel csp) {
+        caricaSessionePanel = csp;
+        caricaSessionePanel.getElencoSessioni().addListSelectionListener(new ViewSessionChoiceListener());
+        caricaSessionePanel.getEliminaSessioneBtn().addActionListener(new DeleteSessionListener());
+        caricaSessionePanel.getOkBtn().addActionListener(new LoadWorkspaceListener());
+    }
+
+    @Override
+    public void visit(AreaLavoroPanel alp) {
+        areaLavoroPanel = alp;
+        areaLavoroPanel.getMappatura().getModel().addTableModelListener(new TableMappaturaListener());
+        areaLavoroPanel.getUndoBtn().addActionListener(new UndoListener());
     }
 
     private class TableMappaturaListener implements TableModelListener {
-
         @Override
         public void tableChanged(TableModelEvent e) {
             System.out.println("effettua una sostituzione");
@@ -90,7 +88,6 @@ public class GUIControllerUC2 {
                 intercettaMessaggioPanel.setStatus((char) (index + 'A') + " " + ch2 + " - Mossa effetuata in precedenza!");
             }
             areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
-
         }
     }
 
@@ -119,7 +116,7 @@ public class GUIControllerUC2 {
         }
     }
 
-    //classe listener per il button Carica Sessione 
+    //classe listener per il button "Carica Sessione" 
     private class LoadSessionListener implements ActionListener {
 
         @Override
@@ -132,7 +129,26 @@ public class GUIControllerUC2 {
         }
     }
 
-    //classe listener per la scelta dei messaggi nella nuova sessione 
+    //classe listener per il button "Salva Sessione"
+    private class SaveSessionListener implements ActionListener {
+
+        @Override
+        @SuppressWarnings("empty-statement")
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            /*
+             SessioneLavoro temp = areaLavoroPanel.getSessioneCorrente();
+             if (temp.salva()) {
+             intercettaMessaggioPanel.setStatus("Sessione salvata correttamente!");
+             } else {
+             intercettaMessaggioPanel.setStatus("Si è verificato un errore nel salvataggio della sessione!");
+             }
+             */
+        }
+    }
+
+//classe listener per la scelta dei messaggi nella nuova sessione 
     private class ViewMsgChoiceListener implements ListSelectionListener {
 
         @Override
@@ -144,7 +160,7 @@ public class GUIControllerUC2 {
         }
     }
 
-    //classe listener per la scelta della sessione da caricare 
+//classe listener per la scelta della sessione da caricare 
     private class ViewSessionChoiceListener implements ListSelectionListener {
 
         @Override
@@ -155,7 +171,7 @@ public class GUIControllerUC2 {
         }
     }
 
-    //classe listener per il button "elimina sessione" del pannello "carica sessione" 
+//classe listener per il button "elimina sessione" del pannello "carica sessione" 
     private class DeleteSessionListener implements ActionListener {
 
         @Override
@@ -167,7 +183,7 @@ public class GUIControllerUC2 {
         }
     }
 
-    //classe listener per il button "avanti" in nuova sessione e carica sessione
+//classe listener per il button "avanti" in nuova sessione e carica sessione
     private class LoadWorkspaceListener implements ActionListener {
 
         @Override
@@ -177,7 +193,17 @@ public class GUIControllerUC2 {
             session = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
             System.out.println("LoadWorkspaceListener :" + session.toString());
             intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
-            intercettaMessaggioPanel.initAreaLavoro(session.getMessaggioIntercettato());
+            intercettaMessaggioPanel.initAreaLavoro(session);
+        }
+    }
+
+//classe listener per il button "undo" dell'area di lavoro
+    private class UndoListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            session.undo(session.getMessaggioIntercettato().getAreaLavoro());
+            areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
         }
     }
 

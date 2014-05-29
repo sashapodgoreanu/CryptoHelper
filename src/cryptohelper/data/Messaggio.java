@@ -4,6 +4,8 @@ package cryptohelper.data;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
+import cryptohelper.interfaces.HtmlVisitable;
+import cryptohelper.interfaces.HtmlVisitorInterface;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;

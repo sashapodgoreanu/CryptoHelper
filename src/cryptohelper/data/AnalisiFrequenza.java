@@ -16,10 +16,33 @@
 
 package cryptohelper.data;
 
+import cryptohelper.data.proxy.ProxyFrequenzaFiller;
+import java.util.Map;
+
 /**
  *
  * @author st106342
  */
 public class AnalisiFrequenza {
+    
+    SessioneLavoro sessione;
+    double[] frequenzaTestoCifrato;
+    int[][] bigrammiTesto;  
+    int numCaratteri;
+    int numBigrammi;
+    String lingua;
+    String testoCifrato;
+    ProxyFrequenzaFiller proxyFile;
+    
+    public AnalisiFrequenza () {
+        
+    }
+    
+    
+      
+    
+   
+    
+    
     
 }

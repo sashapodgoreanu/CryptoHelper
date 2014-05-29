@@ -1,13 +1,15 @@
 // classe Proposta
 package cryptohelper.data;
 
+import cryptohelper.interfaces.HtmlVisitable;
+import cryptohelper.interfaces.HtmlVisitorInterface;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class Proposta {
+public class Proposta implements HtmlVisitable {
 
     private static Log log = LogFactory.getLog(Messaggio.class);   //per log
 
@@ -161,11 +163,10 @@ public class Proposta {
         return "Proposta{" + "sdc=" + sdc.getId() + ", proponente=" + proponente.getId() + ", partner=" + partner.getId() + ", stato=" + stato + '}';
     }
 
-    /*
-     public static Proposta getProposta(UserInfo u1, UserInfo u2) {
-        
-     }
-     */
+   @Override
+    public void accept(HtmlVisitorInterface visitor) {
+        visitor.visit(this);
+    }
     
     //METODI GETTER
     public UserInfo getProponente() {
@@ -200,4 +201,6 @@ public class Proposta {
     public void setStato(String stato) {
         this.stato = stato;
     }
+
+   
 }

@@ -8,10 +8,13 @@ package cryptohelper.GUI.UC1;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.interfaces.Cifrario;
+import cryptohelper.interfaces.VisitableGuiUC1;
+import cryptohelper.interfaces.VisitorGuiUC1;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import static java.lang.System.gc;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -22,10 +25,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
-public class CreaSDCPanel extends JPanel implements View {
+public class CreaSDCPanel extends JPanel implements View, VisitableGuiUC1 {
 
     JRadioButton parolaChiaveRBtn;
     JRadioButton cesareRBtn;
@@ -163,8 +165,12 @@ public class CreaSDCPanel extends JPanel implements View {
 
     @Override
     public void registerController() {
-        GUIControllerUC1 gc = GUIControllerUC1.getInstance();
-        gc.addView(this);
+        this.accept(GUIControllerUC1.getInstance());
+    }
+
+    @Override
+    public void accept(VisitorGuiUC1 visitor) {
+        visitor.visit(this);
     }
 
     public JButton getSalvaSdcBtn() {

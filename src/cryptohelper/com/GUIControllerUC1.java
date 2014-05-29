@@ -8,7 +8,7 @@ import cryptohelper.GUI.UC1.InboxSDCPanel;
 import cryptohelper.GUI.UC1.LoginForm;
 import cryptohelper.GUI.UC1.MessagePanel;
 import cryptohelper.GUI.UC1.OutboxPanel;
-import cryptohelper.GUI.UC1.PanelloPrincipale;
+import cryptohelper.GUI.UC1.PannelloPrincipale;
 import cryptohelper.GUI.UC1.ProponiSDCPanel;
 import cryptohelper.GUI.UC1.RegistrationForm;
 import cryptohelper.GUI.UC1.SdcPanel;
@@ -24,7 +24,7 @@ import cryptohelper.interfaces.Cifrario;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
-import cryptohelper.interfaces.View;
+import cryptohelper.interfaces.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -39,12 +39,12 @@ import javax.swing.event.ListSelectionListener;
  * conoscere: i controllori e qualche modello Modello non deve conoscere nessuno
  * dei due.
  */
-public class GUIControllerUC1 {
+public class GUIControllerUC1 implements VisitorGuiUC1 {
 
     private COMController comC;
     private LoginForm loginForm;
     private RegistrationForm regForm;
-    private PanelloPrincipale panelloPrincipale;
+    private PannelloPrincipale pannelloPrincipale;
     private SdcPanel sdcPanel;
     private MessagePanel messagePanel;
     private BozzePanel bozzePanel;
@@ -59,6 +59,7 @@ public class GUIControllerUC1 {
     private ProponiSDCPanel proponiSDCPanel;
     private InboxSDCPanel inboxSDCPanel;
     private GestisciSDCPanel gestisciSDCPanel;
+    private static HtmlVisitor printerVisitor = new HtmlVisitor(); //htmlVisitor, serve al pattern visitor per le stampe formato html degli oggetti
 
     private GUIControllerUC1() {
         comC = COMController.getInstance();
@@ -71,74 +72,106 @@ public class GUIControllerUC1 {
         return instance;
     }
 
-    //registra i pannelli e i loro actionListener
-    public void addView(View v) {
-        if (v instanceof LoginForm) {
-            loginForm = (LoginForm) v;
-            //solo per il test
-            loginForm.setUsernameField("sasha");
-            loginForm.setPasswordField("1234");
-            /**/
-            loginForm.getSubmit().addActionListener(new LoginFormListener());
-            loginForm.getRegistration().addActionListener(new RegistrationFormListener());
-        } else if (v instanceof RegistrationForm) {
-            regForm = (RegistrationForm) v;
-            regForm.getCancelBtn().addActionListener(new CancelListener());
-            regForm.getSubmitBtn().addActionListener(new RegisterListener());
-        } else if (v instanceof InboxPanel) {
-            inboxPanel = (InboxPanel) v;
-            inboxPanel.getElencoMessaggiRicevuti().addListSelectionListener(new ViewInboxMsgListener());
-            inboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaInboxMsgListener());
-            inboxPanel.getDecifraBtn().addActionListener(new DecifraMsgListener());
-        } else if (v instanceof OutboxPanel) {
-            outboxPanel = (OutboxPanel) v;
-            outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewOutboxMsgListener());
-            outboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaOutboxMsgListener());
-        } else if (v instanceof PanelloPrincipale) {
-            panelloPrincipale = (PanelloPrincipale) v;
-            panelloPrincipale.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
-            panelloPrincipale.getInboxBtn().addActionListener(new GestisciInbox());
-            panelloPrincipale.getOutboxBtn().addActionListener(new GestisciOutbox());
-            panelloPrincipale.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
-            panelloPrincipale.getSDCBtn().addActionListener(new GestisciSDC());
-            panelloPrincipale.getLogoutBtn().addActionListener(new LogoutListener());
-            panelloPrincipale.getIntercettaBtn().addActionListener(new IntercettaBtnListener());
-        } else if (v instanceof BozzePanel) {
-            bozzePanel = (BozzePanel) v;
-            bozzePanel.getSaveBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
-            bozzePanel.getDeleteBozzaBtn().addActionListener(new ElimnaBozzaListener());
-            bozzePanel.getSendBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
-            bozzePanel.getElencoBozze().addListSelectionListener(new ViewBozzeMsgListener());
-        } else if (v instanceof SdcPanel) {
-            sdcPanel = (SdcPanel) v;
-            sdcPanel.getCreaSDCBtn().addActionListener(new CreateSDCListener());
-            sdcPanel.getGestisciSDCBtn().addActionListener(new GestisciSDCListener());
-            sdcPanel.getProponiSDCBtn().addActionListener(new ProponiSDCListener());
-            sdcPanel.getInboxProposteSDCBtn().addActionListener(new InboxSDCListener());
-        } else if (v instanceof CreaSDCPanel) {
-            creaSDCPanel = (CreaSDCPanel) v;
-            creaSDCPanel.getCesareRBtn().addActionListener(new MetodoDicifraturaListener());
-            creaSDCPanel.getParolaChiaveRBtn().addActionListener(new MetodoDicifraturaListener());
-            creaSDCPanel.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
-            creaSDCPanel.getSalvaSdcBtn().addActionListener(new SalvaMetodoDicifraturaListener());
-            creaSDCPanel.getProvasdcBtn().addActionListener(new ProvaMetodoDicifraturaListener());
-        } else if (v instanceof MessagePanel) {
-            messagePanel = (MessagePanel) v;
-            messagePanel.getSalvaBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
-            messagePanel.getInviaMessageBtn().addActionListener(new SalvaInviaMessaggioListener());
-            messagePanel.getElencoDestinatari().addListSelectionListener(new SelectDestinatarioListener());
-        } else if (v instanceof ProponiSDCPanel) {
-            proponiSDCPanel = (ProponiSDCPanel) v;
-            proponiSDCPanel.getProponiSDCBtn().addActionListener(new SendProponiSDCListener());
-        } else if (v instanceof InboxSDCPanel) {
-            inboxSDCPanel = (InboxSDCPanel) v;
-            inboxSDCPanel.getElencoProposteRicevute().addListSelectionListener(new ViewProponiSDCListener());
-            inboxSDCPanel.getAccettaBtn().addActionListener(new AccettaRifiutaSDCListener());
-            inboxSDCPanel.getRifiutaBtn().addActionListener(new AccettaRifiutaSDCListener());
-        } else if (v instanceof GestisciSDCPanel) {
-            gestisciSDCPanel = (GestisciSDCPanel) v;
-            gestisciSDCPanel.getEliminaBtn().addActionListener(new EliminaSDCListener());
-        }
+    //METODI VISIT PER L'AGGIUNTA DEGLI ACTION LISTENER
+    @Override
+    public void visit(LoginForm login) {
+        loginForm = login;
+        //solo per il test
+        loginForm.setUsernameField("sasha");
+        loginForm.setPasswordField("1234");
+        /**/
+        loginForm.getSubmit().addActionListener(new LoginFormListener());
+        loginForm.getRegistration().addActionListener(new RegistrationFormListener());
+    }
+
+    @Override
+    public void visit(RegistrationForm rf) {
+        regForm = rf;
+        regForm.getCancelBtn().addActionListener(new CancelListener());
+        regForm.getSubmitBtn().addActionListener(new RegisterListener());
+    }
+
+    @Override
+    public void visit(InboxPanel ip) {
+        inboxPanel = ip;
+        inboxPanel.getElencoMessaggiRicevuti().addListSelectionListener(new ViewInboxMsgListener());
+        inboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaInboxMsgListener());
+        inboxPanel.getDecifraBtn().addActionListener(new DecifraMsgListener());
+    }
+
+    @Override
+    public void visit(OutboxPanel op) {
+        outboxPanel = op;
+        outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewOutboxMsgListener());
+        outboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaOutboxMsgListener());
+    }
+
+    @Override
+    public void visit(PannelloPrincipale pp) {
+        pannelloPrincipale = pp;
+        pannelloPrincipale.getNuovoMessaggioBtn().addActionListener(new NuovoMessaggioListener());
+        pannelloPrincipale.getInboxBtn().addActionListener(new GestisciInbox());
+        pannelloPrincipale.getOutboxBtn().addActionListener(new GestisciOutbox());
+        pannelloPrincipale.getGestisciBozzeBtn().addActionListener(new GestisciBozzeListener());
+        pannelloPrincipale.getSDCBtn().addActionListener(new GestisciSDC());
+        pannelloPrincipale.getLogoutBtn().addActionListener(new LogoutListener());
+        pannelloPrincipale.getIntercettaBtn().addActionListener(new IntercettaBtnListener());
+    }
+
+    @Override
+    public void visit(BozzePanel bp) {
+        bozzePanel = bp;
+        bozzePanel.getSaveBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
+        bozzePanel.getDeleteBozzaBtn().addActionListener(new ElimnaBozzaListener());
+        bozzePanel.getSendBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
+        bozzePanel.getElencoBozze().addListSelectionListener(new ViewBozzeMsgListener());
+    }
+
+    @Override
+    public void visit(SdcPanel sdcp) {
+        sdcPanel = sdcp;
+        sdcPanel.getCreaSDCBtn().addActionListener(new CreateSDCListener());
+        sdcPanel.getGestisciProposteBtn().addActionListener(new GestisciSDCListener());
+        sdcPanel.getProponiSDCBtn().addActionListener(new ProponiSDCListener());
+        sdcPanel.getInboxProposteSDCBtn().addActionListener(new InboxSDCListener());
+    }
+
+    @Override
+    public void visit(CreaSDCPanel csdcp) {
+        creaSDCPanel = csdcp;
+        creaSDCPanel.getCesareRBtn().addActionListener(new MetodoDicifraturaListener());
+        creaSDCPanel.getParolaChiaveRBtn().addActionListener(new MetodoDicifraturaListener());
+        creaSDCPanel.getPseudocasualeRBtn().addActionListener(new MetodoDicifraturaListener());
+        creaSDCPanel.getSalvaSdcBtn().addActionListener(new SalvaMetodoDicifraturaListener());
+        creaSDCPanel.getProvasdcBtn().addActionListener(new ProvaMetodoDicifraturaListener());
+    }
+
+    @Override
+    public void visit(MessagePanel mp) {
+        messagePanel = mp;
+        messagePanel.getSalvaBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
+        messagePanel.getInviaMessageBtn().addActionListener(new SalvaInviaMessaggioListener());
+        messagePanel.getElencoDestinatari().addListSelectionListener(new SelectDestinatarioListener());
+    }
+
+    @Override
+    public void visit(ProponiSDCPanel psdcp) {
+        proponiSDCPanel = psdcp;
+        proponiSDCPanel.getProponiSDCBtn().addActionListener(new SendProponiSDCListener());
+    }
+
+    @Override
+    public void visit(InboxSDCPanel isdcp) {
+        inboxSDCPanel = isdcp;
+        inboxSDCPanel.getElencoProposteRicevute().addListSelectionListener(new ViewProponiSDCListener());
+        inboxSDCPanel.getAccettaBtn().addActionListener(new AccettaRifiutaSDCListener());
+        inboxSDCPanel.getRifiutaBtn().addActionListener(new AccettaRifiutaSDCListener());
+    }
+
+    @Override
+    public void visit(GestisciSDCPanel gsdcp) {
+        gestisciSDCPanel = gsdcp;
+        gestisciSDCPanel.getEliminaBtn().addActionListener(new EliminaSDCListener());
     }
 
 //classe listener per il login
@@ -150,7 +183,7 @@ public class GUIControllerUC1 {
             if (valid) {
                 loginForm.dispose();
                 utilizzatoreSistema = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
-                PanelloPrincipale pp = new PanelloPrincipale();
+                PannelloPrincipale pp = new PannelloPrincipale();
             } else {
                 loginForm.getErrorLoginLabel().setText("Errore di autenticazione");
             }
@@ -162,12 +195,12 @@ public class GUIControllerUC1 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
-            panelloPrincipale.setDestinatariArrLst(comC.getDestinatari(utilizzatoreSistema));
+            pannelloPrincipale.setDestinatariArrLst(comC.getDestinatari(utilizzatoreSistema));
             System.out.println("**************************" + comC.getDestinatari(utilizzatoreSistema).toString());
-            panelloPrincipale.initNuovoMessaggio();
+            pannelloPrincipale.initNuovoMessaggio();
             msgMittente = new Messaggio();      //predispone il nuovo messaggio
 
         }
@@ -178,62 +211,62 @@ public class GUIControllerUC1 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioDestinatario> temp = Messaggio.caricaMessaggiDestinatario(utilizzatoreSistema.getId());
             System.out.println("MessaggioDestinatario" + temp.toString());
-            panelloPrincipale.initInbox(temp);
+            pannelloPrincipale.initInbox(temp);
         }
     }
 
-    //classe listener per il button Inbox della finestra principale
+//classe listener per il button Inbox della finestra principale
     private class GestisciOutbox implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioMittente> temp = Messaggio.caricaMessaggiInviati(utilizzatoreSistema.getId());
-            panelloPrincipale.initOutbox(temp);
+            pannelloPrincipale.initOutbox(temp);
         }
     }
 
-    //classe listener per il button "bozze" della finestra principale 
+//classe listener per il button "bozze" della finestra principale 
     private class GestisciBozzeListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioMittente> temp = Messaggio.caricaBozze(utilizzatoreSistema.getId());
-            panelloPrincipale.initGestioneBozze(temp);
+            pannelloPrincipale.initGestioneBozze(temp);
         }
     }
 
     private class GestisciSDCListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             sdcPanel.initGestisciSDCPanel(Proposta.caricaProposteSistemiCifratura(utilizzatoreSistema));
         }
     }
 
-    //classe listener per il button "logout" della finestra principale
+//classe listener per il button "logout" della finestra principale
     private class LogoutListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.dispose();
+            pannelloPrincipale.dispose();
             LoginForm f = new LoginForm();
             System.out.println(this.getClass() + "Logout eseguito");
         }
     }
 
-    //classe listener per il button "intercetta un messaggio" della finestra principale
+//classe listener per il button "intercetta un messaggio" della finestra principale
     private class IntercettaBtnListener implements ActionListener {
 
         @Override
@@ -242,24 +275,24 @@ public class GUIControllerUC1 {
             System.out.println("Clicked " + ev.getText());
             ArrayList<MessaggioIntercettato> msgArrLst = Messaggio.caricaMessaggi(utilizzatoreSistema.getId());
             IntercettaMsgPanel al = new IntercettaMsgPanel();
-            panelloPrincipale.dispose();
+            pannelloPrincipale.dispose();
         }
     }
 
-    //classe listener per la Jlist "ElencoMessaggiRicevuti" 
+//classe listener per la Jlist "ElencoMessaggiRicevuti" 
     private class ViewInboxMsgListener implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
             System.out.println(mess.toString());
-            inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)));
+            inboxPanel.getCorpoMessaggio().setText(printerVisitor.visit(mess));
         }
     }
 
-    //classe listener per il button "elimina" del pannello outbox 
+//classe listener per il button "elimina" del pannello outbox 
     private class EliminaInboxMsgListener implements ActionListener {
 
         @Override
@@ -267,11 +300,11 @@ public class GUIControllerUC1 {
             MessaggioMittente mess = (MessaggioMittente) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
             mess.elimina();
             inboxPanel.deleteSelectedIndex();
-            panelloPrincipale.setStatus("Messaggio eliminato correttamente!");
+            pannelloPrincipale.setStatus("Messaggio eliminato correttamente!");
         }
     }
 
-    //classe listener per il button "decifra" del pannello outbox 
+//classe listener per il button "decifra" del pannello outbox 
     private class DecifraMsgListener implements ActionListener {
 
         @Override
@@ -284,29 +317,28 @@ public class GUIControllerUC1 {
                 String testoDecifrato = sdc.decifra(mess.getTestoCifrato());
                 String body = inboxPanel.getCorpoMessaggio().getText();
                 System.out.println(testoDecifrato);
-                System.out.println((new HtmlVisitor().visit(mess)));
-                inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)) + "<br/><b>Testo Decifrato:</b><br/>" + testoDecifrato + "</html>");
-
+                System.out.println((printerVisitor.visit(mess)));
+                inboxPanel.getCorpoMessaggio().setText((printerVisitor.visit(mess)) + "<br/><b>Testo Decifrato:</b><br/>" + testoDecifrato + "</html>");
             } else {
-                panelloPrincipale.setStatus("La chiave non è corretta");
+                pannelloPrincipale.setStatus("La chiave non è corretta");
             }
 
         }
     }
 
-    //classe listener per la Jlist della outbox 
+//classe listener per la Jlist della outbox 
     private class ViewOutboxMsgListener implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             MessaggioMittente outboxMsg = (MessaggioMittente) outboxPanel.getElencoMessaggiInviati().getSelectedValue();
-            outboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(outboxMsg)));
+            outboxPanel.getCorpoMessaggio().setText((printerVisitor.visit(outboxMsg)));
         }
     }
 
-    //classe listener per il button "elimina" del pannello outbox 
+//classe listener per il button "elimina" del pannello outbox 
     private class EliminaOutboxMsgListener implements ActionListener {
 
         @Override
@@ -314,16 +346,16 @@ public class GUIControllerUC1 {
             MessaggioMittente mess = (MessaggioMittente) outboxPanel.getElencoMessaggiInviati().getSelectedValue();
             mess.elimina();
             outboxPanel.deleteSelectedIndex();
-            panelloPrincipale.setStatus("Messaggio eliminato correttamente!");
+            pannelloPrincipale.setStatus("Messaggio eliminato correttamente!");
         }
     }
 
-    //classe listener per la Jlist "ElencoBozze" 
+//classe listener per la Jlist "ElencoBozze" 
     private class ViewBozzeMsgListener implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             MessaggioMittente mess = (MessaggioMittente) bozzePanel.getElencoBozze().getSelectedValue();
             bozzePanel.getCorpoBozza().setText(mess.getTesto());
@@ -341,7 +373,7 @@ public class GUIControllerUC1 {
             MessaggioMittente mess = (MessaggioMittente) bozzePanel.getElencoBozze().getSelectedValue();
             mess.elimina();
             bozzePanel.deleteSelectedIndex();
-            panelloPrincipale.setStatus("Bozza eliminata correttamente!");
+            pannelloPrincipale.setStatus("Bozza eliminata correttamente!");
         }
     }
 
@@ -350,10 +382,10 @@ public class GUIControllerUC1 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            panelloPrincipale.initSDC();
+            pannelloPrincipale.initSDC();
         }
     }
 
@@ -361,7 +393,7 @@ public class GUIControllerUC1 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
             sdcPanel.initCreateSDC();
@@ -373,7 +405,7 @@ public class GUIControllerUC1 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JRadioButton ev = (JRadioButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             if (ev.getText().equalsIgnoreCase("parola chiave")) {
@@ -385,17 +417,17 @@ public class GUIControllerUC1 {
             }
             //crea sistema di cifratura
             sistemaCifratura = new SistemaCifratura(utilizzatoreSistema);
-            panelloPrincipale.setStatus("Compilare i campi per creare un nuovo sistema di cifratura");
+            pannelloPrincipale.setStatus("Compilare i campi per creare un nuovo sistema di cifratura");
         }
     }
 
-    //classe listener per il button "salva messaggio" della finestra principale
+//classe listener per il button "salva messaggio" della finestra principale
     private class SalvaInviaMessaggioListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
-            //un messaggio senza titolo non si puo salvare
+            pannelloPrincipale.setStatus(" ");
+            //un messaggio senza titolo non può essere salvato
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
             if (ev.getText().equalsIgnoreCase("Salva come bozza")) {
@@ -404,9 +436,9 @@ public class GUIControllerUC1 {
                     //se il tittolo del messaggio e vuouto mostra un  messaggio di errore
                     String temp = messagePanel.getTitoloMessaggioField().replaceAll("\\s+", "");
                     if (temp.equals("")) {
-                        panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
+                        pannelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
                     } else { //altrimenti salva il messaggio
-                        panelloPrincipale.setStatus("");
+                        pannelloPrincipale.setStatus("");
                         JList list = messagePanel.getElencoDestinatari();
                         UserInfo destinatario = (UserInfo) list.getSelectedValue();
                         System.out.println(this.getClass() + "SalvaInviaMessaggioListener:  Destinatario selected: " + destinatario.toString());
@@ -425,24 +457,24 @@ public class GUIControllerUC1 {
                         msgMittente.cifra();
                         //se msg.salva ritorna false allora c'è un errore
                         if (msgMittente.salva()) {
-                            panelloPrincipale.setStatus("Messaggio Salvato!");
+                            pannelloPrincipale.setStatus("Messaggio Salvato!");
                         } else {
-                            panelloPrincipale.setStatus("Si è verificato un errore durante il salvataggio del messaggio!");
+                            pannelloPrincipale.setStatus("Si è verificato un errore durante il salvataggio del messaggio!");
                         }
                     }
                 } else {
-                    panelloPrincipale.setStatus("Devi selezionare un destinatario");
+                    pannelloPrincipale.setStatus("Devi selezionare un destinatario");
                 }
             } else if (ev.getText().equalsIgnoreCase("Invia")) {
                 String temp = messagePanel.getTitoloMessaggioField().replaceAll("\\s+", "");
                 if (temp.equals("")) {
-                    panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
+                    pannelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
                 } else { //altrimenti invia il messaggio
                     System.out.println("INVIA MESSAGGIO");
-                    panelloPrincipale.setStatus("");
+                    pannelloPrincipale.setStatus("");
                     UserInfo destinatario = (UserInfo) messagePanel.getElencoDestinatari().getSelectedValue();
                     if (destinatario == null) {
-                        panelloPrincipale.setStatus("Devi selezionare un destinatario");
+                        pannelloPrincipale.setStatus("Devi selezionare un destinatario");
                         return;
                     }
                     SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), destinatario.getId());
@@ -461,19 +493,19 @@ public class GUIControllerUC1 {
                     msgMittente.cifra();
                     //se msg.salva ritorna false allora errore
                     if (msgMittente.salva()) {
-                        panelloPrincipale.setStatus("Messaggio Inviato!");
+                        pannelloPrincipale.setStatus("Messaggio Inviato!");
                         messagePanel.getSalvaBozzaBtn().setEnabled(false);
                     } else {
-                        panelloPrincipale.setStatus("Si è verificato un errore durante il invio del messaggio!");
+                        pannelloPrincipale.setStatus("Si è verificato un errore durante il invio del messaggio!");
                     }
                 }
             }
             if (ev.getText().equalsIgnoreCase("Salva")) {
                 //se il tittolo del messaggio e vuouto mostra un  messaggio di errore
                 if (bozzePanel.getTitoloBozza().equals("")) {
-                    panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
+                    pannelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
                 } else { //altrimenti salva il messaggio
-                    panelloPrincipale.setStatus("");
+                    pannelloPrincipale.setStatus("");
                     Messaggio m = ((Messaggio) bozzePanel.getElencoBozze().getSelectedValue());
 
                     SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), m.getDestinatario().getId());
@@ -491,18 +523,18 @@ public class GUIControllerUC1 {
                     msgMittente.cifra();
                     //se msg.salva ritorna false allora c'è un errore
                     if (msgMittente.salva()) {
-                        panelloPrincipale.setStatus("Messaggio Salvato!");
+                        pannelloPrincipale.setStatus("Messaggio Salvato!");
                     } else {
-                        panelloPrincipale.setStatus("Si è verificato un errore durante il salvataggio del messaggio!");
+                        pannelloPrincipale.setStatus("Si è verificato un errore durante il salvataggio del messaggio!");
                     }
                 }
             } else if (ev.getText().equalsIgnoreCase("Invia bozza")) {
                 String temp = bozzePanel.getTitoloBozza().replaceAll("\\s+", "");
                 if (temp.equals("")) {
-                    panelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
+                    pannelloPrincipale.setStatus("Il titolo del messaggio deve contenere almeno un carattere");
                 } else { //altrimenti invia il messaggio
                     System.out.println("INVIA MESSAGGIO");
-                    panelloPrincipale.setStatus("");
+                    pannelloPrincipale.setStatus("");
                     Messaggio m = ((Messaggio) bozzePanel.getElencoBozze().getSelectedValue());
                     SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), m.getDestinatario().getId());
                     //Messaggio( String titolo, boolean bozza, boolean letto)
@@ -519,21 +551,21 @@ public class GUIControllerUC1 {
                     msgMittente.cifra();
                     //se msg.salva ritorna false allora errore
                     if (msgMittente.salva()) {
-                        panelloPrincipale.setStatus("Messaggio Inviato!");
+                        pannelloPrincipale.setStatus("Messaggio Inviato!");
                     } else {
-                        panelloPrincipale.setStatus("Si è verificato un errore durante il invio del messaggio!");
+                        pannelloPrincipale.setStatus("Si è verificato un errore durante il invio del messaggio!");
                     }
                 }
             }
         }
     }
 
-    //classe listener per la Jlist "elencoProposte" 
+//classe listener per la Jlist "elencoProposte" 
     private class SelectDestinatarioListener implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             UserInfo userInfo = (UserInfo) messagePanel.getElencoDestinatari().getSelectedValue();
             SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), userInfo.getId());
@@ -547,7 +579,7 @@ public class GUIControllerUC1 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus("");
+            pannelloPrincipale.setStatus("");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             String metodo = creaSDCPanel.getMetodo();
@@ -568,12 +600,12 @@ public class GUIControllerUC1 {
                     mappatura = sistemaCifratura.create(metodo, chiave);
                     sistemaCifratura.setNome(creaSDCPanel.getNomeCifraturaField().getText());
                     if (sistemaCifratura.salva()) {
-                        panelloPrincipale.setStatus("Salvato con sucesso");
+                        pannelloPrincipale.setStatus("Salvato con sucesso");
                     } else {
-                        panelloPrincipale.setStatus("Si è verificato un errore! Il metodo di cifratura non è stato salvato");
+                        pannelloPrincipale.setStatus("Si è verificato un errore! Il metodo di cifratura non è stato salvato");
                     }
                 } else {
-                    panelloPrincipale.setStatus("La mappatura non è corretta o contiene caratteri illegali - sono accettate solo lettere");
+                    pannelloPrincipale.setStatus("La mappatura non è corretta o contiene caratteri illegali - sono accettate solo lettere");
                 }
             } else if ((metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE) || metodo.equals(Cifrario.PAROLA_CHIAVE))) {
                 String chiave = creaSDCPanel.getChiave().getText();
@@ -582,15 +614,15 @@ public class GUIControllerUC1 {
                     mappatura = sistemaCifratura.create(metodo, chiave);//crea la mappatura data una chiave e un metodo
                     sistemaCifratura.setNome(creaSDCPanel.getNomeCifraturaField().getText());//nome della cifratura per salvare in db
                     if (sistemaCifratura.salva()) {
-                        panelloPrincipale.setStatus("Salvato con sucesso");
+                        pannelloPrincipale.setStatus("Salvato con sucesso");
                     } else {
-                        panelloPrincipale.setStatus("Si è verificato un errore! Il metodo di cifratura non è stato salvato");
+                        pannelloPrincipale.setStatus("Si è verificato un errore! Il metodo di cifratura non è stato salvato");
                     }
                 } else {
                     if (metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE)) {
-                        panelloPrincipale.setStatus("La chiave non è corretta o contiene caratteri illegali - sono accettati solo numeri");
+                        pannelloPrincipale.setStatus("La chiave non è corretta o contiene caratteri illegali - sono accettati solo numeri");
                     } else {
-                        panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere una parola");
+                        pannelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere una parola");
                     }
                 }
             }
@@ -602,7 +634,7 @@ public class GUIControllerUC1 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus("");
+            pannelloPrincipale.setStatus("");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             sistemaCifratura = new SistemaCifratura(utilizzatoreSistema);
@@ -620,7 +652,7 @@ public class GUIControllerUC1 {
                     String a = creaSDCPanel.getCorpoMessaggioProva().getText();
                     creaSDCPanel.getCorpoMessaggioResult().setText(sistemaCifratura.prova(a));
                 } else {
-                    panelloPrincipale.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
+                    pannelloPrincipale.setStatus("La mappatura non è coretta o contiene caratteri illegali - sono accetate solo lettere");
                 }
             } else if (metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE) || metodo.equals(Cifrario.PAROLA_CHIAVE)) {
                 String chiave = creaSDCPanel.getChiave().getText();
@@ -630,71 +662,71 @@ public class GUIControllerUC1 {
                     creaSDCPanel.getCorpoMessaggioResult().setText(sistemaCifratura.prova(a));
                 } else {
                     if (metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE)) {
-                        panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere un numero");
+                        pannelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere un numero");
                     } else {
-                        panelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere una parola");
+                        pannelloPrincipale.setStatus("La chiave non è coretta o contiene caratteri illegali - deve essere una parola");
                     }
                 }
             }
         }
     }
 
-    //classe listener per inizializare il panello proponi sistema di cifratura
+//classe listener per inizializare il panello proponi sistema di cifratura
     private class ProponiSDCListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             sdcPanel.initProponiSDCPanel(comC.getDestinatari(), SistemaCifratura.caricaSistemiCifratura(utilizzatoreSistema));
         }
     }
 
-    //classe listener per inviare una proposta di sistema di cifratura
+//classe listener per inviare una proposta di sistema di cifratura
     private class SendProponiSDCListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " selected " + ev.getText());
             SistemaCifratura sdc = (SistemaCifratura) proponiSDCPanel.getElencoSDC().getSelectedValue();
             UserInfo partner = (UserInfo) proponiSDCPanel.getElencoDestinatari().getSelectedValue();
             if (comC.proponiSistemaCifratura(utilizzatoreSistema, partner, sdc)) {
-                panelloPrincipale.setStatus("Proposa inviata con successo!");
+                pannelloPrincipale.setStatus("Proposa inviata con successo!");
             } else {
-                panelloPrincipale.setStatus("Proposta duplicata o errore di sistema!");
+                pannelloPrincipale.setStatus("Proposta duplicata o errore di sistema!");
             }
         }
     }
 
-    //classe listener per visualizare il panello con le proposte inbox sdc
+//classe listener per visualizare il panello con le proposte inbox sdc
     private class InboxSDCListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             sdcPanel.initInboxSDCPanel(Proposta.caricaProposteSistemiCifraturaPedding(utilizzatoreSistema));
 
         }
     }
 
-    //classe listener per visualizare il panello con le proposte inbox sdc
+//classe listener per visualizare il panello con le proposte inbox sdc
     private class AccettaRifiutaSDCListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println(" AccettaRifiutaSDCListener ");
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             //proposta selezionata dalla jlist
             Proposta proposta = (Proposta) inboxSDCPanel.getElencoProposteRicevute().getSelectedValue();
             if (ev.getText().equalsIgnoreCase("accetta") && proposta != null) {
                 proposta.setStato("accettata");
                 proposta.salva();
-                panelloPrincipale.setStatus("La proposta è stata accettata correttamente!");
+                pannelloPrincipale.setStatus("La proposta è stata accettata correttamente!");
             } else if (ev.getText().equalsIgnoreCase("rifiuta") && proposta != null) {
                 proposta.setStato("rifiutata");
                 proposta.salva();
@@ -702,40 +734,40 @@ public class GUIControllerUC1 {
                 inboxSDCPanel.deleteSelectedIndex();
                 //panelloPrincipale.setStatus("Non si puo' cancellare");
             } else {
-                panelloPrincipale.setStatus("Seleziona una proposta!");
+                pannelloPrincipale.setStatus("Seleziona una proposta!");
             }
         }
     }
 
-    //classe listener per eliminare un sistema di cifratura concordato in precedenza
+//classe listener per eliminare un sistema di cifratura concordato in precedenza
     private class EliminaSDCListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println(" eliminaSDCListener ");
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             //proposta selezionata dalla jlist
             Proposta proposta = (Proposta) gestisciSDCPanel.getElencoProposteAccettate().getSelectedValue();
             if (proposta != null) {
                 System.out.println(proposta.getSdc().getId());
                 proposta.elimina();
-                panelloPrincipale.setStatus("La proposta è stata eliminata correttamente!");
+                pannelloPrincipale.setStatus("La proposta è stata eliminata correttamente!");
             } else {
-                panelloPrincipale.setStatus("Seleziona una proposta!");
+                pannelloPrincipale.setStatus("Seleziona una proposta!");
             }
         }
     }
 
-    //classe listener per la Jlist "elencoProposte" 
+//classe listener per la Jlist "elencoProposte" 
     private class ViewProponiSDCListener implements ListSelectionListener {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            panelloPrincipale.setStatus(" ");
+            pannelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             Proposta proposta = (Proposta) inboxSDCPanel.getElencoProposteRicevute().getSelectedValue();
-            inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)));
+            inboxSDCPanel.getInfoSdcLabel().setText(printerVisitor.visit(proposta));
         }
     }
 

@@ -1,12 +1,13 @@
 //Classe che implementa l'interfaccia Visitor e si occupa della stampa con formattazione dei vari testi
 package cryptohelper.data;
 
+import cryptohelper.interfaces.HtmlVisitorInterface;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
-import cryptohelper.interfaces.Visitor;
 
-public class HtmlVisitor implements Visitor {
+
+public class HtmlVisitor implements HtmlVisitorInterface {
 
     //Stampa dati oggetto Proposta
     @Override
@@ -72,7 +73,6 @@ public class HtmlVisitor implements Visitor {
     }
 
     //Stampa dati oggetto Messaggio Intercettato
-
     public String visit(MessaggioIntercettato msgIntercettato) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
@@ -96,10 +96,10 @@ public class HtmlVisitor implements Visitor {
         sb.append("</html>");
         return sb.toString();
     }
-    
-      //Stampa dati oggetto SessioneLavoro
+
+    //Stampa dati oggetto SessioneLavoro
     @Override
-      public String visit(SessioneLavoro sl) {
+    public String visit(SessioneLavoro sl) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
         sb.append("<p>");
@@ -115,5 +115,4 @@ public class HtmlVisitor implements Visitor {
         sb.append("</html>");
         return sb.toString();
     }
-      
 }
