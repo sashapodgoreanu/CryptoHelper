@@ -58,13 +58,12 @@ public class AnalisiFrequenzaTest {
      * Test of calcolaAnalisiBigrami method, of class AnalisiFrequenza.
      */
     @Test
-    @Ignore
     public void testCalcolaAnalisiBigrami() {
         System.out.println("calcolaAnalisiBigrami");
-        AnalisiFrequenza analisiFrequenza = new AnalisiFrequenza("italiano", "asdasdasdasdbaskjbhdasbdjasbdkjbaskjdbasjbdkasjbdibasdasd");
+        AnalisiFrequenza analisiFrequenza = new AnalisiFrequenza("italiano", "asasasasasasasasasas");
         analisiFrequenza.calcolaAnalisiBigrami();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        analisiFrequenza.display();
+        
     }
 
     /**

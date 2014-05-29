@@ -38,6 +38,7 @@ public class AnalisiFrequenza {
         this.lingua = lingua;
         this.testoCifrato = testoCifrato;
         numCaratteri = testoCifrato.length();
+        numBigrammi = 0;
     }
 
     /**
@@ -87,6 +88,7 @@ public class AnalisiFrequenza {
             throw new NullPointerException("testoCifrato is null!");
         }
         testoCifrato = testoCifrato.toUpperCase(); //trasforma caratteri in maiuscolo - facilita il conteggio
+        bigrammiTesto = new int[26][26];
         for (int i = 0; i < 26; i++) {
             for (int j = 0; j < 26; j++) {
                 bigrammiTesto[i][j] = 0;
@@ -98,23 +100,44 @@ public class AnalisiFrequenza {
             char chEsaminato = testoCifrato.charAt(i);
             char chDopo;
             if (chEsaminato >= 'A' && chEsaminato <= 'Z') {
-                //chEsaminato ha i ambi caratteri vecini che sono lettere
-                if (i != 0 || i != testoCifrato.length() - 1) {
+                //se chEsaminato ha i ambi caratteri vecini che sono lettere.
+                if (i > 0 && i < testoCifrato.length() - 1) {
                     chPrima = testoCifrato.charAt(i - 1);
                     chDopo = testoCifrato.charAt(i + 1);
-                    if (chPrima >= 'A' && chPrima <= 'Z'){
+                    if (chPrima >= 'A' && chPrima <= 'Z') {
                         int num = bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65];
-                        bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65] = num++;
+                        num++;
+                        bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65] = num;
+                        numBigrammi++;
                     }
                     if (chDopo >= 'A' && chDopo <= 'Z') {
                         int num = bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65];
-                        bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65] = num++;
+                        num++;
+                        bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65] = num;
+                        numBigrammi++;
+                    }
+                }//se chEsaminato non ha chPrima null
+                else if (i != 0) {
+                    chPrima = testoCifrato.charAt(i - 1);
+                    if (chPrima >= 'A' && chPrima <= 'Z') {
+                        int num = bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65];
+                        num++;
+                        bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65] = num;
+                        numBigrammi++;
+                    }
+
+                }//se chEsaminato non ha chDopo null
+                else if (i != 0) {
+                    chDopo = testoCifrato.charAt(i + 1);
+                    if (chDopo >= 'A' && chDopo <= 'Z') {
+                        int num = bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65];
+                        num++;
+                        bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65] = num;
+                        numBigrammi++;
                     }
                 }
             }
-
         }
-
     }
 
     public Map<Character, ArrayList<Integer>> getBigramiMsg(char ch) {
@@ -130,10 +153,33 @@ public class AnalisiFrequenza {
     }
 
     public void display() {
-        for (int i = 'A'; i <= 'Z'; i++) {
-            System.out.print((char) (i) + "=" + frequenzaTestoCifrato[i - 65] + " ");
+
+        if (frequenzaTestoCifrato != null) {
+            System.out.println("FREQUENZA:");
+            for (int i = 'A'; i <= 'Z'; i++) {
+                System.out.print((char) (i) + "=" + frequenzaTestoCifrato[i - 65] + " ");
+            }
+            System.out.println();
         }
-        System.out.print("/n");
+        if (bigrammiTesto != null) {
+
+            System.out.println("BIGRAMMI: " + numBigrammi);
+            System.out.print("  ");
+            for (int i = 'A'; i <= 'Z'; i++) {
+                System.out.print((char) i + " ");
+            }
+            System.out.println();
+            for (int i = 0; i < 26; i++) {
+                for (int j = 0; j < 26; j++) {
+                    if (j == 0) {
+                        System.out.print((char) (i + 65) + " ");
+                    }
+                    System.out.print(bigrammiTesto[i][j] + " ");
+                }
+                System.out.println();
+            }
+        }
+
     }
 
     /**
@@ -149,6 +195,20 @@ public class AnalisiFrequenza {
 
     /**
      * **** Next Patch *************************
+     */
+    /**
+     * *********************FOR TEST--------- TO BE REFACTORED
+     * ********************
+     *
+     *
+     *
+     *
+     *
+     *
+     *****
+     ***
+     *
+     *
      */
     public double[] getFrequenzaTestoCifrato() {
         return frequenzaTestoCifrato;
