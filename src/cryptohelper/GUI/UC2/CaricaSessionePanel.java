@@ -4,7 +4,6 @@ package cryptohelper.GUI.UC2;
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.HtmlVisitor;
-import cryptohelper.data.Messaggio;
 import cryptohelper.data.SessioneLavoro;
 import java.util.ArrayList;
 import java.util.Vector;

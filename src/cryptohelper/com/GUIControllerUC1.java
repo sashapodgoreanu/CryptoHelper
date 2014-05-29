@@ -395,7 +395,7 @@ public class GUIControllerUC1 {
         @Override
         public void actionPerformed(ActionEvent e) {
             panelloPrincipale.setStatus(" ");
-            //un messaggio senza titolo non si puo salvare
+            //un messaggio senza titolo non può essere salvato
             JButton ev = (JButton) e.getSource();
             System.out.println(this.getClass() + " Clicked " + ev.getText());
             if (ev.getText().equalsIgnoreCase("Salva come bozza")) {
