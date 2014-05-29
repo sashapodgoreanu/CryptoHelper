@@ -25,6 +25,7 @@ import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.interfaces.View;
+import cryptohelper.interfaces.Visitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -59,7 +60,9 @@ public class GUIControllerUC1 {
     private ProponiSDCPanel proponiSDCPanel;
     private InboxSDCPanel inboxSDCPanel;
     private GestisciSDCPanel gestisciSDCPanel;
+    private static HtmlVisitor printerVisitor  = new HtmlVisitor();
 
+    
     private GUIControllerUC1() {
         comC = COMController.getInstance();
     }
@@ -255,7 +258,7 @@ public class GUIControllerUC1 {
             System.out.println("Clicked LIST");
             MessaggioDestinatario mess = (MessaggioDestinatario) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
             System.out.println(mess.toString());
-            inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)));
+            inboxPanel.getCorpoMessaggio().setText(printerVisitor.visit(mess));
         }
     }
 
@@ -284,9 +287,8 @@ public class GUIControllerUC1 {
                 String testoDecifrato = sdc.decifra(mess.getTestoCifrato());
                 String body = inboxPanel.getCorpoMessaggio().getText();
                 System.out.println(testoDecifrato);
-                System.out.println((new HtmlVisitor().visit(mess)));
-                inboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(mess)) + "<br/><b>Testo Decifrato:</b><br/>" + testoDecifrato + "</html>");
-
+                System.out.println((printerVisitor.visit(mess)));
+                inboxPanel.getCorpoMessaggio().setText((printerVisitor.visit(mess)) + "<br/><b>Testo Decifrato:</b><br/>" + testoDecifrato + "</html>");
             } else {
                 panelloPrincipale.setStatus("La chiave non è corretta");
             }
@@ -302,7 +304,7 @@ public class GUIControllerUC1 {
             panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             MessaggioMittente outboxMsg = (MessaggioMittente) outboxPanel.getElencoMessaggiInviati().getSelectedValue();
-            outboxPanel.getCorpoMessaggio().setText((new HtmlVisitor().visit(outboxMsg)));
+            outboxPanel.getCorpoMessaggio().setText((printerVisitor.visit(outboxMsg)));
         }
     }
 
@@ -735,7 +737,7 @@ public class GUIControllerUC1 {
             panelloPrincipale.setStatus(" ");
             System.out.println("Clicked LIST");
             Proposta proposta = (Proposta) inboxSDCPanel.getElencoProposteRicevute().getSelectedValue();
-            inboxSDCPanel.getInfoSdcLabel().setText((new HtmlVisitor().visit(proposta)));
+            inboxSDCPanel.getInfoSdcLabel().setText(printerVisitor.visit(proposta));
         }
     }
 
