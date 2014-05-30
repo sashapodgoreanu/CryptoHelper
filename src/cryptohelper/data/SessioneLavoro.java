@@ -32,7 +32,7 @@ public class SessioneLavoro implements HtmlVisitable {
         this.autore = autore;
         this.messaggioIntercettato = messaggio;
         //TO-DO da rimuovere o da rivedere 
-        messaggioIntercettato.setAreaLavoro(messaggioIntercettato.getTestoCifrato().toUpperCase());
+        //messaggioIntercettato.setAreaLavoro(messaggioIntercettato.getTestoCifrato().toUpperCase());
         this.alberoIpotesi = albero;
         this.soluzione = soluzione;
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -129,6 +129,7 @@ public class SessioneLavoro implements HtmlVisitable {
                 UserInfo autore = UserInfo.getUserInfo(idStudente); //preleva dati dell'utente in base all'id
                 //preleva il messaggio e lo converte da xml a oggetto Java
                 MessaggioIntercettato msg = (MessaggioIntercettato) xstream.fromXML(qr.getString("Messaggio_intercettato"));
+                System.out.println("Area Lavoro: " + msg.getAreaLavoro());
                 AlberoIpotesi albero = (AlberoIpotesi) xstream.fromXML(qr.getString("ALBERO_IPOTESI"));
                 SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, msg, albero, null);
                 sessioni.add(temp);

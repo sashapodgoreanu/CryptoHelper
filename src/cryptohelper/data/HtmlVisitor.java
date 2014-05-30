@@ -133,6 +133,9 @@ public class HtmlVisitor implements HtmlVisitorInterface {
         sb.append("<p>");
         sb.append("<b>Lingua del messaggio intercettato: </b>").append(sl.getMessaggioIntercettato().getLingua());
         sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Testo: </b>").append(sl.getMessaggioIntercettato().getAreaLavoro());
+        sb.append("</p>");
         sb.append("</html>");
         return sb.toString();
     }

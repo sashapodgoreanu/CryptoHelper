@@ -139,7 +139,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         caratteriMsgLabel = new JLabel("Frequenze dei caratteri nel messaggio:");
         Font font = new Font("monospaced", Font.PLAIN, 16);
         corpoTestoCifrato = new JTextPane();
-        corpoTestoCifrato.setEditable(true); //rende in sola lettura il campo con il testo del messaggio
+        corpoTestoCifrato.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         corpoTestoCifrato.setText(messaggioIntercettato.getTestoCifrato());
         corpoTestoCifrato.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); //assegna un margine al controllo
         corpoTestoCifrato.setFont(font);
@@ -323,8 +323,9 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
     //Classe interna per la tabella della mappatura
     class MappaturaModel extends AbstractTableModel {
 
-        private Object[][] data = {
-            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},};
+        private final Object[][] data = {
+            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
+        };
 
         private void printDebugData() {
             int numRows = getRowCount();
@@ -388,8 +389,8 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
     //Classe interna per la tabella delle frequenze dei bigrammi
     class BigrammiModel extends AbstractTableModel {
 
-        private String[] alfabetoBigrammi = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-        private Object[][] data = {
+        private final String[] alfabetoBigrammi = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        private final Object[][] data = {
             {"A*", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
             {"*A", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
         };
@@ -454,8 +455,9 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
     //Classe interna per la tabella delle frequenze dei caratteri
     class CaratteriModel extends AbstractTableModel {
 
-        private Object[][] data = {
-            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},};
+        private final Object[][] data = {
+            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
+        };
 
         private void printDebugData() {
             int numRows = getRowCount();
