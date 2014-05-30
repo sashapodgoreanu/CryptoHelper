@@ -155,7 +155,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         for (int i = 0; i < 26; i++) {
             setUpCollona(mappatura.getColumnModel().getColumn(i));
         }
-        NumberFormat formatter = new DecimalFormat("#0.00");
+        NumberFormat formatter = new DecimalFormat("#0.0");
         bigrammiComboBox = new JComboBox(alfabeto);
         bigrammi = new JTable(new BigrammiModel());
         bigrammi.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
