@@ -116,7 +116,7 @@ public class AnalisiFrequenza {
      * @return una Map di tutte le occorenze dei caraterri prima e dopo
      * carattere ch
      */
-    public Map<Character, ArrayList<Integer>> getBigramiMsg(char ch) {
+    public Map<Character, ArrayList<Integer>> getBigrammiMsg(char ch) {
         Map<Character, ArrayList<Integer>> hMap = new HashMap<>();
         for (int i = 0; i < 26; i++) {
             ArrayList<Integer> arrL = new ArrayList<>();
@@ -140,7 +140,7 @@ public class AnalisiFrequenza {
      * @return una Map di tutte le occorenze dei caraterri prima e dopo
      * carattere ch
      */
-    public Map<Character, ArrayList<Integer>> getBigramiLingua(char ch) {
+    public Map<Character, ArrayList<Integer>> getBigrammiLingua(char ch) {
         Map<Character, ArrayList<Integer>> hMap = new HashMap<>();
         int[][] bigrammiLingua = null;
         try {

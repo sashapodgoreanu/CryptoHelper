@@ -54,14 +54,14 @@ public class AnalisiFrequenzaTest {
     }
 
     /**
-     * Test of getBigramiMsg method, of class AnalisiFrequenza.
+     * Test of getBigrammiMsg method, of class AnalisiFrequenza.
      */
     @Test
     public void testGetBigramiMsg() {
         System.out.println("Test of Test of getBigramiMsg method, of class AnalisiFrequenza.");
         AnalisiFrequenza analisiFrequenza = new AnalisiFrequenza("italiano", "as as as as as as as as as as aa");
         analisiFrequenza.display();
-        Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigramiMsg('A');
+        Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigrammiMsg('A');
         System.out.println(a.toString());
         assertThat(a.get('A').get(0), is(1));
         assertThat(a.get('A').get(1), is(1));
@@ -70,13 +70,13 @@ public class AnalisiFrequenzaTest {
     }
 
     /**
-     * Test of getBigramiLingua method, of class AnalisiFrequenza.
+     * Test of getBigrammiLingua method, of class AnalisiFrequenza.
      */
     @Test
     public void testGetBigramiLingua() {
         System.out.println("Test of Test of getBigramiLingua method, of class AnalisiFrequenza.");
         AnalisiFrequenza analisiFrequenza = new AnalisiFrequenza("italiano", "as as as as as as as as as as aa");
-        Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigramiLingua('A');
+        Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigrammiLingua('A');
         System.out.println(a.toString());
         assertThat(a.get('A').get(0), is(21));
         assertThat(a.get('A').get(1), is(21));

@@ -50,7 +50,7 @@ public class GestisciPropostePanel extends JPanel implements View, VisitableGuiU
         rightPanel.setBorder(new EmptyBorder(0, 0, 0, 100));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
-        JLabel targetListLabel = new JLabel("Proposte accettate:");
+        JLabel targetListLabel = new JLabel("Proposte:");
         eliminaBtn = new JButton("Elimina Sistema di cifratura");
         infoSdcLabel = new JLabel("");
         elencoProposteAccettate = new JList(new Vector<Proposta>(proposteArrLst));

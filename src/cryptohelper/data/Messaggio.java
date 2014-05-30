@@ -317,7 +317,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
     public void cifra() {
         System.out.println(this.getClass() + ": cifra(): SistemaCifratura: " + sistemaCifratura);
         if (sistemaCifratura != null) {
-            testoCifrato = Cifratore.cifraMonoalfabetica(sistemaCifratura.getMp(), testo);
+            testoCifrato = Cifratore.cifraMonoalfabetica(sistemaCifratura.getMap(), testo);
         } else {
             testoCifrato = "";
         }
