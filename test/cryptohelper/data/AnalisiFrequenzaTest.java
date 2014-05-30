@@ -6,12 +6,9 @@ import java.util.Map;
 import static org.hamcrest.CoreMatchers.is;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -90,51 +87,4 @@ public class AnalisiFrequenzaTest {
         }
 
     }
-
-    /**
-     * Test of getFrequenzaLingua method, of class AnalisiFrequenza.
-     */
-    @Test
-    @Ignore
-    public void testGetFrequenzaLingua() {
-        System.out.println("getFrequenzaLingua");
-        AnalisiFrequenza instance = null;
-        double[] expResult = null;
-        double[] result = instance.getFrequenzaLingua();
-
-    }
-
-    /**
-     * Test of getCaratteriSingoli method, of class AnalisiFrequenza.
-     */
-    @Test
-    @Ignore
-    public void testGetCaratteriSingoli() {
-        System.out.println("getCaratteriSingoli");
-        Object aLang = null;
-        AnalisiFrequenza instance = null;
-        ArrayList<Character> expResult = null;
-        ArrayList<Character> result = instance.getCaratteriSingoli(aLang);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getCaratteriSingoliTestoCifrato method, of class
-     * AnalisiFrequenza.
-     */
-    @Test
-    @Ignore
-    public void testGetCaratteriSingoliTestoCifrato() {
-        System.out.println("getCaratteriSingoliTestoCifrato");
-        Object aTestoCifrato = null;
-        AnalisiFrequenza instance = null;
-        ArrayList<Character> expResult = null;
-        ArrayList<Character> result = instance.getCaratteriSingoliTestoCifrato(aTestoCifrato);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
 }
