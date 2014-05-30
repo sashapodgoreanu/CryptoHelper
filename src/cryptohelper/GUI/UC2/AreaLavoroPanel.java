@@ -155,18 +155,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         for (int i = 0; i < 26; i++) {
             setUpCollona(mappatura.getColumnModel().getColumn(i));
         }
-        NumberFormat formatter = new DecimalFormat("#0.00");
-        bigrammiComboBox = new JComboBox(alfabeto);
-        bigrammi = new JTable(new BigrammiModel());
-        bigrammi.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
-        bigrammi.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
-        bigrammi.setCellSelectionEnabled(true);
-        for (int i = 0; i < 26; i++) {
-            //afafff
-            //   Map<Character, ArrayList<Integer>> arr = analisiFrequenza.getBigrammiLingua('a');
-            //     caratteriMsg.setValueAt(formatter.format(arr.), 0, i);
-        }
-        
+
         caratteri = new JTable(new CaratteriModel());
         caratteri.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         caratteri.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
@@ -175,16 +164,8 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             double[] arr = analisiFrequenza.getFrequenzaLingua();
             caratteri.setValueAt(arr[i], 0, i);
         }
-        bigrammiMsgComboBox = new JComboBox(alfabeto);
-        bigrammiMsg = new JTable(new BigrammiModel());
-        bigrammiMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
-        bigrammiMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
-        bigrammiMsg.setCellSelectionEnabled(true);
 
-        for (int i = 0; i < 26; i++) {
-            //   double[] arr = analisiFrequenza.getBigrammiMsg(ch);
-            //  caratteriMsg.setValueAt(formatter.format(arr[i]), 0, i);
-        }
+        NumberFormat formatter = new DecimalFormat("#0.00");
         caratteriMsg = new JTable(new CaratteriModel());
         caratteriMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         caratteriMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
@@ -193,6 +174,28 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         for (int i = 0; i < 26; i++) {
             double[] arr = analisiFrequenza.getFrequenzaMsg();
             caratteriMsg.setValueAt(formatter.format(arr[i]), 0, i);
+        }
+
+        bigrammiComboBox = new JComboBox(alfabeto);
+        bigrammi = new JTable(new BigrammiModel());
+        bigrammi.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
+        bigrammi.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
+        bigrammi.setCellSelectionEnabled(true);
+        //carica nella tabella le frequenze dei bigrammi della prima lettera (A) nella lingua
+        Map<Character, ArrayList<Integer>> map = analisiFrequenza.getBigrammiLingua('A');
+        for (int i = 1; i < 27; i++) {
+            bigrammi.setValueAt(map.get('A').get(i), 0, i);
+        }
+
+        bigrammiMsgComboBox = new JComboBox(alfabeto);
+        bigrammiMsg = new JTable(new BigrammiModel());
+        bigrammiMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
+        bigrammiMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
+        bigrammiMsg.setCellSelectionEnabled(true);
+        //carica nella tabella le frequenze dei bigrammi della prima lettera (A) nel messaggio 
+        Map<Character, ArrayList<Integer>> mapMsg = analisiFrequenza.getBigrammiMsg('A');
+        for (int i = 1; i < 27; i++) {
+            bigrammiMsg.setValueAt(mapMsg.get('A').get(i), 0, i);
         }
         scrollPaneMappatura = new JScrollPane();
         scrollPaneBigrammi = new JScrollPane();
