@@ -162,9 +162,11 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         bigrammi.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         bigrammi.setCellSelectionEnabled(true);
         for (int i = 0; i < 26; i++) {
+            //afafff
             //   Map<Character, ArrayList<Integer>> arr = analisiFrequenza.getBigrammiLingua('a');
             //     caratteriMsg.setValueAt(formatter.format(arr.), 0, i);
         }
+        
         caratteri = new JTable(new CaratteriModel());
         caratteri.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         caratteri.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
