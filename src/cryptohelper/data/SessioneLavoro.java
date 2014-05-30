@@ -14,7 +14,7 @@ import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class SessioneLavoro implements HtmlVisitable  {
+public class SessioneLavoro implements HtmlVisitable {
 
     private static Log log = LogFactory.getLog(Messaggio.class);   //per log
     int idSessione;
@@ -63,40 +63,41 @@ public class SessioneLavoro implements HtmlVisitable  {
         String queryUpdate = "UPDATE SessioneLavoro"
                 + " Id_Utente = '" + this.getUtente().getId()
                 + "','"
-                + " Id_Messaggio_Intercettato = '" + this.getMessaggioIntercettato().getId()
+                + " Id_Messaggio_Intercettato = '" + messaggioIntercettatoXML
+                + "','"
+                + " ALBERO_IPOTESI = '" + alberoXML
                 + "','"
                 + " Ultima_Modifica = '" + this.getUltimaModifica()
                 + "',"
                 + " WHERE ID = " + this.getIdSessione();
         try {
             //una nuova sessione
-            //         if (this.getIdSessione() == 0) {
-            int newID = dbc.executeUpdateAndReturnKey(queryInsert);
-            System.out.println("id_sessione: " + newID);
-            //se newID = -1 allora è stato un errore nel inserimento nel db;
-            if (newID != -1) {
-                this.idSessione = newID;
-                System.out.println("AGGIUNGO SESSIONE");
-                System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Aggiunto con successo " + this.toString());
-                System.out.println(true);
-                return true;
+            if (this.getIdSessione() == 0) {
+                int newID = dbc.executeUpdateAndReturnKey(queryInsert);
+                System.out.println("id_sessione: " + newID);
+                //se newID = -1 allora è stato un errore nel inserimento nel db;
+                if (newID != -1) {
+                    this.idSessione = newID;
+                    System.out.println("AGGIUNGO SESSIONE");
+                    System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Aggiunto con successo " + this.toString());
+                    System.out.println(true);
+                    return true;
 
+                }
+                if (newID == -1 && this.idSessione != 0) {
+                    System.out.println(false);
+                    System.out.println("ERRORE NEL INSERIMENTO");
+                    //errore nel inserimento
+                    return false;
+                }
+                //aggiornamento di una Sessione
+            } else {
+                result = dbc.executeUpdate(queryUpdate);
+                System.out.println("AGGIORNO");
+                System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "Aggiornato: " + this.toString());
             }
-            /*            if (newID == -1 && this.idSessione != 0) {
-             System.out.println(false);
-             System.out.println("ERRORE NEL INSERIMENTO");
-             //errore nel inserimento
-             return false;
-             }
-             //aggiornamento di un messaggio
-             } else {
-             result = dbc.executeUpdate(querryUpdate);
-             System.out.println("AGGIORNO");
-             System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "Aggiornato: " + this.toString());
-             }
-             */
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            log.fatal(ex.getMessage());
         }
         return result;
     }
@@ -176,7 +177,6 @@ public class SessioneLavoro implements HtmlVisitable  {
         return pair.getFirst();
     }
 
-
     /**
      * il metodo riptistina lo stato della sessione che è stato salvato nel data
      * base
@@ -184,7 +184,7 @@ public class SessioneLavoro implements HtmlVisitable  {
     public void loadSession() {
 
     }
-    
+
     @Override
     public void accept(HtmlVisitorInterface visitor) {
         visitor.visit(this);
@@ -239,7 +239,5 @@ public class SessioneLavoro implements HtmlVisitable  {
     public void setMessaggioIntercettato(Messaggio messaggioIntercettato) {
         this.messaggioIntercettato = messaggioIntercettato;
     }
-
-   
 
 }

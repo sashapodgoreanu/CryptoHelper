@@ -143,14 +143,11 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            /*
-             SessioneLavoro temp = areaLavoroPanel.getSessioneCorrente();
-             if (temp.salva()) {
+            if (session.salva()) {
              intercettaMessaggioPanel.setStatus("Sessione salvata correttamente!");
              } else {
              intercettaMessaggioPanel.setStatus("Si è verificato un errore nel salvataggio della sessione!");
              }
-             */
         }
     }
 
