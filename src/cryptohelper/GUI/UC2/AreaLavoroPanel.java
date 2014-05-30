@@ -19,15 +19,18 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
     private boolean DEBUG = true; //attiva le stampe di debug
     private String[] alfabeto = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
-    JPanel topPanel;          //pannello in alto
-    JPanel middlePanel;       //pannello al centro
-    JPanel bottomPanel;       //pannello in basso
-    JPanel middlePanelLeft;   //pannello a sinistra nell'area centrale   
-    JPanel middlePanelRight;  //pannello a destra nell'area centrale  
-    JPanel infoMessaggio;     //pannello con informazioni sul messaggio intercettato
-    JPanel infoMessaggioInner;    //pannello con informazioni sul messaggio intercettato
-    JPanel bigrammiPanel;     //pannello per le frequenze dei bigrammi
-    JPanel caratteriPanel;    //pannello per le frequenze dei caratteri
+    JPanel topPanel;                //pannello in alto
+    JPanel middlePanel;             //pannello al centro
+    JPanel bottomPanel;             //pannello in basso
+    JPanel bottomPanelCenter;       //pannello centrale del pannello in basso
+    JPanel middlePanelLeft;         //pannello a sinistra nell'area centrale   
+    JPanel middlePanelRight;        //pannello a destra nell'area centrale  
+    JPanel infoMessaggio;           //pannello con informazioni sul messaggio intercettato
+    JPanel infoMessaggioInner;      //pannello con informazioni sul messaggio intercettato
+    JPanel bigrammiPanel;           //pannello per le frequenze dei bigrammi
+    JPanel caratteriPanel;          //pannello per le frequenze dei caratteri
+    JPanel caratteriMsgPanel;       //pannello per le frequenze dei caratteri nel messaggio   
+    JPanel bigrammiMsgPanel;        //pannello per le frequenze dei bigrammi nel messaggio
     JLabel infoMessaggioLabel;
     JLabel codedTextLabel;
     JLabel plainTextLabel;
@@ -36,19 +39,26 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
     JLabel senderLabel;
     JLabel receiverLabel;
     JLabel bigrammiLabel;
+    JLabel bigrammiMsgLabel;
     JLabel caratteriLabel;
+    JLabel caratteriMsgLabel;
     JTextPane corpoTesto;
     JTextPane corpoTestoCifrato;
     JTable mappatura;
     JTable bigrammi;
     JTable caratteri;
+    JTable bigrammiMsg;
+    JTable caratteriMsg;
     JButton undoBtn;
     JScrollPane scrollPaneMappatura;
     JScrollPane scrollPaneBigrammi;
     JScrollPane scrollPaneCaratteri;
+    JScrollPane scrollPaneBigrammiMsg;
+    JScrollPane scrollPaneCaratteriMsg;
     JScrollPane scrollPaneTesto;
     JScrollPane scrollPaneTestoCifrato;
     JComboBox bigrammiComboBox;
+    JComboBox bigrammiMsgComboBox;
     ArrayList<JComboBox> jcomboBoxes;//dropdown per selezionare un carattere
     SessioneLavoro sessioneCorrente;//sessione su cui si sta lavorando
     MessaggioIntercettato messaggioIntercettato; //messaggio della sessione
@@ -57,12 +67,15 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         topPanel = new JPanel();
         middlePanel = new JPanel();
         bottomPanel = new JPanel();
+        bottomPanelCenter = new JPanel();
         middlePanelLeft = new JPanel();
         middlePanelRight = new JPanel();
         infoMessaggio = new JPanel();
         infoMessaggioInner = new JPanel();
         bigrammiPanel = new JPanel();
         caratteriPanel = new JPanel();
+        bigrammiMsgPanel = new JPanel();
+        caratteriMsgPanel = new JPanel();
         this.sessioneCorrente = sessione;
         this.messaggioIntercettato = sessione.getMessaggioIntercettato();
         this.init();
@@ -77,29 +90,35 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         topPanel.setLayout(new FlowLayout());
         middlePanel.setLayout(new BorderLayout());
         bottomPanel.setLayout(new BorderLayout());
+        bottomPanelCenter.setLayout(new BorderLayout());
         middlePanelLeft.setLayout(new BorderLayout());
         middlePanelRight.setLayout(new BorderLayout());
-        infoMessaggio.setLayout(new FlowLayout());
-        infoMessaggio.setLayout(new FlowLayout());
+        infoMessaggio.setLayout(new FlowLayout(FlowLayout.LEFT));
         infoMessaggioInner.setBorder(BorderFactory.createLineBorder(Color.GRAY)); //bordo per il panel
         infoMessaggioInner.setBackground(Color.WHITE);
-        bigrammiPanel.setLayout(new FlowLayout());
-        caratteriPanel.setLayout(new FlowLayout());
-        bigrammiPanel.setBorder(new EmptyBorder(10, 0, 10, 0)); //padding per il testo della status bar
-        caratteriPanel.setBorder(new EmptyBorder(10, 0, 0, 0)); //padding per il testo della status bar
+        bigrammiPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        caratteriPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        bigrammiPanel.setBorder(new EmptyBorder(5, 0, 0, 0)); //padding per il testo della status bar
+        caratteriPanel.setBorder(new EmptyBorder(5, 0, 0, 0)); //padding per il testo della status bar
+        bigrammiMsgPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        caratteriMsgPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        bigrammiMsgPanel.setBorder(new EmptyBorder(5, 0, 0, 0)); //padding per il testo della status bar
+        caratteriMsgPanel.setBorder(new EmptyBorder(5, 0, 0, 0)); //padding per il testo della status bar
 
         //INIT DEI CONTROLLI
         jcomboBoxes = new ArrayList<>();
         codedTextLabel = new JLabel("Testo cifrato:");
         plainTextLabel = new JLabel("Testo in chiaro:");
         mappaturaLabel = new JLabel("Mappatura corrente:");
-        infoMessaggioLabel = new JLabel("Dettagli aggiuntivi sul messaggio:  ");
+        infoMessaggioLabel = new JLabel("Dettagli aggiuntivi sul messaggio:          ");
         undoBtn = new JButton("Annulla ipotesi");
         languageLabel = new JLabel("Lingua: " + messaggioIntercettato.getLingua() + "               ");
         senderLabel = new JLabel("Mittente: " + messaggioIntercettato.getMittente().getNome() + " " + messaggioIntercettato.getMittente().getCognome() + "               ");
         receiverLabel = new JLabel("Destinatario: " + messaggioIntercettato.getDestinatario().getNome() + " " + messaggioIntercettato.getDestinatario().getCognome());
-        bigrammiLabel = new JLabel("Frequenze dei bigrammi per la lettera: ");
-        caratteriLabel = new JLabel("Frequenze dei caratteri:");
+        bigrammiLabel = new JLabel("Frequenze dei bigrammi in " + messaggioIntercettato.getLingua() + " per la lettera: ");
+        bigrammiMsgLabel = new JLabel("Frequenze bigrammi nel messaggio per la lettera: ");
+        caratteriLabel = new JLabel("Frequenze dei caratteri in " + messaggioIntercettato.getLingua() + ":         ");
+        caratteriMsgLabel = new JLabel("Frequenze dei caratteri nel messaggio:");
         Font font = new Font("monospaced", Font.PLAIN, 16);
         corpoTestoCifrato = new JTextPane();
         corpoTestoCifrato.setEditable(true); //rende in sola lettura il campo con il testo del messaggio
@@ -136,9 +155,32 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             //      setUpCollona(bigrammi.getColumnModel().getColumn(i));
         }
 
+        for (int i = 0; i < 26; i++) {
+            setUpCollona(mappatura.getColumnModel().getColumn(i));
+        }
+        bigrammiMsgComboBox = new JComboBox(alfabeto);
+        bigrammiMsg = new JTable(new BigrammiModel());
+        bigrammiMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
+        bigrammiMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
+        bigrammiMsg.setCellSelectionEnabled(true);
+        for (int i = 0; i < 26; i++) {
+            //to -do caricare frequenze bigrammi prima lettera qui
+            //      setUpCollona(bigrammi.getColumnModel().getColumn(i));
+        }
+        caratteriMsg = new JTable(new CaratteriModel());
+        caratteriMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
+        caratteriMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
+        caratteriMsg.setCellSelectionEnabled(true);
+        for (int i = 0; i < 26; i++) {
+            //to -do caricare frequenze prima lettera qui
+            //      setUpCollona(bigrammi.getColumnModel().getColumn(i));
+        }
+
         scrollPaneMappatura = new JScrollPane();
         scrollPaneBigrammi = new JScrollPane();
         scrollPaneCaratteri = new JScrollPane();
+        scrollPaneBigrammiMsg = new JScrollPane();
+        scrollPaneCaratteriMsg = new JScrollPane();
         scrollPaneTesto = new JScrollPane();
         scrollPaneTestoCifrato = new JScrollPane();
         scrollPaneMappatura.setViewportView(mappatura);
@@ -147,10 +189,14 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         scrollPaneBigrammi.setPreferredSize(new Dimension(800, 55));
         scrollPaneCaratteri.setViewportView(caratteri);
         scrollPaneCaratteri.setPreferredSize(new Dimension(800, 39));
+        scrollPaneBigrammiMsg.setViewportView(bigrammiMsg);
+        scrollPaneBigrammiMsg.setPreferredSize(new Dimension(800, 55));
+        scrollPaneCaratteriMsg.setViewportView(caratteriMsg);
+        scrollPaneCaratteriMsg.setPreferredSize(new Dimension(800, 39));
         scrollPaneTesto.setViewportView(corpoTesto);
-        scrollPaneTesto.setPreferredSize(new Dimension(560, 200));
+        scrollPaneTesto.setPreferredSize(new Dimension(560, 150));
         scrollPaneTestoCifrato.setViewportView(corpoTestoCifrato);
-        scrollPaneTestoCifrato.setPreferredSize(new Dimension(560, 200));
+        scrollPaneTestoCifrato.setPreferredSize(new Dimension(560, 150));
         corpoTesto.setCaretPosition(0); //porta in cima la scrollbar del pannello
         corpoTestoCifrato.setCaretPosition(0); //porta in cima la scrollbar del pannello
 
@@ -174,8 +220,16 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         bigrammiPanel.add(scrollPaneBigrammi);
         caratteriPanel.add(caratteriLabel);
         caratteriPanel.add(scrollPaneCaratteri);
+        bigrammiMsgPanel.add(bigrammiMsgLabel);
+        bigrammiMsgPanel.add(bigrammiMsgComboBox);
+        bigrammiMsgPanel.add(scrollPaneBigrammiMsg);
+        caratteriMsgPanel.add(caratteriMsgLabel);
+        caratteriMsgPanel.add(scrollPaneCaratteriMsg);
+        bottomPanelCenter.add(caratteriMsgPanel, BorderLayout.NORTH);
+        bottomPanelCenter.add(bigrammiPanel, BorderLayout.CENTER);
+        bottomPanelCenter.add(bigrammiMsgPanel, BorderLayout.SOUTH);
         bottomPanel.add(caratteriPanel, BorderLayout.NORTH);
-        bottomPanel.add(bigrammiPanel, BorderLayout.CENTER);
+        bottomPanel.add(bottomPanelCenter, BorderLayout.CENTER);
         bottomPanel.add(infoMessaggio, BorderLayout.SOUTH);
 
         //AGGIUNTA DEI PANNELLI
