@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package cryptohelper.data;
 
 import java.util.ArrayList;
@@ -60,10 +59,12 @@ public class AnalisiFrequenzaTest {
     @Test
     public void testCalcolaAnalisiBigrami() {
         System.out.println("calcolaAnalisiBigrami");
-        AnalisiFrequenza analisiFrequenza = new AnalisiFrequenza("italiano", "asasasasasasasasasas");
+        AnalisiFrequenza analisiFrequenza = new AnalisiFrequenza("italiano", "as as as as as as as as as as aa");
         analisiFrequenza.calcolaAnalisiBigrami();
         analisiFrequenza.display();
-        
+        Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigramiMsg('A');
+        System.out.println(a.toString());
+
     }
 
     /**
@@ -145,7 +146,8 @@ public class AnalisiFrequenzaTest {
     }
 
     /**
-     * Test of getCaratteriSingoliTestoCifrato method, of class AnalisiFrequenza.
+     * Test of getCaratteriSingoliTestoCifrato method, of class
+     * AnalisiFrequenza.
      */
     @Test
     @Ignore

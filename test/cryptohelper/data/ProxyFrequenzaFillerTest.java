@@ -1,5 +1,5 @@
 
-package cryptohelper.proxy;
+package cryptohelper.data;
 
 import cryptohelper.data.proxy.ProxyFrequenzaFiller;
 import org.junit.After;

@@ -2,6 +2,7 @@ package cryptohelper.data;
 
 import cryptohelper.data.proxy.ProxyFrequenzaFiller;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class AnalisiFrequenza {
@@ -75,8 +76,16 @@ public class AnalisiFrequenza {
                 bigrammiTesto[i][j] = 0;
             }
         }
+        StringUtils.countMatches(str, findStr);
 
-        for (int i = 0; i < testoCifrato.length(); i++) {
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < 26; j++) {
+
+            }
+        }
+
+        /*
+         for (int i = 0; i < testoCifrato.length(); i++) {
             char chPrima;
             char chEsaminato = testoCifrato.charAt(i);
             char chDopo;
@@ -118,11 +127,22 @@ public class AnalisiFrequenza {
                     }
                 }
             }
-        }
+        }*/
     }
 
     public Map<Character, ArrayList<Integer>> getBigramiMsg(char ch) {
-        throw new UnsupportedOperationException();
+        Map<Character, ArrayList<Integer>> hMap = new HashMap<>();
+        for (int i = 0; i < 26; i++) {
+            ArrayList<Integer> arrL = new ArrayList<>();
+            arrL.add(bigrammiTesto[ch - 65][i]);
+            hMap.put((char) (i + 65), arrL);
+        }
+        for (int i = 0; i < 26; i++) {
+            ArrayList<Integer> arrL = hMap.get((char) (i + 65));
+            arrL.add(bigrammiTesto[i][ch - 65]);
+            hMap.put((char) (i + 65), arrL);
+        }
+        return hMap;
     }
 
     public Map<Character, ArrayList<Integer>> getBigramiTestoCifrato(char ch) {
