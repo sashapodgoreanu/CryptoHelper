@@ -18,9 +18,9 @@ TO-DO (aggiornato 23/05/14)
   [OK] Creare interfaccia MessaggioAstratto
 - ok Classe sistema di cifratura => rivedere/completare alcuni metodi
 - ok Implementare classe Mossa
-- (in corso) Implementare classe albero
+- ok Implementare classe albero
 - Implementare classe soluzione
 - creare utenti, messagi esempi da tenere nel db
 - refactoring, commenti e pulizia del codice
-- da revisionare ricerca ipotesi
-- da ritornare ad area lavoro una mossa e reimpostare la tabella mosse. 
+- ok da revisionare ricerca ipotesi
+- ok da ritornare ad area lavoro una mossa e reimpostare la tabella mosse. 
