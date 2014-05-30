@@ -1,9 +1,12 @@
 package cryptohelper.data;
 
 import cryptohelper.data.proxy.ProxyFrequenzaFiller;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.lang3.StringUtils;
 
 public class AnalisiFrequenza {
@@ -23,6 +26,12 @@ public class AnalisiFrequenza {
         numCaratteri = testoCifrato.length();
         numBigrammi = 0;
         calcolaAnalisiBigrami();
+        if (lingua.endsWith(Lingua.italiano)) {
+            proxyFile = new ProxyFrequenzaFiller("frequenzeIta.txt", "bgItaliano.txt");
+        } else if (lingua.endsWith(Lingua.inglese)) {
+            proxyFile = new ProxyFrequenzaFiller("frequenzeIng.txt", "bgInglese.txt");
+        }
+
     }
 
     /**
@@ -88,48 +97,48 @@ public class AnalisiFrequenza {
         }
         /*
          for (int i = 0; i < testoCifrato.length(); i++) {
-            char chPrima;
-            char chEsaminato = testoCifrato.charAt(i);
-            char chDopo;
-            if (chEsaminato >= 'A' && chEsaminato <= 'Z') {
-                //se chEsaminato ha i ambi caratteri vecini che sono lettere.
-                if (i > 0 && i < testoCifrato.length() - 1) {
-                    chPrima = testoCifrato.charAt(i - 1);
-                    chDopo = testoCifrato.charAt(i + 1);
-                    if (chPrima >= 'A' && chPrima <= 'Z') {
-                        int num = bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65];
-                        num++;
-                        bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65] = num;
-                        numBigrammi++;
-                    }
-                    if (chDopo >= 'A' && chDopo <= 'Z') {
-                        int num = bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65];
-                        num++;
-                        bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65] = num;
-                        numBigrammi++;
-                    }
-                }//se chEsaminato non ha chPrima null
-                else if (i != 0) {
-                    chPrima = testoCifrato.charAt(i - 1);
-                    if (chPrima >= 'A' && chPrima <= 'Z') {
-                        int num = bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65];
-                        num++;
-                        bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65] = num;
-                        numBigrammi++;
-                    }
+         char chPrima;
+         char chEsaminato = testoCifrato.charAt(i);
+         char chDopo;
+         if (chEsaminato >= 'A' && chEsaminato <= 'Z') {
+         //se chEsaminato ha i ambi caratteri vecini che sono lettere.
+         if (i > 0 && i < testoCifrato.length() - 1) {
+         chPrima = testoCifrato.charAt(i - 1);
+         chDopo = testoCifrato.charAt(i + 1);
+         if (chPrima >= 'A' && chPrima <= 'Z') {
+         int num = bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65];
+         num++;
+         bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65] = num;
+         numBigrammi++;
+         }
+         if (chDopo >= 'A' && chDopo <= 'Z') {
+         int num = bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65];
+         num++;
+         bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65] = num;
+         numBigrammi++;
+         }
+         }//se chEsaminato non ha chPrima null
+         else if (i != 0) {
+         chPrima = testoCifrato.charAt(i - 1);
+         if (chPrima >= 'A' && chPrima <= 'Z') {
+         int num = bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65];
+         num++;
+         bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65] = num;
+         numBigrammi++;
+         }
 
-                }//se chEsaminato non ha chDopo null
-                else if (i != 0) {
-                    chDopo = testoCifrato.charAt(i + 1);
-                    if (chDopo >= 'A' && chDopo <= 'Z') {
-                        int num = bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65];
-                        num++;
-                        bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65] = num;
-                        numBigrammi++;
-                    }
-                }
-            }
-        }*/
+         }//se chEsaminato non ha chDopo null
+         else if (i != 0) {
+         chDopo = testoCifrato.charAt(i + 1);
+         if (chDopo >= 'A' && chDopo <= 'Z') {
+         int num = bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65];
+         num++;
+         bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65] = num;
+         numBigrammi++;
+         }
+         }
+         }
+         }*/
     }
 
     public Map<Character, ArrayList<Integer>> getBigramiMsg(char ch) {
@@ -147,8 +156,25 @@ public class AnalisiFrequenza {
         return hMap;
     }
 
-    public Map<Character, ArrayList<Integer>> getBigramiTestoCifrato(char ch) {
-        throw new UnsupportedOperationException();
+    public Map<Character, ArrayList<Integer>> getBigramiLingua(char ch) {
+        Map<Character, ArrayList<Integer>> hMap = new HashMap<>();
+        int[][] bigrammiLingua = null;
+        try {
+            bigrammiLingua = proxyFile.getBigrammi();
+        } catch (IOException ex) {
+            Logger.getLogger(AnalisiFrequenza.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (int i = 0; i < 26; i++) {
+            ArrayList<Integer> arrL = new ArrayList<>();
+            arrL.add(bigrammiLingua[ch - 65][i]);
+            hMap.put((char) (i + 65), arrL);
+        }
+        for (int i = 0; i < 26; i++) {
+            ArrayList<Integer> arrL = hMap.get((char) (i + 65));
+            arrL.add(bigrammiLingua[i][ch - 65]);
+            hMap.put((char) (i + 65), arrL);
+        }
+        return hMap;
     }
 
     public double[] getFrequenzaLingua() {

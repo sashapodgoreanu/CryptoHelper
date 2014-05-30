@@ -54,11 +54,11 @@ public class AnalisiFrequenzaTest {
     }
 
     /**
-     * Test of getBigramiTestoCifrato method, of class AnalisiFrequenza.
+     * Test of getBigramiMsg method, of class AnalisiFrequenza.
      */
     @Test
-    public void testGetBigramiTestoCifrato() {
-        System.out.println("Test of getBigramiTestoCifrato method, of class AnalisiFrequenza.");
+    public void testGetBigramiMsg() {
+        System.out.println("Test of Test of getBigramiMsg method, of class AnalisiFrequenza.");
         AnalisiFrequenza analisiFrequenza = new AnalisiFrequenza("italiano", "as as as as as as as as as as aa");
         analisiFrequenza.display();
         Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigramiMsg('A');
@@ -70,19 +70,22 @@ public class AnalisiFrequenzaTest {
     }
 
     /**
-     * Test of getBigramiMsg method, of class AnalisiFrequenza.
+     * Test of getBigramiLingua method, of class AnalisiFrequenza.
      */
     @Test
-    @Ignore
-    public void testGetBigramiMsg() {
-        System.out.println("getBigramiMsg");
-        char ch = ' ';
-        AnalisiFrequenza instance = null;
-        Map<Character, ArrayList<Integer>> expResult = null;
-        Map<Character, ArrayList<Integer>> result = instance.getBigramiMsg(ch);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetBigramiLingua() {
+        System.out.println("Test of Test of getBigramiLingua method, of class AnalisiFrequenza.");
+        AnalisiFrequenza analisiFrequenza = new AnalisiFrequenza("italiano", "as as as as as as as as as as aa");
+        Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigramiLingua('A');
+        System.out.println(a.toString());
+        assertThat(a.get('A').get(0), is(21));
+        assertThat(a.get('A').get(1), is(21));
+        assertThat(a.get('B').get(0), is(4));
+        assertThat(a.get('B').get(1), is(13));
+        assertThat(a.get('C').get(0), is(41));
+        assertThat(a.get('C').get(1), is(60));
+        assertThat(a.get('Z').get(0), is(18));
+        assertThat(a.get('Z').get(1), is(22));
     }
 
     /**
