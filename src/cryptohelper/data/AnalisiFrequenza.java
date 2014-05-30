@@ -29,8 +29,10 @@ public class AnalisiFrequenza {
         numBigrammi = 0;
         calcolaAnalisiBigrami();
         if (lingua.endsWith(Lingua.italiano)) {
+            System.out.println(Lingua.italiano);
             proxyFile = new ProxyFrequenzaFiller("frequenzeIta.txt", "bgItaliano.txt");
         } else if (lingua.endsWith(Lingua.inglese)) {
+            System.out.println(Lingua.inglese);
             proxyFile = new ProxyFrequenzaFiller("frequenzeIng.txt", "bgInglese.txt");
         }
 
