@@ -1,6 +1,7 @@
 package cryptohelper.service;
 
 import cryptohelper.data.AlberoIpotesi;
+import cryptohelper.data.Lingua;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.QueryResult;
 import cryptohelper.data.SessioneLavoro;
@@ -80,7 +81,8 @@ public class TestDbController {
                     + " fk teb wlpia, rctbp jrkarpfk sefkbqb rka qmrkfqe.ft fq wfabiy ibrpkba rq r qbslka"
                     + " irkdurdb rka fq rk lccfsfri irkdurdb lc"
                     + " teb buplmbrk ukflk, jrky sljjlkwbrite sluktpfbq rka teb ukftba krtflkq,"
-                    + " rq wbii rq fk jrky wlpia lpdrkfqrtflkq.", "italiano", "titolo", true, true, mittente, destinatario);
+                    + " rq wbii rq fk jrky wlpia lpdrkfqrtflkq.", Lingua.inglese, "titolo", true, true, mittente, destinatario
+            );
             m1.setAreaLavoro(m1.getTestoCifrato().toUpperCase());
 
             System.out.println(m1.toString());
