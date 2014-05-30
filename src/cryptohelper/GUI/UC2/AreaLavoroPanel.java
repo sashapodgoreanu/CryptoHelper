@@ -7,12 +7,24 @@ import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
 import cryptohelper.interfaces.VisitableGuiUC2;
 import cryptohelper.interfaces.VisitorGuiUC2;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
-import javax.swing.*;
-import java.awt.*;
 
 public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
@@ -281,6 +293,14 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
     public SessioneLavoro getSessioneCorrente() {
         return sessioneCorrente;
+    }
+
+    public JScrollPane getScrollPaneTesto() {
+        return scrollPaneTesto;
+    }
+
+    public JScrollPane getScrollPaneTestoCifrato() {
+        return scrollPaneTestoCifrato;
     }
 
     //METODI SETTER

@@ -159,6 +159,7 @@ public class AlberoIpotesiTest {
      */
     @Test
     public void testUndo() {
+        Pair<Mossa, String> pair;
         System.out.println("Test of undo method, of class AlberoIpotesi.");
         String testoLavoro = "AONJCO";
         //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
@@ -168,7 +169,8 @@ public class AlberoIpotesiTest {
         testoLavoro = alberoIpotesi.effettuaSostituzione('C', 'd', testoLavoro);
         System.out.println("testo lavoro " + testoLavoro);
         alberoIpotesi.display();
-        testoLavoro = alberoIpotesi.undo(testoLavoro);
+        pair = alberoIpotesi.undo(testoLavoro);
+        testoLavoro = pair.getSecond();
         System.out.println("testo lavoro UNDO " + testoLavoro);
         alberoIpotesi.display();
         testoLavoro = alberoIpotesi.effettuaSostituzione('C', 'a', testoLavoro);

@@ -106,7 +106,7 @@ public class AlberoIpotesi {
         }
     }
 
-    public String undo(String testoLavoro) {
+    public Pair<Mossa, String> undo(String testoLavoro) {
         Mossa mossaUndo = null;
         Ipotesi ip = getIpotesiCorrente();
         System.out.println("PRIMA IPOTESI CORENTE: " + ip.toString());
@@ -127,7 +127,8 @@ public class AlberoIpotesi {
         display();//debug
         System.out.println("**********************************");
         System.out.println("DOPO IPOTESI CORENTE: " + ip.toString());
-        return mappaPosizioni.executeMossa(mossaUndo, testoLavoro);
+        testoLavoro = mappaPosizioni.executeMossa(mossaUndo, testoLavoro);
+        return new Pair(mossaUndo, testoLavoro);
     }
 
     //Restituisce l'ipotesi corrente

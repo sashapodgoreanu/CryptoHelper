@@ -2,9 +2,9 @@ package cryptohelper.data;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
-import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.HtmlVisitable;
 import cryptohelper.interfaces.HtmlVisitorInterface;
+import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -169,8 +169,11 @@ public class SessioneLavoro implements HtmlVisitable  {
         return mossaDuplicata;
     }
 
-    public void undo(String testoLavoro) {
-        messaggioIntercettato.setAreaLavoro(alberoIpotesi.undo(testoLavoro));
+    public Mossa undo(String arealAvoro) {
+        Pair<Mossa, String> pair = alberoIpotesi.undo(arealAvoro);
+        arealAvoro = pair.getSecond();
+        messaggioIntercettato.setAreaLavoro(arealAvoro);
+        return pair.getFirst();
     }
 
 

@@ -9,6 +9,7 @@ import cryptohelper.GUI.UC2.IntercettaMsgPanel;
 import cryptohelper.GUI.UC2.NuovaSessionePanel;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
+import cryptohelper.data.Mossa;
 import cryptohelper.data.SessioneLavoro;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.VisitorGuiUC2;
@@ -30,6 +31,7 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
     private CaricaSessionePanel caricaSessionePanel;
     private AreaLavoroPanel areaLavoroPanel;
     private SessioneLavoro session;
+    private final TableMappaturaListener tableListener = new TableMappaturaListener();
 
     private GUIControllerUC2() {
         comC = COMController.getInstance();
@@ -70,13 +72,15 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
     @Override
     public void visit(AreaLavoroPanel alp) {
         areaLavoroPanel = alp;
-        areaLavoroPanel.getMappatura().getModel().addTableModelListener(new TableMappaturaListener());
+        areaLavoroPanel.getMappatura().getModel().addTableModelListener(tableListener);
         areaLavoroPanel.getUndoBtn().addActionListener(new UndoListener());
     }
 
     private class TableMappaturaListener implements TableModelListener {
+
         @Override
         public void tableChanged(TableModelEvent e) {
+
             System.out.println("effettua una sostituzione");
             intercettaMessaggioPanel.setStatus("");
             int index = e.getColumn(); //index della colona editata
@@ -84,7 +88,7 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             char ch2 = sost.charAt(0); //trasforma la stringa sost in char
             boolean mossaEffettuatainPrecedenza = session.effetuaSostituzione((char) (index + 'A'), ch2);
             System.out.println(mossaEffettuatainPrecedenza);
-            if (mossaEffettuatainPrecedenza) {
+            if (true) {
                 intercettaMessaggioPanel.setStatus((char) (index + 'A') + " " + ch2 + " - Mossa effetuata in precedenza!");
             }
             areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
@@ -202,8 +206,11 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            session.undo(session.getMessaggioIntercettato().getAreaLavoro());
+            Mossa u = session.undo(session.getMessaggioIntercettato().getAreaLavoro());
             areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
+            areaLavoroPanel.getMappatura().getModel().removeTableModelListener(tableListener);
+            areaLavoroPanel.getMappatura().setValueAt(String.valueOf(u.getInverseChar()), 0, u.getCharacter() - 65);
+            areaLavoroPanel.getMappatura().getModel().addTableModelListener(tableListener);
         }
     }
 
