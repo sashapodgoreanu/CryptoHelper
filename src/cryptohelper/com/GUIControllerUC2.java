@@ -7,6 +7,7 @@ import cryptohelper.GUI.UC2.AreaLavoroPanel;
 import cryptohelper.GUI.UC2.CaricaSessionePanel;
 import cryptohelper.GUI.UC2.IntercettaMsgPanel;
 import cryptohelper.GUI.UC2.NuovaSessionePanel;
+import cryptohelper.data.AnalisiFrequenza;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.Mossa;

@@ -189,6 +189,7 @@ public class SistemaCifratura {
         return true;
     }
 
+    /*Metodo che carica tutti i sistemi di cifratura creati da un Utente.*/
     public static ArrayList<SistemaCifratura> caricaSistemiCifratura(UserInfo stud) {
         String query = "SELECT * FROM SISTEMICIFRATURA";
         QueryResult qr = null;
@@ -226,6 +227,19 @@ public class SistemaCifratura {
             log.fatal(ex.getMessage());
         }
         return temp;
+    }
+
+    //Elimina un sistema di cifratura dalla tabella SISTEMICIFRATURA. Restituisce TRUE se l'oparazione va a buon fine
+    public boolean elimina() {
+        DBController dbc = DBController.getInstance();
+        boolean result = false;
+        String query = "DELETE FROM SISTEMICIFRATURA WHERE ID =" + id + "";
+        try {
+            result = dbc.executeUpdate(query);
+        } catch (SQLException ex) {
+            log.fatal(ex.getMessage());
+        }
+        return result;
     }
 
     @Override

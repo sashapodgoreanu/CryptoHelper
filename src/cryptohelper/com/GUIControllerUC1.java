@@ -2,6 +2,7 @@ package cryptohelper.com;
 
 import cryptohelper.GUI.UC1.BozzePanel;
 import cryptohelper.GUI.UC1.CreaSDCPanel;
+import cryptohelper.GUI.UC1.GestisciPropostePanel;
 import cryptohelper.GUI.UC1.GestisciSDCPanel;
 import cryptohelper.GUI.UC1.InboxPanel;
 import cryptohelper.GUI.UC1.InboxSDCPanel;
@@ -40,7 +41,7 @@ import javax.swing.event.ListSelectionListener;
  * dei due.
  */
 public class GUIControllerUC1 implements VisitorGuiUC1 {
-
+    
     private COMController comC;
     private LoginForm loginForm;
     private RegistrationForm regForm;
@@ -58,13 +59,14 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
     private Mappatura mappatura;
     private ProponiSDCPanel proponiSDCPanel;
     private InboxSDCPanel inboxSDCPanel;
+    private GestisciPropostePanel gestisciPropostePanel;
     private GestisciSDCPanel gestisciSDCPanel;
     private static HtmlVisitor printerVisitor = new HtmlVisitor(); //htmlVisitor, serve al pattern visitor per le stampe formato html degli oggetti
 
     private GUIControllerUC1() {
         comC = COMController.getInstance();
     }
-
+    
     public static GUIControllerUC1 getInstance() {
         if (instance == null) {
             instance = new GUIControllerUC1();
@@ -83,14 +85,14 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
         loginForm.getSubmit().addActionListener(new LoginFormListener());
         loginForm.getRegistration().addActionListener(new RegistrationFormListener());
     }
-
+    
     @Override
     public void visit(RegistrationForm rf) {
         regForm = rf;
         regForm.getCancelBtn().addActionListener(new CancelListener());
         regForm.getSubmitBtn().addActionListener(new RegisterListener());
     }
-
+    
     @Override
     public void visit(InboxPanel ip) {
         inboxPanel = ip;
@@ -98,14 +100,14 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
         inboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaInboxMsgListener());
         inboxPanel.getDecifraBtn().addActionListener(new DecifraMsgListener());
     }
-
+    
     @Override
     public void visit(OutboxPanel op) {
         outboxPanel = op;
         outboxPanel.getElencoMessaggiInviati().addListSelectionListener(new ViewOutboxMsgListener());
         outboxPanel.getEliminaMessaggioBtn().addActionListener(new EliminaOutboxMsgListener());
     }
-
+    
     @Override
     public void visit(PannelloPrincipale pp) {
         pannelloPrincipale = pp;
@@ -117,7 +119,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
         pannelloPrincipale.getLogoutBtn().addActionListener(new LogoutListener());
         pannelloPrincipale.getIntercettaBtn().addActionListener(new IntercettaBtnListener());
     }
-
+    
     @Override
     public void visit(BozzePanel bp) {
         bozzePanel = bp;
@@ -126,16 +128,17 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
         bozzePanel.getSendBozzaBtn().addActionListener(new SalvaInviaMessaggioListener());
         bozzePanel.getElencoBozze().addListSelectionListener(new ViewBozzeMsgListener());
     }
-
+    
     @Override
     public void visit(SdcPanel sdcp) {
         sdcPanel = sdcp;
         sdcPanel.getCreaSDCBtn().addActionListener(new CreateSDCListener());
-        sdcPanel.getGestisciProposteBtn().addActionListener(new GestisciSDCListener());
+        sdcPanel.getGestisciProposteBtn().addActionListener(new GestisciProposteListener());
         sdcPanel.getProponiSDCBtn().addActionListener(new ProponiSDCListener());
         sdcPanel.getInboxProposteSDCBtn().addActionListener(new InboxSDCListener());
+        sdcPanel.getSDCBtn().addActionListener(new GestisciSDCListener());
     }
-
+    
     @Override
     public void visit(CreaSDCPanel csdcp) {
         creaSDCPanel = csdcp;
@@ -145,7 +148,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
         creaSDCPanel.getSalvaSdcBtn().addActionListener(new SalvaMetodoDicifraturaListener());
         creaSDCPanel.getProvasdcBtn().addActionListener(new ProvaMetodoDicifraturaListener());
     }
-
+    
     @Override
     public void visit(MessagePanel mp) {
         messagePanel = mp;
@@ -153,13 +156,13 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
         messagePanel.getInviaMessageBtn().addActionListener(new SalvaInviaMessaggioListener());
         messagePanel.getElencoDestinatari().addListSelectionListener(new SelectDestinatarioListener());
     }
-
+    
     @Override
     public void visit(ProponiSDCPanel psdcp) {
         proponiSDCPanel = psdcp;
         proponiSDCPanel.getProponiSDCBtn().addActionListener(new SendProponiSDCListener());
     }
-
+    
     @Override
     public void visit(InboxSDCPanel isdcp) {
         inboxSDCPanel = isdcp;
@@ -167,7 +170,13 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
         inboxSDCPanel.getAccettaBtn().addActionListener(new AccettaRifiutaSDCListener());
         inboxSDCPanel.getRifiutaBtn().addActionListener(new AccettaRifiutaSDCListener());
     }
-
+    
+    @Override
+    public void visit(GestisciPropostePanel gsdcp) {
+        gestisciPropostePanel = gsdcp;
+        gestisciPropostePanel.getEliminaBtn().addActionListener(new EliminaPropostaListener());
+    }
+    
     @Override
     public void visit(GestisciSDCPanel gsdcp) {
         gestisciSDCPanel = gsdcp;
@@ -176,7 +185,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il login
     private class LoginFormListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             boolean valid = comC.authenticate(loginForm.getUsername(), loginForm.getPassword());
@@ -192,7 +201,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button "nuovo messaggio" della finestra principale
     private class NuovoMessaggioListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -208,7 +217,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button Inbox della finestra principale
     private class GestisciInbox implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -222,7 +231,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button Inbox della finestra principale
     private class GestisciOutbox implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -235,7 +244,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button "bozze" della finestra principale 
     private class GestisciBozzeListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -245,19 +254,28 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
             pannelloPrincipale.initGestioneBozze(temp);
         }
     }
-
-    private class GestisciSDCListener implements ActionListener {
-
+    
+    private class GestisciProposteListener implements ActionListener {
+        
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
-            sdcPanel.initGestisciSDCPanel(Proposta.caricaProposteSistemiCifratura(utilizzatoreSistema));
+            sdcPanel.initGestisciPropostePanel(Proposta.caricaProposteSistemiCifratura(utilizzatoreSistema));
+        }
+    }
+    
+    private class GestisciSDCListener implements ActionListener {
+        
+        public void actionPerformed(ActionEvent e) {
+            pannelloPrincipale.setStatus(" ");
+            JButton ev = (JButton) e.getSource();
+            sdcPanel.initSDCPanel(SistemaCifratura.caricaSistemiCifratura(utilizzatoreSistema));
         }
     }
 
 //classe listener per il button "logout" della finestra principale
     private class LogoutListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.dispose();
@@ -268,7 +286,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button "intercetta un messaggio" della finestra principale
     private class IntercettaBtnListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton ev = (JButton) e.getSource();
@@ -281,7 +299,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per la Jlist "ElencoMessaggiRicevuti" 
     private class ViewInboxMsgListener implements ListSelectionListener {
-
+        
         @Override
         public void valueChanged(ListSelectionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -294,7 +312,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button "elimina" del pannello outbox 
     private class EliminaInboxMsgListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             MessaggioMittente mess = (MessaggioMittente) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
@@ -306,14 +324,14 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button "decifra" del pannello outbox 
     private class DecifraMsgListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             MessaggioDestinatario mess = (MessaggioDestinatario) inboxPanel.getElencoMessaggiRicevuti().getSelectedValue();
             UserInfo mittente = mess.getMittente();
             SistemaCifratura sdc = SistemaCifratura.load(mittente.getId(), utilizzatoreSistema.getId());
             if (inboxPanel.getChiaveField().getText().equals(sdc.getChiave())) {
-
+                
                 String testoDecifrato = sdc.decifra(mess.getTestoCifrato());
                 String body = inboxPanel.getCorpoMessaggio().getText();
                 System.out.println(testoDecifrato);
@@ -322,13 +340,13 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
             } else {
                 pannelloPrincipale.setStatus("La chiave non è corretta");
             }
-
+            
         }
     }
 
 //classe listener per la Jlist della outbox 
     private class ViewOutboxMsgListener implements ListSelectionListener {
-
+        
         @Override
         public void valueChanged(ListSelectionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -340,7 +358,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button "elimina" del pannello outbox 
     private class EliminaOutboxMsgListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             MessaggioMittente mess = (MessaggioMittente) outboxPanel.getElencoMessaggiInviati().getSelectedValue();
@@ -352,7 +370,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per la Jlist "ElencoBozze" 
     private class ViewBozzeMsgListener implements ListSelectionListener {
-
+        
         @Override
         public void valueChanged(ListSelectionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -367,7 +385,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button "bozze" della finestra principale 
     private class ElimnaBozzaListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             MessaggioMittente mess = (MessaggioMittente) bozzePanel.getElencoBozze().getSelectedValue();
@@ -379,7 +397,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button "elimina bozza" del pannello bozze
     private class GestisciSDC implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -388,9 +406,9 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
             pannelloPrincipale.initSDC();
         }
     }
-
+    
     private class CreateSDCListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -402,7 +420,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per JRadioButtons per selezionare il metodo di cifratura
     private class MetodoDicifraturaListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -423,7 +441,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button "salva messaggio" della finestra principale
     private class SalvaInviaMessaggioListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -507,7 +525,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
                 } else { //altrimenti salva il messaggio
                     pannelloPrincipale.setStatus("");
                     Messaggio m = ((Messaggio) bozzePanel.getElencoBozze().getSelectedValue());
-
+                    
                     SistemaCifratura sdc = SistemaCifratura.load(utilizzatoreSistema.getId(), m.getDestinatario().getId());
                     //Messaggio( String titolo, boolean bozza, boolean letto)
                     msgMittente = new Messaggio(msgMittente.getId(),//id
@@ -562,7 +580,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per la Jlist "elencoProposte" 
     private class SelectDestinatarioListener implements ListSelectionListener {
-
+        
         @Override
         public void valueChanged(ListSelectionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -576,7 +594,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per salvare SDC - ascolta il bottone salva
     private class SalvaMetodoDicifraturaListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus("");
@@ -585,10 +603,10 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
             String metodo = creaSDCPanel.getMetodo();
             System.out.println(this.getClass() + " metodo " + metodo + " " + (metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE) || metodo.equals(Cifrario.PAROLA_CHIAVE)));
             System.out.println(this.getClass() + " NOME CIFRATURA  " + creaSDCPanel.getNomeCifraturaField().getText());
-
+            
             if (metodo.equals(Cifrario.MONOALFABETICO)) {
                 System.out.println(this.getClass() + " metodo " + (metodo.equals(Cifrario.CESARE) || metodo.equals(Cifrario.PSEUDOCASUALE) || metodo.equals(Cifrario.PAROLA_CHIAVE)));
-
+                
                 if (creaSDCPanel.getTable().isEditing()) {
                     creaSDCPanel.getTable().getCellEditor().stopCellEditing();
                 }
@@ -631,7 +649,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per provare SDC - ascolta il bottone prova sdc
     private class ProvaMetodoDicifraturaListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus("");
@@ -673,7 +691,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per inizializare il panello proponi sistema di cifratura
     private class ProponiSDCListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -685,7 +703,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per inviare una proposta di sistema di cifratura
     private class SendProponiSDCListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -703,19 +721,19 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per visualizare il panello con le proposte inbox sdc
     private class InboxSDCListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             sdcPanel.initInboxSDCPanel(Proposta.caricaProposteSistemiCifraturaPedding(utilizzatoreSistema));
-
+            
         }
     }
 
 //classe listener per visualizare il panello con le proposte inbox sdc
     private class AccettaRifiutaSDCListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println(" AccettaRifiutaSDCListener ");
@@ -740,15 +758,15 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
     }
 
 //classe listener per eliminare un sistema di cifratura concordato in precedenza
-    private class EliminaSDCListener implements ActionListener {
-
+    private class EliminaPropostaListener implements ActionListener {
+        
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println(" eliminaSDCListener ");
+            System.out.println(" eliminaPropostaListener ");
             pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             //proposta selezionata dalla jlist
-            Proposta proposta = (Proposta) gestisciSDCPanel.getElencoProposteAccettate().getSelectedValue();
+            Proposta proposta = (Proposta) gestisciPropostePanel.getElencoProposteAccettate().getSelectedValue();
             if (proposta != null) {
                 System.out.println(proposta.getSdc().getId());
                 proposta.elimina();
@@ -759,9 +777,29 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
         }
     }
 
+    //classe listener per eliminare un sistema di cifratura concordato in precedenza
+    private class EliminaSDCListener implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println(" eliminaSDCListener ");
+            pannelloPrincipale.setStatus(" ");
+            JButton ev = (JButton) e.getSource();
+            //proposta selezionata dalla jlist
+            SistemaCifratura sdc = (SistemaCifratura) gestisciSDCPanel.getElencoSistemiDiCifratura().getSelectedValue();
+            if (sdc != null) {
+                System.out.println(sdc.getId());
+                sdc.elimina();
+                pannelloPrincipale.setStatus("Il Sistema di cifratura è stato eliminato correttamente!");
+            } else {
+                pannelloPrincipale.setStatus("Seleziona un Sistema di cifratura!");
+            }
+        }
+    }
+
 //classe listener per la Jlist "elencoProposte" 
     private class ViewProponiSDCListener implements ListSelectionListener {
-
+        
         @Override
         public void valueChanged(ListSelectionEvent e) {
             pannelloPrincipale.setStatus(" ");
@@ -773,7 +811,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per la reistrazione dell'utente
     private class RegistrationFormListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             loginForm.dispose();
@@ -783,7 +821,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button "annulla" della finestra registrazione utente
     private class CancelListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             regForm.dispose();
@@ -794,7 +832,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
 
 //classe listener per il button "OK" della finestra registrazione utente
     private class RegisterListener implements ActionListener {
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             if (regForm.getNameField().equals("") || regForm.getSurnameField().equals("")
@@ -811,9 +849,9 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
             }
         }
     }
-
+    
     public COMController getComC() {
         return comC;
     }
-
+    
 }

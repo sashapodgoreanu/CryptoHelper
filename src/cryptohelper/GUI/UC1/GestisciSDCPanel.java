@@ -1,10 +1,9 @@
-//Finestra principale della GUI
 package cryptohelper.GUI.UC1;
 
 import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.HtmlVisitor;
-import cryptohelper.data.Proposta;
+import cryptohelper.data.SistemaCifratura;
 import cryptohelper.interfaces.VisitableGuiUC1;
 import cryptohelper.interfaces.VisitorGuiUC1;
 import java.util.ArrayList;
@@ -14,26 +13,30 @@ import java.awt.*;
 import static java.lang.System.gc;
 import javax.swing.border.EmptyBorder;
 
+/**
+ *
+ * @author Luigi
+ */
 public class GestisciSDCPanel extends JPanel implements View, VisitableGuiUC1 {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
     JPanel rightPanel;       //pannello a destra
     JPanel bottomPanel;      //pannello in basso
-    JList elencoProposteAccettate;
+    JList elencoSistemiDiCifratura;
     JButton eliminaBtn;
     JLabel infoSdcLabel;
     JScrollPane scrollPane;
-    ArrayList<Proposta> proposteArrLst; //elenco mittenti
+    ArrayList<SistemaCifratura> sistemiCifraturaArrLst; //elenco mittenti
 
-    public GestisciSDCPanel(ArrayList<Proposta> proposteArrLst) {
-        this.proposteArrLst = proposteArrLst;
+    public GestisciSDCPanel(ArrayList<SistemaCifratura> SistemiCifraturaArrLst) {
+        this.sistemiCifraturaArrLst = SistemiCifraturaArrLst;
         this.init();
     }
 
     //inizializza il pannello
     private void init() {
-        System.out.println("Inizzializzazione Pannello Inbox...");   //comunicazione di controllo per i log
+        System.out.println("Inizzializzazione Pannello Gestione SDC...");   //comunicazione di controllo per i log
 
         //INIT DEI PANNELLI E DEI LAYOUT
         this.setLayout(new BorderLayout());
@@ -50,29 +53,29 @@ public class GestisciSDCPanel extends JPanel implements View, VisitableGuiUC1 {
         rightPanel.setBorder(new EmptyBorder(0, 0, 0, 100));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
-        JLabel targetListLabel = new JLabel("Proposte accettate:");
+        JLabel targetListLabel = new JLabel("Sistemi di cifratura creati:");
         eliminaBtn = new JButton("Elimina Sistema di cifratura");
         infoSdcLabel = new JLabel("");
-        elencoProposteAccettate = new JList(new Vector<Proposta>(proposteArrLst));
-        elencoProposteAccettate.setCellRenderer(new DefaultListCellRenderer() {
+        elencoSistemiDiCifratura = new JList(new Vector<SistemaCifratura>(sistemiCifraturaArrLst));
+        elencoSistemiDiCifratura.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (renderer instanceof JLabel && value instanceof Proposta) {
-                    Proposta temp = (Proposta) value;
-                    ((JLabel) renderer).setText("<html><font color=green>" + temp.getSdc().getNome() + "</font></html>");
+                if (renderer instanceof JLabel && value instanceof SistemaCifratura) {
+                    SistemaCifratura temp = (SistemaCifratura) value;
+                    ((JLabel) renderer).setText("<html><font color=green>" + temp.getNome() + "</font></html>");
                 }
                 return renderer;
             }
         });
-        elencoProposteAccettate.setSelectedIndex(0);
-        elencoProposteAccettate.setPreferredSize(new Dimension(180, 250));
-        Proposta index0 = (Proposta) elencoProposteAccettate.getSelectedValue();
+        elencoSistemiDiCifratura.setSelectedIndex(0);
+        elencoSistemiDiCifratura.setPreferredSize(new Dimension(180, 250));
+        SistemaCifratura index0 = (SistemaCifratura) elencoSistemiDiCifratura.getSelectedValue();
         if (index0 != null) {
             infoSdcLabel.setText(new HtmlVisitor().visit(index0));
         }
         scrollPane = new JScrollPane();
-        scrollPane.setViewportView(elencoProposteAccettate);
+        scrollPane.setViewportView(elencoSistemiDiCifratura);
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
         leftPanel.add(infoSdcLabel, BorderLayout.CENTER);
@@ -99,42 +102,6 @@ public class GestisciSDCPanel extends JPanel implements View, VisitableGuiUC1 {
         visitor.visit(this);
     }
 
-    public boolean deleteSelectedIndex() {
-        int toDelete = this.elencoProposteAccettate.getSelectedIndex();
-        if (toDelete >= 0) {
-            rightPanel.removeAll();
-            topPanel.removeAll();
-            leftPanel.removeAll();
-            leftPanel.repaint();//clear all garbadge
-            bottomPanel.removeAll();
-            proposteArrLst.remove(toDelete);
-            init();
-            rightPanel.revalidate();
-            topPanel.revalidate();
-            leftPanel.revalidate();
-            bottomPanel.revalidate();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public JList getElencoProposteAccettate() {
-        return elencoProposteAccettate;
-    }
-
-    public void setElencoProposteAccettate(JList elencoProposteAccettate) {
-        this.elencoProposteAccettate = elencoProposteAccettate;
-    }
-
-    public JLabel getInfoSdcLabel() {
-        return infoSdcLabel;
-    }
-
-    public void setInfoSdcLabel(JLabel infoSdcLabel) {
-        this.infoSdcLabel = infoSdcLabel;
-    }
-
     public JButton getEliminaBtn() {
         return eliminaBtn;
     }
@@ -143,4 +110,11 @@ public class GestisciSDCPanel extends JPanel implements View, VisitableGuiUC1 {
         this.eliminaBtn = eliminaBtn;
     }
 
+    public JList getElencoSistemiDiCifratura() {
+        return elencoSistemiDiCifratura;
+    }
+
+    public void setElencoSistemiDiCifratura(JList elencoSistemiDiCifratura) {
+        this.elencoSistemiDiCifratura = elencoSistemiDiCifratura;
+    }
 }
