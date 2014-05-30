@@ -2,6 +2,7 @@
 package cryptohelper.GUI.UC2;
 
 import cryptohelper.com.GUIControllerUC2;
+import cryptohelper.data.AnalisiFrequenza;
 import cryptohelper.data.SessioneLavoro;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
@@ -62,6 +63,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
     ArrayList<JComboBox> jcomboBoxes;//dropdown per selezionare un carattere
     SessioneLavoro sessioneCorrente;//sessione su cui si sta lavorando
     MessaggioIntercettato messaggioIntercettato; //messaggio della sessione
+    AnalisiFrequenza analisiFrequenza; //dati sulle frequenze
 
     public AreaLavoroPanel(SessioneLavoro sessione) {
         topPanel = new JPanel();
@@ -78,6 +80,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         caratteriMsgPanel = new JPanel();
         this.sessioneCorrente = sessione;
         this.messaggioIntercettato = sessione.getMessaggioIntercettato();
+        this.analisiFrequenza = new AnalisiFrequenza(messaggioIntercettato.getLingua(), messaggioIntercettato.getTestoCifrato());
         this.init();
     }
 
@@ -155,9 +158,6 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             //      setUpCollona(bigrammi.getColumnModel().getColumn(i));
         }
 
-        for (int i = 0; i < 26; i++) {
-            setUpCollona(mappatura.getColumnModel().getColumn(i));
-        }
         bigrammiMsgComboBox = new JComboBox(alfabeto);
         bigrammiMsg = new JTable(new BigrammiModel());
         bigrammiMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
@@ -171,11 +171,11 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         caratteriMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         caratteriMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         caratteriMsg.setCellSelectionEnabled(true);
+        //carica nella tabella le frequenze dei caratteri all'interno del messaggio
         for (int i = 0; i < 26; i++) {
-            //to -do caricare frequenze prima lettera qui
-            //      setUpCollona(bigrammi.getColumnModel().getColumn(i));
+            double[] arr = analisiFrequenza.getFrequenzaMsg();
+            caratteriMsg.setValueAt(arr[i], 0, i);
         }
-
         scrollPaneMappatura = new JScrollPane();
         scrollPaneBigrammi = new JScrollPane();
         scrollPaneCaratteri = new JScrollPane();
@@ -241,7 +241,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         registerController();
     }
 
-    //set-up della tabella mappature
+    //effettua il set-up dell'e intestazioni delle tabelle
     public void setUpCollona(TableColumn collona) {
         JComboBox comboBox = new JComboBox();
         comboBox.addItem("-");
@@ -314,7 +314,24 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             System.out.println("--------------------------");
         }
 
-        //METODI SETTER
+        @Override
+        public void setValueAt(Object value, int row, int col) {
+            if (true) {
+                System.out.println("Set valore nella " + row + "," + col
+                        + " a " + value
+                );
+            }
+
+            data[row][col] = value;
+            fireTableCellUpdated(row, col);
+
+            if (DEBUG) {
+                System.out.println("Nuovo valore :");
+                printDebugData();
+            }
+        }
+
+        //METODI GETTER
         @Override
         public int getColumnCount() {
             return alfabeto.length;
@@ -340,23 +357,6 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             return col >= 0;
         }
 
-        //METODI GETTER
-        @Override
-        public void setValueAt(Object value, int row, int col) {
-            if (true) {
-                System.out.println("Set valore nella " + row + "," + col
-                        + " a " + value
-                );
-            }
-
-            data[row][col] = value;
-            fireTableCellUpdated(row, col);
-
-            if (DEBUG) {
-                System.out.println("Nuovo valore :");
-                printDebugData();
-            }
-        }
     } //end class MappaturaModel
 
     //**************************************************************************
@@ -383,7 +383,24 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             System.out.println("--------------------------");
         }
 
-        //METODI SETTER
+        @Override
+        public void setValueAt(Object value, int row, int col) {
+            if (true) {
+                System.out.println("Set valore nella " + row + "," + col
+                        + " a " + value
+                );
+            }
+
+            data[row][col] = value;
+            fireTableCellUpdated(row, col);
+
+            if (DEBUG) {
+                System.out.println("Nuovo valore :");
+                printDebugData();
+            }
+        }
+
+        //METODI GETTER
         @Override
         public int getColumnCount() {
             return alfabeto.length;
@@ -409,23 +426,6 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             return col >= 0;
         }
 
-        //METODI GETTER
-        @Override
-        public void setValueAt(Object value, int row, int col) {
-            if (true) {
-                System.out.println("Set valore nella " + row + "," + col
-                        + " a " + value
-                );
-            }
-
-            data[row][col] = value;
-            fireTableCellUpdated(row, col);
-
-            if (DEBUG) {
-                System.out.println("Nuovo valore :");
-                printDebugData();
-            }
-        }
     } //end class BigrammiModel
 
     //Classe interna per la tabella delle frequenze dei bigrammi
