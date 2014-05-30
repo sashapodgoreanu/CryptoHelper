@@ -52,17 +52,27 @@ public class AlberoIpotesi {
     }
 
     private boolean cerca(char ch1, char ch2, Ipotesi ip) {
-        if (ip != null) {
-            System.out.println(ip.getMossaCorrente().getCharacter() + " " + ch1 + " " + ip.getMossaCorrente().getInverseChar() + " " + ch2);
-            if (ip.getMossaCorrente().getCharacter() == ch1 && ip.getMossaCorrente().getInverseChar() == ch2) {
-                return true;
-            } else {
-                for (int i = 0; i < ip.getFigli().size(); i++) {
-                    return cerca(ch1, ch2, ip.getFigli().get(i));
+        if (ip.getMossaCorrente().getCharacter() == ch1 && ip.getMossaCorrente().getInverseChar() == ch2) {
+            return true;
+        } else {
+            ArrayList<Ipotesi> temp = ip.getFigli();
+            if (temp.size() == 0) {
+                return false;
+            }
+            boolean result;
+            int i = 0;
+            result = cerca(ch1, ch2, ip.getFigli().get(i));
+            i++;
+            while (i < temp.size()) {
+                if (result == true) {
+                    return result;
+                } else {
+                    result = cerca(ch1, ch2, ip.getFigli().get(i));
+                    i++;
                 }
             }
+            return result;
         }
-        return false;
     }
 
     /**

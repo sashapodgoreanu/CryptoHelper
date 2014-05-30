@@ -7,7 +7,6 @@ import cryptohelper.GUI.UC2.AreaLavoroPanel;
 import cryptohelper.GUI.UC2.CaricaSessionePanel;
 import cryptohelper.GUI.UC2.IntercettaMsgPanel;
 import cryptohelper.GUI.UC2.NuovaSessionePanel;
-import cryptohelper.data.AnalisiFrequenza;
 import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.Mossa;
@@ -26,7 +25,7 @@ import javax.swing.event.TableModelListener;
 public class GUIControllerUC2 implements VisitorGuiUC2 {
 
     private static GUIControllerUC2 instance;
-    private COMController comC;
+    private final COMController comC;
     private IntercettaMsgPanel intercettaMessaggioPanel;
     private NuovaSessionePanel nuovaSessionePanel;
     private CaricaSessionePanel caricaSessionePanel;
@@ -83,16 +82,18 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
         public void tableChanged(TableModelEvent e) {
 
             System.out.println("effettua una sostituzione");
-            intercettaMessaggioPanel.setStatus("");
+            intercettaMessaggioPanel.setStatus(" ");
             int index = e.getColumn(); //index della colona editata
             String sost = (String) areaLavoroPanel.getMappatura().getValueAt(0, index); //valore della riga 0 e colona index
             char ch2 = sost.charAt(0); //trasforma la stringa sost in char
             boolean mossaEffettuatainPrecedenza = session.effetuaSostituzione((char) (index + 'A'), ch2);
             System.out.println(mossaEffettuatainPrecedenza);
-            if (true) {
-                intercettaMessaggioPanel.setStatus((char) (index + 'A') + " " + ch2 + " - Mossa effetuata in precedenza!");
+            if (mossaEffettuatainPrecedenza) {
+                intercettaMessaggioPanel.setStatus((char) (index + 'A') + "->" + ch2 + " - Mossa effetuata in precedenza!");
             }
+            int actualPos = areaLavoroPanel.getCorpoTesto().getCaretPosition();
             areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
+            areaLavoroPanel.getCorpoTesto().setCaretPosition(actualPos);
         }
     }
 
@@ -207,11 +208,22 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
+            //retrieve the actual scrollbar position
+            int actualPos = areaLavoroPanel.getCorpoTesto().getCaretPosition();
             Mossa u = session.undo(session.getMessaggioIntercettato().getAreaLavoro());
+            //modifica testo con la mossa undo
             areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
+            //update mappatura con la mossa undo
             areaLavoroPanel.getMappatura().getModel().removeTableModelListener(tableListener);
             areaLavoroPanel.getMappatura().setValueAt(String.valueOf(u.getInverseChar()), 0, u.getCharacter() - 65);
             areaLavoroPanel.getMappatura().getModel().addTableModelListener(tableListener);
+            //set the actual scroll position. - update jtextarea makes text scroll down
+            areaLavoroPanel.getCorpoTesto().setCaretPosition(actualPos);
+            intercettaMessaggioPanel.setStatus("Ipotesi anulata per: " + u.getCharacter() + " -> " + u.getInverseChar());
+
+            
+            
         }
     }
 

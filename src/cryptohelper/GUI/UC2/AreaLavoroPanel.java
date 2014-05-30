@@ -13,6 +13,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
@@ -184,9 +186,10 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         caratteriMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         caratteriMsg.setCellSelectionEnabled(true);
         //carica nella tabella le frequenze dei caratteri all'interno del messaggio
+        NumberFormat formatter = new DecimalFormat("#0.00");
         for (int i = 0; i < 26; i++) {
             double[] arr = analisiFrequenza.getFrequenzaMsg();
-            caratteriMsg.setValueAt(arr[i], 0, i);
+            caratteriMsg.setValueAt(formatter.format(arr[i]), 0, i);
         }
         scrollPaneMappatura = new JScrollPane();
         scrollPaneBigrammi = new JScrollPane();
