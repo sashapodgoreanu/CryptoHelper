@@ -149,7 +149,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         corpoTesto.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         corpoTesto.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); //assegna un margine al controllo
         corpoTesto.setFont(font);
-        
+
         mappatura = new JTable(new MappaturaModel());
         mappatura.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         mappatura.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
@@ -166,16 +166,42 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             double[] arr = analisiFrequenza.getFrequenzaLingua();
             caratteri.setValueAt(arr[i], 0, i);
         }
+        //sort 
+        for (int i = 0; i < 26 - 1; i++) {
+            int massimo = i;
+            for (int j = i + 1; j < 26; j++) {
+                if ((double) caratteri.getValueAt(0, massimo) < (double) caratteri.getValueAt(0, j)) {
+                    massimo = j;
+                }
+            }
+            if (massimo != i) {
+                caratteri.moveColumn(massimo, i);
+            }
+        }
 
         NumberFormat formatter = new DecimalFormat("#0.00");
         caratteriMsg = new JTable(new CaratteriModel());
+
         caratteriMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         caratteriMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         caratteriMsg.setCellSelectionEnabled(true);
         //carica nella tabella le frequenze dei caratteri all'interno del messaggio
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0;
+                i < 26; i++) {
             double[] arr = analisiFrequenza.getFrequenzaMsg();
-            caratteriMsg.setValueAt(formatter.format(arr[i]), 0, i);
+            caratteriMsg.setValueAt(Math.round(arr[i] * 1e1) / 1e1, 0, i);
+        }
+        //sort
+        for (int i = 0; i < 26 - 1; i++) {
+            int massimo = i;
+            for (int j = i + 1; j < 26; j++) {
+                if ((double) caratteriMsg.getValueAt(0, massimo) < (double) caratteriMsg.getValueAt(0, j)) {
+                    massimo = j;
+                }
+            }
+            if (massimo != i) {
+                caratteriMsg.moveColumn(massimo, i);
+            }
         }
 
         bigrammiComboBox = new JComboBox(alfabeto);
@@ -184,11 +210,13 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         bigrammi.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         bigrammi.setCellSelectionEnabled(true);
         //carica nella tabella le frequenze dei bigrammi della prima lettera (A) nella lingua
-        Map<Character, ArrayList<Integer>> map = analisiFrequenza.getBigrammiLingua('A');
+        Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigrammiLingua('A');
+        System.out.println(a.toString());
         for (int i = 1; i < 27; i++) {
-            bigrammi.setValueAt(map.get('A').get(i), 0, i);
+            int j = i - 1;
+            bigrammi.setValueAt(a.get((char) (j + 65)).get(0), 0, i);
+            bigrammi.setValueAt(a.get((char) (j + 65)).get(1), 1, i);
         }
-
         bigrammiMsgComboBox = new JComboBox(alfabeto);
         bigrammiMsg = new JTable(new BigrammiModel());
         bigrammiMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
@@ -197,7 +225,9 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         //carica nella tabella le frequenze dei bigrammi della prima lettera (A) nel messaggio 
         Map<Character, ArrayList<Integer>> mapMsg = analisiFrequenza.getBigrammiMsg('A');
         for (int i = 1; i < 27; i++) {
-            bigrammiMsg.setValueAt(mapMsg.get('A').get(i), 0, i);
+            int j = i - 1;
+            bigrammiMsg.setValueAt(mapMsg.get((char) (j + 65)).get(0), 0, i);
+            bigrammiMsg.setValueAt(mapMsg.get((char) (j + 65)).get(1), 1, i);
         }
         scrollPaneMappatura = new JScrollPane();
         scrollPaneBigrammi = new JScrollPane();
@@ -222,7 +252,6 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         scrollPaneTestoCifrato.setPreferredSize(new Dimension(560, 150));
         corpoTesto.setCaretPosition(0); //porta in cima la scrollbar del pannello
         corpoTestoCifrato.setCaretPosition(0); //porta in cima la scrollbar del pannello
-
         //AGGIUNTA DEI CONTROLLI AI PANNELLI             
         middlePanelLeft.add(codedTextLabel, BorderLayout.NORTH);
         middlePanelLeft.add(scrollPaneTestoCifrato, BorderLayout.CENTER);
@@ -248,23 +277,21 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         bigrammiMsgPanel.add(scrollPaneBigrammiMsg);
         caratteriMsgPanel.add(caratteriMsgLabel);
         caratteriMsgPanel.add(scrollPaneCaratteriMsg);
-        bottomPanelCenter.add(caratteriMsgPanel, BorderLayout.NORTH);
-        bottomPanelCenter.add(bigrammiPanel, BorderLayout.CENTER);
-        bottomPanelCenter.add(bigrammiMsgPanel, BorderLayout.SOUTH);
-        bottomPanel.add(caratteriPanel, BorderLayout.NORTH);
+        bottomPanelCenter.add(caratteriPanel, BorderLayout.NORTH);
+        bottomPanelCenter.add(bigrammiMsgPanel, BorderLayout.CENTER);
+        bottomPanelCenter.add(bigrammiPanel, BorderLayout.SOUTH);
+        bottomPanel.add(caratteriMsgPanel, BorderLayout.NORTH);
         bottomPanel.add(bottomPanelCenter, BorderLayout.CENTER);
         bottomPanel.add(infoMessaggio, BorderLayout.SOUTH);
-
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
         this.add(middlePanel, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
-
         //REGISTRAZIONE VISTA NEL COTROLLER
         registerController();
     }
 
-    //effettua il set-up dei combo-box delle colonne
+//effettua il set-up dei combo-box delle colonne
     public void setUpCollona(TableColumn collonna) {
         JComboBox comboBox = new JComboBox();
         comboBox.addItem("-");
@@ -321,6 +348,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
     public void setMappatura(JTable mappatura) {
         this.mappatura = mappatura;
+
     }
 
     //**************************************************************************
@@ -390,8 +418,8 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
     } //end class MappaturaModel
 
     //**************************************************************************
-    //
-    //Classe interna per la tabella delle frequenze dei bigrammi
+//
+//Classe interna per la tabella delle frequenze dei bigrammi
     class BigrammiModel extends AbstractTableModel {
 
         private final String[] alfabetoBigrammi = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -457,7 +485,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
     } //end class BigrammiModel
 
-    //Classe interna per la tabella delle frequenze dei caratteri
+//Classe interna per la tabella delle frequenze dei caratteri
     class CaratteriModel extends AbstractTableModel {
 
         private final Object[][] data = {

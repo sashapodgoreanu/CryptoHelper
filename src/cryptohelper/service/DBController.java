@@ -127,8 +127,8 @@ public class DBController {
                 + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                 + "ID_UTENTE INTEGER,"
                 + "NOME_SESSIONE VARCHAR (32),"
-                + "ALBERO_IPOTESI LONG VARCHAR,"
-                + "MESSAGGIO_INTERCETTATO LONG VARCHAR,"
+                + "ALBERO_IPOTESI CLOB,"
+                + "MESSAGGIO_INTERCETTATO CLOB,"
                 + "Ultima_modifica VARCHAR(32),"
                 + "FOREIGN KEY(id_utente) REFERENCES Studenti(ID)"
                 + ")";
@@ -251,55 +251,55 @@ public class DBController {
         }
         return result;
     }
-
     /*
      public boolean saveObject(Object javaObject, String query) throws SQLException, IOException {
-     connect();
-     int result = 0;
-     try {
-     PreparedStatement ps = null;
-     ByteArrayOutputStream bos = new ByteArrayOutputStream();
-     ObjectOutputStream oos = new ObjectOutputStream(bos);
-     oos.writeObject(javaObject);
-     oos.flush();
-     oos.close();
-     bos.close();
-     byte[] data = bos.toByteArray();
-     ps = this.getPreparedStatement(query);
-     ps.setObject(1, data);
-     result = ps.executeUpdate();
-     } catch (SQLException | IOException e) {
-     log.fatal(this.getClass() + ": " + e.getMessage());
-     } finally {
-     disconnect();
-     }
-     return (result == 1);
-     }
+        connect();
+        int result = 0;
+        try {
+            PreparedStatement ps = null;
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(javaObject);
+            oos.flush();
+            oos.close();
+            bos.close();
+            byte[] data = bos.toByteArray();
+            ps = this.getPreparedStatement(query);
+            ps.setObject(1, data);
+            result = ps.executeUpdate();
+        } catch (SQLException | IOException e) {
+            log.fatal(this.getClass() + ": " + e.getMessage());
+        } finally {
+            disconnect();
+        }
+        return (result == 1);
+    }
 
-     public Persona getObject(String query) throws SQLException, IOException, ClassNotFoundException {
-     connect();
-     Persona rmObj = null;
-     PreparedStatement ps = null;
-     ps = this.getPreparedStatement(query);
-     rs = ps.executeQuery();
-     try {
-     while (rs.next()) {
-     ByteArrayInputStream bais;
-     ObjectInputStream ins;
-     bais = new ByteArrayInputStream(rs.getBytes("javaObject"));
-     ins = new ObjectInputStream(bais);
-     rmObj = (Persona) ins.readObject();
-     ins.close();
-     }
-     } catch (SQLException | IOException | ClassNotFoundException sQLException) {
-     log.fatal(this.getClass() + ":" + sQLException.getMessage());
-     } finally {
-     disconnect();
-     }
-     return rmObj;
-     }
+    public Persona getObject(String query) throws SQLException, IOException, ClassNotFoundException {
+        connect();
+        Persona rmObj = null;
+        PreparedStatement ps = null;
+        ps = this.getPreparedStatement(query);
+        rs = ps.executeQuery();
+        try {
+            while (rs.next()) {
+                ByteArrayInputStream bais;
+                ObjectInputStream ins;
+                bais = new ByteArrayInputStream(rs.getBytes("javaObject"));
+                ins = new ObjectInputStream(bais);
+                rmObj = (Persona) ins.readObject();
+                ins.close();
+            }
+        } catch (SQLException | IOException | ClassNotFoundException sQLException) {
+            log.fatal(this.getClass() + ":" + sQLException.getMessage());
+        } finally {
+            disconnect();
+        }
+        return rmObj;
+    }
 
-     private PreparedStatement getPreparedStatement(String query) throws SQLException {
-     return conn.prepareStatement(query);
-     }*/
+    private PreparedStatement getPreparedStatement(String query) throws SQLException {
+        return conn.prepareStatement(query);
+
+    }*/
 }

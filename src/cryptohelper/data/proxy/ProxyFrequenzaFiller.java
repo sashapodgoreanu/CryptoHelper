@@ -7,22 +7,27 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
     private RealFrequenzaFiller realFiller;
     private double[] frequenza;
     private int[][] bigrammi;
+    private boolean hasLoadedFrequenza;
+    private boolean hasLoadedBigrammi;
 
     public ProxyFrequenzaFiller(String frequenzeFile, String bigrammiFile) {
         super(frequenzeFile, bigrammiFile);
+        hasLoadedFrequenza = false;
+        hasLoadedBigrammi = false;
         System.out.println("Creating a proxy cache");
     }
 
     @Override
     public double[] getFreq() throws IOException {
 
-        if (realFiller == null) {
-            System.out.println("accessing from file");
+        if (!hasLoadedFrequenza) {
+            System.out.println("accessing from file  --  getFreq()");
             realFiller = new RealFrequenzaFiller(super.getFileFreq(), super.getFileBigrammi());
             frequenza = realFiller.getFreq();
+            hasLoadedFrequenza = true;
             return frequenza;
         } else {
-            System.out.println("accessing from proxy cache");
+            System.out.println("accessing from proxy cache  --  getFreq()");
             return frequenza;
         }
     }
@@ -30,15 +35,16 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
     @Override
     public int[][] getBigrammi() throws IOException {
 
-        if (realFiller == null) {
-            System.out.println("accessing from file");
+        if (!hasLoadedBigrammi) {
+            System.out.println("accessing from file  -- getBigrammi()");
             realFiller = new RealFrequenzaFiller(super.getFileFreq(), super.getFileBigrammi());
             bigrammi = realFiller.getBigrammi();
+            hasLoadedBigrammi = true;
             return bigrammi;
         } else {
-            System.out.println("accessing from proxy cache");
+            System.out.println("accessing from proxy cache -- getBigrammi()");
             return bigrammi;
-        } //chiudo else
+        }
 
     }
 }
