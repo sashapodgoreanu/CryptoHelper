@@ -76,6 +76,10 @@ public class AnalisiFrequenza {
         }
     }
 
+    /**
+     * Metodo ausiliario che calcola i bigrammi nel testoCifrato e riempe
+     * l'array bigrammiTesto con i respetivi numeri di bigrammi
+     */
     private void calcolaAnalisiBigrami() {
         if (testoCifrato == null) {
             throw new NullPointerException("testoCifrato is null!");
@@ -91,56 +95,23 @@ public class AnalisiFrequenza {
             for (int j = 0; j < 26; j++) {
                 String bigrammo = (char) (i + 65) + "" + (char) (j + 65);
                 //System.out.print(bigrammo + " ");
-                bigrammiTesto[i][j] = StringUtils.countMatches(testoCifrato, bigrammo);
+                int numBigramm = StringUtils.countMatches(testoCifrato, bigrammo);
+                bigrammiTesto[i][j] = numBigramm;
+                numBigrammi = numBigrammi + numBigramm;
             }
             //System.out.println();
         }
-        /*
-         for (int i = 0; i < testoCifrato.length(); i++) {
-         char chPrima;
-         char chEsaminato = testoCifrato.charAt(i);
-         char chDopo;
-         if (chEsaminato >= 'A' && chEsaminato <= 'Z') {
-         //se chEsaminato ha i ambi caratteri vecini che sono lettere.
-         if (i > 0 && i < testoCifrato.length() - 1) {
-         chPrima = testoCifrato.charAt(i - 1);
-         chDopo = testoCifrato.charAt(i + 1);
-         if (chPrima >= 'A' && chPrima <= 'Z') {
-         int num = bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65];
-         num++;
-         bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65] = num;
-         numBigrammi++;
-         }
-         if (chDopo >= 'A' && chDopo <= 'Z') {
-         int num = bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65];
-         num++;
-         bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65] = num;
-         numBigrammi++;
-         }
-         }//se chEsaminato non ha chPrima null
-         else if (i != 0) {
-         chPrima = testoCifrato.charAt(i - 1);
-         if (chPrima >= 'A' && chPrima <= 'Z') {
-         int num = bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65];
-         num++;
-         bigrammiTesto[(int) (chPrima) - 65][(int) (chEsaminato) - 65] = num;
-         numBigrammi++;
-         }
-
-         }//se chEsaminato non ha chDopo null
-         else if (i != 0) {
-         chDopo = testoCifrato.charAt(i + 1);
-         if (chDopo >= 'A' && chDopo <= 'Z') {
-         int num = bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65];
-         num++;
-         bigrammiTesto[(int) (chEsaminato) - 65][(int) (chDopo) - 65] = num;
-         numBigrammi++;
-         }
-         }
-         }
-         }*/
     }
 
+    /**
+     * Restituisce una Map con bigrammi del carattere ch. Puo essere utilizato
+     * per visualizare i bigrammi del testoCifrato che viene passato al
+     * costrutore
+     *
+     * @param ch carattere
+     * @return una Map di tutte le occorenze dei caraterri prima e dopo
+     * carattere ch
+     */
     public Map<Character, ArrayList<Integer>> getBigramiMsg(char ch) {
         Map<Character, ArrayList<Integer>> hMap = new HashMap<>();
         for (int i = 0; i < 26; i++) {
@@ -156,6 +127,15 @@ public class AnalisiFrequenza {
         return hMap;
     }
 
+    /**
+     * Restituisce una Map con bigrammi del carattere ch nella lingua che è
+     * stato passato come parametro al costruttore. Puo essere utilizato per
+     * visualizare i bigrammi di una lingua che viene passato al costrutore.
+     *
+     * @param ch carattere
+     * @return una Map di tutte le occorenze dei caraterri prima e dopo
+     * carattere ch
+     */
     public Map<Character, ArrayList<Integer>> getBigramiLingua(char ch) {
         Map<Character, ArrayList<Integer>> hMap = new HashMap<>();
         int[][] bigrammiLingua = null;
