@@ -16,7 +16,6 @@ import java.awt.Font;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -96,6 +95,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         this.sessioneCorrente = sessione;
         this.messaggioIntercettato = sessione.getMessaggioIntercettato();
         this.analisiFrequenza = new AnalisiFrequenza(messaggioIntercettato.getLingua(), messaggioIntercettato.getTestoCifrato());
+        System.out.println(messaggioIntercettato.getLingua() + "***************************************" + messaggioIntercettato.getTestoCifrato());
         this.init();
     }
 
