@@ -4,6 +4,7 @@ package cryptohelper.interfaces;
 
 import cryptohelper.GUI.UC1.BozzePanel;
 import cryptohelper.GUI.UC1.CreaSDCPanel;
+import cryptohelper.GUI.UC1.GestisciPropostePanel;
 import cryptohelper.GUI.UC1.GestisciSDCPanel;
 import cryptohelper.GUI.UC1.InboxPanel;
 import cryptohelper.GUI.UC1.InboxSDCPanel;
@@ -35,7 +36,9 @@ public interface VisitorGuiUC1 {
 
     public void visit(CreaSDCPanel csdcp);
 
-    public void visit(GestisciSDCPanel gsdcp);
+    public void visit(GestisciPropostePanel gsdcp);
+    
+    public void visit(GestisciSDCPanel lf);
 
     public void visit(ProponiSDCPanel psdcp);
 

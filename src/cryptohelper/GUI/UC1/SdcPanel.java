@@ -27,7 +27,8 @@ public class SdcPanel extends JPanel implements View, VisitableGuiUC1 {
     private CreaSDCPanel creasdc;
     private ProponiSDCPanel psdcp;
     private InboxSDCPanel isdcp;
-    private GestisciSDCPanel gsdcp;
+    private GestisciPropostePanel gsdcp;
+    private GestisciSDCPanel sdc;
 
     public SdcPanel() {
         init();
@@ -89,14 +90,25 @@ public class SdcPanel extends JPanel implements View, VisitableGuiUC1 {
         this.revalidate();
     }
 
-    public void initGestisciSDCPanel(ArrayList<Proposta> proposteArrLst) {
+    public void initGestisciPropostePanel(ArrayList<Proposta> proposteArrLst) {
+        //     System.out.println("proponi sistema di cifratura");
+        //pulisci
+        System.out.println("Init GestisciPropostePanel");
+        this.resetpanels();
+        //crea nuovo panello 
+        gsdcp = new GestisciPropostePanel(proposteArrLst);
+        centerSDCPanel.add(gsdcp);
+        this.revalidate();
+    }
+
+    public void initSDCPanel(ArrayList<SistemaCifratura> sdcArrLst) {
         //     System.out.println("proponi sistema di cifratura");
         //pulisci
         System.out.println("Init GestisciSDCPanel");
         this.resetpanels();
         //crea nuovo panello 
-        gsdcp = new GestisciSDCPanel(proposteArrLst);
-        centerSDCPanel.add(gsdcp);
+        sdc = new GestisciSDCPanel(sdcArrLst);
+        centerSDCPanel.add(sdc);
         this.revalidate();
     }
 
@@ -142,11 +154,10 @@ public class SdcPanel extends JPanel implements View, VisitableGuiUC1 {
     public JButton getGestisciProposteBtn() {
         return gestisciProposteBtn;
     }
-    
-     public JButton getSDCBtn() {
+
+    public JButton getSDCBtn() {
         return gestisciSDCBtn;
     }
-     
 
     //METODI SETTER
     public void setProponiSDCBtn(JButton proponiSDCBtn) {

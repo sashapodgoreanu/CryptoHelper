@@ -6,7 +6,6 @@ import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
 
-
 public class HtmlVisitor implements HtmlVisitorInterface {
 
     //Stampa dati oggetto Proposta
@@ -21,6 +20,22 @@ public class HtmlVisitor implements HtmlVisitorInterface {
         sb.append("<p>");
         sb.append("Sistema di cifratura: ").append(proposta.getSdc().getMetodo());
         sb.append("<br/>Chiave cifrario: ").append(proposta.getSdc().getChiave());
+        sb.append("</p>");
+        sb.append("</html>");
+        return sb.toString();
+    }
+
+    //Stampa dati oggetto SistemaDiCifratura
+    @Override
+    public String visit(SistemaCifratura sdc) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>");
+        sb.append("<p>");
+        sb.append("Nome Sistema di cifratura: ").append(sdc.getNome());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("Medoto di cifratura: ").append(sdc.getMetodo());
+        sb.append("<br/>Chiave cifrario: ").append(sdc.getChiave());
         sb.append("</p>");
         sb.append("</html>");
         return sb.toString();
