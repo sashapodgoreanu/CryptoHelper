@@ -127,8 +127,8 @@ public class DBController {
                 + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
                 + "ID_UTENTE INTEGER,"
                 + "NOME_SESSIONE VARCHAR (32),"
-                + "ALBERO_IPOTESI CLOB,"
-                + "MESSAGGIO_INTERCETTATO CLOB,"
+                + "ALBERO_IPOTESI LONG VARCHAR,"
+                + "MESSAGGIO_INTERCETTATO LONG VARCHAR,"
                 + "Ultima_modifica VARCHAR(32),"
                 + "FOREIGN KEY(id_utente) REFERENCES Studenti(ID)"
                 + ")";

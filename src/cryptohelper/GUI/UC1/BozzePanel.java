@@ -1,17 +1,29 @@
 //Pannello per la gestione delle bozze
 package cryptohelper.GUI.UC1;
 
-import cryptohelper.interfaces.View;
 import cryptohelper.com.GUIControllerUC1;
 import cryptohelper.data.Messaggio;
 import cryptohelper.interfaces.MessaggioMittente;
+import cryptohelper.interfaces.View;
 import cryptohelper.interfaces.VisitableGuiUC1;
 import cryptohelper.interfaces.VisitorGuiUC1;
-import javax.swing.*;
-import java.awt.*;
-import static java.lang.System.gc;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 

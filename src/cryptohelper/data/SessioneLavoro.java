@@ -46,8 +46,6 @@ public class SessioneLavoro implements HtmlVisitable {
         String alberoXML = xstream.toXML(this.alberoIpotesi);
         String messaggioIntercettatoXML = xstream.toXML(this.messaggioIntercettato);
         System.out.println(alberoXML);
-        byte[] bytes1 = alberoXML.getBytes();
-        byte[] bytes2 = messaggioIntercettatoXML.getBytes();
         boolean result = false;
         DBController dbc = DBController.getInstance();
         String queryInsert = "INSERT INTO SessioneLavoro(Id_Utente, Nome_Sessione, Albero_Ipotesi, Messaggio_Intercettato, Ultima_Modifica)"
@@ -55,11 +53,11 @@ public class SessioneLavoro implements HtmlVisitable {
                 + this.getUtente().getId()
                 + ",'"
                 + this.getNomeSessione()
-                + "',"
-                + bytes1
-                + ","
-                + bytes2
-                + ",'"
+                + "','"
+                + alberoXML
+                + "','"
+                + messaggioIntercettatoXML
+                + "','"
                 + this.getUltimaModifica()
                 + "')";
         String queryUpdate = "UPDATE SessioneLavoro"
