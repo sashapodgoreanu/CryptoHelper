@@ -171,11 +171,11 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         caratteriMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         caratteriMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         caratteriMsg.setCellSelectionEnabled(true);
+        //carica nella tabella le frequenze dei caratteri all'interno del messaggio
         for (int i = 0; i < 26; i++) {
             double[] arr = analisiFrequenza.getFrequenzaMsg();
             caratteriMsg.setValueAt(arr[i], 0, i);
         }
-
         scrollPaneMappatura = new JScrollPane();
         scrollPaneBigrammi = new JScrollPane();
         scrollPaneCaratteri = new JScrollPane();
