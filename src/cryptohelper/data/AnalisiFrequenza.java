@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class AnalisiFrequenza {
+
+    private static final Log log = LogFactory.getLog(Messaggio.class);
 
     SessioneLavoro sessione;
     double[] frequenzaTestoCifrato;
@@ -51,6 +53,7 @@ public class AnalisiFrequenza {
      */
     private void calcolaAnalisiFrequenza() {
         if (testoCifrato == null) {
+            log.fatal("Null");
             throw new NullPointerException("testoCifrato is null!");
         }
         frequenzaTestoCifrato = new double[26];
@@ -82,6 +85,7 @@ public class AnalisiFrequenza {
      */
     private void calcolaAnalisiBigrami() {
         if (testoCifrato == null) {
+            log.fatal("Null");
             throw new NullPointerException("testoCifrato is null!");
         }
         testoCifrato = testoCifrato.toUpperCase(); //trasforma caratteri in maiuscolo - facilita il conteggio
@@ -142,7 +146,7 @@ public class AnalisiFrequenza {
         try {
             bigrammiLingua = proxyFile.getBigrammi();
         } catch (IOException ex) {
-            Logger.getLogger(AnalisiFrequenza.class.getName()).log(Level.SEVERE, null, ex);
+            log.fatal(ex.getMessage());
         }
         for (int i = 0; i < 26; i++) {
             ArrayList<Integer> arrL = new ArrayList<>();
@@ -158,11 +162,15 @@ public class AnalisiFrequenza {
     }
 
     public double[] getFrequenzaLingua() {
-        throw new UnsupportedOperationException();
+        try {
+            return proxyFile.getFreq();
+        } catch (IOException ex) {
+            log.fatal(ex.getMessage());
+        }
+        return null;
     }
 
     public void display() {
-
         if (frequenzaTestoCifrato != null) {
             System.out.println("FREQUENZA:");
             for (int i = 'A'; i <= 'Z'; i++) {
@@ -171,7 +179,6 @@ public class AnalisiFrequenza {
             System.out.println();
         }
         if (bigrammiTesto != null) {
-
             System.out.println("BIGRAMMI: " + numBigrammi);
             System.out.print("  ");
             for (int i = 'A'; i <= 'Z'; i++) {

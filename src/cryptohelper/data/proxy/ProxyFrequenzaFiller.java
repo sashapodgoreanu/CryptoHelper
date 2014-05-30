@@ -15,9 +15,7 @@
  */
 package cryptohelper.data.proxy;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  *
@@ -38,6 +36,7 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
     public double[] getFreq() throws IOException {
 
         if (realFiller == null) {
+            System.out.println("accessing from file");
             realFiller = new RealFrequenzaFiller(super.getFileFreq(), super.getFileBigrammi());
             frequenza = realFiller.getFreq();
             return frequenza;
@@ -46,13 +45,13 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
             System.out.println("accessing from proxy cache");
              return frequenza;
         }
-
     }
 
     @Override
     public int[][] getBigrammi() throws IOException {
 
         if (realFiller == null) {
+            System.out.println("accessing from file");
             realFiller = new RealFrequenzaFiller(super.getFileFreq(), super.getFileBigrammi());
             bigrammi = realFiller.getBigrammi();
             return bigrammi;
