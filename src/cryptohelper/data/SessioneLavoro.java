@@ -45,7 +45,7 @@ public class SessioneLavoro implements HtmlVisitable {
         XStream xstream = new XStream(new StaxDriver());
         String alberoXML = xstream.toXML(this.alberoIpotesi);
         String messaggioIntercettatoXML = xstream.toXML(this.messaggioIntercettato);
-
+        System.out.println(alberoXML);
         boolean result = false;
         DBController dbc = DBController.getInstance();
         String queryInsert = "INSERT INTO SessioneLavoro(Id_Utente, Nome_Sessione, Albero_Ipotesi, Messaggio_Intercettato, Ultima_Modifica)"
@@ -61,14 +61,12 @@ public class SessioneLavoro implements HtmlVisitable {
                 + this.getUltimaModifica()
                 + "')";
         String queryUpdate = "UPDATE SessioneLavoro"
-                + " Id_Utente = '" + this.getUtente().getId()
-                + "','"
-                + " Id_Messaggio_Intercettato = '" + messaggioIntercettatoXML
-                + "','"
-                + " ALBERO_IPOTESI = '" + alberoXML
-                + "','"
-                + " Ultima_Modifica = '" + this.getUltimaModifica()
+                + " Set MESSAGGIO_INTERCETTATO = '" + messaggioIntercettatoXML
                 + "',"
+                + " ALBERO_IPOTESI = '" + alberoXML
+                + "',"
+                + " Ultima_Modifica = '" + this.getUltimaModifica()
+                + "'"
                 + " WHERE ID = " + this.getIdSessione();
         try {
             //una nuova sessione
@@ -82,7 +80,6 @@ public class SessioneLavoro implements HtmlVisitable {
                     System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Aggiunto con successo " + this.toString());
                     System.out.println(true);
                     return true;
-
                 }
                 if (newID == -1 && this.idSessione != 0) {
                     System.out.println(false);

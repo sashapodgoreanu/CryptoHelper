@@ -4,8 +4,6 @@ package cryptohelper.data;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
-import cryptohelper.interfaces.HtmlVisitable;
-import cryptohelper.interfaces.HtmlVisitorInterface;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -294,7 +292,8 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
 
     //Preleva tutti i messaggi intercettabili dal db: vengono escluse le bozze e i messaggi inviati dall'utente stesso
     public static ArrayList<MessaggioIntercettato> caricaMessaggi(int idStudente) {
-        String query = "SELECT * FROM Messaggi WHERE Bozza = False AND ID_Mittente <> " + idStudente;
+        String query = "SELECT * FROM Messaggi " // + "WHERE Bozza = False AND ID_Mittente <> " + idStudente
+                ;
         QueryResult qr = null;
         ArrayList<MessaggioIntercettato> msgs = new ArrayList<>();
         try {
@@ -310,6 +309,8 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         } catch (Exception ex) {
             log.fatal(ex.getMessage());
         }
+        ///qui non stampa nulla 
+        System.out.println(msgs.toString());
         return msgs;
     }
 

@@ -44,7 +44,7 @@ public class TestDbController {
             st6.salva();
 
             for (int i = 0; i < 10; i++) {
-                Messaggio m = new Messaggio(0, "Testo chiaro" + i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i, "testo cifrato" + i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i, "italiano", "titolo", true, true);
+                Messaggio m = new Messaggio(0, "Testo chiaro" + i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i, "testo cifrato" + i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i * i, "italiano", "titolo", false, false);
                 st7.salva();
                 st3.salva();
                 st4.salva();
