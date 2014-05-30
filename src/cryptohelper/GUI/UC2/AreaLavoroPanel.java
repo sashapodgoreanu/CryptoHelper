@@ -16,6 +16,7 @@ import java.awt.Font;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -148,6 +149,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         corpoTesto.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         corpoTesto.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); //assegna un margine al controllo
         corpoTesto.setFont(font);
+        
         mappatura = new JTable(new MappaturaModel());
         mappatura.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         mappatura.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella

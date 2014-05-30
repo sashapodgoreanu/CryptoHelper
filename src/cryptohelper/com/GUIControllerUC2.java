@@ -58,7 +58,7 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
     public void visit(NuovaSessionePanel nsp) {
         nuovaSessionePanel = nsp;
         nuovaSessionePanel.getElencoMessaggi().addListSelectionListener(new ViewMsgChoiceListener());
-        // nuovaSessionePanel.getOkBtn().addActionListener(new LoadWorkspaceListener());
+        nuovaSessionePanel.getOkBtn().addActionListener(new NewWorkspaceListener());
     }
 
     @Override
@@ -144,10 +144,10 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             if (session.salva()) {
-             intercettaMessaggioPanel.setStatus("Sessione salvata correttamente!");
-             } else {
-             intercettaMessaggioPanel.setStatus("Si è verificato un errore nel salvataggio della sessione!");
-             }
+                intercettaMessaggioPanel.setStatus("Sessione salvata correttamente!");
+            } else {
+                intercettaMessaggioPanel.setStatus("Si è verificato un errore nel salvataggio della sessione!");
+            }
         }
     }
 
@@ -186,7 +186,7 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
         }
     }
 
-//classe listener per il button "avanti" in nuova sessione e carica sessione
+    //classe listener per il button "avanti" nel pannello carica sessione
     private class LoadWorkspaceListener implements ActionListener {
 
         @Override
@@ -197,6 +197,26 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             System.out.println("LoadWorkspaceListener :" + session.toString());
             intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
             intercettaMessaggioPanel.initAreaLavoro(session);
+        }
+    }
+
+    //classe listener per il button "avanti" nel pannello nuova sessione
+    private class NewWorkspaceListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            MessaggioIntercettato msg = (MessaggioIntercettato) nuovaSessionePanel.getElencoMessaggi().getSelectedValue();
+          //SessioneLavoro(int id, String nomeSessione, UserInfo autore, MessaggioIntercettato messaggio, AlberoIpotesi albero, Soluzione soluzione) 
+            //    session = new SessioneLavoro();
+            if (nuovaSessionePanel.getNomeSessione().equals("")) {
+                intercettaMessaggioPanel.setStatus("È necessario dare un nome alla nuova sessione per proseguire!");
+            } else {
+                System.out.println("LoadWorkspaceListener :" + session.toString());
+                intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
+                intercettaMessaggioPanel.initAreaLavoro(session);
+            }
         }
     }
 
@@ -218,10 +238,6 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             //set the actual scroll position. - update jtextarea makes text scroll down
             areaLavoroPanel.getCorpoTesto().setCaretPosition(actualPos);
             intercettaMessaggioPanel.setStatus("Ipotesi anulata per: " + u.getCharacter() + " -> " + u.getInverseChar());
-
-            
-            
         }
     }
-
 }
