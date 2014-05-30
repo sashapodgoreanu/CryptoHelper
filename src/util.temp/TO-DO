@@ -9,7 +9,7 @@ TO-DO (aggiornato 23/05/14)
 
 
 ********************** UC2 **************************
-- Creare interfaccia per le azioni della spia [in corso]
+- ok [bisogna solo agganciare i listener] Creare interfaccia per le azioni della spia
 - ok Creare classe AnalisiFrequenza
 - ok Creare classe MappaSostituzioni
 - ok Creare classe MappaPosCarattere
