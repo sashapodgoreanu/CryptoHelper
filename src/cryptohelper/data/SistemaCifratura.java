@@ -264,7 +264,7 @@ public class SistemaCifratura {
         return creatore;
     }
 
-    public Mappatura getMp() {
+    public Mappatura getMap() {
         return map;
     }
 

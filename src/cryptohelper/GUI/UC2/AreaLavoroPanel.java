@@ -16,6 +16,7 @@ import java.awt.Font;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -154,39 +155,39 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         for (int i = 0; i < 26; i++) {
             setUpCollona(mappatura.getColumnModel().getColumn(i));
         }
+        NumberFormat formatter = new DecimalFormat("#0.00");
         bigrammiComboBox = new JComboBox(alfabeto);
         bigrammi = new JTable(new BigrammiModel());
         bigrammi.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         bigrammi.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         bigrammi.setCellSelectionEnabled(true);
         for (int i = 0; i < 26; i++) {
-            //to -do caricare frequenze bigrammi prima lettera qui
-            //      setUpCollona(bigrammi.getColumnModel().getColumn(i));
+            //   Map<Character, ArrayList<Integer>> arr = analisiFrequenza.getBigrammiLingua('a');
+            //     caratteriMsg.setValueAt(formatter.format(arr.), 0, i);
         }
         caratteri = new JTable(new CaratteriModel());
         caratteri.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         caratteri.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         caratteri.setCellSelectionEnabled(true);
         for (int i = 0; i < 26; i++) {
-            //to -do caricare frequenze prima lettera qui
-            //      setUpCollona(bigrammi.getColumnModel().getColumn(i));
+            double[] arr = analisiFrequenza.getFrequenzaLingua();
+            caratteri.setValueAt(arr[i], 0, i);
         }
-
         bigrammiMsgComboBox = new JComboBox(alfabeto);
         bigrammiMsg = new JTable(new BigrammiModel());
         bigrammiMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         bigrammiMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         bigrammiMsg.setCellSelectionEnabled(true);
+
         for (int i = 0; i < 26; i++) {
-            //to -do caricare frequenze bigrammi prima lettera qui
-            //      setUpCollona(bigrammi.getColumnModel().getColumn(i));
+            //   double[] arr = analisiFrequenza.getBigrammiMsg(ch);
+            //  caratteriMsg.setValueAt(formatter.format(arr[i]), 0, i);
         }
         caratteriMsg = new JTable(new CaratteriModel());
         caratteriMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         caratteriMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         caratteriMsg.setCellSelectionEnabled(true);
         //carica nella tabella le frequenze dei caratteri all'interno del messaggio
-        NumberFormat formatter = new DecimalFormat("#0.00");
         for (int i = 0; i < 26; i++) {
             double[] arr = analisiFrequenza.getFrequenzaMsg();
             caratteriMsg.setValueAt(formatter.format(arr[i]), 0, i);
@@ -256,15 +257,15 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         registerController();
     }
 
-    //effettua il set-up dell'e intestazioni delle tabelle
-    public void setUpCollona(TableColumn collona) {
+    //effettua il set-up dei combo-box delle colonne
+    public void setUpCollona(TableColumn collonna) {
         JComboBox comboBox = new JComboBox();
         comboBox.addItem("-");
         for (int i = 'A'; i <= 'Z'; i++) {
             comboBox.addItem(String.valueOf((char) i));
         }
         jcomboBoxes.add(comboBox);
-        collona.setCellEditor(new DefaultCellEditor(comboBox));
+        collonna.setCellEditor(new DefaultCellEditor(comboBox));
     }
 
     @Override
@@ -344,10 +345,8 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
                         + " a " + value
                 );
             }
-
             data[row][col] = value;
             fireTableCellUpdated(row, col);
-
             if (DEBUG) {
                 System.out.println("Nuovo valore :");
                 printDebugData();
@@ -387,9 +386,10 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
     //Classe interna per la tabella delle frequenze dei bigrammi
     class BigrammiModel extends AbstractTableModel {
 
+        private String[] alfabetoBigrammi = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         private Object[][] data = {
-            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-            {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
+            {"A*", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+            {"*A", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
         };
 
         private void printDebugData() {
@@ -413,10 +413,8 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
                         + " a " + value
                 );
             }
-
             data[row][col] = value;
             fireTableCellUpdated(row, col);
-
             if (DEBUG) {
                 System.out.println("Nuovo valore :");
                 printDebugData();
@@ -426,7 +424,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         //METODI GETTER
         @Override
         public int getColumnCount() {
-            return alfabeto.length;
+            return alfabetoBigrammi.length;
         }
 
         @Override
@@ -436,7 +434,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
         @Override
         public String getColumnName(int col) {
-            return alfabeto[col];
+            return alfabetoBigrammi[col];
         }
 
         @Override
@@ -451,7 +449,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
     } //end class BigrammiModel
 
-    //Classe interna per la tabella delle frequenze dei bigrammi
+    //Classe interna per la tabella delle frequenze dei caratteri
     class CaratteriModel extends AbstractTableModel {
 
         private Object[][] data = {
@@ -501,11 +499,8 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         @Override
         public void setValueAt(Object value, int row, int col) {
             if (true) {
-                System.out.println("Set valore nella " + row + "," + col
-                        + " a " + value
-                );
+                System.out.println("Set valore nella " + row + "," + col + " a " + value);
             }
-
             data[row][col] = value;
             fireTableCellUpdated(row, col);
 
@@ -514,6 +509,6 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
                 printDebugData();
             }
         }
-    } //end class BigrammiModel
+    } //end class CaratteriModel
 
 }//end class AreaLavoroPanel

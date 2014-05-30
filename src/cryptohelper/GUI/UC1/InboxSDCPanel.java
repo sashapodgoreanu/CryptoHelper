@@ -50,7 +50,7 @@ public class InboxSDCPanel extends JPanel implements View,VisitableGuiUC1 {
         rightPanel.setBorder(new EmptyBorder(0, 0, 0, 100));   //padding per separare i controlli
 
         //INIT DEI CONTROLLI
-        JLabel targetListLabel = new JLabel("Tutte le proposte:");
+        JLabel targetListLabel = new JLabel("Proposte ricevute:");
         accettaBtn = new JButton("Accetta");
         rifiutaBtn = new JButton("Rifiuta");
         infoSdcLabel = new JLabel("");
