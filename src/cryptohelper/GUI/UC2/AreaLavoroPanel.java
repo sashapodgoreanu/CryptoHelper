@@ -171,9 +171,8 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         caratteri.setCellSelectionEnabled(true);
         for (int i = 0; i < 26; i++) {
             double[] arr = analisiFrequenza.getFrequenzaLingua();
-            caratteriMsg.setValueAt(formatter.format(arr[i]), 0, i);
+            caratteri.setValueAt(arr[i], 0, i);
         }
-
         bigrammiMsgComboBox = new JComboBox(alfabeto);
         bigrammiMsg = new JTable(new BigrammiModel());
         bigrammiMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
@@ -500,11 +499,8 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         @Override
         public void setValueAt(Object value, int row, int col) {
             if (true) {
-                System.out.println("Set valore nella " + row + "," + col
-                        + " a " + value
-                );
+                System.out.println("Set valore nella " + row + "," + col + " a " + value);
             }
-
             data[row][col] = value;
             fireTableCellUpdated(row, col);
 
