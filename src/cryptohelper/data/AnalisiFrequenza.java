@@ -4,6 +4,7 @@ import cryptohelper.data.proxy.ProxyFrequenzaFiller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
 
 public class AnalisiFrequenza {
 
@@ -21,6 +22,7 @@ public class AnalisiFrequenza {
         this.testoCifrato = testoCifrato;
         numCaratteri = testoCifrato.length();
         numBigrammi = 0;
+        calcolaAnalisiBigrami();
     }
 
     /**
@@ -65,7 +67,7 @@ public class AnalisiFrequenza {
         }
     }
 
-    public void calcolaAnalisiBigrami() {
+    private void calcolaAnalisiBigrami() {
         if (testoCifrato == null) {
             throw new NullPointerException("testoCifrato is null!");
         }
@@ -76,14 +78,14 @@ public class AnalisiFrequenza {
                 bigrammiTesto[i][j] = 0;
             }
         }
-        StringUtils.countMatches(str, findStr);
-
         for (int i = 0; i < 26; i++) {
             for (int j = 0; j < 26; j++) {
-
+                String bigrammo = (char) (i + 65) + "" + (char) (j + 65);
+                //System.out.print(bigrammo + " ");
+                bigrammiTesto[i][j] = StringUtils.countMatches(testoCifrato, bigrammo);
             }
+            //System.out.println();
         }
-
         /*
          for (int i = 0; i < testoCifrato.length(); i++) {
             char chPrima;

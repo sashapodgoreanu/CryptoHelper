@@ -54,33 +54,19 @@ public class AnalisiFrequenzaTest {
     }
 
     /**
-     * Test of calcolaAnalisiBigrami method, of class AnalisiFrequenza.
-     */
-    @Test
-    public void testCalcolaAnalisiBigrami() {
-        System.out.println("calcolaAnalisiBigrami");
-        AnalisiFrequenza analisiFrequenza = new AnalisiFrequenza("italiano", "as as as as as as as as as as aa");
-        analisiFrequenza.calcolaAnalisiBigrami();
-        analisiFrequenza.display();
-        Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigramiMsg('A');
-        System.out.println(a.toString());
-
-    }
-
-    /**
      * Test of getBigramiTestoCifrato method, of class AnalisiFrequenza.
      */
     @Test
-    @Ignore
     public void testGetBigramiTestoCifrato() {
-        System.out.println("getBigramiTestoCifrato");
-        char ch = ' ';
-        AnalisiFrequenza instance = null;
-        Map<Character, ArrayList<Integer>> expResult = null;
-        Map<Character, ArrayList<Integer>> result = instance.getBigramiTestoCifrato(ch);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("Test of getBigramiTestoCifrato method, of class AnalisiFrequenza.");
+        AnalisiFrequenza analisiFrequenza = new AnalisiFrequenza("italiano", "as as as as as as as as as as aa");
+        analisiFrequenza.display();
+        Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigramiMsg('A');
+        System.out.println(a.toString());
+        assertThat(a.get('A').get(0), is(1));
+        assertThat(a.get('A').get(1), is(1));
+        assertThat(a.get('S').get(0), is(10));
+        assertThat(a.get('S').get(1), is(0));
     }
 
     /**
