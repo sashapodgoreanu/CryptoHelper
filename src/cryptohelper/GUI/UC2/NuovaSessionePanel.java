@@ -23,7 +23,9 @@ public class NuovaSessionePanel extends JPanel implements View, VisitableGuiUC2 
     JPanel bottomPanel;      //pannello in basso
     JLabel targetListLabel;
     JLabel messageTextLabel;
+    JLabel nomeSessioneLabel;
     JList elencoMessaggi;
+    JTextField nomeSessione;
     JTextPane corpoMessaggio;
     JScrollPane scrollPane;
     JButton okBtn;
@@ -55,6 +57,8 @@ public class NuovaSessionePanel extends JPanel implements View, VisitableGuiUC2 
         //INIT DEI CONTROLLI
         targetListLabel = new JLabel("Messaggi disponibili:");
         messageTextLabel = new JLabel("Contenuto del messaggio:");
+        nomeSessioneLabel = new JLabel("Nome sessione:");
+        nomeSessione = new JTextField(15);
         okBtn = new JButton("Avanti");
         elencoMessaggi = new JList(new Vector<MessaggioIntercettato>(elencoMessaggiArrLst));
         elencoMessaggi.setCellRenderer(new DefaultListCellRenderer() {
@@ -88,6 +92,8 @@ public class NuovaSessionePanel extends JPanel implements View, VisitableGuiUC2 
         leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
+        bottomPanel.add(nomeSessioneLabel);
+        bottomPanel.add(nomeSessione);
         bottomPanel.add(okBtn);
 
         //AGGIUNTA DEI PANNELLI
@@ -122,5 +128,8 @@ public class NuovaSessionePanel extends JPanel implements View, VisitableGuiUC2 
     public JButton getOkBtn() {
         return okBtn;
     }
-
+    
+    public String getNomeSessione() {
+        return nomeSessione.getText();
+    }
 }

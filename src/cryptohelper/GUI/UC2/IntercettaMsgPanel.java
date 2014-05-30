@@ -83,7 +83,7 @@ public class IntercettaMsgPanel extends JFrame implements View, VisitableGuiUC2 
     public void initNuovaSessione(ArrayList<MessaggioIntercettato> msgArrLst) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Nuova sessione di lavoro");    //cambia titolo al form
-        this.setStatus("Selezionare il messaggio da intercettare e premere 'Avanti'"); //messaggio per la status label
+        this.setStatus("Selezionare il messaggio da intercettare, immettere un nome per la sessione e premere 'Avanti'"); //messaggio per la status label
         bodyPanel.add(new NuovaSessionePanel(msgArrLst));           //aggiunge il nuovo pannello
         bodyPanel.revalidate();                                     //completa l'inizializzazione dell'interfaccia
     }
