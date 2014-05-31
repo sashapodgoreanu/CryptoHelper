@@ -245,6 +245,7 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
         }
     }
 
+    //classe listener per il combBox deli bigrammi della lingua nel pannello area di lavoro
     private class BigrammiComboListener implements ActionListener {
 
         @Override
@@ -260,11 +261,12 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
         }
     }
 
+    //classe listener per il combBox deli bigrammi del messaggio nel pannello area di lavoro
     private class BigrammiMsgComboListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String tmp = (String) areaLavoroPanel.getBigrammiComboBox().getSelectedItem();
+            String tmp = (String) areaLavoroPanel.getBigrammiMsgComboBox().getSelectedItem();
             char letter = tmp.charAt(0);
             Map<Character, ArrayList<Integer>> mapMsg = areaLavoroPanel.getAnalisiFrequenzaSessione().getBigrammiMsg(letter);
             for (int i = 1; i < 27; i++) {
