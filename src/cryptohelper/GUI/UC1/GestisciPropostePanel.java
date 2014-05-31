@@ -20,7 +20,7 @@ public class GestisciPropostePanel extends JPanel implements View, VisitableGuiU
     JPanel leftPanel;        //pannello a sinistra
     JPanel rightPanel;       //pannello a destra
     JPanel bottomPanel;      //pannello in basso
-    JList elencoProposteAccettate;
+    JList elencoProposte;
     JButton eliminaBtn;
     JLabel infoSdcLabel;
     JScrollPane scrollPane;
@@ -53,8 +53,8 @@ public class GestisciPropostePanel extends JPanel implements View, VisitableGuiU
         JLabel targetListLabel = new JLabel("Proposte:");
         eliminaBtn = new JButton("Elimina Sistema di cifratura");
         infoSdcLabel = new JLabel("");
-        elencoProposteAccettate = new JList(new Vector<Proposta>(proposteArrLst));
-        elencoProposteAccettate.setCellRenderer(new DefaultListCellRenderer() {
+        elencoProposte = new JList(new Vector<Proposta>(proposteArrLst));
+        elencoProposte.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -65,14 +65,14 @@ public class GestisciPropostePanel extends JPanel implements View, VisitableGuiU
                 return renderer;
             }
         });
-        elencoProposteAccettate.setSelectedIndex(0);
-        elencoProposteAccettate.setPreferredSize(new Dimension(180, 250));
-        Proposta index0 = (Proposta) elencoProposteAccettate.getSelectedValue();
+        elencoProposte.setSelectedIndex(0);
+        elencoProposte.setPreferredSize(new Dimension(180, 250));
+        Proposta index0 = (Proposta) elencoProposte.getSelectedValue();
         if (index0 != null) {
             infoSdcLabel.setText(new HtmlVisitor().visit(index0));
         }
         scrollPane = new JScrollPane();
-        scrollPane.setViewportView(elencoProposteAccettate);
+        scrollPane.setViewportView(elencoProposte);
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
         leftPanel.add(infoSdcLabel, BorderLayout.CENTER);
@@ -100,7 +100,7 @@ public class GestisciPropostePanel extends JPanel implements View, VisitableGuiU
     }
 
     public boolean deleteSelectedIndex() {
-        int toDelete = this.elencoProposteAccettate.getSelectedIndex();
+        int toDelete = this.elencoProposte.getSelectedIndex();
         if (toDelete >= 0) {
             rightPanel.removeAll();
             topPanel.removeAll();
@@ -119,12 +119,12 @@ public class GestisciPropostePanel extends JPanel implements View, VisitableGuiU
         }
     }
 
-    public JList getElencoProposteAccettate() {
-        return elencoProposteAccettate;
+     public JList getElencoProposte() {
+        return elencoProposte;
     }
 
-    public void setElencoProposteAccettate(JList elencoProposteAccettate) {
-        this.elencoProposteAccettate = elencoProposteAccettate;
+    public void setElencoProposte(JList elencoProposte) {
+        this.elencoProposte = elencoProposte;
     }
 
     public JLabel getInfoSdcLabel() {
