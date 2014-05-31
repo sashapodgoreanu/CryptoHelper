@@ -214,7 +214,7 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             System.out.println("Clicked " + ev.getText());
             MessaggioIntercettato msg = (MessaggioIntercettato) nuovaSessionePanel.getElencoMessaggi().getSelectedValue();
             msg.setAreaLavoro(msg.getTestoCifrato().toUpperCase());
-            UserInfo user = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());    
+            UserInfo user = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
             session = new SessioneLavoro(nuovaSessionePanel.getNomeSessione(), user, msg);
             if (nuovaSessionePanel.getNomeSessione().equals("")) {
                 intercettaMessaggioPanel.setStatus("È necessario dare un nome alla nuova sessione per proseguire!");
@@ -255,6 +255,8 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             String tmp = (String) areaLavoroPanel.getBigrammiComboBox().getSelectedItem();
             char letter = tmp.charAt(0);
             Map<Character, ArrayList<Integer>> map = areaLavoroPanel.getAnalisiFrequenzaSessione().getBigrammiLingua(letter);
+            areaLavoroPanel.getBigrammi().setValueAt(String.valueOf(letter) + " *", 0, 0);
+            areaLavoroPanel.getBigrammi().setValueAt("* " + String.valueOf(letter), 1, 0);
             for (int i = 1; i < 27; i++) {
                 int j = i - 1;
                 areaLavoroPanel.getBigrammi().setValueAt(map.get((char) (j + 65)).get(0), 0, i);
@@ -270,7 +272,10 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
         public void actionPerformed(ActionEvent e) {
             String tmp = (String) areaLavoroPanel.getBigrammiMsgComboBox().getSelectedItem();
             char letter = tmp.charAt(0);
+
             Map<Character, ArrayList<Integer>> mapMsg = areaLavoroPanel.getAnalisiFrequenzaSessione().getBigrammiMsg(letter);
+            areaLavoroPanel.getBigrammiMsg().setValueAt(String.valueOf(letter) + " *", 0, 0);
+            areaLavoroPanel.getBigrammiMsg().setValueAt("* " + String.valueOf(letter), 1, 0);
             for (int i = 1; i < 27; i++) {
                 int j = i - 1;
                 areaLavoroPanel.getBigrammiMsg().setValueAt(mapMsg.get((char) (j + 65)).get(0), 0, i);
