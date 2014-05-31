@@ -16,6 +16,7 @@ import cryptohelper.interfaces.VisitorGuiUC2;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -74,6 +75,9 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
         areaLavoroPanel = alp;
         areaLavoroPanel.getMappatura().getModel().addTableModelListener(tableListener);
         areaLavoroPanel.getUndoBtn().addActionListener(new UndoListener());
+        areaLavoroPanel.getBigrammiComboBox().addActionListener(new BigrammiComboListener());
+        areaLavoroPanel.getBigrammiMsgComboBox().addActionListener(new BigrammiMsgComboListener());
+
     }
 
     private class TableMappaturaListener implements TableModelListener {
@@ -238,6 +242,36 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             //set the actual scroll position. - update jtextarea makes text scroll down
             areaLavoroPanel.getCorpoTesto().setCaretPosition(actualPos);
             intercettaMessaggioPanel.setStatus("Ipotesi anulata per: " + u.getCharacter() + " -> " + u.getInverseChar());
+        }
+    }
+
+    private class BigrammiComboListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String tmp = (String) areaLavoroPanel.getBigrammiComboBox().getSelectedItem();
+            char letter = tmp.charAt(0);
+            Map<Character, ArrayList<Integer>> map = areaLavoroPanel.getAnalisiFrequenzaSessione().getBigrammiLingua(letter);
+            for (int i = 1; i < 27; i++) {
+                int j = i - 1;
+                areaLavoroPanel.getBigrammi().setValueAt(map.get((char) (j + 65)).get(0), 0, i);
+                areaLavoroPanel.getBigrammi().setValueAt(map.get((char) (j + 65)).get(1), 1, i);
+            }
+        }
+    }
+
+    private class BigrammiMsgComboListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String tmp = (String) areaLavoroPanel.getBigrammiComboBox().getSelectedItem();
+            char letter = tmp.charAt(0);
+            Map<Character, ArrayList<Integer>> mapMsg = areaLavoroPanel.getAnalisiFrequenzaSessione().getBigrammiMsg(letter);
+            for (int i = 1; i < 27; i++) {
+                int j = i - 1;
+                areaLavoroPanel.getBigrammiMsg().setValueAt(mapMsg.get((char) (j + 65)).get(0), 0, i);
+                areaLavoroPanel.getBigrammiMsg().setValueAt(mapMsg.get((char) (j + 65)).get(1), 1, i);
+            }
         }
     }
 }

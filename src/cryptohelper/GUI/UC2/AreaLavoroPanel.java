@@ -178,10 +178,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
                 caratteri.moveColumn(massimo, i);
             }
         }
-
-        NumberFormat formatter = new DecimalFormat("#0.00");
         caratteriMsg = new JTable(new CaratteriModel());
-
         caratteriMsg.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         caratteriMsg.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         caratteriMsg.setCellSelectionEnabled(true);
@@ -211,7 +208,6 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         bigrammi.setCellSelectionEnabled(true);
         //carica nella tabella le frequenze dei bigrammi della prima lettera (A) nella lingua
         Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigrammiLingua('A');
-        System.out.println(a.toString());
         for (int i = 1; i < 27; i++) {
             int j = i - 1;
             bigrammi.setValueAt(a.get((char) (j + 65)).get(0), 0, i);
@@ -325,6 +321,14 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         return mappatura;
     }
 
+    public JTable getBigrammi() {
+        return bigrammi;
+    }
+
+    public JTable getBigrammiMsg() {
+        return bigrammiMsg;
+    }
+
     public JButton getUndoBtn() {
         return undoBtn;
     }
@@ -333,12 +337,24 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         return sessioneCorrente;
     }
 
+    public AnalisiFrequenza getAnalisiFrequenzaSessione() {
+        return analisiFrequenza;
+    }
+
     public JScrollPane getScrollPaneTesto() {
         return scrollPaneTesto;
     }
 
     public JScrollPane getScrollPaneTestoCifrato() {
         return scrollPaneTestoCifrato;
+    }
+
+    public JComboBox getBigrammiMsgComboBox() {
+        return bigrammiMsgComboBox;
+    }
+
+    public JComboBox getBigrammiComboBox() {
+        return bigrammiComboBox;
     }
 
     //METODI SETTER
@@ -424,8 +440,8 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
         private final String[] alfabetoBigrammi = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         private final Object[][] data = {
-            {"A*", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
-            {"*A", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
+            {"-*", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
+            {"*-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
         };
 
         private void printDebugData() {
