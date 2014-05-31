@@ -8,9 +8,9 @@ import cryptohelper.interfaces.MessaggioMittente;
 
 public class HtmlVisitor implements HtmlVisitorInterface {
 
-    //Stampa dati oggetto Proposta
-    @Override
+     @Override
     public String visit(Proposta proposta) {
+  //      System.out.println(proposta.getStato());
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
         sb.append("<p>");
@@ -20,6 +20,9 @@ public class HtmlVisitor implements HtmlVisitorInterface {
         sb.append("<p>");
         sb.append("Sistema di cifratura: ").append(proposta.getSdc().getMetodo());
         sb.append("<br/>Chiave cifrario: ").append(proposta.getSdc().getChiave());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("Stato: ").append(proposta.getStato());
         sb.append("</p>");
         sb.append("</html>");
         return sb.toString();

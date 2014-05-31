@@ -129,7 +129,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
         bozzePanel.getElencoBozze().addListSelectionListener(new ViewBozzeMsgListener());
     }
     
-    @Override
+   @Override
     public void visit(SdcPanel sdcp) {
         sdcPanel = sdcp;
         sdcPanel.getCreaSDCBtn().addActionListener(new CreateSDCListener());
@@ -175,6 +175,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
     public void visit(GestisciPropostePanel gsdcp) {
         gestisciPropostePanel = gsdcp;
         gestisciPropostePanel.getEliminaBtn().addActionListener(new EliminaPropostaListener());
+        gestisciPropostePanel.getElencoProposte().addListSelectionListener(new SelectPropostaListener());
     }
     
     @Override
@@ -255,8 +256,8 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
         }
     }
     
-    private class GestisciProposteListener implements ActionListener {
-        
+  private class GestisciProposteListener implements ActionListener {
+
         public void actionPerformed(ActionEvent e) {
             pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
@@ -766,7 +767,7 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
             pannelloPrincipale.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             //proposta selezionata dalla jlist
-            Proposta proposta = (Proposta) gestisciPropostePanel.getElencoProposteAccettate().getSelectedValue();
+            Proposta proposta = (Proposta) gestisciPropostePanel.getElencoProposte().getSelectedValue();
             if (proposta != null) {
                 System.out.println(proposta.getSdc().getId());
                 proposta.elimina();
@@ -776,6 +777,23 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
             }
         }
     }
+    
+    //classe listener per la Jlist "elencoProposte" 
+    private class SelectPropostaListener implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            pannelloPrincipale.setStatus(" ");
+            System.out.println("Clicked LIST");
+            Proposta proposta = (Proposta) gestisciPropostePanel.getElencoProposte().getSelectedValue();
+            System.out.println(proposta.toString());
+            gestisciPropostePanel.getInfoSdcLabel().setText(printerVisitor.visit(proposta));
+
+        }
+    }
+    
+    
+    
 
     //classe listener per eliminare un sistema di cifratura concordato in precedenza
     private class EliminaSDCListener implements ActionListener {

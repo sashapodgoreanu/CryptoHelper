@@ -25,6 +25,13 @@ public class Proposta implements HtmlVisitable {
         this.stato = "pending";
     }
 
+    public Proposta(SistemaCifratura sdc, UserInfo proponente, UserInfo partner, String stato) {
+        this.sdc = sdc;
+        this.proponente = proponente;
+        this.partner = partner;
+        this.stato = stato;
+    }
+
     public boolean salva() {
         //se proponente e il partner hanno gia concordato un sistema di cifratura in precedenza non potranno piu farlo. 
         //SistemaCifratura esisteSdc = SistemaCifratura.load(proponente.getId(), partner.getId());
@@ -123,18 +130,16 @@ public class Proposta implements HtmlVisitable {
     public static ArrayList<Proposta> caricaProposteSistemiCifratura(UserInfo stud) {
         String query = "SELECT *"
                 + "FROM SDCPARTNERS "
-                + "WHERE ID_PARTNER = " + stud.getId() + " OR ID_CREATORE = " + stud.getId();
+                + "WHERE ID_PARTNER = " + stud.getId() + " OR ID_CREATORE = " + stud.getId() + "";
         QueryResult qr = null;
         ArrayList<Proposta> proposte = new ArrayList<>();
         try {
             qr = DBController.getInstance().executeQuery(query);
             System.out.println(qr.toString());
             while (qr.next()) {
-                if (qr.getString("stato_proposta").equals("accettata")) {
-                    Proposta temp = new Proposta(SistemaCifratura.getSistemaCifratura(qr.getInt("ID_SDC")), UserInfo.getUserInfo(qr.getInt("ID_CREATORE")), UserInfo.getUserInfo(qr.getInt("ID_PARTNER")));
-                    System.out.println("Proposta: " + temp.toString());
-                    proposte.add(temp);
-                }
+                Proposta temp = new Proposta(SistemaCifratura.getSistemaCifratura(qr.getInt("ID_SDC")), UserInfo.getUserInfo(qr.getInt("ID_CREATORE")), UserInfo.getUserInfo(qr.getInt("ID_PARTNER")), qr.getString("STATO_PROPOSTA"));
+                System.out.println("Proposta: " + temp.toString());
+                proposte.add(temp);
             }
         } catch (SQLException ex) {
             log.fatal(ex.getMessage());
@@ -163,11 +168,11 @@ public class Proposta implements HtmlVisitable {
         return "Proposta{" + "sdc=" + sdc.getId() + ", proponente=" + proponente.getId() + ", partner=" + partner.getId() + ", stato=" + stato + '}';
     }
 
-   @Override
+    @Override
     public void accept(HtmlVisitorInterface visitor) {
         visitor.visit(this);
     }
-    
+
     //METODI GETTER
     public UserInfo getProponente() {
         return proponente;
@@ -202,5 +207,4 @@ public class Proposta implements HtmlVisitable {
         this.stato = stato;
     }
 
-   
 }
