@@ -207,11 +207,11 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         bigrammi.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
         bigrammi.setCellSelectionEnabled(true);
         //carica nella tabella le frequenze dei bigrammi della prima lettera (A) nella lingua
-        Map<Character, ArrayList<Integer>> a = analisiFrequenza.getBigrammiLingua('A');
+        Map<Character, ArrayList<Integer>> map = analisiFrequenza.getBigrammiLingua('A');
         for (int i = 1; i < 27; i++) {
             int j = i - 1;
-            bigrammi.setValueAt(a.get((char) (j + 65)).get(0), 0, i);
-            bigrammi.setValueAt(a.get((char) (j + 65)).get(1), 1, i);
+            bigrammi.setValueAt(map.get((char) (j + 65)).get(0), 0, i);
+            bigrammi.setValueAt(map.get((char) (j + 65)).get(1), 1, i);
         }
         bigrammiMsgComboBox = new JComboBox(alfabeto);
         bigrammiMsg = new JTable(new BigrammiModel());
