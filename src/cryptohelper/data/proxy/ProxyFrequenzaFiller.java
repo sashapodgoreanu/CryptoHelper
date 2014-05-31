@@ -45,6 +45,5 @@ public class ProxyFrequenzaFiller extends FrequenzaFiller {
             System.out.println("accessing from proxy cache -- getBigrammi()");
             return bigrammi;
         }
-
     }
 }

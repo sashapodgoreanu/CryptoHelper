@@ -4,10 +4,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-/**
- *
- * @author Luigi
- */
 public class RealFrequenzaFiller extends FrequenzaFiller {
 
     private double[] frequenza;
