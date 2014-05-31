@@ -9,7 +9,8 @@ TO-DO (aggiornato 23/05/14)
 
 
 ********************** UC2 **************************
-- ok [bisogna solo agganciare i listener] Creare interfaccia per le azioni della spia
+- ok Creare interfaccia per le azioni della spia
+-    interfacci nuova sessione
 - ok Creare classe AnalisiFrequenza
 - ok Creare classe MappaSostituzioni
 - ok Creare classe MappaPosCarattere
@@ -19,7 +20,7 @@ TO-DO (aggiornato 23/05/14)
 - ok Classe sistema di cifratura => rivedere/completare alcuni metodi
 - ok Implementare classe Mossa
 - ok Implementare classe albero
-- Implementare classe soluzione
+- ok Implementare classe soluzione
 - creare utenti, messagi esempi da tenere nel db
 - refactoring, commenti e pulizia del codice
 - ok da revisionare ricerca ipotesi
