@@ -152,7 +152,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
         mappatura = new JTable(new MappaturaModel());
         mappatura.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
-        mappatura.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
+        mappatura.getTableHeader().setResizingAllowed(false);    //disabilita il ridimensionamento delle colonne della tabella
         mappatura.setCellSelectionEnabled(true);
         for (int i = 0; i < 26; i++) {
             setUpCollona(mappatura.getColumnModel().getColumn(i));
@@ -160,7 +160,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
         caratteri = new JTable(new CaratteriModel());
         caratteri.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
-        caratteri.getTableHeader().setResizingAllowed(false);  //disabilita il ridimensionamento delle colonne della tabella
+        caratteri.getTableHeader().setResizingAllowed(false);    //disabilita il ridimensionamento delle colonne della tabella
         caratteri.setCellSelectionEnabled(true);
         for (int i = 0; i < 26; i++) {
             double[] arr = analisiFrequenza.getFrequenzaLingua();

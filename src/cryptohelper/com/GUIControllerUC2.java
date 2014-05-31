@@ -213,14 +213,14 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
             MessaggioIntercettato msg = (MessaggioIntercettato) nuovaSessionePanel.getElencoMessaggi().getSelectedValue();
-            //SessioneLavoro(int id, String nomeSessione, UserInfo autore, MessaggioIntercettato messaggio, AlberoIpotesi albero, Soluzione soluzione) 
-            UserInfo user = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
-            session = new SessioneLavoro(nuovaSessionePanel.getNomeSessione(),user, msg);
+            msg.setAreaLavoro(msg.getTestoCifrato().toUpperCase());
+            UserInfo user = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());    
+            session = new SessioneLavoro(nuovaSessionePanel.getNomeSessione(), user, msg);
             if (nuovaSessionePanel.getNomeSessione().equals("")) {
                 intercettaMessaggioPanel.setStatus("È necessario dare un nome alla nuova sessione per proseguire!");
             } else {
                 System.out.println("LoadWorkspaceListener :" + session.toString());
-                 intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
+                intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
                 intercettaMessaggioPanel.initAreaLavoro(session);
             }
         }

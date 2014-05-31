@@ -25,7 +25,7 @@ public class SessioneLavoro implements HtmlVisitable {
     MessaggioIntercettato messaggioIntercettato;
     Soluzione soluzione;
 
-    //COSTRUTTORE
+    //COSTRUTTORE I
     public SessioneLavoro(int id, String nomeSessione, UserInfo autore, MessaggioIntercettato messaggio, AlberoIpotesi albero, Soluzione soluzione) {
         this.idSessione = id;
         this.nomeSessione = nomeSessione;
@@ -37,8 +37,9 @@ public class SessioneLavoro implements HtmlVisitable {
         Date date = new Date();
         this.ultimaModifica = (dateFormat.format(date));
     }
-    
-       public SessioneLavoro(String nomeSessione, UserInfo autore, MessaggioIntercettato messaggio) {
+
+    //COSTRUTTORE II
+    public SessioneLavoro(String nomeSessione, UserInfo autore, MessaggioIntercettato messaggio) {
         this.nomeSessione = nomeSessione;
         this.autore = autore;
         this.messaggioIntercettato = messaggio;

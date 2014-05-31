@@ -101,7 +101,7 @@ public class IntercettaMsgPanel extends JFrame implements View, VisitableGuiUC2 
     //Inizializza l'interfaccia e i componenti quando viene premuto il button "carica sessione"
     public void initAreaLavoro(SessioneLavoro sessione) {
         this.resetPanels();
-        this.setTitle("CryptoHelper - Carica sessione di lavoro");   //cambia titolo al form
+        this.setTitle("CryptoHelper - Analisi messaggio");   //cambia titolo al form
         this.setStatus("Formulare una nuova ipotesi di sostituzione per iniziare a decifrare il messaggio"); //messaggio per la status label
         bodyPanel.add(new AreaLavoroPanel(sessione));               //aggiunge il nuovo pannello
         bodyPanel.revalidate();                                     //completa l'inizializzazione dell'interfaccia
