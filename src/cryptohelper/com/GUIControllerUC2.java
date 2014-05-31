@@ -11,6 +11,7 @@ import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.Mossa;
 import cryptohelper.data.SessioneLavoro;
+import cryptohelper.data.UserInfo;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.VisitorGuiUC2;
 import java.awt.event.ActionEvent;
@@ -213,12 +214,13 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             System.out.println("Clicked " + ev.getText());
             MessaggioIntercettato msg = (MessaggioIntercettato) nuovaSessionePanel.getElencoMessaggi().getSelectedValue();
             //SessioneLavoro(int id, String nomeSessione, UserInfo autore, MessaggioIntercettato messaggio, AlberoIpotesi albero, Soluzione soluzione) 
-            //    session = new SessioneLavoro();
+            UserInfo user = new UserInfo(comC.getStudente().getId(), comC.getStudente().getNome(), comC.getStudente().getCognome());
+            session = new SessioneLavoro(nuovaSessionePanel.getNomeSessione(),user, msg);
             if (nuovaSessionePanel.getNomeSessione().equals("")) {
                 intercettaMessaggioPanel.setStatus("È necessario dare un nome alla nuova sessione per proseguire!");
             } else {
                 System.out.println("LoadWorkspaceListener :" + session.toString());
-                intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
+                 intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
                 intercettaMessaggioPanel.initAreaLavoro(session);
             }
         }

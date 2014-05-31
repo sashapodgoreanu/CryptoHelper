@@ -31,10 +31,19 @@ public class SessioneLavoro implements HtmlVisitable {
         this.nomeSessione = nomeSessione;
         this.autore = autore;
         this.messaggioIntercettato = messaggio;
-        //TO-DO da rimuovere o da rivedere 
-        //messaggioIntercettato.setAreaLavoro(messaggioIntercettato.getTestoCifrato().toUpperCase());
         this.alberoIpotesi = albero;
         this.soluzione = soluzione;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        this.ultimaModifica = (dateFormat.format(date));
+    }
+    
+       public SessioneLavoro(String nomeSessione, UserInfo autore, MessaggioIntercettato messaggio) {
+        this.nomeSessione = nomeSessione;
+        this.autore = autore;
+        this.messaggioIntercettato = messaggio;
+        this.alberoIpotesi = new AlberoIpotesi(messaggio.getTestoCifrato());
+        this.soluzione = new Soluzione();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         this.ultimaModifica = (dateFormat.format(date));

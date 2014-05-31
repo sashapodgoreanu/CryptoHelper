@@ -13,7 +13,6 @@ public class AlberoIpotesi {
         root = new Ipotesi('-', '-');
         root.setIsRoot(true);
         mappaPosizioni = new MappaPosizioni(testoCifrato);
-
     }
 
     //Cerca la mossa. Restituisce TRUE in caso di riscontro, FALSE altrimenti
