@@ -118,14 +118,16 @@ public class CreaSDCPanel extends JPanel implements View, VisitableGuiUC1 {
         corpoMessaggioProva.setPreferredSize(new Dimension(100, 50));
         corpoMessaggioProva.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         corpoMessaggioProva.setText("Inserire un testo di prova per vedere il risultato della cifratura");
-
+        corpoMessaggioProva.setLineWrap(true);
+        
         //risultato di cifratura
         corpoMessaggioResult = new JTextArea();
         corpoMessaggioResult.setBorder(new EmptyBorder(30, 0, 20, 0));   //padding per separare i controlli dal bordo della finestra
         corpoMessaggioProva.setPreferredSize(new Dimension(100, 50));
         corpoMessaggioResult.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // aggiunge un bordo alla textArea
         corpoMessaggioResult.setEditable(false);
-
+        corpoMessaggioResult.setLineWrap(true);
+        
         //la parte della creatione della mapatura
         centerPanelA.add(new JLabel("Chiave: "), BorderLayout.WEST);
         centerPanelA.add(chiave, BorderLayout.CENTER);
