@@ -55,7 +55,7 @@ public class DbSampleSetup {
 
             //MESSAGGIO 2 (testo sulla crittografia): CIFRATO CON CIFRARIO PSEUDOCASUALE
             //CHIAVE = "8"
-            Messaggio m2 = new Messaggio(0, "La crittografia è la branca della crittologia che tratta delle \"scritture nascoste\","
+            Messaggio m2 = new Messaggio(1, "La crittografia è la branca della crittologia che tratta delle \"scritture nascoste\","
                     + " ovvero dei metodi per rendere un messaggio \"offuscato\" in modo da non essere comprensibile/intelligibile "
                     + "a persone non autorizzate a leggerlo.\n Un tale messaggio si chiama comunemente crittogramma e le tecniche usate tecniche di cifratura.",
                     "sl rkjqqbdklajl è sl oklyrl uxssl rkjqqbsbdjl rgx qklqql uxssx \"nrkjqqtkx ylnrbnqx\", bwwxkb uxj vxqbuj exk kxyuxkx ty vxnnlddjb"
@@ -70,7 +70,7 @@ public class DbSampleSetup {
 
             //MESSAGGIO 3 (testo sulla lingua inglese): CIFRATO CON PAROLA CHIAVE
             //CHIAVE = "english"
-            Messaggio m3 = new Messaggio(0, "English is a West Germanic language that was first spoken in early medieval England and is now"
+            Messaggio m3 = new Messaggio(2, "English is a West Germanic language that was first spoken in early medieval England and is now"
                     + " a global lingua franca.It is spoken as a first language by the majority populations of several sovereign states, "
                     + "including the United Kingdom, the United States, Canada, Australia, Ireland, New Zealand and a number of Caribbean "
                     + "nations; and it is an official language of almost 60 sovereign states. It is the third-most-common native language "
