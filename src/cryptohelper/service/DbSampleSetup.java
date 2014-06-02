@@ -61,8 +61,9 @@ public class DbSampleSetup {
                     "sl rkjqqbdklajl è sl oklyrl uxssl rkjqqbsbdjl rgx qklqql uxssx \"nrkjqqtkx ylnrbnqx\", bwwxkb uxj vxqbuj exk kxyuxkx ty vxnnlddjb"
                     + "\"baatnrlqb\" jy vbub ul yby xnnxkx rbvekxynjojsx/jyqxssjdjojsx l exknbyx yby ltqbkjiilqx l sxddxksb.\n"
                     + "ty qlsx vxnnlddjb nj rgjlvl rbvtyxvxyqx rkjqqbdklvvl x sx qxryjrgx tnlqx qxryjrgx uj rjaklqtkl.", "Italiano", "Crittografia", false, false);
-            destinatario = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
-            mittente = new UserInfo(st3.getId(), st3.getNome(), st3.getCognome());
+            mittente = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
+            destinatario = new UserInfo(st3.getId(), st3.getNome(), st3.getCognome());
+
             m2.setMittente(mittente);
             m2.setDestinatario(destinatario);
             m2.salva();
@@ -82,8 +83,9 @@ public class DbSampleSetup {
                     + "fekhuehi ms efjmrt 60 rmviqibhk rtetir. bt br tai tabql-jmrt-gmjjmk ketbvi fekhuehi bk tai wmqfl, estiq jekleqbk gabkiri "
                     + "ekl roekbra. bt br wblify fieqkil er e rigmkl fekhuehi ekl br ek mssbgbef fekhuehi ms tai iuqmoiek ukbmk, jeky "
                     + "gmjjmkwiefta gmuktqbir ekl tai ukbtil ketbmkr, er wiff er bk jeky wmqfl mqhekbretbmkr.", "Inglese", "Lignua inglese", false, false);
-            destinatario = new UserInfo(st3.getId(), st3.getNome(), st3.getCognome());
-            mittente = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
+            mittente = new UserInfo(st3.getId(), st3.getNome(), st2.getCognome());
+            destinatario = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
+
             m3.setMittente(mittente);
             m3.setDestinatario(destinatario);
             m3.salva();
