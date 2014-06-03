@@ -148,8 +148,8 @@ public class DbSampleSetup {
             s2.salva();
             System.out.println("DbSetup: sessione di lavoro s2 salvata");
 
-            //MESSAGGIO 6 (testo su Alan Turing): CIFRATO CON CIFRARIO PSEUDOCASUALE
-            //CHIAVE = "9"
+            //MESSAGGIO 6 (testo su Software Engenering): CIFRATO CON CIFRARIO PSEUDOCASUALE
+            //CHIAVE = "1"
             Messaggio m6 = new Messaggio(0, "Software Engineering is the study and application of engineering to the design, development, "
                     + "and maintenance of software.\n The field is one of the youngest of engineering, having been started in the early "
                     + "1940s and the term itself not used until 1968. As such, there is still much controversy within the field itself "
