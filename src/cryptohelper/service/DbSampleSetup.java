@@ -5,12 +5,13 @@ package cryptohelper.service;
 import cryptohelper.data.AlberoIpotesi;
 import cryptohelper.data.Lingua;
 import cryptohelper.data.Messaggio;
-import cryptohelper.data.QueryResult;
+import cryptohelper.data.Proposta;
 import cryptohelper.data.SessioneLavoro;
+import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
+import cryptohelper.interfaces.Cifrario;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,6 +22,8 @@ public class DbSampleSetup {
         Studente st1 = new Studente("Alexandru", "Podgoreanu", "sasha", "1234");
         Studente st2 = new Studente("Giulio", "Pighini", "giulio", "1234");
         Studente st3 = new Studente("Luigi", "Solitro", "luigi", "1234");
+        Proposta proposta;
+        SistemaCifratura sdc;
         UserInfo destinatario;
         UserInfo mittente;
         UserInfo spia;
@@ -50,10 +53,14 @@ public class DbSampleSetup {
                     + " fzytrfyneefyn ijyyn vznsin xnxyjrn nsktwrfynhn.", Lingua.italiano, "Informatica", false, false);
             mittente = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
             destinatario = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
-
+            sdc = new SistemaCifratura(0, "SDCm1", "4", Cifrario.CESARE, mittente);
+            sdc.salva();
             m1.setMittente(mittente);
             m1.setDestinatario(destinatario);
+            m1.setSistemaCifratura(sdc);
             m1.salva();
+            proposta = new Proposta(sdc, mittente, destinatario);
+            proposta.salva();
             System.out.println("DbSetup: messaggio 1 salvato");
 
             //MESSAGGIO 2 (testo sulla crittografia): CIFRATO CON CIFRARIO PSEUDOCASUALE
@@ -66,10 +73,14 @@ public class DbSampleSetup {
                     + "ty qlsx vxnnlddjb nj rgjlvl rbvtyxvxyqx rkjqqbdklvvl x sx qxryjrgx tnlqx qxryjrgx uj rjaklqtkl.", Lingua.italiano, "Crittografia", false, false);
             mittente = new UserInfo(st2.getId(), st2.getNome(), st2.getCognome());
             destinatario = new UserInfo(st3.getId(), st3.getNome(), st3.getCognome());
-
+            sdc = new SistemaCifratura(0, "SDCm2", "8", Cifrario.PSEUDOCASUALE, mittente);
+            sdc.salva();
             m2.setMittente(mittente);
             m2.setDestinatario(destinatario);
+            m2.setSistemaCifratura(sdc);
             m2.salva();
+            proposta = new Proposta(sdc, mittente, destinatario);
+            proposta.salva();
             System.out.println("DbSetup: messaggio 2 salvato");
 
             //MESSAGGIO 3 (testo sulla lingua inglese): CIFRATO CON PAROLA CHIAVE
@@ -88,10 +99,14 @@ public class DbSampleSetup {
                     + "gmjjmkwiefta gmuktqbir ekl tai ukbtil ketbmkr, er wiff er bk jeky wmqfl mqhekbretbmkr.", Lingua.inglese, "English Language", false, false);
             mittente = new UserInfo(st3.getId(), st3.getNome(), st2.getCognome());
             destinatario = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());
-
+            sdc = new SistemaCifratura(0, "SDCm3", "english", Cifrario.PAROLA_CHIAVE, mittente);
+            sdc.salva();
             m3.setMittente(mittente);
             m3.setDestinatario(destinatario);
+            m3.setSistemaCifratura(sdc);
             m3.salva();
+            proposta = new Proposta(sdc, mittente, destinatario);
+            proposta.salva();
             System.out.println("DbSetup: messaggio 3 salvato");
 
             /**
