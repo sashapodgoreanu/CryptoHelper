@@ -1,4 +1,4 @@
-TO-DO (aggiornato 02/06/14)
+TO-DO (aggiornato 03/06/14)
 
 ********************** UC1 **************************
 - ok creaSistemaDicifratura
@@ -21,7 +21,7 @@ TO-DO (aggiornato 02/06/14)
 - ok Implementare classe Mossa
 - ok Implementare classe albero
 - ok Implementare classe soluzione
-- creare utenti, messagi esempi da tenere nel db [IN CORSO]
+- ok creare utenti, messagi esempi da tenere nel db
 - refactoring, commenti e pulizia del codice
 - ok da revisionare ricerca ipotesi
 - ok da ritornare ad area lavoro una mossa e reimpostare la tabella mosse. 

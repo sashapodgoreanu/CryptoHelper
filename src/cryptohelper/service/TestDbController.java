@@ -104,8 +104,8 @@ public class TestDbController {
             System.out.println(s3.toString());
             s3.salva();
 
-            ArrayList<SessioneLavoro> sessioniUser1 = SessioneLavoro.caricaSessioni(destinatario.getId());
-            System.out.println("Sessioni User1" + sessioniUser1.toString());
+      //      ArrayList<SessioneLavoro> sessioniUser1 = SessioneLavoro.caricaSessioni(destinatario.getId());
+           // System.out.println("Sessioni User1" + sessioniUser1.toString());
 
             /*         SessioneLavoro s3 = new SessioneLavoro(2, "Sessione3", destinatario, alberoSessione, m1);
              s3.salva();
