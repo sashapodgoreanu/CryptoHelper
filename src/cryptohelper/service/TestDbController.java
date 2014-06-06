@@ -3,7 +3,6 @@ package cryptohelper.service;
 import cryptohelper.data.AlberoIpotesi;
 import cryptohelper.data.Lingua;
 import cryptohelper.data.Messaggio;
-import cryptohelper.data.QueryResult;
 import cryptohelper.data.SessioneLavoro;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;

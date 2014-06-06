@@ -1,6 +1,7 @@
 //Classe Messaggio
 package cryptohelper.data;
 
+import cryptohelper.service.QueryResult;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;

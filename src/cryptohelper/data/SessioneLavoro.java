@@ -1,5 +1,6 @@
 package cryptohelper.data;
 
+import cryptohelper.service.QueryResult;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import cryptohelper.interfaces.HtmlVisitable;

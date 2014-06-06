@@ -1,6 +1,7 @@
 // classe Proposta
 package cryptohelper.data;
 
+import cryptohelper.service.QueryResult;
 import cryptohelper.interfaces.HtmlVisitable;
 import cryptohelper.interfaces.HtmlVisitorInterface;
 import cryptohelper.service.DBController;

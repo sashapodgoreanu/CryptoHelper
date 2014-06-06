@@ -2,7 +2,7 @@ package cryptohelper.com;
 
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.Proposta;
-import cryptohelper.data.QueryResult;
+import cryptohelper.service.QueryResult;
 import cryptohelper.data.SistemaCifratura;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;

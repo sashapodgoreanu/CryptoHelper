@@ -1,6 +1,7 @@
 //classe Studente
 package cryptohelper.data;
 
+import cryptohelper.service.QueryResult;
 import cryptohelper.service.DBController;
 import java.sql.SQLException;
 import java.util.logging.Level;

@@ -1,4 +1,4 @@
-package cryptohelper.data;
+package cryptohelper.service;
 
 import java.util.ArrayList;
 import java.util.Map;

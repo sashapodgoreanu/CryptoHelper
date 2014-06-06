@@ -2,7 +2,6 @@
 //Crea e gestisce il DB, esegue le query
 package cryptohelper.service;
 
-import cryptohelper.data.QueryResult;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
