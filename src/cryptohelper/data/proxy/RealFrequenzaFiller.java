@@ -24,7 +24,7 @@ public class RealFrequenzaFiller extends FrequenzaFiller {
             for (int i = 0; i < 26; i++) {
                 if (src.hasNextDouble()) {
                     frequenza[i] = src.nextDouble();
-                    //             System.out.println(frequenza[i]);
+                    //System.out.println(frequenza[i]);
                 } else {//se non è un intero consumalo
                     src.next();
                 }
