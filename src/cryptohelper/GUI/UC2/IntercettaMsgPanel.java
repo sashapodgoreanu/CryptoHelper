@@ -26,6 +26,9 @@ public class IntercettaMsgPanel extends JFrame implements View, VisitableGuiUC2 
     JButton nuovaSessioneBtn;
     JButton salvaSessioneBtn;
     JButton caricaSessioneBtn;
+    JButton gestisciSoluzioniBtn;
+    JButton salvaSoluzioneBtn;
+
     JButton logoutBtn;
     ArrayList<Messaggio> msgArrLst;
 
@@ -41,11 +44,17 @@ public class IntercettaMsgPanel extends JFrame implements View, VisitableGuiUC2 
         nuovaSessioneBtn = new JButton("Nuova sessione di lavoro");
         caricaSessioneBtn = new JButton("Carica sessione di lavoro");
         salvaSessioneBtn = new JButton("Salva sessione di lavoro");
+        gestisciSoluzioniBtn = new JButton("Gestisci soluzioni");
+        salvaSoluzioneBtn = new JButton("Salva soluzione");
         salvaSessioneBtn.setEnabled(false);
+        salvaSoluzioneBtn.setEnabled(false);
+        gestisciSoluzioniBtn.setEnabled(false);
         toolbarPanel.setBackground(Color.LIGHT_GRAY);
         toolbarPanel.add(nuovaSessioneBtn);
         toolbarPanel.add(caricaSessioneBtn);
         toolbarPanel.add(salvaSessioneBtn);
+        toolbarPanel.add(salvaSoluzioneBtn);
+        toolbarPanel.add(gestisciSoluzioniBtn);
         toolbarPanel.add(logoutBtn);
 
         //INIT DI BODY PANEL
