@@ -33,57 +33,6 @@ public class Soluzione {
         this.mappatura = mappatura;
     }
 
-    public Mappatura getMappatura() {
-        return mappatura;
-    }
-
-    public void setMappatura(Mappatura mappatura) {
-        this.mappatura = mappatura;
-    }
-
-    //METODI GETTER
-    public int getId() {
-        return id;
-    }
-
-    public boolean isValida() {
-        return isValida;
-    }
-
-    //METODI SETTER
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setValida(boolean valida) {
-        this.isValida = valida;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public UserInfo getStud() {
-        return stud;
-    }
-
-    public void setStud(UserInfo stud) {
-        this.stud = stud;
-    }
-
-    public boolean isIsValida() {
-        return isValida;
-    }
-
-    public void setIsValida(boolean isValida) {
-        this.isValida = isValida;
-    }
-
-
     //Salva Soluzione nel db. Restituisce TRUE se l'oparazione va a buon fine
     public boolean salva() {
         boolean result = false;
@@ -167,7 +116,7 @@ public class Soluzione {
     private String qupdate() {
         String mappaturaStr = mappaturaUpdatetoString();
         String querryUpdate = "UPDATE SOLUZIONE"
-                + " SET MAPPATURA = '"+ mappaturaStr
+                + " SET MAPPATURA = '" + mappaturaStr
                 + "',"
                 + " IS_VALIDA = '" + isValida
                 + "'"
@@ -208,5 +157,53 @@ public class Soluzione {
         System.out.println("Mappatura Sol " + Arrays.toString(mappatura.getMappaInversa()));
     }
 
+    //METODI GETTER
+    public int getId() {
+        return id;
+    }
 
+    public boolean isValida() {
+        return isValida;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public UserInfo getStud() {
+        return stud;
+    }
+
+    public boolean isIsValida() {
+        return isValida;
+    }
+
+    public Mappatura getMappatura() {
+        return mappatura;
+    }
+
+    //METODI SETTER
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setValida(boolean valida) {
+        this.isValida = valida;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setStud(UserInfo stud) {
+        this.stud = stud;
+    }
+
+    public void setIsValida(boolean isValida) {
+        this.isValida = isValida;
+    }
+
+    public void setMappatura(Mappatura mappatura) {
+        this.mappatura = mappatura;
+    }
 }
