@@ -11,6 +11,7 @@ import cryptohelper.data.HtmlVisitor;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.Mossa;
 import cryptohelper.data.SessioneLavoro;
+import cryptohelper.data.Soluzione;
 import cryptohelper.data.UserInfo;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.VisitorGuiUC2;
@@ -33,6 +34,7 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
     private CaricaSessionePanel caricaSessionePanel;
     private AreaLavoroPanel areaLavoroPanel;
     private SessioneLavoro session;
+    private Soluzione solution;
     private final TableMappaturaListener tableListener = new TableMappaturaListener();
 
     private GUIControllerUC2() {
@@ -53,6 +55,8 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
         intercettaMessaggioPanel.getNuovaSessioneBtn().addActionListener(new NewSessioneListener());
         intercettaMessaggioPanel.getCaricaSessioneBtn().addActionListener(new LoadSessionListener());
         intercettaMessaggioPanel.getSalvaSessioneBtn().addActionListener(new SaveSessionListener());
+        intercettaMessaggioPanel.getGestisciSoluzioniBtn().addActionListener(new ManageSolutionListener());
+        intercettaMessaggioPanel.getSalvaSoluzioneBtn().addActionListener(new SaveSolutionListener());
         intercettaMessaggioPanel.getLogoutBtn().addActionListener(new LogoutListener());
     }
 
@@ -162,6 +166,38 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
         }
     }
 
+    //classe listener per il button "Gestisci Soluzioni"
+    private class ManageSolutionListener implements ActionListener {
+
+        @Override
+        @SuppressWarnings("empty-statement")
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            if (session.salva()) {
+                intercettaMessaggioPanel.setStatus("Sessione salvata correttamente!");
+            } else {
+                intercettaMessaggioPanel.setStatus("Si è verificato un errore nel salvataggio della sessione!");
+            }
+        }
+    }
+
+    //classe listener per il button "Salva Soluzione"
+    private class SaveSolutionListener implements ActionListener {
+
+        @Override
+        @SuppressWarnings("empty-statement")
+        public void actionPerformed(ActionEvent e) {
+            JButton ev = (JButton) e.getSource();
+            System.out.println("Clicked " + ev.getText());
+            if (session.salva()) {
+                intercettaMessaggioPanel.setStatus("Soluzione salvata correttamente!");
+            } else {
+                intercettaMessaggioPanel.setStatus("Si è verificato un errore nel salvataggio della soluzione!");
+            }
+        }
+    }
+
 //classe listener per la scelta dei messaggi nella nuova sessione 
     private class ViewMsgChoiceListener implements ListSelectionListener {
 
@@ -207,6 +243,7 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             session = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
             System.out.println("LoadWorkspaceListener :" + session.toString());
             intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
+            intercettaMessaggioPanel.getSalvaSoluzioneBtn().setEnabled(true);
             intercettaMessaggioPanel.initAreaLavoro(session);
         }
     }
@@ -227,6 +264,7 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             } else {
                 System.out.println("LoadWorkspaceListener :" + session.toString());
                 intercettaMessaggioPanel.getSalvaSessioneBtn().setEnabled(true);
+                intercettaMessaggioPanel.getSalvaSoluzioneBtn().setEnabled(true);
                 intercettaMessaggioPanel.initAreaLavoro(session);
             }
         }

@@ -48,7 +48,6 @@ public class IntercettaMsgPanel extends JFrame implements View, VisitableGuiUC2 
         salvaSoluzioneBtn = new JButton("Salva soluzione");
         salvaSessioneBtn.setEnabled(false);
         salvaSoluzioneBtn.setEnabled(false);
-        gestisciSoluzioniBtn.setEnabled(false);
         toolbarPanel.setBackground(Color.LIGHT_GRAY);
         toolbarPanel.add(nuovaSessioneBtn);
         toolbarPanel.add(caricaSessioneBtn);
@@ -151,9 +150,16 @@ public class IntercettaMsgPanel extends JFrame implements View, VisitableGuiUC2 
         return salvaSessioneBtn;
     }
 
+    public JButton getGestisciSoluzioniBtn() {
+        return gestisciSoluzioniBtn;
+    }
+
+    public JButton getSalvaSoluzioneBtn() {
+        return salvaSoluzioneBtn;
+    }
+
     //METODI SETTER
     public void setStatus(String statusLabel) {
         this.statusLabel.setText(statusLabel);
     }
-
 }
