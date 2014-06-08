@@ -1,3 +1,5 @@
+//File haendler effettivo: legge dei file di testo le frequenze dei bigrammi e dei caratteri
+
 package cryptohelper.data.proxy;
 
 import java.io.FileReader;
