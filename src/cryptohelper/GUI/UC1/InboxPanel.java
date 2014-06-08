@@ -40,6 +40,7 @@ public class InboxPanel extends JPanel implements View, VisitableGuiUC1 {
     JLabel chiaveLabel;
     JList elencoMessaggiRicevuti;
     JTextPane corpoMessaggio;
+    JScrollPane scrollPaneCorpoMessaggio;
     JScrollPane scrollPane;
     ArrayList<MessaggioDestinatario> mittentiMessaggiArrLst; //elenco mittenti dei messaggi di cui l'utente loggato è destinatario
 
@@ -76,8 +77,7 @@ public class InboxPanel extends JPanel implements View, VisitableGuiUC1 {
         corpoMessaggio.setPreferredSize(new Dimension(600, 250));
         corpoMessaggio.setContentType("text/html"); //consente formattazione html
         corpoMessaggio.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
-        Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
-        corpoMessaggio.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
+        corpoMessaggio.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10)); //assegna un margine al controllo
         elencoMessaggiRicevuti = new JList(new Vector<MessaggioDestinatario>(mittentiMessaggiArrLst));
         elencoMessaggiRicevuti.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -98,10 +98,11 @@ public class InboxPanel extends JPanel implements View, VisitableGuiUC1 {
         scrollPane = new JScrollPane();
         scrollPane.setPreferredSize(new Dimension(165, 250));
         scrollPane.setViewportView(elencoMessaggiRicevuti);
-
+        scrollPaneCorpoMessaggio = new JScrollPane(corpoMessaggio);
+        
         //AGGIUNTA DEI CONTROLLI AI PANNELLI      
         leftPanel.add(messageTextLabel, BorderLayout.NORTH);
-        leftPanel.add(corpoMessaggio, BorderLayout.CENTER);
+        leftPanel.add(scrollPaneCorpoMessaggio, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
         bottomPanel.add(chiaveLabel);

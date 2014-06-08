@@ -1,3 +1,5 @@
+//Classe astratta del pattern proxy. E' estesa sia da ProxyFrequenzaFiller, sia da ReaFrequenzaFiller
+
 package cryptohelper.data.proxy;
 
 import java.io.IOException;

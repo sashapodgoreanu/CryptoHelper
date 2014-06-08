@@ -116,10 +116,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         return destinatario;
     }
 
-    /**
-     *
-     * @return
-     */
+    @Override
     public UserInfo getMittente() {
         return mittente;
     }
