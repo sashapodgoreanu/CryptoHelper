@@ -27,6 +27,7 @@ TO-DO (aggiornato 08/06/14)
 - ok da ritornare ad area lavoro una mossa e reimpostare la tabella mosse. 
 - ok Elenca soluzioni + pannello  ****SASHA CONTROLLA SE VA BENE!!! ****
 
+- SQL escape per il testo dei messaggi
 
 
 ************************ BUG **********************
