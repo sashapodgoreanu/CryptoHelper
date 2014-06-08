@@ -80,9 +80,8 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
     @Override
     public void visit(GestisciSoluzioniPanel gsp) {
         gestisciSoluzioniPanel = gsp;
-        gestisciSoluzioniPanel.getElencoSoluzioni().addListSelectionListener(new ViewSessionChoiceListener());
-        gestisciSoluzioniPanel.getEliminaSoluzioneBtn().addActionListener(new DeleteSessionListener());
-        gestisciSoluzioniPanel.getOkBtn().addActionListener(new LoadWorkspaceListener());
+        gestisciSoluzioniPanel.getElencoSoluzioni().addListSelectionListener(new ViewSolutionChoiceListener());
+        gestisciSoluzioniPanel.getEliminaSoluzioneBtn().addActionListener(new DeleteSolutionListener());
     }
 
     @Override
@@ -228,7 +227,18 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
         }
     }
 
-//classe listener per il button "elimina sessione" del pannello "carica sessione" 
+    //classe listener per la scelta della soluzione da visualizzare 
+    private class ViewSolutionChoiceListener implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            System.out.println("Clicked LIST");
+            Soluzione chosenSol = (Soluzione) gestisciSoluzioniPanel.getElencoSoluzioni().getSelectedValue();
+            gestisciSoluzioniPanel.getInfoSoluzione().setText((new HtmlVisitor().visit(chosenSol)));
+        }
+    }
+
+    //classe listener per il button "elimina sessione" del pannello "carica sessione" 
     private class DeleteSessionListener implements ActionListener {
 
         @Override
@@ -236,7 +246,19 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             SessioneLavoro sessionTemp = (SessioneLavoro) caricaSessionePanel.getElencoSessioni().getSelectedValue();
             sessionTemp.elimina();
             caricaSessionePanel.deleteSelectedIndex();
-            intercettaMessaggioPanel.setStatus("Bozza eliminata correttamente!");
+            intercettaMessaggioPanel.setStatus("Sessione eliminata correttamente!");
+        }
+    }
+    
+    //classe listener per il button "elimina soluzione" del pannello "gestisci soluzioni" 
+    private class DeleteSolutionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Soluzione soluzioneTemp = (Soluzione) gestisciSoluzioniPanel.getElencoSoluzioni().getSelectedValue();
+            soluzioneTemp.elimina();
+            gestisciSoluzioniPanel.deleteSelectedIndex();
+            intercettaMessaggioPanel.setStatus("Soluzione eliminata correttamente!");
         }
     }
 

@@ -26,7 +26,6 @@ public class GestisciSoluzioniPanel extends JPanel implements View, VisitableGui
     JTextPane infoSoluzione;
     JScrollPane scrollPane;
     JButton eliminaSoluzioneBtn;
-    JButton okBtn;
     ArrayList<Soluzione> elencoSoluzioniArrLst; //elenco soluzioni
 
     public GestisciSoluzioniPanel(ArrayList<Soluzione> elencoSoluzioni) {
@@ -56,7 +55,6 @@ public class GestisciSoluzioniPanel extends JPanel implements View, VisitableGui
         targetListLabel = new JLabel("Sessioni disponibili:");
         messageTextLabel = new JLabel("Informazioni soluzione:");
         eliminaSoluzioneBtn = new JButton("Elimina soluzione");
-        okBtn = new JButton("Avanti");
         elencoSoluzioni = new JList(new Vector<Soluzione>(elencoSoluzioniArrLst));
         elencoSoluzioni.setCellRenderer(new DefaultListCellRenderer() {
             @Override
@@ -90,7 +88,6 @@ public class GestisciSoluzioniPanel extends JPanel implements View, VisitableGui
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
         bottomPanel.add(eliminaSoluzioneBtn);
-        bottomPanel.add(okBtn);
 
         //AGGIUNTA DEI PANNELLI
         this.add(topPanel, BorderLayout.NORTH);
@@ -138,10 +135,6 @@ public class GestisciSoluzioniPanel extends JPanel implements View, VisitableGui
 
     public JTextPane getInfoSoluzione() {
         return infoSoluzione;
-    }
-
-    public JButton getOkBtn() {
-        return okBtn;
     }
 
     public JButton getEliminaSoluzioneBtn() {

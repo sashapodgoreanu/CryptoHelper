@@ -63,6 +63,19 @@ public class Soluzione {
         return result;
     }
 
+    //Elimina una soluzione dalla tabella soluzioni. Restituisce TRUE se l'oparazione va a buon fine
+    public boolean elimina() {
+        DBController dbc = DBController.getInstance();
+        boolean result = false;
+        String query = "DELETE FROM Soluzioni WHERE ID=" + this.getId();
+        try {
+            result = dbc.executeUpdate(query);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return result;
+    }
+
     public static Soluzione caricaSoluzione(int id) {
         String query = "SELECT * FROM Soluzione WHERE ID = " + id;
         QueryResult qr = null;
@@ -105,7 +118,6 @@ public class Soluzione {
         return soluzioni;
     }
 
-    
     private static Mappatura getMap(QueryResult qr) throws Exception {
         Mappatura map = new Mappatura();
         //System.out.println("MAAAAAP1" + map.toString());
