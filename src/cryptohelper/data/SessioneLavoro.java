@@ -1,12 +1,12 @@
 package cryptohelper.data;
 
-import cryptohelper.service.QueryResult;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import cryptohelper.interfaces.HtmlVisitable;
 import cryptohelper.interfaces.HtmlVisitorInterface;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.service.DBController;
+import cryptohelper.service.QueryResult;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -45,7 +45,7 @@ public class SessioneLavoro implements HtmlVisitable {
         this.autore = autore;
         this.messaggioIntercettato = messaggio;
         this.alberoIpotesi = new AlberoIpotesi(messaggio.getTestoCifrato());
-        this.soluzione = new Soluzione();
+        this.soluzione = new Soluzione(nomeSessione, autore);
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         this.ultimaModifica = (dateFormat.format(date));
@@ -125,7 +125,7 @@ public class SessioneLavoro implements HtmlVisitable {
 
     @Override
     public String toString() {
-        return "Sessione{" + "id=" + idSessione + "Nome=" + nomeSessione + ", utente=" + autore + ", messaggio=" + messaggioIntercettato + ", albero= " + alberoIpotesi + ", soluzione= " + soluzione + ", modifica= " + ultimaModifica + "}";
+        return "Sessione{" + "id=" + idSessione + ", Nome=" + nomeSessione + ", utente=" + autore + ", messaggio=" + messaggioIntercettato + ", albero= " + alberoIpotesi + ", soluzione= " + soluzione + ", modifica= " + ultimaModifica + "}";
     }
 
     //Preleva l'elenco delle sessioni inviati dallo studente indicato

@@ -131,10 +131,24 @@ public class DBController {
                 + "Ultima_modifica VARCHAR(32),"
                 + "FOREIGN KEY(id_utente) REFERENCES Studenti(ID)"
                 + ")";
+        String querySoluzione = "CREATE TABLE Soluzione"
+                + "("
+                + "ID INTEGER not null primary key "
+                + "GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                + "ID_UTENTE INTEGER,"
+                + "NOME_SOLUZIONE VARCHAR (32),"
+                + "MAPPATURA VARCHAR (26),"
+                + "IS_VALIDA VARCHAR (6),"
+                + "FOREIGN KEY(ID_UTENTE) REFERENCES Studenti(ID)"
+                + ")";
         connect();
         //Non bisogna piu comentare le tabele per far funzionare il Test
         try {
             //drop di tutte le tabelle esistenti
+            if (isTableExist("Soluzione")) {
+                st.execute("DROP TABLE Soluzione");
+                System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SessioneLavoro eliminata!");
+            }
             if (isTableExist("SessioneLavoro")) {
                 st.execute("DROP TABLE SessioneLavoro");
                 System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SessioneLavoro eliminata!");
@@ -173,6 +187,8 @@ public class DBController {
             //System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella AlberoIpotesi creata!");
             st.executeUpdate(querySessioneLavoro);
             System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SessioneLavoro creata!");
+            st.executeUpdate(querySoluzione);
+            System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella Soluzione creata!");
         } catch (SQLException e) {
             log.fatal(this.getClass() + ":" + e.getMessage());
         } finally {

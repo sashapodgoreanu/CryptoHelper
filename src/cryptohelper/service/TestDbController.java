@@ -4,10 +4,10 @@ import cryptohelper.data.AlberoIpotesi;
 import cryptohelper.data.Lingua;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.SessioneLavoro;
+import cryptohelper.data.Soluzione;
 import cryptohelper.data.Studente;
 import cryptohelper.data.UserInfo;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -93,15 +93,18 @@ public class TestDbController {
             System.out.println(s1.toString());
             s1.salva();
 
-            SessioneLavoro s2 = new SessioneLavoro(1, "Sessione2", destinatario, m1, alberoSessione, null);
+            SessioneLavoro s2 = new SessioneLavoro(0, "Sessione2", destinatario, m1, alberoSessione, null);
             System.out.println("S2");
             System.out.println(s2.toString());
             s2.salva();
 
-            SessioneLavoro s3 = new SessioneLavoro(1, "Sessione2", destinatario, m1, alberoSessione, null);
+            SessioneLavoro s3 = new SessioneLavoro(0, "Sessione2", destinatario, m1, alberoSessione, null);
             System.out.println("S2");
             System.out.println(s3.toString());
             s3.salva();
+
+            Soluzione sol1 = new Soluzione("primaSoluzione", destinatario);
+            sol1.salva();
 
       //      ArrayList<SessioneLavoro> sessioniUser1 = SessioneLavoro.caricaSessioni(destinatario.getId());
            // System.out.println("Sessioni User1" + sessioniUser1.toString());
