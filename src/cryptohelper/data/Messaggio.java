@@ -116,10 +116,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         return destinatario;
     }
 
-    /**
-     *
-     * @return
-     */
+    @Override
     public UserInfo getMittente() {
         return mittente;
     }
@@ -280,7 +277,6 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         return bozze;
     }
 
-
     //Preleva l'elenco dei messaggi inviati dallo studente indicato
     public static ArrayList<MessaggioMittente> caricaMessaggiInviati(int idStudente) {
         String query = "SELECT * FROM Messaggi WHERE ID_Mittente = " + idStudente + "AND Bozza = False";
@@ -308,8 +304,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
 
     //Preleva tutti i messaggi intercettabili dal db: vengono escluse le bozze e i messaggi inviati dall'utente stesso
     public static ArrayList<MessaggioIntercettato> caricaMessaggi(int idStudente) {
-        String query = "SELECT * FROM Messaggi WHERE Bozza = False AND ID_Mittente <> " + idStudente
-                ;
+        String query = "SELECT * FROM Messaggi WHERE Bozza = False AND ID_Mittente <> " + idStudente;
         QueryResult qr = null;
         ArrayList<MessaggioIntercettato> msgs = new ArrayList<>();
         try {

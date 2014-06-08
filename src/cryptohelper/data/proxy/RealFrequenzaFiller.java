@@ -46,7 +46,7 @@ public class RealFrequenzaFiller extends FrequenzaFiller {
                 for (int j = 0; j < 26; j++) {
                     if (src.hasNextInt()) {
                         bigrammi[i][j] = src.nextInt();
-                        //            System.out.println(bigrammi[i][j]);
+                        //System.out.println(bigrammi[i][j]);
                     } else {//se non è un intero consumalo
                         src.next();
                     }
