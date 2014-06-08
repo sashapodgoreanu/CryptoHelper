@@ -1,11 +1,11 @@
 //Classe Messaggio
 package cryptohelper.data;
 
-import cryptohelper.service.QueryResult;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.service.DBController;
+import cryptohelper.service.QueryResult;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.commons.logging.Log;
@@ -175,11 +175,13 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         return true;
     }
 
+    
+
     private String qupdate() {
         String querryUpdate = "UPDATE MESSAGGI"
-                + " SET TESTO = '" + this.getTesto()
+                + " SET TESTO = '" + DBController.escapeForSQL(this.getTesto())
                 + "',"
-                + " TESTOCIFRATO = '" + this.getTestoCifrato()
+                + " TESTOCIFRATO = '" + DBController.escapeForSQL(this.getTestoCifrato())
                 + "',"
                 + " ID_MITTENTE = " + this.getMittente().getId()
                 + ","
@@ -187,7 +189,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
                 + ","
                 + " LINGUA = '" + this.getLingua()
                 + "',"
-                + " TITOLO = '" + this.getTitolo()
+                + " TITOLO = '" + DBController.escapeForSQL(this.getTitolo())
                 + "',"
                 + " BOZZA = '" + this.isBozza()
                 + "',"
@@ -204,13 +206,13 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
                 + ","
                 + this.getDestinatario().getId()
                 + ",'"
-                + this.getTesto()
+                + DBController.escapeForSQL(this.getTesto())
                 + "','"
-                + this.getTestoCifrato()
+                + DBController.escapeForSQL(this.getTestoCifrato())
                 + "','"
                 + this.getLingua()
                 + "','"
-                + this.getTitolo()
+                + DBController.escapeForSQL(this.getTitolo())
                 + "','"
                 + this.isBozza()
                 + "','"
