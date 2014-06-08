@@ -43,12 +43,12 @@ public class DbSampleSetup {
              */
             //MESSAGGIO 1 (testo sull'informatica): CIFRATO CON CIFRARIO DI CESARE
             //CHIAVE = "4"
-            Messaggio m1 = new Messaggio(0, "L''informatica (termine che deriva dalla lingua francese informatique, "
+            Messaggio m1 = new Messaggio(0, "L'informatica (termine che deriva dalla lingua francese informatique, "
                     + "contrazione di informazione automatica) è la scienza che ha per oggetto lo studio dei fondamenti "
-                    + "teorici dell''informazione, della sua computazione a livello logico e delle tecniche pratiche per "
+                    + "teorici dell'informazione, della sua computazione a livello logico e delle tecniche pratiche per "
                     + "la sua implementazione e applicazione in sistemi elettronici automatizzati detti quindi sistemi informatici.",
-                    "q''nsktwrfynhf (yjwrnsj hmj ijwnaf ifqqf qnslzf kwfshjxj nsktwrfynvzj, htsywfentsj in nsktwrfentsj fzytrfynhf) è"
-                    + " qf xhnjsef hmj mf ujw tlljyyt qt xyzint ijn ktsifrjsyn yjtwnhn ijqq''nsktwrfentsj, ijqqf xzf htruzyfentsj"
+                    "q'nsktwrfynhf (yjwrnsj hmj ijwnaf ifqqf qnslzf kwfshjxj nsktwrfynvzj, htsywfentsj in nsktwrfentsj fzytrfynhf) è"
+                    + " qf xhnjsef hmj mf ujw tlljyyt qt xyzint ijn ktsifrjsyn yjtwnhn ijqq'nsktwrfentsj, ijqqf xzf htruzyfentsj"
                     + " f qnajqqt qtlnht j ijqqj yjhsnhmj uwfynhmj ujw qf xzf nruqjrjsyfentsj j fuuqnhfentsj ns xnxyjrn jqjyywtsnhn"
                     + " fzytrfyneefyn ijyyn vznsin xnxyjrn nsktwrfynhn.", Lingua.italiano, "Informatica", false, false);
             mittente = new UserInfo(st1.getId(), st1.getNome(), st1.getCognome());

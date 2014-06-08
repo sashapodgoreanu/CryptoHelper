@@ -77,18 +77,18 @@ public class SessioneLavoro implements HtmlVisitable {
                 + ",'"
                 + this.getNomeSessione()
                 + "','"
-                + alberoXML
+                + DBController.escapeForSQL(alberoXML)
                 + "','"
-                + messaggioIntercettatoXML
+                + DBController.escapeForSQL(messaggioIntercettatoXML)
                 + "',"
                 + this.soluzione.getId()
                 + ",'"
                 + this.getUltimaModifica()
                 + "')";
         String queryUpdate = "UPDATE SessioneLavoro"
-                + " Set MESSAGGIO_INTERCETTATO = '" + messaggioIntercettatoXML
+                + " Set MESSAGGIO_INTERCETTATO = '" + DBController.escapeForSQL(messaggioIntercettatoXML)
                 + "',"
-                + " ALBERO_IPOTESI = '" + alberoXML
+                + " ALBERO_IPOTESI = '" + DBController.escapeForSQL(alberoXML)
                 + "',"
                 + " Ultima_Modifica = '" + this.getUltimaModifica()
                 + "'"

@@ -50,7 +50,11 @@ public class FloatIng {
         System.out.println(sb);
 
         System.out.println("2222");
-        System.out.println(DBController.escapeForSQL("''''"));
+        System.out.println(DBController.escapeForSQL("Wikipedia è un''enciclopedia online, collaborativa e gratuita. Disponibile in "
+                + "oltre 280 lingue, affronta sia gli argomenti tipici delle enciclopedie tradizionali sia quelli "
+                + "presenti in almanacchi, dizionari geografici e pubblicazioni specialistiche.\n"
+                + "Wikipedia è liberamente modificabile: chiunque può contribuire alle voci esistenti o crearne di nuove. Ogni contenuto "
+                + "è pubblicato sotto licenza Creative Commons e può pertanto essere copiato e riutilizzato adottando la medesima licenza."));
         
     }   
 }

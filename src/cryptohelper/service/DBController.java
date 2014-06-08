@@ -308,7 +308,7 @@ public class DBController {
         for (int i = 0; i < text.length(); i++) {
             if (text.charAt(i) == '\'') {
                 System.out.println(i);
-                result.insert(i, '\\');
+                result.insert(i, '\'');
                 text = result.toString();
                 i++;
 

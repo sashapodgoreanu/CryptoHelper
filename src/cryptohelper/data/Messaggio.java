@@ -189,7 +189,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
                 + ","
                 + " LINGUA = '" + this.getLingua()
                 + "',"
-                + " TITOLO = '" + this.getTitolo()
+                + " TITOLO = '" + DBController.escapeForSQL(this.getTitolo())
                 + "',"
                 + " BOZZA = '" + this.isBozza()
                 + "',"
@@ -206,13 +206,13 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
                 + ","
                 + this.getDestinatario().getId()
                 + ",'"
-                + this.getTesto()
+                + DBController.escapeForSQL(this.getTesto())
                 + "','"
-                + this.getTestoCifrato()
+                + DBController.escapeForSQL(this.getTestoCifrato())
                 + "','"
                 + this.getLingua()
                 + "','"
-                + this.getTitolo()
+                + DBController.escapeForSQL(this.getTitolo())
                 + "','"
                 + this.isBozza()
                 + "','"
