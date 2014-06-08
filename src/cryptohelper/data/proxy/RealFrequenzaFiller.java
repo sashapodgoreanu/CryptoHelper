@@ -1,3 +1,5 @@
+//File haendler effettivo: legge dei file di testo le frequenze dei bigrammi e dei caratteri
+
 package cryptohelper.data.proxy;
 
 import java.io.FileReader;
@@ -24,7 +26,7 @@ public class RealFrequenzaFiller extends FrequenzaFiller {
             for (int i = 0; i < 26; i++) {
                 if (src.hasNextDouble()) {
                     frequenza[i] = src.nextDouble();
-                    //             System.out.println(frequenza[i]);
+                    //System.out.println(frequenza[i]);
                 } else {//se non è un intero consumalo
                     src.next();
                 }
