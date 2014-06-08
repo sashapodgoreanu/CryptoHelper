@@ -302,6 +302,20 @@ public class DBController {
         }
         return result;
     }
+
+    public static String escapeForSQL(String text) {
+        StringBuilder result = new StringBuilder(text);
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == '\'') {
+                System.out.println(i);
+                result.insert(i, '\\');
+                text = result.toString();
+                i++;
+
+            }
+        }
+        return result.toString();
+    }
     /*
      public boolean saveObject(Object javaObject, String query) throws SQLException, IOException {
      connect();

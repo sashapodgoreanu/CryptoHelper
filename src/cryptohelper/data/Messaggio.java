@@ -1,11 +1,11 @@
 //Classe Messaggio
 package cryptohelper.data;
 
-import cryptohelper.service.QueryResult;
 import cryptohelper.interfaces.MessaggioDestinatario;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.MessaggioMittente;
 import cryptohelper.service.DBController;
+import cryptohelper.service.QueryResult;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.commons.logging.Log;
@@ -178,11 +178,13 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         return true;
     }
 
+    
+
     private String qupdate() {
         String querryUpdate = "UPDATE MESSAGGI"
-                + " SET TESTO = '" + this.getTesto()
+                + " SET TESTO = '" + DBController.escapeForSQL(this.getTesto())
                 + "',"
-                + " TESTOCIFRATO = '" + this.getTestoCifrato()
+                + " TESTOCIFRATO = '" + DBController.escapeForSQL(this.getTestoCifrato())
                 + "',"
                 + " ID_MITTENTE = " + this.getMittente().getId()
                 + ","
@@ -280,7 +282,6 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
         return bozze;
     }
 
-
     //Preleva l'elenco dei messaggi inviati dallo studente indicato
     public static ArrayList<MessaggioMittente> caricaMessaggiInviati(int idStudente) {
         String query = "SELECT * FROM Messaggi WHERE ID_Mittente = " + idStudente + "AND Bozza = False";
@@ -308,8 +309,7 @@ public class Messaggio implements MessaggioDestinatario, MessaggioMittente, Mess
 
     //Preleva tutti i messaggi intercettabili dal db: vengono escluse le bozze e i messaggi inviati dall'utente stesso
     public static ArrayList<MessaggioIntercettato> caricaMessaggi(int idStudente) {
-        String query = "SELECT * FROM Messaggi WHERE Bozza = False AND ID_Mittente <> " + idStudente
-                ;
+        String query = "SELECT * FROM Messaggi WHERE Bozza = False AND ID_Mittente <> " + idStudente;
         QueryResult qr = null;
         ArrayList<MessaggioIntercettato> msgs = new ArrayList<>();
         try {

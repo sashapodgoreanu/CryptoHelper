@@ -16,6 +16,8 @@
 
 package util.temp.ExperimentSaveObject;
 
+import cryptohelper.service.DBController;
+
 /**
  *
  * @author SashaAlexandru
@@ -46,6 +48,9 @@ public class FloatIng {
         sb.setCharAt(3, 'a');
         sb.setCharAt(4, 'a');
         System.out.println(sb);
+
+        System.out.println("2222");
+        System.out.println(DBController.escapeForSQL("''''"));
         
     }   
 }
