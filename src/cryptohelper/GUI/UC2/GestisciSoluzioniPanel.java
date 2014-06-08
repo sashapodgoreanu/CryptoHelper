@@ -1,10 +1,10 @@
-//Pannello che consente il caricamento di una sessione salvata in precedenza
+//Pannello che consente la gestione delle soluzioni salvate
 package cryptohelper.GUI.UC2;
 
 import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.interfaces.View;
 import cryptohelper.data.HtmlVisitor;
-import cryptohelper.data.SessioneLavoro;
+import cryptohelper.data.Soluzione;
 import cryptohelper.interfaces.VisitableGuiUC2;
 import cryptohelper.interfaces.VisitorGuiUC2;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.awt.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-public class CaricaSessionePanel extends JPanel implements View, VisitableGuiUC2 {
+public class GestisciSoluzioniPanel extends JPanel implements View, VisitableGuiUC2 {
 
     JPanel topPanel;         //pannello in alto
     JPanel leftPanel;        //pannello a sinistra
@@ -22,26 +22,25 @@ public class CaricaSessionePanel extends JPanel implements View, VisitableGuiUC2
     JPanel bottomPanel;      //pannello in basso
     JLabel targetListLabel;
     JLabel messageTextLabel;
-    JList elencoSessioni;
-    JTextPane infoSessione;
+    JList elencoSoluzioni;
+    JTextPane infoSoluzione;
     JScrollPane scrollPane;
-    JButton eliminaSessioneBtn;
+    JButton eliminaSoluzioneBtn;
     JButton okBtn;
-    ArrayList<SessioneLavoro> elencoSessioniArrLst; //elenco delle sessioni
+    ArrayList<Soluzione> elencoSoluzioniArrLst; //elenco soluzioni
 
-
-    public CaricaSessionePanel(ArrayList<SessioneLavoro> elencoSessioni) {
+    public GestisciSoluzioniPanel(ArrayList<Soluzione> elencoSoluzioni) {
         topPanel = new JPanel();
         leftPanel = new JPanel();
         rightPanel = new JPanel();
         bottomPanel = new JPanel();
-        this.elencoSessioniArrLst = elencoSessioni;
+        this.elencoSoluzioniArrLst = elencoSoluzioni;
         this.init();
     }
 
     //inizializza il pannello
     private void init() {
-        System.out.println("Inizzializzazione carica sessione...");   //comunicazione di controllo per i log
+        System.out.println("Inizzializzazione gestisci soluzioni...");   //comunicazione di controllo per i log
 
         //INIT DEI LAYOUT
         this.setLayout(new BorderLayout());
@@ -55,42 +54,42 @@ public class CaricaSessionePanel extends JPanel implements View, VisitableGuiUC2
 
         //INIT DEI CONTROLLI
         targetListLabel = new JLabel("Sessioni disponibili:");
-        messageTextLabel = new JLabel("Informazioni sessione:");
-        eliminaSessioneBtn = new JButton("Elimina sessione");
+        messageTextLabel = new JLabel("Informazioni soluzione:");
+        eliminaSoluzioneBtn = new JButton("Elimina soluzione");
         okBtn = new JButton("Avanti");
-        elencoSessioni = new JList(new Vector<SessioneLavoro>(elencoSessioniArrLst));
-        elencoSessioni.setCellRenderer(new DefaultListCellRenderer() {
+        elencoSoluzioni = new JList(new Vector<Soluzione>(elencoSoluzioniArrLst));
+        elencoSoluzioni.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (renderer instanceof JLabel && value instanceof SessioneLavoro) {
-                    SessioneLavoro temp = (SessioneLavoro) value;
-                    ((JLabel) renderer).setText(temp.getNomeSessione());
+                if (renderer instanceof JLabel && value instanceof Soluzione) {
+                    Soluzione temp = (Soluzione) value;
+                    ((JLabel) renderer).setText(temp.getNome());
                 }
                 return renderer;
             }
         });
-        elencoSessioni.setSelectedIndex(0);
+        elencoSoluzioni.setSelectedIndex(0);
         scrollPane = new JScrollPane();
-        scrollPane.setViewportView(elencoSessioni);
+        scrollPane.setViewportView(elencoSoluzioni);
         scrollPane.setPreferredSize(new Dimension(200, 250));
-        infoSessione = new JTextPane();
-        infoSessione.setPreferredSize(new Dimension(600, 250));
-        infoSessione.setContentType("text/html"); //consente formattazione html
-        infoSessione.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
+        infoSoluzione = new JTextPane();
+        infoSoluzione.setPreferredSize(new Dimension(600, 250));
+        infoSoluzione.setContentType("text/html"); //consente formattazione html
+        infoSoluzione.setEditable(false); //rende in sola lettura il campo con il testo del messaggio
         Border b = BorderFactory.createLineBorder(Color.GRAY);  //crea un bordo al controllo
-        infoSessione.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
-        SessioneLavoro index0 = (SessioneLavoro) elencoSessioni.getSelectedValue();
+        infoSoluzione.setBorder(BorderFactory.createCompoundBorder(b, BorderFactory.createEmptyBorder(0, 10, 0, 10))); //assegna un margine al controllo
+        Soluzione index0 = (Soluzione) elencoSoluzioni.getSelectedValue();
         if (index0 != null) {
-            infoSessione.setText(new HtmlVisitor().visit(index0));
+            infoSoluzione.setText(new HtmlVisitor().visit(index0));
         }
 
         //AGGIUNTA DEI CONTROLLI AI PANNELLI        
         leftPanel.add(messageTextLabel, BorderLayout.NORTH);
-        leftPanel.add(infoSessione, BorderLayout.CENTER);
+        leftPanel.add(infoSoluzione, BorderLayout.CENTER);
         rightPanel.add(targetListLabel, BorderLayout.NORTH);
         rightPanel.add(scrollPane, BorderLayout.CENTER);
-        bottomPanel.add(eliminaSessioneBtn);
+        bottomPanel.add(eliminaSoluzioneBtn);
         bottomPanel.add(okBtn);
 
         //AGGIUNTA DEI PANNELLI
@@ -105,13 +104,13 @@ public class CaricaSessionePanel extends JPanel implements View, VisitableGuiUC2
 
     //elimina l'elemento selezionato nella lista delle sessioni disponibili e aggiorna la vista
     public boolean deleteSelectedIndex() {
-        int toDelete = elencoSessioni.getSelectedIndex();
+        int toDelete = elencoSoluzioni.getSelectedIndex();
         if (toDelete >= 0) {
             rightPanel.removeAll();
             topPanel.removeAll();
             leftPanel.removeAll();
             bottomPanel.removeAll();
-            elencoSessioniArrLst.remove(toDelete);
+            elencoSoluzioniArrLst.remove(toDelete);
             init();
             rightPanel.revalidate();
             topPanel.revalidate();
@@ -133,24 +132,23 @@ public class CaricaSessionePanel extends JPanel implements View, VisitableGuiUC2
     }
 
     //METODI GETTER
-    public JList getElencoSessioni() {
-        return elencoSessioni;
+    public JList getElencoSoluzioni() {
+        return elencoSoluzioni;
     }
 
-    public JTextPane getInfoSessione() {
-        return infoSessione;
+    public JTextPane getInfoSoluzione() {
+        return infoSoluzione;
     }
 
     public JButton getOkBtn() {
         return okBtn;
     }
 
-    public JButton getEliminaSessioneBtn() {
-        return eliminaSessioneBtn;
+    public JButton getEliminaSoluzioneBtn() {
+        return eliminaSoluzioneBtn;
     }
 
-    public SessioneLavoro getSelectedSession() {
-        return elencoSessioniArrLst.get(elencoSessioni.getSelectedIndex());
+    public Soluzione getSelectedSolution() {
+        return elencoSoluzioniArrLst.get(elencoSoluzioni.getSelectedIndex());
     }
-
 }

@@ -5,6 +5,7 @@ package cryptohelper.com;
 import cryptohelper.GUI.UC1.LoginForm;
 import cryptohelper.GUI.UC2.AreaLavoroPanel;
 import cryptohelper.GUI.UC2.CaricaSessionePanel;
+import cryptohelper.GUI.UC2.GestisciSoluzioniPanel;
 import cryptohelper.GUI.UC2.IntercettaMsgPanel;
 import cryptohelper.GUI.UC2.NuovaSessionePanel;
 import cryptohelper.data.HtmlVisitor;
@@ -32,6 +33,7 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
     private IntercettaMsgPanel intercettaMessaggioPanel;
     private NuovaSessionePanel nuovaSessionePanel;
     private CaricaSessionePanel caricaSessionePanel;
+    private GestisciSoluzioniPanel gestisciSoluzioniPanel;
     private AreaLavoroPanel areaLavoroPanel;
     private SessioneLavoro session;
     private Soluzione solution;
@@ -76,13 +78,20 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
     }
 
     @Override
+    public void visit(GestisciSoluzioniPanel gsp) {
+        gestisciSoluzioniPanel = gsp;
+        gestisciSoluzioniPanel.getElencoSoluzioni().addListSelectionListener(new ViewSessionChoiceListener());
+        gestisciSoluzioniPanel.getEliminaSoluzioneBtn().addActionListener(new DeleteSessionListener());
+        gestisciSoluzioniPanel.getOkBtn().addActionListener(new LoadWorkspaceListener());
+    }
+
+    @Override
     public void visit(AreaLavoroPanel alp) {
         areaLavoroPanel = alp;
         areaLavoroPanel.getMappatura().getModel().addTableModelListener(tableListener);
         areaLavoroPanel.getUndoBtn().addActionListener(new UndoListener());
         areaLavoroPanel.getBigrammiComboBox().addActionListener(new BigrammiComboListener());
         areaLavoroPanel.getBigrammiMsgComboBox().addActionListener(new BigrammiMsgComboListener());
-
     }
 
     private class TableMappaturaListener implements TableModelListener {
@@ -172,13 +181,11 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
         @Override
         @SuppressWarnings("empty-statement")
         public void actionPerformed(ActionEvent e) {
+            intercettaMessaggioPanel.setStatus(" ");
             JButton ev = (JButton) e.getSource();
             System.out.println("Clicked " + ev.getText());
-            if (session.salva()) {
-                intercettaMessaggioPanel.setStatus("Sessione salvata correttamente!");
-            } else {
-                intercettaMessaggioPanel.setStatus("Si è verificato un errore nel salvataggio della sessione!");
-            }
+            ArrayList<Soluzione> temp = Soluzione.caricaSoluzioni(comC.getStudente().getId());
+            intercettaMessaggioPanel.initGestisciSoluzioniPanel(temp);
         }
     }
 

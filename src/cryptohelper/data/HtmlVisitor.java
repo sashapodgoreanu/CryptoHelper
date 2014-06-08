@@ -8,9 +8,9 @@ import cryptohelper.interfaces.MessaggioMittente;
 
 public class HtmlVisitor implements HtmlVisitorInterface {
 
-     @Override
+    @Override
     public String visit(Proposta proposta) {
-  //      System.out.println(proposta.getStato());
+        //      System.out.println(proposta.getStato());
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
         sb.append("<p>");
@@ -91,7 +91,7 @@ public class HtmlVisitor implements HtmlVisitorInterface {
     }
 
     //Stampa dati oggetto Messaggio Intercettato
-     @Override
+    @Override
     public String visit(MessaggioIntercettato msgIntercettato) {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
@@ -139,6 +139,27 @@ public class HtmlVisitor implements HtmlVisitorInterface {
         sb.append("</p>");
         sb.append("<p>");
         sb.append("<b>Testo del messaggio intercettato: </b>").append(sl.getMessaggioIntercettato().getAreaLavoro());
+        sb.append("</p>");
+        sb.append("</html>");
+        return sb.toString();
+    }
+
+    @Override
+    public String visit(Soluzione s) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>");
+        sb.append("<p>");
+        sb.append("<b>Nome Soluzione: </b>").append(s.getNome());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Autore: </b>").append(s.getAutore().getNome());
+        sb.append(" ").append(s.getAutore().getCognome());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Soluzione valida: </b>").append(s.isValida());
+        sb.append("</p>");
+        sb.append("<p>");
+        sb.append("<b>Mappatura: </b>").append(s.getMappatura());
         sb.append("</p>");
         sb.append("</html>");
         return sb.toString();

@@ -4,6 +4,7 @@ package cryptohelper.GUI.UC2;
 import cryptohelper.com.GUIControllerUC2;
 import cryptohelper.data.Messaggio;
 import cryptohelper.data.SessioneLavoro;
+import cryptohelper.data.Soluzione;
 import cryptohelper.interfaces.MessaggioIntercettato;
 import cryptohelper.interfaces.View;
 import cryptohelper.interfaces.VisitableGuiUC2;
@@ -119,6 +120,16 @@ public class IntercettaMsgPanel extends JFrame implements View, VisitableGuiUC2 
         bodyPanel.revalidate();                                     //completa l'inizializzazione dell'interfaccia
     }
 
+     //Inizializza l'interfaccia e i componenti quando viene premuto il button "gestisci soluzioni"
+    public void initGestisciSoluzioniPanel(ArrayList<Soluzione> soluzioniArrLst) {
+        this.resetPanels();
+        this.setTitle("CryptoHelper - Gestisci soluzioni");   //cambia titolo al form
+        this.setStatus("Selezionare una soluzione per visualizzare ulteriori dettagli"); //messaggio per la status label
+        System.out.println("initCaricaSessione" + soluzioniArrLst.toString());
+        bodyPanel.add(new GestisciSoluzioniPanel(soluzioniArrLst));  //aggiunge il nuovo pannello
+        bodyPanel.revalidate();                                      //completa l'inizializzazione dell'interfaccia
+    }
+    
     @Override
     public void registerController() {
         this.accept(GUIControllerUC2.getInstance());

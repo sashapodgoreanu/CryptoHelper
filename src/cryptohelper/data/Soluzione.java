@@ -3,6 +3,7 @@ package cryptohelper.data;
 import cryptohelper.service.DBController;
 import cryptohelper.service.QueryResult;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
@@ -10,15 +11,15 @@ public class Soluzione {
 
     private static final Logger LOG = Logger.getLogger(Soluzione.class.getName());
     private int id;
-    private String nome;
-    private UserInfo stud;
     private boolean isValida;
+    private String nome;
+    private UserInfo autore;
     private Mappatura mappatura;
 
     public Soluzione(String nome, UserInfo stud) {
         this.id = 0;
         this.nome = nome;
-        this.stud = stud;
+        this.autore = stud;
         isValida = false;
         mappatura = new Mappatura();
         char[] invmappa = {'-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'};
@@ -28,7 +29,7 @@ public class Soluzione {
     public Soluzione(int id, String nome, UserInfo stud, boolean isValida, Mappatura mappatura) {
         this.id = id;
         this.nome = nome;
-        this.stud = stud;
+        this.autore = stud;
         this.isValida = isValida;
         this.mappatura = mappatura;
     }
@@ -62,10 +63,8 @@ public class Soluzione {
         return result;
     }
 
-    public static Soluzione load(int id) {
-        String query = "SELECT * "
-                + " FROM Soluzione"
-                + " WHERE ID = " + id;
+    public static Soluzione caricaSoluzione(int id) {
+        String query = "SELECT * FROM Soluzione WHERE ID = " + id;
         QueryResult qr = null;
         Soluzione temp = null;
         try {
@@ -75,17 +74,38 @@ public class Soluzione {
                 //UserInfo u = UserInfo.getUserInfo(qr.getInt("ID_UTENTE"));
                 //System.out.println("is valida " + qr.getBoolean("IS_VALIDA"));
                 temp = new Soluzione(qr.getInt("ID"), qr.getString("NOME_SOLUZIONE"), UserInfo.getUserInfo(qr.getInt("ID_UTENTE")), qr.getBoolean("IS_VALIDA"), getMap(qr));
-                ///System.out.println("SOLUZIONE load" + temp.toString());
+                //System.out.println("SOLUZIONE caricaSoluzioni" + temp.toString());
             }
         } catch (SQLException ex) {
             LOG.severe(ex.getMessage());
         } catch (Exception ex) {
             LOG.severe(ex.getMessage());
         }
-        //System.out.println("SOLUZIONE load" + temp.toString());
+        //System.out.println("SOLUZIONE caricaSoluzioni" + temp.toString());
         return temp;
     }
 
+    //preleva tutte le soluzioni salvate dall'utente
+    public static ArrayList<Soluzione> caricaSoluzioni(int id) {
+        String query = "SELECT * FROM Soluzione WHERE ID = " + id;
+        QueryResult qr = null;
+        Soluzione temp = null;
+        ArrayList<Soluzione> soluzioni = new ArrayList<Soluzione>();
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while (qr.next()) {
+                temp = new Soluzione(qr.getInt("ID"), qr.getString("NOME_SOLUZIONE"), UserInfo.getUserInfo(qr.getInt("ID_UTENTE")), qr.getBoolean("IS_VALIDA"), getMap(qr));
+                soluzioni.add(temp);
+            }
+        } catch (SQLException ex) {
+            LOG.severe(ex.getMessage());
+        } catch (Exception ex) {
+            LOG.severe(ex.getMessage());
+        }
+        return soluzioni;
+    }
+
+    
     private static Mappatura getMap(QueryResult qr) throws Exception {
         Mappatura map = new Mappatura();
         //System.out.println("MAAAAAP1" + map.toString());
@@ -136,7 +156,7 @@ public class Soluzione {
         String mappaturaStr = mappaturaUpdatetoString();
         String queryInsert = "INSERT INTO SOLUZIONE(ID_UTENTE, NOME_SOLUZIONE, MAPPATURA, IS_VALIDA)"
                 + "VALUES("
-                + stud.getId()
+                + autore.getId()
                 + ",'"
                 + nome
                 + "','"
@@ -149,7 +169,7 @@ public class Soluzione {
 
     @Override
     public String toString() {
-        return "Soluzione{" + "id=" + id + ", nome=" + nome + ", stud=" + stud + ", isValida=" + isValida + ", mappatura=" + Arrays.toString(mappatura.getMappaInversa()) + '}';
+        return "Soluzione{" + "id=" + id + ", nome=" + nome + ", stud=" + autore + ", isValida=" + isValida + ", mappatura=" + Arrays.toString(mappatura.getMappaInversa()) + '}';
     }
 
     void aggiorna(char ch1, char ch2) {
@@ -170,12 +190,8 @@ public class Soluzione {
         return nome;
     }
 
-    public UserInfo getStud() {
-        return stud;
-    }
-
-    public boolean isIsValida() {
-        return isValida;
+    public UserInfo getAutore() {
+        return autore;
     }
 
     public Mappatura getMappatura() {
@@ -195,8 +211,8 @@ public class Soluzione {
         this.nome = nome;
     }
 
-    public void setStud(UserInfo stud) {
-        this.stud = stud;
+    public void setAutore(UserInfo stud) {
+        this.autore = stud;
     }
 
     public void setIsValida(boolean isValida) {

@@ -157,7 +157,7 @@ public class SessioneLavoro implements HtmlVisitable {
                 MessaggioIntercettato msg = (MessaggioIntercettato) xstream.fromXML(qr.getString("Messaggio_intercettato"));
                 //System.out.println("Area Lavoro: " + msg.getAreaLavoro());
                 AlberoIpotesi albero = (AlberoIpotesi) xstream.fromXML(qr.getString("ALBERO_IPOTESI"));
-                Soluzione sol = Soluzione.load(qr.getInt("ID_SOLUZIONE"));
+                Soluzione sol = Soluzione.caricaSoluzione(qr.getInt("ID_SOLUZIONE"));
                 //System.out.println("**************SOL " + sol.toString());
                 SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, albero, msg, sol);
                 sessioni.add(temp);

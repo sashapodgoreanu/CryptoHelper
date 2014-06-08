@@ -3,6 +3,7 @@ package cryptohelper.interfaces;
 import cryptohelper.data.Proposta;
 import cryptohelper.data.SessioneLavoro;
 import cryptohelper.data.SistemaCifratura;
+import cryptohelper.data.Soluzione;
 
 public interface HtmlVisitorInterface {
 
@@ -17,4 +18,6 @@ public interface HtmlVisitorInterface {
     public String visit(MessaggioIntercettato mesgMittente);
 
     public String visit(SessioneLavoro sl);
+
+    public String visit(Soluzione s);
 }
