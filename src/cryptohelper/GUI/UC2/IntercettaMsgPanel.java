@@ -102,7 +102,11 @@ public class IntercettaMsgPanel extends JFrame implements View, VisitableGuiUC2 
     public void initAreaLavoro(SessioneLavoro sessione) {
         this.resetPanels();
         this.setTitle("CryptoHelper - Analisi messaggio");   //cambia titolo al form
-        this.setStatus("Formulare una nuova ipotesi di sostituzione per iniziare a decifrare il messaggio"); //messaggio per la status label
+        if (sessione.getSoluzione().isValida()) {
+            this.setStatus("HAI TROVATO LA SOLUZIONE IN QUESTA SESSIONE. NON PUOI APPORTARE MODIFICHE"); //messaggio per la status label
+        } else {
+            this.setStatus("Formulare una nuova ipotesi di sostituzione per iniziare a decifrare il messaggio"); //messaggio per la status label
+        }
         bodyPanel.add(new AreaLavoroPanel(sessione));               //aggiunge il nuovo pannello
         bodyPanel.revalidate();                                     //completa l'inizializzazione dell'interfaccia
     }

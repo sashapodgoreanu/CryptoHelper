@@ -96,8 +96,14 @@ public class GUIControllerUC2 implements VisitorGuiUC2 {
             if (mossaEffettuatainPrecedenza) {
                 intercettaMessaggioPanel.setStatus((char) (index + 'A') + "->" + ch2 + " - Mossa effetuata in precedenza!");
             }
-            int actualPos = areaLavoroPanel.getCorpoTesto().getCaretPosition();
-            areaLavoroPanel.getCorpoTesto().setText(session.getMessaggioIntercettato().getAreaLavoro());
+            String areaLavoroText = session.getMessaggioIntercettato().getAreaLavoro();
+            if (areaLavoroText.equalsIgnoreCase(session.getMessaggioIntercettato().getTesto())) {
+                intercettaMessaggioPanel.setStatus("HAI TROVATO LA SOLUZIONE!");
+                areaLavoroPanel.disableEditing();
+                session.getSoluzione().setValida(true);
+            }
+            int actualPos = areaLavoroPanel.getCorpoTesto().getCaretPosition();//posizione del scroll bar
+            areaLavoroPanel.getCorpoTesto().setText(areaLavoroText);
             areaLavoroPanel.getCorpoTesto().setCaretPosition(actualPos);
         }
     }

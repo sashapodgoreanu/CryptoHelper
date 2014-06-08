@@ -25,3 +25,9 @@ TO-DO (aggiornato 03/06/14)
 - refactoring, commenti e pulizia del codice
 - ok da revisionare ricerca ipotesi
 - ok da ritornare ad area lavoro una mossa e reimpostare la tabella mosse. 
+
+
+
+************************ BUG **********************
+Se faccio decifra di un messaggio nl'inbox non posso leggerlo perche non è scrollable
+

@@ -131,7 +131,7 @@ public class DbSampleSetup {
             m4.setDestinatario(destinatario);
             m4.setAreaLavoro(m4.getTestoCifrato().toUpperCase());
             alberoSessione = new AlberoIpotesi(m4.getTestoCifrato());
-            SessioneLavoro s1 = new SessioneLavoro(0, "Sessione salvata", spia, m4, alberoSessione, null);
+            SessioneLavoro s1 = new SessioneLavoro(0, "Sessione salvata", spia, m4, alberoSessione);
             s1.salva();
             System.out.println("DbSetup: sessione di lavoro s1 salvata");
 
@@ -159,7 +159,7 @@ public class DbSampleSetup {
             m5.setDestinatario(destinatario);
             m5.setAreaLavoro(m5.getTestoCifrato().toUpperCase());
             alberoSessione = new AlberoIpotesi(m5.getTestoCifrato());
-            SessioneLavoro s2 = new SessioneLavoro(0, "Sessione salvata", spia, m5, alberoSessione, null);
+            SessioneLavoro s2 = new SessioneLavoro(0, "Sessione salvata", spia, m5, alberoSessione);
             s2.salva();
             System.out.println("DbSetup: sessione di lavoro s2 salvata");
 
@@ -182,7 +182,7 @@ public class DbSampleSetup {
             m6.setDestinatario(destinatario);
             m6.setAreaLavoro(m6.getTestoCifrato().toUpperCase());
             alberoSessione = new AlberoIpotesi(m6.getTestoCifrato());
-            SessioneLavoro s3 = new SessioneLavoro(0, "Sessione salvata", spia, m6, alberoSessione, null);
+            SessioneLavoro s3 = new SessioneLavoro(0, "Sessione salvata", spia, m6, alberoSessione);
             s3.salva();
             System.out.println("DbSetup: sessione di lavoro s3 salvata");
 

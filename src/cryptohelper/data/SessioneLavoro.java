@@ -27,16 +27,25 @@ public class SessioneLavoro implements HtmlVisitable {
     Soluzione soluzione;
 
     //COSTRUTTORE I
-    public SessioneLavoro(int id, String nomeSessione, UserInfo autore, MessaggioIntercettato messaggio, AlberoIpotesi albero, Soluzione soluzione) {
+    public SessioneLavoro(int id, String nomeSessione, UserInfo autore, MessaggioIntercettato messaggio, AlberoIpotesi albero) {
         this.idSessione = id;
         this.nomeSessione = nomeSessione;
         this.autore = autore;
         this.messaggioIntercettato = messaggio;
         this.alberoIpotesi = albero;
-        this.soluzione = soluzione;
+        this.soluzione = new Soluzione(nomeSessione, autore);
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         this.ultimaModifica = (dateFormat.format(date));
+    }
+
+    public SessioneLavoro(int idSessione, String nomeSessione, UserInfo autore, AlberoIpotesi alberoIpotesi, MessaggioIntercettato messaggioIntercettato, Soluzione soluzione) {
+        this.idSessione = idSessione;
+        this.nomeSessione = nomeSessione;
+        this.autore = autore;
+        this.alberoIpotesi = alberoIpotesi;
+        this.messaggioIntercettato = messaggioIntercettato;
+        this.soluzione = soluzione;
     }
 
     //COSTRUTTORE II
@@ -53,13 +62,16 @@ public class SessioneLavoro implements HtmlVisitable {
 
     //Salva una sessione nella tabella SESSIONELAVORO del db. Restituisce TRUE se l'oparazione va a buon fine
     public boolean salva() {
+        if (!soluzione.salva()) {
+            return false; //se la soluzione non è stata salvata corettamente
+        }
         XStream xstream = new XStream(new StaxDriver());
         String alberoXML = xstream.toXML(this.alberoIpotesi);
         String messaggioIntercettatoXML = xstream.toXML(this.messaggioIntercettato);
         System.out.println(alberoXML);
         boolean result = false;
         DBController dbc = DBController.getInstance();
-        String queryInsert = "INSERT INTO SessioneLavoro(Id_Utente, Nome_Sessione, Albero_Ipotesi, Messaggio_Intercettato, Ultima_Modifica)"
+        String queryInsert = "INSERT INTO SessioneLavoro(Id_Utente, Nome_Sessione, Albero_Ipotesi, Messaggio_Intercettato, ID_Soluzione, Ultima_Modifica)"
                 + "VALUES("
                 + this.getUtente().getId()
                 + ",'"
@@ -68,7 +80,9 @@ public class SessioneLavoro implements HtmlVisitable {
                 + alberoXML
                 + "','"
                 + messaggioIntercettatoXML
-                + "','"
+                + "',"
+                + this.soluzione.getId()
+                + ",'"
                 + this.getUltimaModifica()
                 + "')";
         String queryUpdate = "UPDATE SessioneLavoro"
@@ -89,7 +103,7 @@ public class SessioneLavoro implements HtmlVisitable {
                     this.idSessione = newID;
                     System.out.println("AGGIUNGO SESSIONE");
                     System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Aggiunto con successo " + this.toString());
-                    System.out.println(true);
+                    dbc.comit();
                     return true;
                 }
                 if (newID == -1 && this.idSessione != 0) {
@@ -100,7 +114,7 @@ public class SessioneLavoro implements HtmlVisitable {
                 }
                 //aggiornamento di una Sessione
             } else {
-                result = dbc.executeUpdate(queryUpdate);
+                result = soluzione.salva() && dbc.executeUpdate(queryUpdate);
                 System.out.println("AGGIORNO");
                 System.out.println("INFO DATA:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "Aggiornato: " + this.toString());
             }
@@ -137,12 +151,15 @@ public class SessioneLavoro implements HtmlVisitable {
         try {
             qr = DBController.getInstance().executeQuery(query);
             while (qr.next()) {
+                //System.out.println("**************aAA ");
                 UserInfo autore = UserInfo.getUserInfo(idStudente); //preleva dati dell'utente in base all'id
                 //preleva il messaggio e lo converte da xml a oggetto Java
                 MessaggioIntercettato msg = (MessaggioIntercettato) xstream.fromXML(qr.getString("Messaggio_intercettato"));
-                System.out.println("Area Lavoro: " + msg.getAreaLavoro());
+                //System.out.println("Area Lavoro: " + msg.getAreaLavoro());
                 AlberoIpotesi albero = (AlberoIpotesi) xstream.fromXML(qr.getString("ALBERO_IPOTESI"));
-                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, msg, albero, null);
+                Soluzione sol = Soluzione.load(qr.getInt("ID_SOLUZIONE"));
+                //System.out.println("**************SOL " + sol.toString());
+                SessioneLavoro temp = new SessioneLavoro(qr.getInt("ID"), qr.getString("Nome_Sessione"), autore, albero, msg, sol);
                 sessioni.add(temp);
             }
         } catch (Exception ex) {
@@ -161,6 +178,7 @@ public class SessioneLavoro implements HtmlVisitable {
      * @return true se la sostituzone ch1 -> ch2 è stata fata gia fatta
      */
     public boolean effetuaSostituzione(char ch1, char ch2) {
+        soluzione.aggiorna(ch1, ch2);
         //Tutti i caratteri dentro la MappaturaPosizioni sono lettere Upercase.
         //Una volta fatta effettuaSostituzione(ch1, ch2), ch2 sara un presunto carattere in chiaro qundi deve essere carattere minuscolo
         if (ch2 >= 'A' && ch2 <= 'Z') {
@@ -183,15 +201,9 @@ public class SessioneLavoro implements HtmlVisitable {
         Pair<Mossa, String> pair = alberoIpotesi.undo(arealAvoro);
         arealAvoro = pair.getSecond();
         messaggioIntercettato.setAreaLavoro(arealAvoro);
-        return pair.getFirst();
-    }
-
-    /**
-     * il metodo riptistina lo stato della sessione che è stato salvato nel data
-     * base
-     */
-    public void loadSession() {
-
+        Mossa mossa = pair.getFirst();
+        soluzione.aggiorna(mossa.getCharacter(), mossa.getInverseChar());
+        return mossa;
     }
 
     @Override
@@ -248,5 +260,22 @@ public class SessioneLavoro implements HtmlVisitable {
     public void setMessaggioIntercettato(Messaggio messaggioIntercettato) {
         this.messaggioIntercettato = messaggioIntercettato;
     }
+
+    public UserInfo getAutore() {
+        return autore;
+    }
+
+    public void setAutore(UserInfo autore) {
+        this.autore = autore;
+    }
+
+    public Soluzione getSoluzione() {
+        return soluzione;
+    }
+
+    public void setSoluzione(Soluzione soluzione) {
+        this.soluzione = soluzione;
+    }
+
 
 }

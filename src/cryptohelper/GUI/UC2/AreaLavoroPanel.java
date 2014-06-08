@@ -148,7 +148,7 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         corpoTesto.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); //assegna un margine al controllo
         corpoTesto.setFont(font);
 
-        mappatura = new JTable(new MappaturaModel());
+        mappatura = new JTable(new MappaturaModel(sessioneCorrente.getSoluzione().getMappatura().getMappaInversa()));
         mappatura.getTableHeader().setReorderingAllowed(false);  //disabilita lo spostamento delle colonne della tabella
         mappatura.getTableHeader().setResizingAllowed(false);    //disabilita il ridimensionamento delle colonne della tabella
         mappatura.setCellSelectionEnabled(true);
@@ -281,6 +281,12 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         this.add(topPanel, BorderLayout.NORTH);
         this.add(middlePanel, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
+        //Se nella sessioneCorrente è stata gia trovata una soluzione allora non lasciare l'utente di apportare modifiche
+        if (this.sessioneCorrente.getSoluzione().isValida()) {
+            disableEditing();
+
+        }
+
         //REGISTRAZIONE VISTA NEL COTROLLER
         registerController();
     }
@@ -365,6 +371,12 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
 
     }
 
+    public void disableEditing() {
+        undoBtn.setEnabled(false);
+        mappatura.setEnabled(false);
+
+    }
+
     //**************************************************************************
     //
     //Classe interna per la tabella della mappatura
@@ -374,6 +386,14 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
         };
 
+        public MappaturaModel(char mappa[]) {
+            for (int i = 0; i < mappa.length; i++) {
+                data[0][i] = mappa[i] + "";
+            }
+            
+        }
+        
+        
         private void printDebugData() {
             int numRows = getRowCount();
             int numCols = getColumnCount();

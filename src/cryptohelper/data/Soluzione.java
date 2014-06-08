@@ -1,7 +1,9 @@
 package cryptohelper.data;
 
 import cryptohelper.service.DBController;
+import cryptohelper.service.QueryResult;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class Soluzione {
@@ -19,8 +21,16 @@ public class Soluzione {
         this.stud = stud;
         isValida = false;
         mappatura = new Mappatura();
-        char[] invmappa = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+        char[] invmappa = {'-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'};
         mappatura.setMappaInversa(invmappa);
+    }
+
+    public Soluzione(int id, String nome, UserInfo stud, boolean isValida, Mappatura mappatura) {
+        this.id = id;
+        this.nome = nome;
+        this.stud = stud;
+        this.isValida = isValida;
+        this.mappatura = mappatura;
     }
 
     public Mappatura getMappatura() {
@@ -48,6 +58,31 @@ public class Soluzione {
     public void setValida(boolean valida) {
         this.isValida = valida;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public UserInfo getStud() {
+        return stud;
+    }
+
+    public void setStud(UserInfo stud) {
+        this.stud = stud;
+    }
+
+    public boolean isIsValida() {
+        return isValida;
+    }
+
+    public void setIsValida(boolean isValida) {
+        this.isValida = isValida;
+    }
+
 
     //Salva Soluzione nel db. Restituisce TRUE se l'oparazione va a buon fine
     public boolean salva() {
@@ -78,6 +113,43 @@ public class Soluzione {
         return result;
     }
 
+    public static Soluzione load(int id) {
+        String query = "SELECT * "
+                + " FROM Soluzione"
+                + " WHERE ID = " + id;
+        QueryResult qr = null;
+        Soluzione temp = null;
+        try {
+            qr = DBController.getInstance().executeQuery(query);
+            while (qr.next()) {
+                //System.out.println(qr.toString());
+                //UserInfo u = UserInfo.getUserInfo(qr.getInt("ID_UTENTE"));
+                //System.out.println("is valida " + qr.getBoolean("IS_VALIDA"));
+                temp = new Soluzione(qr.getInt("ID"), qr.getString("NOME_SOLUZIONE"), UserInfo.getUserInfo(qr.getInt("ID_UTENTE")), qr.getBoolean("IS_VALIDA"), getMap(qr));
+                ///System.out.println("SOLUZIONE load" + temp.toString());
+            }
+        } catch (SQLException ex) {
+            LOG.severe(ex.getMessage());
+        } catch (Exception ex) {
+            LOG.severe(ex.getMessage());
+        }
+        //System.out.println("SOLUZIONE load" + temp.toString());
+        return temp;
+    }
+
+    private static Mappatura getMap(QueryResult qr) throws Exception {
+        Mappatura map = new Mappatura();
+        //System.out.println("MAAAAAP1" + map.toString());
+        String mapString = qr.getString("MAPPATURA");
+        char[] inverseMap = new char[26];
+        for (int i = 0; i < inverseMap.length; i++) {
+            inverseMap[i] = mapString.charAt(i);
+        }
+        map.setMappaInversa(inverseMap);
+        //System.out.println("MAAAAAP2" + map.toString());
+        return map;
+    }
+
     private boolean updateSoluzione(DBController dbc, String querryUpdate) throws SQLException {
         boolean result;
         result = dbc.executeUpdate(querryUpdate);
@@ -97,8 +169,8 @@ public class Soluzione {
         String querryUpdate = "UPDATE SOLUZIONE"
                 + " SET MAPPATURA = '"+ mappaturaStr
                 + "',"
-                + " SET IS_VALIDA = '"+ isValida
-                + "',"
+                + " IS_VALIDA = '" + isValida
+                + "'"
                 + " WHERE ID = " + this.getId();
         return querryUpdate;
     }
@@ -124,6 +196,16 @@ public class Soluzione {
                 + isValida
                 + "')";
         return queryInsert;
+    }
+
+    @Override
+    public String toString() {
+        return "Soluzione{" + "id=" + id + ", nome=" + nome + ", stud=" + stud + ", isValida=" + isValida + ", mappatura=" + Arrays.toString(mappatura.getMappaInversa()) + '}';
+    }
+
+    void aggiorna(char ch1, char ch2) {
+        mappatura.getMappaInversa()[ch1 - 65] = ch2;
+        System.out.println("Mappatura Sol " + Arrays.toString(mappatura.getMappaInversa()));
     }
 
 

@@ -128,8 +128,10 @@ public class DBController {
                 + "NOME_SESSIONE VARCHAR (32),"
                 + "ALBERO_IPOTESI LONG VARCHAR,"
                 + "MESSAGGIO_INTERCETTATO LONG VARCHAR,"
+                + "ID_Soluzione INTEGER,"
                 + "Ultima_modifica VARCHAR(32),"
-                + "FOREIGN KEY(id_utente) REFERENCES Studenti(ID)"
+                + "FOREIGN KEY(id_utente) REFERENCES Studenti(ID),"
+                + "FOREIGN KEY(ID_Soluzione) REFERENCES Soluzione(ID)"
                 + ")";
         String querySoluzione = "CREATE TABLE Soluzione"
                 + "("
@@ -145,12 +147,12 @@ public class DBController {
         //Non bisogna piu comentare le tabele per far funzionare il Test
         try {
             //drop di tutte le tabelle esistenti
-            if (isTableExist("Soluzione")) {
-                st.execute("DROP TABLE Soluzione");
-                System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SessioneLavoro eliminata!");
-            }
             if (isTableExist("SessioneLavoro")) {
                 st.execute("DROP TABLE SessioneLavoro");
+                System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SessioneLavoro eliminata!");
+            }
+            if (isTableExist("Soluzione")) {
+                st.execute("DROP TABLE Soluzione");
                 System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SessioneLavoro eliminata!");
             }
             if (isTableExist("SDCPartners")) {
@@ -185,16 +187,50 @@ public class DBController {
             System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SDCPartners creata!");
             //st.executeUpdate(queryAlberoIpotesi);
             //System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella AlberoIpotesi creata!");
-            st.executeUpdate(querySessioneLavoro);
-            System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SessioneLavoro creata!");
             st.executeUpdate(querySoluzione);
             System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella Soluzione creata!");
+            st.executeUpdate(querySessioneLavoro);
+            System.out.println("INFO SERVICE:" + this.getClass() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + ": Tabella SessioneLavoro creata!");
+
         } catch (SQLException e) {
             log.fatal(this.getClass() + ":" + e.getMessage());
         } finally {
             disconnect();
         }
 
+    }
+
+    public void autoComit(boolean autoComit) throws SQLException {
+        connect();
+        try {
+            conn.setAutoCommit(autoComit);
+        } catch (SQLException ex) {
+            log.fatal(this.getClass() + ":" + ex.getMessage());
+        } finally {
+            disconnect();
+        }
+    }
+
+    public void comit() throws SQLException {
+        connect();
+        try {
+            conn.commit();
+        } catch (SQLException ex) {
+            log.fatal(this.getClass() + ":" + ex.getMessage());
+        } finally {
+            disconnect();
+        }
+    }
+
+    public void rollback() throws SQLException {
+        connect();
+        try {
+            conn.rollback();
+        } catch (SQLException ex) {
+            log.fatal(this.getClass() + ":" + ex.getMessage());
+        } finally {
+            disconnect();
+        }
     }
 
     private boolean isTableExist(String sTablename) throws SQLException {
