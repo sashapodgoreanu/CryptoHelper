@@ -1,3 +1,5 @@
+//Interfaccia del pattern Visitor per la creazione delle GUI di UC2 viene implementata da GuiController2
+
 package cryptohelper.interfaces;
 
 import cryptohelper.GUI.UC2.AreaLavoroPanel;

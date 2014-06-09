@@ -1,4 +1,4 @@
-//Interfaccia del pattern Visitor per la creazione delle GUI
+//Interfaccia del pattern Visitor per la creazione delle GUI di UC1  viene implementata da GuiController1
 
 package cryptohelper.interfaces;
 
