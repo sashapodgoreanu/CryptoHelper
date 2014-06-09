@@ -1,3 +1,5 @@
+//Interfaccia implementata dalle classi "visitabili"
+
 package cryptohelper.interfaces;
 
 public interface HtmlVisitable {

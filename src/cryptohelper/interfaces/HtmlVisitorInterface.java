@@ -1,3 +1,5 @@
+//Interfaccia implemntata dal concrete Visitor, ovvero dalla classe HTMLVisitor
+
 package cryptohelper.interfaces;
 
 import cryptohelper.data.Proposta;

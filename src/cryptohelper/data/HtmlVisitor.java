@@ -1,4 +1,5 @@
 //Classe che implementa l'interfaccia Visitor e si occupa della stampa con formattazione dei vari testi
+//E' il Concrete Visitor
 package cryptohelper.data;
 
 import cryptohelper.interfaces.HtmlVisitorInterface;
@@ -10,7 +11,6 @@ public class HtmlVisitor implements HtmlVisitorInterface {
 
     @Override
     public String visit(Proposta proposta) {
-        //      System.out.println(proposta.getStato());
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
         sb.append("<p>");
