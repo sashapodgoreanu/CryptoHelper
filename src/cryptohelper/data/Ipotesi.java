@@ -33,63 +33,6 @@ public class Ipotesi {
         ultima = true;
     }
 
-    public Mossa getMossaCorrente() {
-        return mossaCorrente;
-    }
-
-    public void setMossaCorrente(Mossa mossaCorrente) {
-        this.mossaCorrente = mossaCorrente;
-    }
-
-    public Mossa getMossaPrecedente() {
-        return mossaPrecedente;
-    }
-
-    public void setMossaPrecedente(Mossa mossaPrecedente) {
-        this.mossaPrecedente = mossaPrecedente;
-    }
-
-    public Ipotesi getPadre() {
-        return padre;
-    }
-
-    public void setPadre(Ipotesi padre) {
-        this.padre = padre;
-    }
-
-    public ArrayList<Ipotesi> getFigli() {
-        return figli;
-    }
-
-    public void setFigli(ArrayList<Ipotesi> figli) {
-        this.figli = figli;
-    }
-
-    public boolean isUltima() {
-        return ultima;
-    }
-
-    public void setUltima(boolean ultima) {
-        this.ultima = ultima;
-    }
-
-    public boolean isValid() {
-        return valid;
-    }
-
-    public void setValid(boolean valid) {
-        this.valid = valid;
-    }
-
-    public boolean isIsRoot() {
-        return isRoot;
-    }
-
-    public void setIsRoot(boolean isRoot) {
-        this.isRoot = isRoot;
-    }
-
-
     @Override
     public String toString() {
         if (mossaPrecedente == null && mossaCorrente == null) {
@@ -101,5 +44,63 @@ public class Ipotesi {
         } else {
             return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", mossaPrecedente=" + mossaPrecedente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
         }
+    }
+
+    //METODI GETTER
+    public Mossa getMossaCorrente() {
+        return mossaCorrente;
+    }
+
+    public Mossa getMossaPrecedente() {
+        return mossaPrecedente;
+    }
+
+    public Ipotesi getPadre() {
+        return padre;
+    }
+
+    public ArrayList<Ipotesi> getFigli() {
+        return figli;
+    }
+
+    public boolean isUltima() {
+        return ultima;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public boolean isIsRoot() {
+        return isRoot;
+    }
+
+    //METODI SETTER
+    public void setMossaCorrente(Mossa mossaCorrente) {
+        this.mossaCorrente = mossaCorrente;
+    }
+
+    public void setMossaPrecedente(Mossa mossaPrecedente) {
+        this.mossaPrecedente = mossaPrecedente;
+    }
+
+    public void setPadre(Ipotesi padre) {
+        this.padre = padre;
+    }
+
+    public void setFigli(ArrayList<Ipotesi> figli) {
+        this.figli = figli;
+    }
+
+    public void setUltima(boolean ultima) {
+        this.ultima = ultima;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+
+    public void setIsRoot(boolean isRoot) {
+        this.isRoot = isRoot;
     }
 }
