@@ -121,12 +121,10 @@ public class AlberoIpotesi {
         Ipotesi padre = ip.getPadre();
         if (padre == null) { //se padre = null allora ip == root
             System.out.println("ROOT");
-            ip.setValid(true);
             ip.setUltima(true);
             mossaUndo = ip.getMossaPrecedente();
         } else {
             System.out.println("NO ROOT");
-            ip.setValid(false);
             ip.setUltima(false);
             padre.setUltima(true);
             mossaUndo = padre.getMossaPrecedente();

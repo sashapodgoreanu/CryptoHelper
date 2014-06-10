@@ -10,7 +10,6 @@ public class Ipotesi {
     private Ipotesi padre;
     private ArrayList<Ipotesi> figli;
     private boolean ultima;         //la più recente ipotesi valida
-    private boolean valid;          //ipotesi valida serve a cercare l'ipotesi corrente
     private boolean isRoot;
 
     public Ipotesi() {
@@ -20,7 +19,6 @@ public class Ipotesi {
         padre = null;
         figli = new ArrayList<>();
         ultima = true;
-        valid = true;
         isRoot = false;
     }
 
@@ -29,20 +27,19 @@ public class Ipotesi {
         mossaPrecedente = null;
         padre = null;
         figli = new ArrayList<>();
-        valid = true;
         ultima = true;
     }
 
     @Override
     public String toString() {
         if (mossaPrecedente == null && mossaCorrente == null) {
-            return "Ipotesi{ultima=" + ultima + ", valid=" + valid + '}';
+            return "Ipotesi{ultima=" + ultima + '}';
         } else if (mossaPrecedente == null) {
-            return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
+            return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", ultima=" + ultima + '}';
         } else if (mossaCorrente == null) {
-            return "Ipotesi{" + "mossaCorrente=" + mossaPrecedente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
+            return "Ipotesi{" + "mossaCorrente=" + mossaPrecedente.toString() + ", ultima=" + ultima +  '}';
         } else {
-            return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", mossaPrecedente=" + mossaPrecedente.toString() + ", ultima=" + ultima + ", valid=" + valid + '}';
+            return "Ipotesi{" + "mossaCorrente=" + mossaCorrente.toString() + ", mossaPrecedente=" + mossaPrecedente.toString() + ", ultima=" + ultima + '}';
         }
     }
 
@@ -67,9 +64,6 @@ public class Ipotesi {
         return ultima;
     }
 
-    public boolean isValid() {
-        return valid;
-    }
 
     public boolean isIsRoot() {
         return isRoot;
@@ -96,9 +90,6 @@ public class Ipotesi {
         this.ultima = ultima;
     }
 
-    public void setValid(boolean valid) {
-        this.valid = valid;
-    }
 
     public void setIsRoot(boolean isRoot) {
         this.isRoot = isRoot;
