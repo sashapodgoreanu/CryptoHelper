@@ -68,20 +68,6 @@ public class AlberoIpotesiTest {
         assertFalse(alberoIpotesi.cerca('O', 'A'));
         assertFalse(alberoIpotesi.cerca('A', 'o'));
         assertFalse(alberoIpotesi.cerca('a', 'O'));
-        //System.out.println(testoLavoro);
-
-        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
-        testoLavoro = alberoIpotesi.effettuaSostituzione('N', 'p', testoLavoro);
-        //System.out.println(testoLavoro);
-
-        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
-        testoLavoro = alberoIpotesi.effettuaSostituzione('J', 'i', testoLavoro);
-        //System.out.println(testoLavoro);
-
-        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
-        testoLavoro = alberoIpotesi.effettuaSostituzione('C', 't', testoLavoro);
-
-        //System.out.println(testoLavoro);
     }
 
     /**
@@ -162,23 +148,16 @@ public class AlberoIpotesiTest {
         Pair<Mossa, String> pair;
         System.out.println("Test of undo method, of class AlberoIpotesi.");
         String testoLavoro = "AONJCO";
-        //System.out.println(alberoIpotesi.getMappaPosizioni().toString());
         testoLavoro = alberoIpotesi.effettuaSostituzione('A', 'c', testoLavoro);
         System.out.println("testo lavoro " + testoLavoro);
-        alberoIpotesi.display();
         testoLavoro = alberoIpotesi.effettuaSostituzione('C', 'd', testoLavoro);
         System.out.println("testo lavoro " + testoLavoro);
-        alberoIpotesi.display();
         pair = alberoIpotesi.undo(testoLavoro);
         testoLavoro = pair.getSecond();
-        System.out.println("testo lavoro UNDO " + testoLavoro);
-        alberoIpotesi.display();
-        testoLavoro = alberoIpotesi.effettuaSostituzione('C', 'a', testoLavoro);
-        System.out.println("testo lavoro " + testoLavoro);
-        alberoIpotesi.display();
-        //testoLavoro = alberoIpotesi.undo(testoLavoro);
-        //alberoIpotesi.display();
-
+        assertThat("cONJCO", is(testoLavoro));
+        pair = alberoIpotesi.undo(testoLavoro);
+        testoLavoro = pair.getSecond();
+        assertThat("AONJCO", is(testoLavoro));
     }
 
 }
