@@ -9,8 +9,8 @@ public class Ipotesi {
     private Mossa mossaPrecedente;
     private Ipotesi padre;
     private ArrayList<Ipotesi> figli;
-    private boolean ultima;
-    private boolean valid;
+    private boolean ultima;         //la più recente ipotesi valida
+    private boolean valid;          //ipotesi valida serve a cercare l'ipotesi corrente
     private boolean isRoot;
 
     public Ipotesi() {
