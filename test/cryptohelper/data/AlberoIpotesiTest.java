@@ -138,6 +138,19 @@ public class AlberoIpotesiTest {
         assertThat("aa", is(not(testoLavoro)));
         assertThat("aA", is(not(testoLavoro)));
         assertThat("AA", is(testoLavoro));
+
+        testoLavoro = "12";
+        alberoIpotesi = new AlberoIpotesi(testoLavoro);
+        try {
+            testoLavoro = alberoIpotesi.effettuaSostituzione('1', 'A', testoLavoro);
+            fail("Null pointer expected");
+        } catch (NullPointerException e) {
+        }
+        
+        System.out.println(testoLavoro);
+        System.out.println(alberoIpotesi.getMappaPosizioni().toString());
+        //assertThat("ba", is(not(testoLavoro)));
+
     }
 
     /**

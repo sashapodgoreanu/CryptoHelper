@@ -24,7 +24,7 @@ public class AlberoIpotesi {
     /**
      *
      * @param ch1 carattere Cifrato o sostituito con un presunto carattere in
-     * chiaro in precedenza
+     * chiaro in precedenza. Deve essere
      * @param ch2 carattere da sostituire con un presunto carattere in chiaro
      * @param testoLavoro - testo su quale si sta lavorando per decifrare
      * @return testoLavoro modificato sostituendo ch1 cifrato con ch2 presunto
