@@ -1,4 +1,0 @@
-private static Log log = LogFactory.getLog(Messaggio.class);   //per log
-System.out.println("INFO DATA:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": STRINGA_STAUS");
-System.out.println("INFO GUI:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": STRINGA_STAUS");
-System.out.println("INFO SERVICE:"+this.getClass()+"."+ Thread.currentThread().getStackTrace()[1].getMethodName()+": STRINGA_STAUS");

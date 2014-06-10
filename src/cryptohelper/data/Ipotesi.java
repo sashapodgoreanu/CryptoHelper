@@ -10,6 +10,7 @@ public class Ipotesi {
     private Ipotesi padre;
     private ArrayList<Ipotesi> figli;
     private boolean ultima;         //la più recente ipotesi valida
+
     private boolean isRoot;
 
     public Ipotesi() {

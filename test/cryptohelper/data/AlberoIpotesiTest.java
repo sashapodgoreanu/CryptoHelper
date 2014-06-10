@@ -98,7 +98,7 @@ public class AlberoIpotesiTest {
         assertNotNull(alberoIpotesi.getIpotesiCorrente());
 
         if (alberoIpotesi.addIpotesi(null)) {
-            fail("Ha falito - non si puo aggiungere un'ipotesi nulla");
+            fail("Ha fallito - non si puo aggiungere un'ipotesi nulla");
         }
     }
 
