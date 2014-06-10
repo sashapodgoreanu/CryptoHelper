@@ -79,8 +79,8 @@ public class GUIControllerUC1 implements VisitorGuiUC1 {
     public void visit(LoginForm login) {
         loginForm = login;
         //solo per il test
-        loginForm.setUsernameField("sasha");
-        loginForm.setPasswordField("1234");
+        // loginForm.setUsernameField("sasha");
+        // loginForm.setPasswordField("1234");
         /**/
         loginForm.getSubmit().addActionListener(new LoginFormListener());
         loginForm.getRegistration().addActionListener(new RegistrationFormListener());
