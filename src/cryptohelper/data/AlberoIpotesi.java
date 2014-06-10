@@ -42,7 +42,6 @@ public class AlberoIpotesi {
 
     }
 
-    //TO-DO DA REVISIONARE RICERCA 
     public boolean cerca(char ch1, char ch2) {
         if (isEmpty()) {
             return false;
