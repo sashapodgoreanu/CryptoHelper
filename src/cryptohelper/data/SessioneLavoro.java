@@ -46,6 +46,9 @@ public class SessioneLavoro implements HtmlVisitable {
         this.alberoIpotesi = alberoIpotesi;
         this.messaggioIntercettato = messaggioIntercettato;
         this.soluzione = soluzione;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        this.ultimaModifica = (dateFormat.format(date));
     }
 
     //COSTRUTTORE II

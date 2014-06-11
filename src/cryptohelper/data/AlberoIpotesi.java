@@ -41,7 +41,12 @@ public class AlberoIpotesi {
         return mappaPosizioni.executeMossa(ipCorrente.getMossaCorrente(), testoLavoro);
 
     }
-
+ /**
+     * cerca all'interno dell'albero un'ipotesi in cui la mossa corrente ha come caratteri ch1 e ch2
+     * @param ch1 carattere originale
+     * @param ch2 carattere sostituito dalla mossa
+     * @return true se la ricerca va a buon fine
+     */
     public boolean cerca(char ch1, char ch2) {
         if (isEmpty()) {
             return false;
@@ -49,6 +54,7 @@ public class AlberoIpotesi {
         return cerca(ch1, ch2, root);
     }
 
+   
     private boolean cerca(char ch1, char ch2, Ipotesi ip) {
         if (ip.getMossaCorrente().getCharacter() == ch1 && ip.getMossaCorrente().getInverseChar() == ch2) {
             return true;

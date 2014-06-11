@@ -174,27 +174,27 @@ public class AnalisiFrequenza {
 
     public void display() {
         if (frequenzaTestoCifrato != null) {
-            System.out.println("FREQUENZA:");
+//            System.out.println("FREQUENZA:");
             for (int i = 'A'; i <= 'Z'; i++) {
-                System.out.print((char) (i) + "=" + frequenzaTestoCifrato[i - 65] + " ");
+//                System.out.print((char) (i) + "=" + frequenzaTestoCifrato[i - 65] + " ");
             }
-            System.out.println();
+//            System.out.println();
         }
         if (bigrammiTesto != null) {
-            System.out.println("BIGRAMMI: " + numBigrammi);
-            System.out.print("  ");
+ //           System.out.println("BIGRAMMI: " + numBigrammi);
+ //           System.out.print("  ");
             for (int i = 'A'; i <= 'Z'; i++) {
-                System.out.print((char) i + " ");
+      //          System.out.print((char) i + " ");
             }
             System.out.println();
             for (int i = 0; i < 26; i++) {
                 for (int j = 0; j < 26; j++) {
                     if (j == 0) {
-                        System.out.print((char) (i + 65) + " ");
+    //                    System.out.print((char) (i + 65) + " ");
                     }
-                    System.out.print(bigrammiTesto[i][j] + " ");
+    //                System.out.print(bigrammiTesto[i][j] + " ");
                 }
-                System.out.println();
+    //            System.out.println();
             }
         }
 

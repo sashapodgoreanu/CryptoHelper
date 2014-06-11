@@ -161,8 +161,8 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         caratteri.getTableHeader().setResizingAllowed(false);    //disabilita il ridimensionamento delle colonne della tabella
         caratteri.setCellSelectionEnabled(true);
         for (int i = 0; i < 26; i++) {
-            double[] arr = analisiFrequenza.getFrequenzaLingua();
-            caratteri.setValueAt(arr[i], 0, i);
+            double[] arr = analisiFrequenza.getFrequenzaLingua(); 
+            caratteri.setValueAt(arr[i], 0, i);      
         }
         //sort 
         for (int i = 0; i < 26 - 1; i++) {
@@ -399,26 +399,26 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             int numCols = getColumnCount();
 
             for (int i = 0; i < numRows; i++) {
-                System.out.print("    row " + i + ":");
+//                System.out.print("    row " + i + ":");
                 for (int j = 0; j < numCols; j++) {
-                    System.out.print("  " + data[i][j]);
+//                    System.out.print("  " + data[i][j]);
                 }
-                System.out.println();
+//                System.out.println();
             }
-            System.out.println("--------------------------");
+//            System.out.println("--------------------------");
         }
 
         @Override
         public void setValueAt(Object value, int row, int col) {
             if (true) {
-                System.out.println("Set valore nella " + row + "," + col
-                        + " a " + value
-                );
+  //              System.out.println("Set valore nella " + row + "," + col
+  //                      + " a " + value
+  //              );
             }
             data[row][col] = value;
             fireTableCellUpdated(row, col);
             if (DEBUG) {
-                System.out.println("Nuovo valore :");
+//                System.out.println("Nuovo valore :");
                 printDebugData();
             }
         }
@@ -467,26 +467,26 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             int numCols = getColumnCount();
 
             for (int i = 0; i < numRows; i++) {
-                System.out.print("    row " + i + ":");
+//                System.out.print("    row " + i + ":");
                 for (int j = 0; j < numCols; j++) {
-                    System.out.print("  " + data[i][j]);
+//                    System.out.print("  " + data[i][j]);
                 }
-                System.out.println();
+//                System.out.println();
             }
-            System.out.println("--------------------------");
+//            System.out.println("--------------------------");
         }
 
         @Override
         public void setValueAt(Object value, int row, int col) {
             if (true) {
-                System.out.println("Set valore nella " + row + "," + col
+/*                System.out.println("Set valore nella " + row + "," + col
                         + " a " + value
                 );
-            }
+  */          }
             data[row][col] = value;
             fireTableCellUpdated(row, col);
             if (DEBUG) {
-                System.out.println("Nuovo valore :");
+ //               System.out.println("Nuovo valore :");
                 printDebugData();
             }
         }
@@ -531,13 +531,13 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
             int numCols = getColumnCount();
 
             for (int i = 0; i < numRows; i++) {
-                System.out.print("    row " + i + ":");
+//                System.out.print("    row " + i + ":");
                 for (int j = 0; j < numCols; j++) {
-                    System.out.print("  " + data[i][j]);
+//                    System.out.print("  " + data[i][j]);
                 }
-                System.out.println();
+//                System.out.println();
             }
-            System.out.println("--------------------------");
+//            System.out.println("--------------------------");
         }
 
         //METODI SETTER
@@ -570,13 +570,13 @@ public class AreaLavoroPanel extends JPanel implements View, VisitableGuiUC2 {
         @Override
         public void setValueAt(Object value, int row, int col) {
             if (true) {
-                System.out.println("Set valore nella " + row + "," + col + " a " + value);
+//                System.out.println("Set valore nella " + row + "," + col + " a " + value);
             }
             data[row][col] = value;
             fireTableCellUpdated(row, col);
 
             if (DEBUG) {
-                System.out.println("Nuovo valore :");
+//                System.out.println("Nuovo valore :");
                 printDebugData();
             }
         }
